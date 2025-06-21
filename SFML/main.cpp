@@ -39,8 +39,7 @@ static bool selectedpolygon = false;
 // This is the data for a polygon not the actual displayed shape
 struct Polygon {
     std::vector<ImVec2> vertices;
-    float colour=0.f;
-    ImVec2 pos=ImVec2(0,0);
+    float colour[3] = {0.f, 0.f, 0.f};
 };
 
 struct Status {
@@ -48,12 +47,18 @@ struct Status {
     bool createPolygon=false;
 };
 
+float polygonColour[3] = { 0.5f, 0.1f, 0.3f };
+
+
 sf::ConvexShape drawPolygon(Polygon* polygon) {
     // Called to draw a polygon in SFML window
     sf::ConvexShape convex;
-    int n = (polygon -> vertices).size(); // vertex count
+    int n = polygon -> vertices.size(); // vertex count
     convex.setPointCount(n);
 
+    convex.setFillColor(sf::Color((int)(polygonColour[0]*255), (int)(polygonColour[1] * 255), (int)(polygonColour[2] * 255)));
+    
+    
     for (int i = 0; i < n; i++) {
         convex.setPoint(i, polygon -> vertices.at(i));
     }
@@ -65,7 +70,7 @@ double distanceL2(ImVec2 p, ImVec2 q) {
     // distance using L2 metric
     return sqrt(pow(p.x - q.x, 2) + pow(p.y - q.y, 2));
 }
-float polygonColour = 0.0f;
+
 
 
 int main()
@@ -89,6 +94,7 @@ int main()
     Polygon polygon;
     std::vector<ImVec2> vertices;
     std::vector<sf::CircleShape> vertexDisplays;
+    
     bool firstVertex = true;
 
 
@@ -109,20 +115,22 @@ int main()
 
                 if (mouseButtonPressed->button == sf::Mouse::Button::Left && status.createPolygon) {
                     ImVec2 mousepos = sf::Mouse::getPosition(window);
-                    if (!firstVertex) { 
-                        std::cout << distanceL2(mousepos, vertices.front()) << std::endl; 
-                    }
                     if (!firstVertex && distanceL2(mousepos, vertices.front()) <= 10) {
                         if (vertices.size() < 3) {
                             //TODO: some error message
                             std::cout << "congrats" << std::endl;
                         }
                         else {
+                            //TODO: Adjust vertex locations as per requirements
                             polygon.vertices = vertices;
+
+                            for (int i = 0; i < 3; i++) {
+                                polygon.colour[i] = polygonColour[i];
+                            }
+
                             polygons.push_back(polygon);
                             sf::ConvexShape toRender = drawPolygon(&polygon);
                             drawQueue.push_back(toRender);
-                            std::cout << "done" << std::endl;
 
                             
                             vertexDisplays.clear();
@@ -137,7 +145,7 @@ int main()
 
                         vertexDisplays.push_back(sf::CircleShape(2.f));
 
-                        vertexDisplays.back().setFillColor(sf::Color(255, 255, 255));
+                        vertexDisplays.back().setFillColor(sf::Color(0,0,0));
                         vertexDisplays.back().setPosition(mousepos);
                         firstVertex = false;
                     }
@@ -186,9 +194,6 @@ int main()
             if (ImGui::Button("Create Polygon", ImVec2(120, 30))) {
                 // Create Polygon
                 status.createPolygon = true;
-                std::cout << status.createPolygon << std::endl;
-                polygon.colour = polygonColour;
-                polygon.pos = ImGui::GetCursorScreenPos();
 
                 firstVertex = true;
                 
@@ -197,14 +202,15 @@ int main()
                 // Delete Polygon
             }
 
-            if (ImGui::ColorPicker3("Select Colour", &polygonColour)) {
+            if (ImGui::ColorPicker3("Select Colour", polygonColour)) {
                 //Alter Polygon Colour
+                std::cout << polygonColour << std::endl;
             }
         }
 
         ImGui::End();
         
-        window.clear();
+        window.clear(sf::Color::White);
         for (int i = 0; i < drawQueue.size(); i++) {
             window.draw(drawQueue.at(i));
         }
