@@ -223,6 +223,8 @@ int main()
                     polygons.at(selectedPolygon).render.setFillColor(sf::Color((int)(polygonColour[0] * 255), (int)(polygonColour[1] * 255), (int)(polygonColour[2] * 255)));
                 }
             }
+            const char* area = selectedPolygon == -1 ? "N/A" : std::to_string(signedArea(&polygons.at(selectedPolygon))).c_str();
+            ImGui::Text(area);
         }
 
         ImGui::End();
