@@ -204,7 +204,7 @@ int main()
 
             if (ImGui::ColorPicker3("Select Colour", polygonColour)) {
                 //Alter Polygon Colour
-                std::cout << polygonColour << std::endl;
+
             }
         }
 
