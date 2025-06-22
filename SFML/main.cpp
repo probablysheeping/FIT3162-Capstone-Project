@@ -86,7 +86,7 @@ int main()
     //Creating Polygon Variables
     Polygon newPolygon;
     std::vector<ImVec2> vertices;
-    std::vector<sf::CircleShape> vertexDisplays;
+    std::vector<sf::Vertex> newPolygonOutline;
 
     bool firstVertex = true;
 
@@ -124,8 +124,6 @@ int main()
                                 newPolygon.render = drawPolygon(&newPolygon);
                                 polygons.push_back(newPolygon);
 
-
-                                vertexDisplays.clear();
                                 vertices.clear();
                                 newPolygon = Polygon();
                                 status.createPolygon = false;
@@ -135,10 +133,8 @@ int main()
 
                             vertices.push_back(mousepos);
 
-                            vertexDisplays.push_back(sf::CircleShape(2.f));
-
-                            vertexDisplays.back().setFillColor(sf::Color(0, 0, 0));
-                            vertexDisplays.back().setPosition(mousepos);
+                            newPolygonOutline.back().position = mousepos;
+                            newPolygonOutline.push_back(sf::Vertex{ mousepos, sf::Color::Black });
                             firstVertex = false;
                         }
                     }
@@ -205,9 +201,12 @@ int main()
             if (ImGui::Button("Create Polygon", ImVec2(120, 30))) {
                 // Create Polygon
                 status.createPolygon = true;
-                vertexDisplays.clear();
+
                 vertices.clear();
                 newPolygon = Polygon();
+                newPolygonOutline.clear();
+                newPolygonOutline.push_back(sf::Vertex{ ImVec2(0,0), sf::Color::Black });
+
                 firstVertex = true;
 
             }
@@ -229,12 +228,20 @@ int main()
         ImGui::End();
 
         window.clear(sf::Color::White);
+        //Draw everything here
+
+        if (status.createPolygon && !firstVertex) {
+            // Draw boundary of supposed polygon
+            ImVec2 mousepos = sf::Mouse::getPosition(window);
+            newPolygonOutline.back().position = mousepos;
+            window.draw(newPolygonOutline.data(), newPolygonOutline.size(), sf::PrimitiveType::LineStrip);
+        }
+       
+
         for (Polygon polygon : polygons) {
             window.draw(polygon.render);
         }
-        for (sf::CircleShape vertex : vertexDisplays) {
-            window.draw(vertex);
-        }
+
         ImGui::SFML::Render(window);
         window.display();
     }

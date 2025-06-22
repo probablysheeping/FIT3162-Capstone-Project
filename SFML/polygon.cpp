@@ -10,7 +10,6 @@ Assumes no overlapping edges and no interior holes.
 
 bool pointInPolygon(ImVec2 p, Polygon* polygon) {
 	// Algorithm based on winding number
-	// O(n) worst case, but practically it is nearly constant.
 	// Draw ray from point to positive infinity in y axis (down)
 
 	int windingNumber = 0;
