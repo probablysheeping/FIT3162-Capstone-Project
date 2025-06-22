@@ -26,7 +26,7 @@ namespace glm
 #include "imgui.h" 
 
 #include "imgui-SFML.h"
-
+#include "polygon.h"
 #include <SFML/Graphics.hpp>
 // TODO: Set up boost.geometry
 
@@ -37,17 +37,14 @@ namespace glm
 static bool selectedpolygon = false;
 
 // This is the data for a polygon not the actual displayed shape
-struct Polygon {
-    std::vector<ImVec2> vertices;
-    float colour[3] = {0.f, 0.f, 0.f};
-};
+
 
 struct Status {
     bool drawPolygon=false;
     bool createPolygon=false;
 };
 
-float polygonColour[3] = { 0.5f, 0.1f, 0.3f };
+float polygonColour[3] = { 0.f, 0.f, 0.f};
 
 
 sf::ConvexShape drawPolygon(Polygon* polygon) {
@@ -86,18 +83,16 @@ int main()
 
     Status status;
 
-
-    std::vector<sf::ConvexShape> drawQueue;
     std::vector<Polygon> polygons;
 
     //Creating Polygon Variables
-    Polygon polygon;
+    Polygon newPolygon;
     std::vector<ImVec2> vertices;
     std::vector<sf::CircleShape> vertexDisplays;
     
     bool firstVertex = true;
 
-
+    int selectedPolygon = -1;
     
     while (window.isOpen())
     {   
@@ -113,41 +108,60 @@ int main()
 
             if (const auto mouseButtonPressed = event->getIf<sf::Event::MouseButtonPressed>()) {
 
-                if (mouseButtonPressed->button == sf::Mouse::Button::Left && status.createPolygon) {
-                    ImVec2 mousepos = sf::Mouse::getPosition(window);
-                    if (!firstVertex && distanceL2(mousepos, vertices.front()) <= 10) {
-                        if (vertices.size() < 3) {
-                            //TODO: some error message
-                            std::cout << "congrats" << std::endl;
+                if (mouseButtonPressed->button == sf::Mouse::Button::Left) {
+                    if (status.createPolygon) {
+                        ImVec2 mousepos = sf::Mouse::getPosition(window);
+                        if (!firstVertex && distanceL2(mousepos, vertices.front()) <= 10) {
+                            if (vertices.size() < 3) {
+                                //TODO: some error message
+                                std::cout << "congrats" << std::endl;
+                            }
+                            else {
+                                //TODO: Adjust vertex locations as per requirements
+                                newPolygon.vertices = vertices;
+
+                                for (int i = 0; i < 3; i++) {
+                                    newPolygon.colour[i] = polygonColour[i];
+                                }
+                                newPolygon.render = drawPolygon(&newPolygon);
+                                polygons.push_back(newPolygon);
+
+
+                                vertexDisplays.clear();
+                                vertices.clear();
+                                newPolygon = Polygon();
+                                status.createPolygon = false;
+                            }
                         }
                         else {
-                            //TODO: Adjust vertex locations as per requirements
-                            polygon.vertices = vertices;
 
-                            for (int i = 0; i < 3; i++) {
-                                polygon.colour[i] = polygonColour[i];
-                            }
+                            vertices.push_back(mousepos);
 
-                            polygons.push_back(polygon);
-                            sf::ConvexShape toRender = drawPolygon(&polygon);
-                            drawQueue.push_back(toRender);
+                            vertexDisplays.push_back(sf::CircleShape(2.f));
 
-                            
-                            vertexDisplays.clear();
-                            vertices.clear();
-                            polygon = Polygon();
-                            status.createPolygon = false;
+                            vertexDisplays.back().setFillColor(sf::Color(0, 0, 0));
+                            vertexDisplays.back().setPosition(mousepos);
+                            firstVertex = false;
                         }
                     }
                     else {
-                        
-                        vertices.push_back(mousepos);
+                        // Left click to select a polygon. We unfortunately need to check each one.
+                        ImVec2 p = sf::Mouse::getPosition(window);
+                        for (int i = 0; i<polygons.size(); i++) {
+                            Polygon* polygon = &polygons.at(i);
+                            if (i != selectedPolygon && pointInPolygon(p, polygon)) {
+                                std::cout << "y" << std::endl;
 
-                        vertexDisplays.push_back(sf::CircleShape(2.f));
+                                if (selectedPolygon > -1) { polygons.at(selectedPolygon).render.setOutlineThickness(0.f); }
 
-                        vertexDisplays.back().setFillColor(sf::Color(0,0,0));
-                        vertexDisplays.back().setPosition(mousepos);
-                        firstVertex = false;
+                                selectedPolygon = i;
+                                polygon -> render.setOutlineThickness(1.f);
+                                polygon -> render.setOutlineColor(sf::Color::Cyan);
+
+                                break;
+                            }
+
+                        }
                     }
                 }
             }
@@ -194,7 +208,9 @@ int main()
             if (ImGui::Button("Create Polygon", ImVec2(120, 30))) {
                 // Create Polygon
                 status.createPolygon = true;
-
+                vertexDisplays.clear();
+                vertices.clear();
+                newPolygon = Polygon();
                 firstVertex = true;
                 
             }
@@ -211,11 +227,11 @@ int main()
         ImGui::End();
         
         window.clear(sf::Color::White);
-        for (int i = 0; i < drawQueue.size(); i++) {
-            window.draw(drawQueue.at(i));
+        for (Polygon polygon:polygons) {
+            window.draw(polygon.render);
         }
-        for (int i = 0; i < vertexDisplays.size(); i++) {
-            window.draw(vertexDisplays.at(i));
+        for (sf::CircleShape vertex :vertexDisplays) {
+            window.draw(vertex);
         }
         ImGui::SFML::Render(window);
         window.display();
