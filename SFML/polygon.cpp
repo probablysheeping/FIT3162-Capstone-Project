@@ -3,13 +3,16 @@
 #include <cmath>
 #include "imgui.h"
 
-// Implementation of algorithms for polygons
-// Assumes no overlapping edges and no interior holes.
+/*
+Implementation of algorithms for polygons
+Assumes no overlapping edges and no interior holes.
+*/
 
 bool pointInPolygon(ImVec2 p, Polygon* polygon) {
 	// Algorithm based on winding number
 	// O(n) worst case, but practically it is nearly constant.
 	// Draw ray from point to positive infinity in y axis (down)
+
 	int windingNumber = 0;
 
 	for (int i = 0; i < polygon->vertices.size(); i++) {
@@ -19,8 +22,9 @@ bool pointInPolygon(ImVec2 p, Polygon* polygon) {
 
 		// check that P is in the middle of the segment AB if projected onto x axis
 		// then check the y coordinate of POI between AB and the ray from P is geq p.y
-
-		if (std::signbit(a.x - p.x) != std::signbit(b.x - p.x) && ((b.y - a.y) * (p.x - a.x) / (b.x - a.x)) + a.y >= p.y) {
+		float xdiff1 = a.x - p.x;
+		float xdiff2 = b.x - p.x;
+		if (std::signbit(xdiff1 == 0 ? -1 : xdiff1) != std::signbit(xdiff2 == 0 ? -1 : xdiff2) && ((b.y - a.y) * (p.x - a.x) / (b.x - a.x)) + a.y >= p.y) {
 			// now check orientation of line
 			if (a.x > p.x) {
 				windingNumber += 1;
@@ -34,4 +38,19 @@ bool pointInPolygon(ImVec2 p, Polygon* polygon) {
 
 	return windingNumber;
 
+}
+
+double distanceL2(ImVec2 p, ImVec2 q) {
+	// distance using L2 metric
+	return sqrt(pow(p.x - q.x, 2) + pow(p.y - q.y, 2));
+}
+
+float area(Polygon polygon) {
+	return NULL;
+}
+
+Polygon intersection(Polygon* p1, Polygon* p2) {
+	// Returns a polygon which is in the intersection of p1 and p2 and maximal in area
+	Polygon result = *p1;
+	return result;
 }

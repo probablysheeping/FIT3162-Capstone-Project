@@ -63,17 +63,15 @@ sf::ConvexShape drawPolygon(Polygon* polygon) {
     return convex;
 }
 
-double distanceL2(ImVec2 p, ImVec2 q) {
-    // distance using L2 metric
-    return sqrt(pow(p.x - q.x, 2) + pow(p.y - q.y, 2));
-}
-
 
 
 int main()
 {
     // This is the SFML window where polygons will appear.
     // One can set the dimensions based on screen size.
+    sf::ContextSettings settings;
+    settings.antiAliasingLevel = 8;
+
     sf::RenderWindow window(sf::VideoMode(ImVec2(1000, 800)), "Placeholder");
     window.setFramerateLimit(60);
     if (!ImGui::SFML::Init(window))
@@ -150,7 +148,6 @@ int main()
                         for (int i = 0; i < polygons.size(); i++) {
                             Polygon* polygon = &polygons.at(i);
                             if (i != selectedPolygon && pointInPolygon(p, polygon)) {
-                                std::cout << "y" << std::endl;
 
                                 if (selectedPolygon > -1) { polygons.at(selectedPolygon).render.setOutlineThickness(0.f); }
 
@@ -216,11 +213,16 @@ int main()
             }
             if (ImGui::Button("Delete Polygon", ImVec2(120, 30))) {
                 // Delete Polygon
+                
+                polygons.erase(polygons.begin() + selectedPolygon);
+                selectedPolygon = -1;
             }
 
             if (ImGui::ColorPicker3("Select Colour", polygonColour)) {
                 //Alter Polygon Colour
-
+                if (selectedPolygon != -1) {
+                    polygons.at(selectedPolygon).render.setFillColor(sf::Color((int)(polygonColour[0] * 255), (int)(polygonColour[1] * 255), (int)(polygonColour[2] * 255)));
+                }
             }
         }
 
