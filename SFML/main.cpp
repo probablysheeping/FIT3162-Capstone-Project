@@ -89,7 +89,7 @@ int main()
     std::vector<sf::Vertex> newPolygonOutline;
 
     bool firstVertex = true;
-
+    bool test = true;
     int selectedPolygon = -1;
 
     while (window.isOpen())
@@ -239,11 +239,12 @@ int main()
             window.draw(newPolygonOutline.data(), newPolygonOutline.size(), sf::PrimitiveType::LineStrip);
         }
        
-
+        
         for (Polygon polygon : polygons) {
             window.draw(polygon.render);
         }
 
+        
         ImGui::SFML::Render(window);
         window.display();
     }

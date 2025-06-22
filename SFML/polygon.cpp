@@ -92,24 +92,28 @@ Polygon intersectingPolygon(Polygon* p1, Polygon* p2) {
 		 
 		 for (int j = 0; j < outputList.size(); j++) {
 			 // 2nd vertex is inside.
-			 j2 = (j - 1) < 0 ? outputList.size() - 1 : j - 1;
+			 j2 = (j + 1) == outputList.size() ? 0 : j + 1;
 			 // If 2nd vertex in visible area
-			 if (sideOfLine(outputList.at(j), p2->vertices.at(i), p2->vertices.at(i2)) >= 0) {
-				 newOutputList.push_back(outputList.at(i));
+			 if (sideOfLine(outputList.at(j2), p2->vertices.at(i), p2->vertices.at(i2)) >= 0) {
+				 
 				 // If 1st vertex not in visible area
-				 if (sideOfLine(outputList.at(j2), p2->vertices.at(i), p2->vertices.at(i2)) < 0) {
-					 const ImVec2 POI = intersectingSegments(outputList.at(j2), outputList.at(j), p2->vertices.at(i), p2->vertices.at(i2);
+				 if (sideOfLine(outputList.at(j), p2->vertices.at(i), p2->vertices.at(i2)) < 0) {
+					 const ImVec2 POI = intersectingSegments(outputList.at(j), outputList.at(j2), p2->vertices.at(i), p2->vertices.at(i2));
 					 newOutputList.push_back(POI);
 				 }
+
+				 newOutputList.push_back(outputList.at(j2));
 			 }
 			 // If 1st vertex in visible area
-			 else if (sideOfLine(outputList.at(j2), p2->vertices.at(i), p2->vertices.at(i2)) >= 0) {
-				  const ImVec2 POI = intersectingSegments(outputList.at(j2), outputList.at(j), p2->vertices.at(i), p2->vertices.at(i2));
+			 else if (sideOfLine(outputList.at(j), p2->vertices.at(i), p2->vertices.at(i2)) >= 0) {
+				  const ImVec2 POI = intersectingSegments(outputList.at(j), outputList.at(j2), p2->vertices.at(i), p2->vertices.at(i2));
 				  newOutputList.push_back(POI);
+				  
 
 			 }
 		 }
 		 outputList = newOutputList;
+
 	 }
 
 	 Polygon result;
@@ -123,11 +127,12 @@ ImVec2 intersectingSegments(ImVec2 a, ImVec2 b, ImVec2 p, ImVec2 q) {
 	Given line segments AB and PQ, find point of intersection between AB and PQ if it exists
 	If it does not return (-1,-1) which can't be shown on the canvas and represent a "garbage value"
 	*/
-	const float m1 = (b.y - a.y) / (b.x - a.x);
-	const float m2 = (q.y - p.y) / (q.x - p.x);
+	const float d = (a.x - b.x) * (p.y - q.y) - (a.y - b.y) * (p.x - q.x);
 
-	float x = (a.y - p.y) + p.x * m2 - a.x * m1;
-	float y = m1 * (x - p.x) + p.y;
+	float x = ((a.x * b.y - a.y * b.x) * (p.x - q.x) - (a.x - b.x) * (p.x * q.y - p.y * q.x)) / d;
+	float y = ((a.x * b.y - a.y * b.x) * (p.y - q.y) - (a.y - b.y) * (p.x * q.y - p.y * q.x)) / d;
+
+	return ImVec2(x, y);
 
 	if (std::max(std::min(a.x, b.x), std::min(p.x, q.x)) <= x <= std::min(std::max(a.x,b.x), std::max(p.x,q.x)) && 
 		std::max(std::min(a.y, b.y), std::min(p.y, q.y)) <= y <= std::min(std::max(a.y, b.y), std::max(p.y, q.y))) {
