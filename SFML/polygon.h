@@ -14,3 +14,4 @@ Polygon intersectingPolygon(Polygon* p1, Polygon* p2);
 ImVec2 intersectingSegments(ImVec2 a, ImVec2 b, ImVec2 p, ImVec2 q);
 double signedArea(Polygon* polygon);
 int sgn(double x);
+double polygonArea(Polygon* polygon);

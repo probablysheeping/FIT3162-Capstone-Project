@@ -93,6 +93,8 @@ int main()
     bool test = true;
     std::vector<int> selectedPolygons;
 
+    float area = -1;
+
     while (window.isOpen())
     {
 
@@ -155,6 +157,13 @@ int main()
                                 break;
                             }
 
+                        }
+                        if (selectedPolygons.size() == 2) {
+                            Polygon intersection = intersectingPolygon(&polygons.at(selectedPolygons.at(0)), &polygons.at(selectedPolygons.at(1)));
+                            area = polygonArea(&polygons.at(selectedPolygons.at(0))) + polygonArea(&polygons.at(selectedPolygons.at(1))) - polygonArea(&intersection);
+                        }
+                        if (selectedPolygons.size() == 1) {
+                            area = polygonArea(&polygons.at(selectedPolygons.at(0)));
                         }
                     }
                 }
@@ -221,13 +230,15 @@ int main()
                 selectedPolygons.clear();
             }
 
-            if (ImGui::Button("Compute Intersection", ImVec2(120, 30)) && selectedPolygons.size()>=2) {
+            if (ImGui::Button("Compute IoU", ImVec2(120, 30)) && selectedPolygons.size()==2) {
                 Polygon intersection = polygons.at(selectedPolygons.at(0));
                 for (int i = 1; i < selectedPolygons.size(); i++) {
                     intersection = intersectingPolygon(&intersection, &polygons.at(selectedPolygons.at(i)));
                 }
                 intersection.render = drawPolygon(&intersection);
                 polygons.push_back(intersection);
+
+                //TODO: Calculate IoU Metric and display result.
             }
 
             if (ImGui::Button("Clear Selected", ImVec2(120, 30))) {
@@ -236,6 +247,7 @@ int main()
                     polygons.at(j).render.setOutlineThickness(0.f);
                 }
                 selectedPolygons.clear();
+                area = -1;
             }
 
             if (ImGui::ColorPicker3("Select Colour", polygonColour)) {
@@ -247,10 +259,9 @@ int main()
                 }
             }
 
-            const char* area = selectedPolygons.empty() ? "N/A" : std::to_string(
-                signedArea(&polygons.at(selectedPolygons.at(0)))
-            ).c_str();
-            ImGui::Text(area);
+            ImGui::Text("Area:");
+            ImGui::SameLine(); ImGui::Text(area == -1 ? "" : std::to_string(area).c_str());
+
         }
 
         ImGui::End();

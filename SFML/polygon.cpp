@@ -55,6 +55,19 @@ double signedArea(Polygon* polygon) {
 	return 0.5 * result;
 }
 
+double polygonArea(Polygon* polygon) {
+	return abs(signedArea(polygon));
+}
+
+double polygonArea(std::vector<Polygon>* polygons) {
+	// Principle of inclusion and exclusion
+	// cant be bothered
+	for (Polygon polygon : *polygons) {
+
+	}
+	return 0;
+}
+
 int sgn(double x) {
 	return (x > 0) - (x < 0);
 }
