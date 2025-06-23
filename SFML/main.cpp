@@ -73,6 +73,7 @@ int main()
     settings.antiAliasingLevel = 8;
 
     sf::RenderWindow window(sf::VideoMode(ImVec2(1000, 800)), "Placeholder");
+    window.setSize(sf::Vector2u(1000, 800));
     window.setFramerateLimit(60);
     if (!ImGui::SFML::Init(window))
         return -1;
@@ -90,7 +91,7 @@ int main()
 
     bool firstVertex = true;
     bool test = true;
-    int selectedPolygon = -1;
+    std::vector<int> selectedPolygons;
 
     while (window.isOpen())
     {
@@ -141,16 +142,16 @@ int main()
                     else {
                         // Left click to select a polygon. We unfortunately need to check each one.
                         ImVec2 p = sf::Mouse::getPosition(window);
-                        for (int i = 0; i < polygons.size(); i++) {
-                            Polygon* polygon = &polygons.at(i);
-                            if (i != selectedPolygon && pointInPolygon(p, polygon)) {
+                        Polygon* polygon;
+                        int i = 0;
+                        for (i; i < polygons.size(); i++) {
+                            polygon = &polygons.at(i);
+                            if (std::find(selectedPolygons.begin(), selectedPolygons.end(), i)==selectedPolygons.end() && pointInPolygon(p, polygon)) {
 
-                                if (selectedPolygon > -1) { polygons.at(selectedPolygon).render.setOutlineThickness(0.f); }
-
-                                selectedPolygon = i;
-                                polygon->render.setOutlineThickness(1.f);
-                                polygon->render.setOutlineColor(sf::Color::Cyan);
-
+                                selectedPolygons.push_back(i);
+                                polygon -> render.setOutlineThickness(1.f);
+                                polygon -> render.setOutlineColor(sf::Color::Cyan);
+                                //polygon -> render.setFillColor(sf::Color((int)(polygonColour[0] * 255), (int)(polygonColour[1] * 255), (int)(polygonColour[2] * 255)));
                                 break;
                             }
 
@@ -212,36 +213,61 @@ int main()
             }
             if (ImGui::Button("Delete Polygon", ImVec2(120, 30))) {
                 // Delete Polygon
-                
-                polygons.erase(polygons.begin() + selectedPolygon);
-                selectedPolygon = -1;
+                for (int i : selectedPolygons) {
+                    std::cout << i << std::endl;
+                    polygons.erase(polygons.begin() + i);
+                    
+                }
+                selectedPolygons.clear();
+            }
+
+            if (ImGui::Button("Compute Intersection", ImVec2(120, 30)) && selectedPolygons.size()>=2) {
+                Polygon intersection = polygons.at(selectedPolygons.at(0));
+                for (int i = 1; i < selectedPolygons.size(); i++) {
+                    intersection = intersectingPolygon(&intersection, &polygons.at(selectedPolygons.at(i)));
+                }
+                intersection.render = drawPolygon(&intersection);
+                polygons.push_back(intersection);
+            }
+
+            if (ImGui::Button("Clear Selected", ImVec2(120, 30))) {
+                // User clicked the canvas, so we reset everything.
+                for (int j : selectedPolygons) {
+                    polygons.at(j).render.setOutlineThickness(0.f);
+                }
+                selectedPolygons.clear();
             }
 
             if (ImGui::ColorPicker3("Select Colour", polygonColour)) {
                 //Alter Polygon Colour
-                if (selectedPolygon != -1) {
-                    polygons.at(selectedPolygon).render.setFillColor(sf::Color((int)(polygonColour[0] * 255), (int)(polygonColour[1] * 255), (int)(polygonColour[2] * 255)));
+                if (!selectedPolygons.empty()) {
+                    for (int i : selectedPolygons) {
+                        polygons.at(i).render.setFillColor(sf::Color((int)(polygonColour[0] * 255), (int)(polygonColour[1] * 255), (int)(polygonColour[2] * 255)));
+                    }
                 }
             }
-            const char* area = selectedPolygon == -1 ? "N/A" : std::to_string(signedArea(&polygons.at(selectedPolygon))).c_str();
+
+            const char* area = selectedPolygons.empty() ? "N/A" : std::to_string(
+                signedArea(&polygons.at(selectedPolygons.at(0)))
+            ).c_str();
             ImGui::Text(area);
         }
 
         ImGui::End();
 
         window.clear(sf::Color::White);
+
         //Draw everything here
+
+        for (Polygon polygon : polygons) {
+            window.draw(polygon.render);
+        }
 
         if (status.createPolygon && !firstVertex) {
             // Draw boundary of supposed polygon
             ImVec2 mousepos = sf::Mouse::getPosition(window);
             newPolygonOutline.back().position = mousepos;
             window.draw(newPolygonOutline.data(), newPolygonOutline.size(), sf::PrimitiveType::LineStrip);
-        }
-       
-        
-        for (Polygon polygon : polygons) {
-            window.draw(polygon.render);
         }
 
         
