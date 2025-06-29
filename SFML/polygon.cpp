@@ -1,3 +1,4 @@
+#define _USE_MATH_DEFINES
 #include "polygon.h"
 #include <iostream>
 #include <cmath>
@@ -155,4 +156,16 @@ ImVec2 intersectingSegments(ImVec2 a, ImVec2 b, ImVec2 p, ImVec2 q) {
 	}
 
 	return ImVec2(-1, -1);
+}
+
+double angle(ImVec2 p, ImVec2 q, ImVec2 r) {
+	/*
+	Returns the value of the angle PQR in radians
+	PQ . QR = |PQ||QR|cos(PQR)
+	*/
+	const double dot = (q.x - p.x) * (r.x - q.x) + (q.y - p.y) * (r.y - q.y);
+	const double pq = sqrt(pow(q.x - p.x, 2) + pow(r.x - q.x, 2));
+	const double qr = sqrt(pow(q.y - p.y, 2) + pow(r.y - q.y, 2));
+
+	return std::acos(dot / (pq*qr));
 }

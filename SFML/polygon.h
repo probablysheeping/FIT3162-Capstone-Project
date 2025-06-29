@@ -15,3 +15,4 @@ ImVec2 intersectingSegments(ImVec2 a, ImVec2 b, ImVec2 p, ImVec2 q);
 double signedArea(Polygon* polygon);
 int sgn(double x);
 double polygonArea(Polygon* polygon);
+double angle(ImVec2 p, ImVec2 q, ImVec2 r);

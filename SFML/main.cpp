@@ -13,7 +13,7 @@ namespace glm
         vec4(float x, float y, float z, float w) : x(x), y(y), z(z), w(w) {};
     };
 }
-
+#define _USE_MATH_DEFINES
 // define extra conversion here before including imgui, don't do it in the imconfig.h
 #define IM_VEC2_CLASS_EXTRA \
     constexpr ImVec2(glm::vec2& f) : x(f.x), y(f.y) {} \
@@ -23,16 +23,12 @@ namespace glm
         constexpr ImVec4(const glm::vec4& f) : x(f.x), y(f.y), z(f.z), w(f.w) {} \
         operator glm::vec4() const { return glm::vec4(x,y,z,w); }
 
-#include "imgui.h" 
-
 #include "imgui-SFML.h"
 #include "polygon.h"
 #include <SFML/Graphics.hpp>
 // TODO: Set up boost.geometry
 
 #include <iostream>
-#include <vector>
-#include <cmath>
 #include <string>
 static bool selectedpolygon = false;
 
@@ -63,7 +59,46 @@ sf::ConvexShape drawPolygon(Polygon* polygon) {
     return convex;
 }
 
+std::vector<ImVec2> adjustVertices(std::vector<ImVec2> vertices) {
+    /*
+    For each angle check if it is close to 90, 60, 45, 30 or 0 degrees (or 180, etc i cbf typing them all out)
 
+    */
+    ImVec2 p, q, r;
+    const float delta = 2;
+    const int angles[] = { 0, 30, 45, 60, 90, 120, 135, 150, 180 };
+    const int n = vertices.size();
+    ImVec2 unitvec;
+    double t;
+    double pqr;
+    bool adjusted = false;
+    double angle2;
+
+    std::vector<ImVec2> result;
+
+    for (int i = 0; i < n; i++) {
+        p = vertices.at(i);
+        q = vertices.at(i + 1 < n ? i + 1 : i + 1 - n);
+        r = vertices.at(i + 2 < n ? i + 2 : i + 2 - n);
+        pqr = static_cast<float>(angle(p, q, r)*180/M_PI);
+        for (int x : angles) {
+            if (abs(abs(pqr) - x) <= delta) {
+                // We will move q.
+                angle2 = angle(ImVec2(1, 0), q, p);
+                unitvec = { static_cast<float>(std::cos(angle2 + x)), static_cast<float>(std::sin(angle2 + x)) };
+                t = ((r.x - p.x) * (q.y - p.y) - (r.y - p.y) * (q.x - p.x)) / (unitvec.y * (q.x - p.x) - unitvec.x * (p.y - q.y));
+                result.push_back({ static_cast<float>(t * unitvec.x + r.x), static_cast<float>(t * unitvec.y + r.y) });
+                adjusted = true;
+            }
+        }
+        if (!adjusted) {
+            result.push_back(q);
+        }
+        adjusted = false;    
+    }
+    
+    return result;
+}
 
 int main()
 {
@@ -93,7 +128,8 @@ int main()
     bool test = true;
     std::vector<int> selectedPolygons;
 
-    float area = -1;
+    double area = -1;
+    double IoUArea = -1;
 
     while (window.isOpen())
     {
@@ -119,7 +155,7 @@ int main()
                             }
                             else {
                                 //TODO: Adjust vertex locations as per requirements
-                                newPolygon.vertices = vertices;
+                                newPolygon.vertices = adjustVertices(vertices);
 
                                 for (int i = 0; i < 3; i++) {
                                     newPolygon.colour[i] = polygonColour[i];
@@ -204,13 +240,13 @@ int main()
 
         // Window used for creating polygons
         // Needs to be formatted properly. This is just a placeholder UI
-        ImGui::SetNextWindowSize(ImVec2(300, 350));
+        ImGui::SetNextWindowSize(ImVec2(350, 600));
         if (ImGui::Begin("Polygon Creator")) {
 
 
             if (ImGui::Button("Create Polygon", ImVec2(120, 30))) {
                 // Create Polygon
-                status.createPolygon = true;
+                status.createPolygon = true; 
 
                 vertices.clear();
                 newPolygon = Polygon();
@@ -261,6 +297,8 @@ int main()
 
             ImGui::Text("Area:");
             ImGui::SameLine(); ImGui::Text(area == -1 ? "" : std::to_string(area).c_str());
+            ImGui::Text("IoU metric:");
+            ImGui::SameLine(); ImGui::Text(IoUArea == -1 ? "" : std::to_string(IoUArea).c_str());
 
         }
 
