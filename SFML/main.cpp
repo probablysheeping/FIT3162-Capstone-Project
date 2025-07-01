@@ -155,7 +155,8 @@ int main()
                             }
                             else {
                                 //TODO: Adjust vertex locations as per requirements
-                                newPolygon.vertices = adjustVertices(vertices);
+                                //newPolygon.vertices = adjustVertices(vertices);
+                                newPolygon.vertices = vertices;
 
                                 for (int i = 0; i < 3; i++) {
                                     newPolygon.colour[i] = polygonColour[i];
