@@ -152,7 +152,9 @@
     <ClCompile Include="imgui\imgui_tables.cpp" />
     <ClCompile Include="imgui\imgui_widgets.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="menu.cpp" />
     <ClCompile Include="polygon.cpp" />
+    <ClCompile Include="saving.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="imgui\imconfig.h" />
@@ -163,7 +165,9 @@
     <ClInclude Include="imgui\imstb_rectpack.h" />
     <ClInclude Include="imgui\imstb_textedit.h" />
     <ClInclude Include="imgui\imstb_truetype.h" />
+    <ClInclude Include="menu.h" />
     <ClInclude Include="polygon.h" />
+    <ClInclude Include="saving.h" />
     <ClInclude Include="SFML-3.0.0\include\SFML\Audio.hpp" />
     <ClInclude Include="SFML-3.0.0\include\SFML\Audio\AudioResource.hpp" />
     <ClInclude Include="SFML-3.0.0\include\SFML\Audio\Export.hpp" />
@@ -265,6 +269,7 @@
     <ClInclude Include="SFML-3.0.0\include\SFML\Window\WindowBase.hpp" />
     <ClInclude Include="SFML-3.0.0\include\SFML\Window\WindowEnums.hpp" />
     <ClInclude Include="SFML-3.0.0\include\SFML\Window\WindowHandle.hpp" />
+    <ClInclude Include="vectordefs.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SFML-3.0.0\include\SFML\Audio\SoundFileFactory.inl" />

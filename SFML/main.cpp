@@ -1,36 +1,25 @@
-//Allows conversion between stuff like ImVec2 and Vector2i
-// define glm::vecN or include it from another file
-namespace glm
-{
-    struct vec2
-    {
-        float x, y;
-        vec2(float x, float y) : x(x), y(y) {};
-    };
-    struct vec4
-    {
-        float x, y, z, w;
-        vec4(float x, float y, float z, float w) : x(x), y(y), z(z), w(w) {};
-    };
-}
-#define _USE_MATH_DEFINES
-// define extra conversion here before including imgui, don't do it in the imconfig.h
-#define IM_VEC2_CLASS_EXTRA \
-    constexpr ImVec2(glm::vec2& f) : x(f.x), y(f.y) {} \
-    operator glm::vec2() const { return glm::vec2(x, y); }
-
-#define IM_VEC4_CLASS_EXTRA \
-        constexpr ImVec4(const glm::vec4& f) : x(f.x), y(f.y), z(f.z), w(f.w) {} \
-        operator glm::vec4() const { return glm::vec4(x,y,z,w); }
-
+#include "vectordefs.h"
 #include "imgui-SFML.h"
 #include "polygon.h"
+#include "saving.h"
+
 #include <SFML/Graphics.hpp>
 // TODO: Set up boost.geometry
-
 #include <iostream>
 #include <string>
+
+#define WINDOW_WIDTH 1000
+#define WINDOW_HEIGHT 800
+#define FRAME_LIMIT 60
+#define WINDOW_DISPLAY_NAME "Convex Polygon IoU"
+
 static bool selectedpolygon = false;
+
+// Needs to be a pointer since we need to load in data from save files.
+// This memory must exist in the heap since otherwise,
+// after the openFile() function is called the memory will exist only on the stack. 
+// This stack memory will be deleted after the function is finished executing.
+//std::vector<Polygon*>* polygons;
 
 // This is the data for a polygon not the actual displayed shape
 
@@ -107,9 +96,9 @@ int main()
     sf::ContextSettings settings;
     settings.antiAliasingLevel = 8;
 
-    sf::RenderWindow window(sf::VideoMode(ImVec2(1000, 800)), "Placeholder");
-    window.setSize(sf::Vector2u(1000, 800));
-    window.setFramerateLimit(60);
+    sf::RenderWindow window(sf::VideoMode(ImVec2(WINDOW_WIDTH, WINDOW_HEIGHT)), WINDOW_DISPLAY_NAME);
+    window.setSize(sf::Vector2u(WINDOW_WIDTH, WINDOW_HEIGHT));
+    window.setFramerateLimit(FRAME_LIMIT);
     if (!ImGui::SFML::Init(window))
         return -1;
 
@@ -117,6 +106,7 @@ int main()
 
     Status status;
 
+    //polygons = new std::vector<Polygon>();
     std::vector<Polygon> polygons;
 
     //Creating Polygon Variables
@@ -133,15 +123,12 @@ int main()
 
     while (window.isOpen())
     {
-
         while (const auto event = window.pollEvent())
         {
             ImGui::SFML::ProcessEvent(window, *event);
 
             if (event->is<sf::Event::Closed>())
-            {
                 window.close();
-            }
 
             if (const auto mouseButtonPressed = event->getIf<sf::Event::MouseButtonPressed>()) {
 
@@ -218,11 +205,22 @@ int main()
             if (ImGui::BeginMenu("File"))
             {
                 if (ImGui::MenuItem("Open", "CTRL+O")) {}
-                if (ImGui::MenuItem("Save", "CTRL+S")) {}
+                if (ImGui::MenuItem("Save", "CTRL+S")) {
+                    std::string saveLocation = getExecutablePath();
+                    if (saveLocation != NULL_SAVE_PATH) {
+                        saveLocation += "\\save.sav";
+                        if (saveToFile(polygons, saveLocation))
+                            std::cout << "Saved file successfully to " << saveLocation << std::endl;
+                        else
+                            std::cout << "Saved file un-successfully to" << saveLocation << std::endl;
+                    }
+                }
                 if (ImGui::MenuItem("Save As", "CTRL+SHIFT+S")) {}
                 ImGui::Separator();
                 if (ImGui::MenuItem("Settings")) {}
-                if (ImGui::MenuItem("Exit")) {}
+                if (ImGui::MenuItem("Exit")) {
+                    break; // Not sure if this is the best way to do this
+                }
                 ImGui::EndMenu();
             }
             if (ImGui::BeginMenu("Edit"))
