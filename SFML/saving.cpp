@@ -54,15 +54,15 @@ bool saveToFile(std::vector<Polygon>& polygons, std::string fileLocation)
 	appendToBuffer(buffer, static_cast<uint32_t>(polygons.size()));
 	for (Polygon polygon : polygons)
 	{
-		appendToBuffer(buffer, static_cast<uint32_t>(polygon.vertices.size()));
-		for (ImVec2 vertex : polygon.vertices)
+		appendToBuffer(buffer, static_cast<uint32_t>(polygon.getVertices().size()));
+		for (ImVec2 vertex : polygon.getVertices())
 		{
 			appendToBuffer(buffer, vertex.x);
 			appendToBuffer(buffer, vertex.y);
 		}
-		appendToBuffer(buffer, polygon.colour[0]);
-		appendToBuffer(buffer, polygon.colour[1]);
-		appendToBuffer(buffer, polygon.colour[2]);
+		appendToBuffer(buffer, polygon.getColour(0));
+		appendToBuffer(buffer, polygon.getColour(1));
+		appendToBuffer(buffer, polygon.getColour(2));
 	}
 
 	saveFile.write(reinterpret_cast<const char*>(buffer.data()), buffer.size());
@@ -84,28 +84,3 @@ std::vector<Polygon> openFile(std::string fileLocation)
 
 	return polygons;
 }
-
-/*
-std::vector<Polygon*>* openFile2(std::string fileLocation)
-{
-	std::vector<Polygon*>* polygons = new std::vector<Polygon*>;
-
-	// Write from binary file into buffer
-
-	// Convert buffer back into polygons vector
-
-	return polygons;
-}
-
-
-std::shared_ptr<std::vector<std::unique_ptr<Polygon>>> openFile3(std::string fileLocation)
-{
-	std::shared_ptr<std::vector<std::unique_ptr<Polygon>>> polygons(new std::vector<std::unique_ptr<Polygon>>);
-
-	// Write from binary file into buffer
-
-	// Convert buffer back into polygons vector
-
-	return polygons;
-}
-*/

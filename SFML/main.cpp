@@ -29,25 +29,6 @@ struct Status {
     bool createPolygon = false;
 };
 
-float polygonColour[3] = { 0.f, 0.f, 0.f };
-
-
-sf::ConvexShape drawPolygon(Polygon* polygon) {
-    // Called to draw a polygon in SFML window
-    sf::ConvexShape convex;
-    int n = polygon->vertices.size(); // vertex count
-    convex.setPointCount(n);
-
-    convex.setFillColor(sf::Color((int)(polygonColour[0] * 255), (int)(polygonColour[1] * 255), (int)(polygonColour[2] * 255)));
-
-
-    for (int i = 0; i < n; i++) {
-        convex.setPoint(i, polygon->vertices.at(i));
-    }
-
-    return convex;
-}
-
 std::vector<ImVec2> adjustVertices(std::vector<ImVec2> vertices) {
     /*
     For each angle check if it is close to 90, 60, 45, 30 or 0 degrees (or 180, etc i cbf typing them all out)
@@ -106,7 +87,8 @@ int main()
 
     Status status;
 
-    //polygons = new std::vector<Polygon>();
+    float polygonColour[3] = {0.f, 0.f, 0.f};
+   
     std::vector<Polygon> polygons;
 
     //Creating Polygon Variables
@@ -137,18 +119,14 @@ int main()
                         ImVec2 mousepos = sf::Mouse::getPosition(window);
                         if (!firstVertex && distanceL2(mousepos, vertices.front()) <= 10) {
                             if (vertices.size() < 3) {
-                                //TODO: some error message
-                                std::cout << "congrats" << std::endl;
+                                std::cout << "ERROR MESSAGE" << std::endl;
                             }
                             else {
                                 //TODO: Adjust vertex locations as per requirements
                                 //newPolygon.vertices = adjustVertices(vertices);
-                                newPolygon.vertices = vertices;
-
-                                for (int i = 0; i < 3; i++) {
-                                    newPolygon.colour[i] = polygonColour[i];
-                                }
-                                newPolygon.render = drawPolygon(&newPolygon);
+                                newPolygon.setVertices(vertices);
+                                newPolygon.setColour(polygonColour[0], polygonColour[1], polygonColour[2]);
+                                newPolygon.drawPolygon();
                                 polygons.push_back(newPolygon);
 
                                 vertices.clear();
@@ -172,11 +150,11 @@ int main()
                         int i = 0;
                         for (i; i < polygons.size(); i++) {
                             polygon = &polygons.at(i);
-                            if (std::find(selectedPolygons.begin(), selectedPolygons.end(), i)==selectedPolygons.end() && pointInPolygon(p, polygon)) {
+                            if (std::find(selectedPolygons.begin(), selectedPolygons.end(), i)==selectedPolygons.end() && polygon->pointInPolygon(p)) {
 
                                 selectedPolygons.push_back(i);
-                                polygon -> render.setOutlineThickness(1.f);
-                                polygon -> render.setOutlineColor(sf::Color::Cyan);
+                                polygon->render.setOutlineThickness(1.f);
+                                polygon->render.setOutlineColor(sf::Color::Cyan);
                                 //polygon -> render.setFillColor(sf::Color((int)(polygonColour[0] * 255), (int)(polygonColour[1] * 255), (int)(polygonColour[2] * 255)));
                                 break;
                             }
@@ -184,10 +162,11 @@ int main()
                         }
                         if (selectedPolygons.size() == 2) {
                             Polygon intersection = intersectingPolygon(&polygons.at(selectedPolygons.at(0)), &polygons.at(selectedPolygons.at(1)));
-                            area = polygonArea(&polygons.at(selectedPolygons.at(0))) + polygonArea(&polygons.at(selectedPolygons.at(1))) - polygonArea(&intersection);
+
+                            area = polygons.at(selectedPolygons.at(0)).polygonArea() + polygons.at(selectedPolygons.at(1)).polygonArea() - intersection.polygonArea();
                         }
                         if (selectedPolygons.size() == 1) {
-                            area = polygonArea(&polygons.at(selectedPolygons.at(0)));
+                            area = polygons.at(selectedPolygons.at(0)).polygonArea();
                         }
                     }
                 }
@@ -270,7 +249,9 @@ int main()
                 for (int i = 1; i < selectedPolygons.size(); i++) {
                     intersection = intersectingPolygon(&intersection, &polygons.at(selectedPolygons.at(i)));
                 }
-                intersection.render = drawPolygon(&intersection);
+
+                intersection.setColour(polygonColour[0], polygonColour[1], polygonColour[2]);
+                intersection.drawPolygon();
                 polygons.push_back(intersection);
 
                 //TODO: Calculate IoU Metric and display result.

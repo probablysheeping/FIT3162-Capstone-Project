@@ -11,15 +11,25 @@ Implementation of algorithms for polygons
 Assumes no overlapping edges and no interior holes.
 */
 
-bool pointInPolygon(ImVec2 p, Polygon* polygon) {
+// CONSTRUCTOR AND DESTRUCTOR
+
+Polygon::Polygon() {
+}
+
+Polygon::~Polygon() {
+}
+
+// CLASS METHODS
+
+bool Polygon::pointInPolygon(ImVec2 p) {
 	// Algorithm based on winding number
 	// Draw ray from point to positive infinity in y axis (down)
 
 	int windingNumber = 0;
 
-	for (int i = 0; i < polygon->vertices.size(); i++) {
-		ImVec2 a = polygon->vertices.at(i);
-		ImVec2 b = i == polygon->vertices.size() - 1 ? polygon->vertices.front() : polygon->vertices.at(i + 1);
+	for (int i = 0; i < this->vertices.size(); i++) {
+		ImVec2 a = this->vertices.at(i);
+		ImVec2 b = i == this->vertices.size() - 1 ? this->vertices.front() : this->vertices.at(i + 1);
 
 
 		// check that P is in the middle of the segment AB if projected onto x axis
@@ -42,31 +52,62 @@ bool pointInPolygon(ImVec2 p, Polygon* polygon) {
 
 }
 
-double signedArea(Polygon* polygon) {
+double Polygon::signedArea() {
 	// https://demonstrations.wolfram.com/SignedAreaOfAPolygon/
 	// If vertices are oriented clockwise then signed area is positive
 	// Otherwise it is negative
 	double result = 0;
-	std::vector<ImVec2>* vertices = &(polygon->vertices);
+	std::vector<ImVec2>* vertices = &(this->vertices);
 	int j;
-	for (int i = 0; i < polygon -> vertices.size(); i++) {
-		j = i+1 == vertices->size() ? 0 : i + 1;
+	for (int i = 0; i < this->vertices.size(); i++) {
+		j = i + 1 == vertices->size() ? 0 : i + 1;
 		result += (vertices->at(i).x * vertices->at(j).y) - (vertices->at(j).x * vertices->at(i).y);
 	}
 	return 0.5 * result;
 }
 
-double polygonArea(Polygon* polygon) {
-	return abs(signedArea(polygon));
+double Polygon::polygonArea() {
+	return abs(this->signedArea());
 }
 
-double polygonArea(std::vector<Polygon>* polygons) {
-	// Principle of inclusion and exclusion
-	// cant be bothered
-	for (Polygon polygon : *polygons) {
+// GETTERS AND SETTERS
 
-	}
-	return 0;
+void Polygon::setVertices(std::vector<ImVec2> vertices)
+{
+	this->vertices = vertices;
+}
+
+std::vector<ImVec2> Polygon::getVertices()
+{
+	return this->vertices;
+}
+
+void Polygon::setColour(float r, float g, float b)
+{
+	this->colour[0] = r;
+	this->colour[1] = g;
+	this->colour[2] = b;
+}
+
+float Polygon::getColour(int index)
+{
+	if (index < 0 || index > 2)
+		return -1;
+	else
+		return this->colour[index];
+}
+
+void Polygon::drawPolygon()
+{
+	sf::ConvexShape convex;
+	
+    int n = this->getVertices().size(); // vertex count
+	convex.setPointCount(n);
+	convex.setFillColor(sf::Color((int)(this->colour[0] * 255), (int)(this->colour[1] * 255), (int)(this->colour[2] * 255)));
+    for (int i = 0; i < n; i++) {
+		convex.setPoint(i, this->getVertices().at(i));
+    }
+	this->render = convex;
 }
 
 int sgn(double x) {
@@ -88,19 +129,19 @@ Polygon intersectingPolygon(Polygon* p1, Polygon* p2) {
 	// Returns a polygon which is in the intersection of p1 and p2 and maximal in area
 	// Sutherland-Hodgman algorithm https://en.wikipedia.org/wiki/Sutherland%E2%80%93Hodgman_algorithm
 	// We do need the orientation of the vertices for this algorithm however.
-	 std::vector<ImVec2> outputList = p1 -> vertices;
+	 std::vector<ImVec2> outputList = p1->getVertices();
 
-	 if (signedArea(p1) < 0) {
+	 if (p1->signedArea() < 0) {
 		 // we need the vertices to be oriented clockwise
 		 std::reverse(outputList.begin(), outputList.end());
 	 }
 	 int i2, j2;
-	 for (int i = 0; i < p2->vertices.size(); i++) {
+	 for (int i = 0; i < p2->getVertices().size(); i++) {
 		 // edge is P2V(i), P2V(i+1) (i+1 taken mod |P2V|)
 		 // for each edge in result, we need to check if it intersects with P2V(i)P2V(i+1)
 		 // if it doesn't nothing needs to be done
 		 // if it does we need to cut of the section that is outside
-		 i2 = (i + 1) == p2->vertices.size() ? 0 : i + 1;
+		 i2 = (i + 1) == p2->getVertices().size() ? 0 : i + 1;
 
 		 std::vector<ImVec2> newOutputList;
 		 
@@ -108,19 +149,19 @@ Polygon intersectingPolygon(Polygon* p1, Polygon* p2) {
 			 // 2nd vertex is inside.
 			 j2 = (j + 1) == outputList.size() ? 0 : j + 1;
 			 // If 2nd vertex in visible area
-			 if (sideOfLine(outputList.at(j2), p2->vertices.at(i), p2->vertices.at(i2)) >= 0) {
+			 if (sideOfLine(outputList.at(j2), p2->getVertices().at(i), p2->getVertices().at(i2)) >= 0) {
 				 
 				 // If 1st vertex not in visible area
-				 if (sideOfLine(outputList.at(j), p2->vertices.at(i), p2->vertices.at(i2)) < 0) {
-					 const ImVec2 POI = intersectingSegments(outputList.at(j), outputList.at(j2), p2->vertices.at(i), p2->vertices.at(i2));
+				 if (sideOfLine(outputList.at(j), p2->getVertices().at(i), p2->getVertices().at(i2)) < 0) {
+					 const ImVec2 POI = intersectingSegments(outputList.at(j), outputList.at(j2), p2->getVertices().at(i), p2->getVertices().at(i2));
 					 newOutputList.push_back(POI);
 				 }
 
 				 newOutputList.push_back(outputList.at(j2));
 			 }
 			 // If 1st vertex in visible area
-			 else if (sideOfLine(outputList.at(j), p2->vertices.at(i), p2->vertices.at(i2)) >= 0) {
-				  const ImVec2 POI = intersectingSegments(outputList.at(j), outputList.at(j2), p2->vertices.at(i), p2->vertices.at(i2));
+			 else if (sideOfLine(outputList.at(j), p2->getVertices().at(i), p2->getVertices().at(i2)) >= 0) {
+				  const ImVec2 POI = intersectingSegments(outputList.at(j), outputList.at(j2), p2->getVertices().at(i), p2->getVertices().at(i2));
 				  newOutputList.push_back(POI);
 				  
 
@@ -131,8 +172,7 @@ Polygon intersectingPolygon(Polygon* p1, Polygon* p2) {
 	 }
 
 	 Polygon result;
-	 result.vertices = outputList;
-
+	 result.setVertices(outputList);
 	 return result;
 }
 
