@@ -15,20 +15,6 @@
 
 static bool selectedpolygon = false;
 
-// Needs to be a pointer since we need to load in data from save files.
-// This memory must exist in the heap since otherwise,
-// after the openFile() function is called the memory will exist only on the stack. 
-// This stack memory will be deleted after the function is finished executing.
-//std::vector<Polygon*>* polygons;
-
-// This is the data for a polygon not the actual displayed shape
-
-
-struct Status {
-    bool drawPolygon = false;
-    bool createPolygon = false;
-};
-
 std::vector<ImVec2> adjustVertices(std::vector<ImVec2> vertices) {
     /*
     For each angle check if it is close to 90, 60, 45, 30 or 0 degrees (or 180, etc i cbf typing them all out)
@@ -70,13 +56,16 @@ std::vector<ImVec2> adjustVertices(std::vector<ImVec2> vertices) {
     return result;
 }
 
+/// <summary>
+/// This is the SFML window where polygons will appear.
+/// </summary>
+/// <returns></returns>
 int main()
 {
-    // This is the SFML window where polygons will appear.
-    // One can set the dimensions based on screen size.
     sf::ContextSettings settings;
     settings.antiAliasingLevel = 8;
 
+    // One can set the dimensions based on screen size.
     sf::RenderWindow window(sf::VideoMode(ImVec2(WINDOW_WIDTH, WINDOW_HEIGHT)), WINDOW_DISPLAY_NAME);
     window.setSize(sf::Vector2u(WINDOW_WIDTH, WINDOW_HEIGHT));
     window.setFramerateLimit(FRAME_LIMIT);
@@ -85,13 +74,17 @@ int main()
 
     sf::Clock deltaClock;
 
-    Status status;
+    // This is the data for a polygon not the actual displayed shape
+    struct {
+        bool drawPolygon = false;
+        bool createPolygon = false;
+    } status;
 
     float polygonColour[3] = {0.f, 0.f, 0.f};
    
     std::vector<Polygon> polygons;
 
-    //Creating Polygon Variables
+    // Creating Polygon Variables
     Polygon newPolygon;
     std::vector<ImVec2> vertices;
     std::vector<sf::Vertex> newPolygonOutline;
@@ -174,7 +167,6 @@ int main()
         }
 
 
-
         ImGui::SFML::Update(window, deltaClock.restart());
 
 
@@ -254,7 +246,7 @@ int main()
                 intersection.drawPolygon();
                 polygons.push_back(intersection);
 
-                //TODO: Calculate IoU Metric and display result.
+                // TODO: Calculate IoU Metric and display result.
             }
 
             if (ImGui::Button("Clear Selected", ImVec2(120, 30))) {
@@ -286,7 +278,7 @@ int main()
 
         window.clear(sf::Color::White);
 
-        //Draw everything here
+        // Draw everything here
 
         for (Polygon polygon : polygons) {
             window.draw(polygon.render);
