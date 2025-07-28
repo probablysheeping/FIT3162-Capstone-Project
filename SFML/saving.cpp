@@ -13,7 +13,9 @@ unsigned long __stdcall GetModuleFileNameA(
 	char* lpFilename,
 	unsigned long nSize
 );
+#ifndef MAX_PATH
 #define MAX_PATH 260
+#endif
 #endif
 
 // At the moment only supporting windows for getting file path
@@ -79,8 +81,59 @@ std::vector<Polygon> openFile(std::string fileLocation)
 	std::vector<Polygon> polygons;
 
 	// Write from binary file into buffer
+	std::ifstream loadFile(fileLocation, std::ios::in | std::ios::binary);
+
+	if (!loadFile.is_open())
+		return polygons;
+
+	std::vector<char> charBuffer((std::istreambuf_iterator<char>(loadFile)),
+		std::istreambuf_iterator<char>());
+
+	std::vector<std::byte> buffer(charBuffer.begin(), charBuffer.end());
+
+	loadFile.close();
+
+	size_t offset = 0;
+
+	auto readFromBuffer = [&](auto& out) {
+		using T = std::remove_reference_t<decltype(out)>;
+		if (offset + sizeof(T) > buffer.size()) throw std::runtime_error("File corrupt or incomplete.");
+		std::memcpy(&out, buffer.data() + offset, sizeof(T));
+		offset += sizeof(T);
+	};
 
 	// Convert buffer back into polygons vector
+
+	uint32_t polygonCount;
+	readFromBuffer(polygonCount);
+
+	for (uint32_t i = 0; i < polygonCount; ++i) {
+		uint32_t vertexCount;
+		readFromBuffer(vertexCount);
+
+		Polygon polygon;
+
+		std::vector<ImVec2> vertices;
+
+		for (uint32_t v = 0; v < vertexCount; ++v)
+		{
+			ImVec2 vertex;
+			readFromBuffer(vertex.x);
+			readFromBuffer(vertex.y);
+			vertices.push_back(vertex);
+		}
+
+		polygon.setVertices(vertices);
+
+		float r, g, b;
+		readFromBuffer(r);
+		readFromBuffer(g);
+		readFromBuffer(b);
+		polygon.setColour(r, g, b);
+
+		polygons.push_back(polygon);
+	}
+	
 
 	return polygons;
 }
