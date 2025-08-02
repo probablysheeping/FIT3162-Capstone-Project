@@ -103,6 +103,7 @@ std::vector<Polygon> openFile(std::string fileLocation)
 
 			// Failure check
 			if (i >= line.length())
+				return polygons;
 
 			vertex.x = std::stoi(vert_x);
 			vertex.y = std::stoi(vert_y);
