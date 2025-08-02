@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include <fstream>
-#include <cstddef>
+#include <string>
 #include <filesystem>
 
 // I cannot pull in all of windows.h without breaking program
@@ -31,11 +31,6 @@ std::string getExecutablePath()
 #endif
 }
 
-template <typename T>
-void appendToBuffer(std::vector<std::byte>& buffer, const T& value) {
-	const std::byte* raw = reinterpret_cast<const std::byte*>(&value);
-	buffer.insert(buffer.end(), raw, raw + sizeof(T));
-}
 
 /// <summary>
 /// Save to file based on fileLocation
@@ -43,35 +38,26 @@ void appendToBuffer(std::vector<std::byte>& buffer, const T& value) {
 /// <param name="polygons">The list of polygons to save to file</param>
 /// <param name="fileLocation">The location that the save file will be written to</param>
 /// <returns>A boolean output determining whether file was successfully saved or not</returns>
-bool saveToFile(std::vector<Polygon>& polygons, std::string fileLocation)
+bool saveToFile(std::vector<Polygon> polygons, std::string fileLocation)
 {
-	std::ofstream saveFile;
-	saveFile.open(fileLocation, std::ios::out | std::ios::binary | std::ios::trunc);
+	std::ofstream saveFile(fileLocation);
 
+	// File failed to open
 	if (!saveFile.is_open())
 		return false;
 
-	std::vector<std::byte> buffer;
-
-	appendToBuffer(buffer, static_cast<uint32_t>(polygons.size()));
 	for (Polygon polygon : polygons)
 	{
-		appendToBuffer(buffer, static_cast<uint32_t>(polygon.getVertices().size()));
 		for (ImVec2 vertex : polygon.getVertices())
 		{
-			appendToBuffer(buffer, vertex.x);
-			appendToBuffer(buffer, vertex.y);
+			saveFile << vertex.x << ',' << vertex.y << '\t';
 		}
-		appendToBuffer(buffer, polygon.getColour(0));
-		appendToBuffer(buffer, polygon.getColour(1));
-		appendToBuffer(buffer, polygon.getColour(2));
+		saveFile << ':' << polygon.getColour(0) << ',' << polygon.getColour(1) << ',' << polygon.getColour(2) << '\n';
 	}
-
-	saveFile.write(reinterpret_cast<const char*>(buffer.data()), buffer.size());
-	if (!saveFile)
-		return false;
-
+	
+	// Close file
 	saveFile.close();
+
 	return true;
 }
 
@@ -80,60 +66,73 @@ std::vector<Polygon> openFile(std::string fileLocation)
 {
 	std::vector<Polygon> polygons;
 
-	// Write from binary file into buffer
-	std::ifstream loadFile(fileLocation, std::ios::in | std::ios::binary);
+	std::ifstream saveFile(fileLocation);
 
-	if (!loadFile.is_open())
+	// File failed to open
+	if (!saveFile.is_open())
 		return polygons;
 
-	std::vector<char> charBuffer((std::istreambuf_iterator<char>(loadFile)),
-		std::istreambuf_iterator<char>());
 
-	std::vector<std::byte> buffer(charBuffer.begin(), charBuffer.end());
-
-	loadFile.close();
-
-	size_t offset = 0;
-
-	auto readFromBuffer = [&](auto& out) {
-		using T = std::remove_reference_t<decltype(out)>;
-		if (offset + sizeof(T) > buffer.size()) throw std::runtime_error("File corrupt or incomplete.");
-		std::memcpy(&out, buffer.data() + offset, sizeof(T));
-		offset += sizeof(T);
-	};
-
-	// Convert buffer back into polygons vector
-
-	uint32_t polygonCount;
-	readFromBuffer(polygonCount);
-
-	for (uint32_t i = 0; i < polygonCount; ++i) {
-		uint32_t vertexCount;
-		readFromBuffer(vertexCount);
-
+	std::string line;
+	while (std::getline(saveFile, line)) {
 		Polygon polygon;
 
 		std::vector<ImVec2> vertices;
+		
+		// String index
+		int i = 0;
 
-		for (uint32_t v = 0; v < vertexCount; ++v)
-		{
+		// Read in vertices
+		while (line[i] != ':') {
+			// New vertex
 			ImVec2 vertex;
-			readFromBuffer(vertex.x);
-			readFromBuffer(vertex.y);
+
+			// Read in x vertex
+			std::string vert_x;
+			while (line[i] != ',')
+				vert_x += line[i++];
+			
+			// Failure check
+			if (line[i++] != ',')
+				return polygons;
+
+			// Read in y vertex
+			std::string vert_y;
+			while (line[i] != '\t')
+				vert_x += line[i++];
+
+			// Failure check
+			if (i >= line.length())
+
+			vertex.x = std::stoi(vert_x);
+			vertex.y = std::stoi(vert_y);
+
 			vertices.push_back(vertex);
+
+			// Increment again to get past last tab
+			i++;
 		}
 
-		polygon.setVertices(vertices);
+		// Failure check
+		if (line[i++] != ':')
+			return polygons;
 
-		float r, g, b;
-		readFromBuffer(r);
-		readFromBuffer(g);
-		readFromBuffer(b);
-		polygon.setColour(r, g, b);
+		// Read in colours
+		float r;
+		float g;
+		float b;
+		std::string r;
+		std::string g;
+		std::string b;
+		while (i < line.length()) {
+			
+		}
 
 		polygons.push_back(polygon);
 	}
-	
+
+	// Close file
+	saveFile.close();
 
 	return polygons;
 }
