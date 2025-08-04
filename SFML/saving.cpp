@@ -117,17 +117,25 @@ std::vector<Polygon> openFile(std::string fileLocation)
 		// Failure check
 		if (line[i++] != ':')
 			return polygons;
+		else
+			polygon.setVertices(vertices);
 
 		// Read in colours
-		float r;
-		float g;
-		float b;
-		std::string r;
-		std::string g;
-		std::string b;
+		std::string rgb_str[3] = { "", "", "" };
+		int rgb_index = 0;
 		while (i < line.length()) {
-			
+			if (line[i] == ',')
+				rgb_index++;
+			else
+				rgb_str[rgb_index] += line[i];
+			i++;
 		}
+
+		float r = std::stoi(rgb_str[0]);
+		float g = std::stoi(rgb_str[1]);
+		float b = std::stoi(rgb_str[2]);
+
+		polygon.setColour(r, g, b);
 
 		polygons.push_back(polygon);
 	}
