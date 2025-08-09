@@ -171,8 +171,14 @@ Polygon intersectingPolygon(Polygon* p1, Polygon* p2) {
 
 	 }
 
+	 const float avgR = ((p1->getColour(0) + p2->getColour(0)) * 0.5f);
+	 const float avgG = ((p1->getColour(1) + p2->getColour(1)) * 0.5f);
+	 const float avgB = ((p1->getColour(2) + p2->getColour(2)) * 0.5f);
+    
 	 Polygon result;
 	 result.setVertices(outputList);
+	 result.setColour(avgR, avgG, avgB);
+
 	 return result;
 }
 
