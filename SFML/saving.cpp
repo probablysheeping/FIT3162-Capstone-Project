@@ -145,3 +145,20 @@ std::vector<Polygon> openFile(std::string fileLocation)
 
 	return polygons;
 }
+
+/// <summary>
+/// Used for auto saving and normal saving (but not save as)
+/// </summary>
+/// <param name="polygons"></param>
+/// <param name="fileName"></param>
+void quickSave(std::vector<Polygon> polygons, std::string fileName)
+{
+	std::string saveLocation = getExecutablePath();
+	if (saveLocation != NULL_SAVE_PATH) {
+		saveLocation += fileName;
+		if (saveToFile(polygons, saveLocation))
+			std::cout << "Saved file successfully to " << saveLocation << std::endl;
+		else
+			std::cout << "Saved file un-successfully to" << saveLocation << std::endl;
+	}
+}
