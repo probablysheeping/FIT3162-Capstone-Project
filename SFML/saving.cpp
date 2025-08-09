@@ -99,14 +99,14 @@ std::vector<Polygon> openFile(std::string fileLocation)
 			// Read in y vertex
 			std::string vert_y;
 			while (line[i] != '\t')
-				vert_x += line[i++];
+				vert_y += line[i++];
 
 			// Failure check
 			if (i >= line.length())
 				return polygons;
 
-			vertex.x = std::stoi(vert_x);
-			vertex.y = std::stoi(vert_y);
+			vertex.x = std::stof(vert_x);
+			vertex.y = std::stof(vert_y);
 
 			vertices.push_back(vertex);
 
@@ -131,9 +131,9 @@ std::vector<Polygon> openFile(std::string fileLocation)
 			i++;
 		}
 
-		float r = std::stoi(rgb_str[0]);
-		float g = std::stoi(rgb_str[1]);
-		float b = std::stoi(rgb_str[2]);
+		float r = std::stof(rgb_str[0]);
+		float g = std::stof(rgb_str[1]);
+		float b = std::stof(rgb_str[2]);
 
 		polygon.setColour(r, g, b);
 
