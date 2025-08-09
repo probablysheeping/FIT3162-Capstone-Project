@@ -2,6 +2,7 @@
 #include "imgui-SFML.h"
 #include "polygon.h"
 #include "saving.h"
+#include "filelocationchooser.h"
 
 #include <SFML/Graphics.hpp>
 // TODO: Set up boost.geometry
@@ -17,6 +18,10 @@
 static bool selectedpolygon = false;
 
 void adjustVertices(std::vector<ImVec2>& vertices ) {
+// How long until we autosave
+static const sf::Time autosaveTime = sf::seconds(20.f);
+
+std::vector<ImVec2> adjustVertices(std::vector<ImVec2> vertices) {
     /*
     For each angle check if it is close to 90, 60, 45, 30 or 0 degrees (or 180, etc i cbf typing them all out)
     Vertices MUST BE ORDERED CLOCKWISE
@@ -169,6 +174,9 @@ int main()
     
     polygons.push_back(testPolygon2);
     polygons.push_back(testPolygon);
+    // Autosaving clock
+    sf::Clock autosaveClock;
+
     while (window.isOpen())
     {
         while (const auto event = window.pollEvent())
@@ -256,18 +264,21 @@ int main()
 
             if (ImGui::BeginMenu("File"))
             {
-                if (ImGui::MenuItem("Open", "CTRL+O")) {}
-                if (ImGui::MenuItem("Save", "CTRL+S")) {
-                    std::string saveLocation = getExecutablePath();
-                    if (saveLocation != NULL_SAVE_PATH) {
-                        saveLocation += "\\save.sav";
-                        if (saveToFile(polygons, saveLocation))
-                            std::cout << "Saved file successfully to " << saveLocation << std::endl;
-                        else
-                            std::cout << "Saved file un-successfully to" << saveLocation << std::endl;
-                    }
+                if (ImGui::MenuItem("Open", "CTRL+O")) {
+                    std::string openLocation = OpenFileDialog();
+                    polygons = openFile(openLocation);
                 }
-                if (ImGui::MenuItem("Save As", "CTRL+SHIFT+S")) {}
+                if (ImGui::MenuItem("Save", "CTRL+S")) {
+                    quickSave(polygons, "\\save.sav");
+                }
+                if (ImGui::MenuItem("Save As", "CTRL+SHIFT+S")) {
+                    std::string saveLocation = SaveFileDialog();
+                    if (saveToFile(polygons, saveLocation))
+                        std::cout << "Saved file successfully to " << saveLocation << std::endl;
+                    else
+                        std::cout << "Saved file un-successfully to" << saveLocation << std::endl;
+
+                }
                 ImGui::Separator();
                 if (ImGui::MenuItem("Settings")) {}
                 if (ImGui::MenuItem("Exit")) {
@@ -287,6 +298,12 @@ int main()
             }
             ImGui::EndMainMenuBar();
 
+        }
+
+        // Autosaving functionality
+        if (autosaveClock.getElapsedTime() >= autosaveTime) {
+            quickSave(polygons, "\\autosave.sav");
+            autosaveClock.restart();
         }
 
         // Window used for creating polygons
