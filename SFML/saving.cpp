@@ -4,6 +4,7 @@
 #include <fstream>
 #include <string>
 #include <filesystem>
+#include <sstream>
 
 // I cannot pull in all of windows.h without breaking program
 #ifdef _WIN32
@@ -48,11 +49,20 @@ bool saveToFile(std::vector<Polygon> polygons, std::string fileLocation)
 
 	for (Polygon polygon : polygons)
 	{
-		for (ImVec2 vertex : polygon.getVertices())
-		{
-			saveFile << vertex.x << ',' << vertex.y << '\t';
-		}
-		saveFile << ':' << polygon.getColour(0) << ',' << polygon.getColour(1) << ',' << polygon.getColour(2) << '\n';
+		saveFile << "POLYGON\n";
+
+		std::vector<ImVec2> vertices = polygon.getVertices();
+		saveFile << "VERTICES " << vertices.size() << "\n";
+
+		for (ImVec2 vertex : vertices)
+			saveFile << vertex.x << ' ' << vertex.y << '\n';
+
+		saveFile << "COLOUR "
+			<< polygon.getColour(0) << ' '
+			<< polygon.getColour(1) << ' '
+			<< polygon.getColour(2) << '\n';
+
+		saveFile << "END\n";
 	}
 	
 	// Close file
@@ -61,7 +71,12 @@ bool saveToFile(std::vector<Polygon> polygons, std::string fileLocation)
 	return true;
 }
 
-
+/// <summary>
+/// Opens file and returns polygons
+/// Re-wrote large portions of this function using AI
+/// </summary>
+/// <param name="fileLocation"></param>
+/// <returns></returns>
 std::vector<Polygon> openFile(std::string fileLocation)
 {
 	std::vector<Polygon> polygons;
@@ -74,70 +89,48 @@ std::vector<Polygon> openFile(std::string fileLocation)
 
 
 	std::string line;
+	Polygon currentPolygon;
+	std::vector<ImVec2> vertices;
+	bool readingPolygon = false;
+	int verticesToRead = 0;
+
 	while (std::getline(saveFile, line)) {
-		Polygon polygon;
+		std::istringstream iss(line);
+		std::string word;
+		iss >> word;
 
-		std::vector<ImVec2> vertices;
-		
-		// String index
-		int i = 0;
-
-		// Read in vertices
-		while (line[i] != ':') {
-			// New vertex
-			ImVec2 vertex;
-
-			// Read in x vertex
-			std::string vert_x;
-			while (line[i] != ',')
-				vert_x += line[i++];
-			
-			// Failure check
-			if (line[i++] != ',')
-				return polygons;
-
-			// Read in y vertex
-			std::string vert_y;
-			while (line[i] != '\t')
-				vert_y += line[i++];
-
-			// Failure check
-			if (i >= line.length())
-				return polygons;
-
-			vertex.x = std::stof(vert_x);
-			vertex.y = std::stof(vert_y);
-
-			vertices.push_back(vertex);
-
-			// Increment again to get past last tab
-			i++;
+		if (word == "POLYGON")
+		{
+			readingPolygon = true;
+			vertices.clear();
+			verticesToRead = 0;
 		}
-
-		// Failure check
-		if (line[i++] != ':')
-			return polygons;
-		else
-			polygon.setVertices(vertices);
-
-		// Read in colours
-		std::string rgb_str[3] = { "", "", "" };
-		int rgb_index = 0;
-		while (i < line.length()) {
-			if (line[i] == ',')
-				rgb_index++;
-			else
-				rgb_str[rgb_index] += line[i];
-			i++;
+		else if (readingPolygon && word == "VERTICES")
+		{
+			iss >> verticesToRead;
 		}
-
-		float r = std::stof(rgb_str[0]);
-		float g = std::stof(rgb_str[1]);
-		float b = std::stof(rgb_str[2]);
-
-		polygon.setColour(r, g, b);
-
-		polygons.push_back(polygon);
+		else if (readingPolygon && verticesToRead > 0)
+		{
+			// Read vertices lines
+			float x, y;
+			iss.clear();
+			iss.str(line);
+			iss >> x >> y;
+			vertices.push_back(ImVec2{ x, y });
+			verticesToRead--;
+		}
+		else if (readingPolygon && word == "COLOUR")
+		{
+			float r, g, b;
+			iss >> r >> g >> b;
+			currentPolygon.setVertices(vertices);
+			currentPolygon.setColour(r, g, b);
+		}
+		else if (readingPolygon && word == "END")
+		{
+			polygons.push_back(currentPolygon);
+			readingPolygon = false;
+		}
 	}
 
 	// Close file

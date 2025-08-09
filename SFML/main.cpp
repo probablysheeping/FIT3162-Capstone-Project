@@ -267,6 +267,10 @@ int main()
                 if (ImGui::MenuItem("Open", "CTRL+O")) {
                     std::string openLocation = OpenFileDialog();
                     polygons = openFile(openLocation);
+                    for (Polygon& polygon : polygons) {
+                        // update the SFML ConvexShape render with loaded data
+                        polygon.drawPolygon(); 
+                    }
                 }
                 if (ImGui::MenuItem("Save", "CTRL+S")) {
                     quickSave(polygons, "\\save.sav");
