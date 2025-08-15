@@ -53,7 +53,7 @@ bool Polygon::pointInPolygon(ImVec2 p) {
 
 }
 
-double Polygon::signedArea() {
+float Polygon::signedArea() {
 	// https://demonstrations.wolfram.com/SignedAreaOfAPolygon/
 	// If vertices are oriented clockwise then signed area is positive
 	// Otherwise it is negative
@@ -67,7 +67,7 @@ double Polygon::signedArea() {
 	return 0.5 * result;
 }
 
-double Polygon::polygonArea() {
+float Polygon::polygonArea() {
 	return abs(this->signedArea());
 }
 

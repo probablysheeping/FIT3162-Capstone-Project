@@ -188,9 +188,17 @@ int main()
                                 std::cout << "ERROR MESSAGE" << std::endl;
                             }
                             else {
-                                //TODO: Adjust vertex locations as per requirements
+                                
+                                newPolygon.setVertices(vertices);
+
+                                //orient vertices clockwise
+                                if (sgn(newPolygon.signedArea()) == -1) {
+                                    std::reverse(vertices.begin(), vertices.end());
+                                }
+
                                 adjustVertices(vertices);
                                 newPolygon.setVertices(vertices);
+                                
                                 //newPolygon.setVertices(vertices);
                                 newPolygon.setColour(polygonColour[0], polygonColour[1], polygonColour[2]);
                                 polygons.push_back(newPolygon);
