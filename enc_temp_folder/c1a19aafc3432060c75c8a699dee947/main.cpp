@@ -198,6 +198,8 @@ int main()
                                 vertices.clear();
                                 newPolygon = Polygon();
                                 status.createPolygon = false;
+
+                                selectedPolygons.push_back(polygons.size() - 1);
                             }
                         }
                         else {
