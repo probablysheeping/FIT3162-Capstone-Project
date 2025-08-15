@@ -8,6 +8,7 @@
 #include <iostream>
 #include <string>
 
+
 #define WINDOW_WIDTH 1000
 #define WINDOW_HEIGHT 800
 #define FRAME_LIMIT 60
@@ -15,45 +16,106 @@
 
 static bool selectedpolygon = false;
 
-std::vector<ImVec2> adjustVertices(std::vector<ImVec2> vertices) {
+void adjustVertices(std::vector<ImVec2>& vertices ) {
     /*
     For each angle check if it is close to 90, 60, 45, 30 or 0 degrees (or 180, etc i cbf typing them all out)
-
+    Vertices MUST BE ORDERED CLOCKWISE
     */
     ImVec2 p, q, r;
-    const float delta = 2;
-    const int angles[] = { 0, 30, 45, 60, 90, 120, 135, 150, 180 };
+    const float delta = 5;
+    const int angles[] = { 30, 45, 60, 90, 120, 135, 150, 180 };
     const int n = vertices.size();
-    ImVec2 unitvec;
-    double t;
-    double pqr;
+    ImVec2 unitvec; //not rly unit vec cuz its not magnitude 1 but pretend it is.
+    float t, o1, o2, pqr;
     bool adjusted = false;
-    double angle2;
+    float angle2, angle3, dot;
+
+    ImVec2 qr;
 
     std::vector<ImVec2> result;
-
+    std::cout << "new bug" << std::endl;
     for (int i = 0; i < n; i++) {
-        p = vertices.at(i);
-        q = vertices.at(i + 1 < n ? i + 1 : i + 1 - n);
-        r = vertices.at(i + 2 < n ? i + 2 : i + 2 - n);
+        p = vertices.at(i - 1 >= 0 ? i - 1 : i - 1 + n);
+        q = vertices.at(i);
+        r = vertices.at(i + 1 < n ? i + 1 : i + 1 - n);
         pqr = static_cast<float>(angle(p, q, r)*180/M_PI);
+        std::cout << pqr << std::endl;
         for (int x : angles) {
             if (abs(abs(pqr) - x) <= delta) {
+
+                /*
+                ATTEMPT 1
+                // We want to use the adjusted vertices.
+                // r will always be not adjusted
+                if (i > 0) {
+                    p = result.at(i - 1);
+                }
+
                 // We will move q.
-                angle2 = angle(ImVec2(1, 0), q, p);
-                unitvec = { static_cast<float>(std::cos(angle2 + x)), static_cast<float>(std::sin(angle2 + x)) };
-                t = ((r.x - p.x) * (q.y - p.y) - (r.y - p.y) * (q.x - p.x)) / (unitvec.y * (q.x - p.x) - unitvec.x * (p.y - q.y));
-                result.push_back({ static_cast<float>(t * unitvec.x + r.x), static_cast<float>(t * unitvec.y + r.y) });
+                angle2 = angle(r, q, { q.x + 1, q.y });
+                o1 = sgn(sideOfLine(r, q, { q.x + 1,q.y }));
+
+                // TODO: CASE o=0
+
+                unitvec = { static_cast<float>(std::cos(-o1 * angle2 + x * M_PI / 180)), -static_cast<float>(std::sin(-o1 * angle2 + x * M_PI / 180)) };
+                t = (unitvec.y * (q.x - p.x) - unitvec.x * (q.y - p.y)) / (unitvec.x * (r.y - q.y) - unitvec.y * (r.x - q.x));
+                result.push_back({ static_cast<float>(t * (r.x - q.x) + q.x), static_cast<float>(t * (r.y - q.y) + q.y) });
+                adjusted = true;
+
+                // DEBUGGING CODE
+                
+                std::cout << "a" << std::endl;
+                std::cout << p.x << "," << p.y << std::endl;
+                std::cout << q.x << "," << q.y << std::endl;
+                std::cout << r.x << "," << r.y << std::endl;
+                std::cout << angle2 * 180 / M_PI << std::endl;
+                std::cout << o1 << std::endl;
+                std::cout << unitvec.x << "," << unitvec.y << std::endl;
+                std::cout << t * (r.x - q.x) + q.x << "," << t * (r.y - q.y) + q.y << std::endl;
+                std::cout << "b" << std::endl;
+                std::cout << x << " = " << angle(p, result.at(i), r) * 180 / M_PI << std::endl;
+                */
+
+                // using vector projections
+                // we need to get a vector in the direction of "where we want QR' to face" (where R' is adjusted vertex)
+
+                if (i == 1) {
+                    q = result.at(0);
+
+                }
+                else if (i > 1) {
+                    q = result.at(i - 1);
+                    p = result.at(i - 2);
+
+                }
+
+                o1 = sgn(sideOfLine(p, q, { q.x + 1, q.y }));
+                o2 = sgn(sideOfLine(r, p, q));
+
+                angle2 = angle(p, q, { q.x + 1,q.y }); //angle between [0, pi]
+                angle3 = -o1*angle2 + o2 * x * M_PI / 180;
+                
+                unitvec = {std::cosf(angle3), -std::sinf(angle3)};
+
+
+                //finally project QR onto Q + unitvec
+                qr = { r.x - q.x, r.y - q.y };
+                dot = dotProduct(qr, unitvec);
+
+                result.push_back({ q.x + dot * unitvec.x, q.y + dot * unitvec.y });
                 adjusted = true;
             }
         }
+
         if (!adjusted) {
-            result.push_back(q);
+            result.push_back(r);
         }
+
+
         adjusted = false;    
     }
-    
-    return result;
+    vertices = result;
+
 }
 
 /// <summary>
@@ -96,6 +158,17 @@ int main()
     double area = -1;
     double IoUArea = -1;
 
+    Polygon testPolygon;
+    Polygon testPolygon2;
+
+    std::vector<ImVec2> testPolygonVertices = { {279,539}, {307,307}, {159,507} };
+    testPolygon2.setVertices(testPolygonVertices);
+    adjustVertices(testPolygonVertices);
+    testPolygon.setVertices(testPolygonVertices);
+    testPolygon2.render.setFillColor(sf::Color::Red);
+    
+    polygons.push_back(testPolygon2);
+    polygons.push_back(testPolygon);
     while (window.isOpen())
     {
         while (const auto event = window.pollEvent())
@@ -116,15 +189,19 @@ int main()
                             }
                             else {
                                 //TODO: Adjust vertex locations as per requirements
-                                //newPolygon.vertices = adjustVertices(vertices);
+                                adjustVertices(vertices);
                                 newPolygon.setVertices(vertices);
+                                //newPolygon.setVertices(vertices);
                                 newPolygon.setColour(polygonColour[0], polygonColour[1], polygonColour[2]);
-                                newPolygon.drawPolygon();
                                 polygons.push_back(newPolygon);
 
                                 vertices.clear();
                                 newPolygon = Polygon();
                                 status.createPolygon = false;
+
+                                selectedPolygons.push_back(polygons.size() - 1);
+                                newPolygon.render.setOutlineThickness(1.f);
+                                newPolygon.render.setOutlineColor(sf::Color::Cyan);
                             }
                         }
                         else {
@@ -229,7 +306,6 @@ int main()
             if (ImGui::Button("Delete Polygon", ImVec2(120, 30))) {
                 // Delete Polygon
                 for (int i : selectedPolygons) {
-                    std::cout << i << std::endl;
                     polygons.erase(polygons.begin() + i);
                     
                 }
@@ -243,7 +319,6 @@ int main()
                 }
 
                 intersection.setColour(polygonColour[0], polygonColour[1], polygonColour[2]);
-                intersection.drawPolygon();
                 polygons.push_back(intersection);
 
                 // TODO: Calculate IoU Metric and display result.

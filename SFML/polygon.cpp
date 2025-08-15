@@ -16,6 +16,7 @@ Assumes no overlapping edges and no interior holes.
 Polygon::Polygon() {
 }
 
+//unecessary?
 Polygon::~Polygon() {
 }
 
@@ -75,6 +76,15 @@ double Polygon::polygonArea() {
 void Polygon::setVertices(std::vector<ImVec2> vertices)
 {
 	this->vertices = vertices;
+	sf::ConvexShape convex;
+
+	int n = vertices.size(); // vertex count
+	convex.setPointCount(n);
+	convex.setFillColor(sf::Color((int)(this->colour[0] * 255), (int)(this->colour[1] * 255), (int)(this->colour[2] * 255)));
+	for (int i = 0; i < n; i++) {
+		convex.setPoint(i, vertices.at(i));
+	}
+	this->render = convex;
 }
 
 std::vector<ImVec2> Polygon::getVertices()
@@ -97,30 +107,19 @@ float Polygon::getColour(int index)
 		return this->colour[index];
 }
 
-void Polygon::drawPolygon()
-{
-	sf::ConvexShape convex;
-	
-    int n = this->getVertices().size(); // vertex count
-	convex.setPointCount(n);
-	convex.setFillColor(sf::Color((int)(this->colour[0] * 255), (int)(this->colour[1] * 255), (int)(this->colour[2] * 255)));
-    for (int i = 0; i < n; i++) {
-		convex.setPoint(i, this->getVertices().at(i));
-    }
-	this->render = convex;
-}
 
 int sgn(double x) {
 	return (x > 0) - (x < 0);
 }
 
-double distanceL2(ImVec2 p, ImVec2 q) {
+float distanceL2(ImVec2 p, ImVec2 q) {
 	// distance using L2 metric
-	return sqrt(pow(p.x - q.x, 2) + pow(p.y - q.y, 2));
+	return sqrtf(pow(p.x - q.x, 2) + pow(p.y - q.y, 2));
 }
 
 float sideOfLine(ImVec2 p, ImVec2 a, ImVec2 b) {
 	// returns whether p is to the "left" of AB or to the "right"
+	// left = -1, right = 1, on = 0
 	const int x = (b.x - a.x) * (p.y - a.y) - (b.y - a.y) * (p.x - a.x);
 	return sgn(x);
 }
@@ -198,14 +197,20 @@ ImVec2 intersectingSegments(ImVec2 a, ImVec2 b, ImVec2 p, ImVec2 q) {
 	return ImVec2(-1, -1);
 }
 
-double angle(ImVec2 p, ImVec2 q, ImVec2 r) {
+float dotProduct(ImVec2 p, ImVec2 q) {
+	return p.x * q.x + p.y * q.y;
+}
+
+float angle(ImVec2 p, ImVec2 q, ImVec2 r) {
 	/*
 	Returns the value of the angle PQR in radians
 	PQ . QR = |PQ||QR|cos(PQR)
 	*/
-	const double dot = (q.x - p.x) * (r.x - q.x) + (q.y - p.y) * (r.y - q.y);
-	const double pq = sqrt(pow(q.x - p.x, 2) + pow(r.x - q.x, 2));
-	const double qr = sqrt(pow(q.y - p.y, 2) + pow(r.y - q.y, 2));
+	const ImVec2 qp = { p.x - q.x,p.y - q.y };
+	const ImVec2 qr = { r.x - q.x,r.y - q.y };
 
-	return std::acos(dot / (pq*qr));
+	const double a = sqrtf(pow(qp.x, 2) + pow(qp.y, 2));
+	const double b = sqrtf(pow(qr.x, 2) + pow(qr.y, 2));
+
+	return std::acosf(dotProduct(qp, qr) / (a*b));
 }
