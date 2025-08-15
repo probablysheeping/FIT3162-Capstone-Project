@@ -242,7 +242,6 @@ int main()
                     intersection = intersectingPolygon(&intersection, &polygons.at(selectedPolygons.at(i)));
                 }
 
-                intersection.setColour(polygonColour[0], polygonColour[1], polygonColour[2]);
                 intersection.drawPolygon();
                 polygons.push_back(intersection);
 
