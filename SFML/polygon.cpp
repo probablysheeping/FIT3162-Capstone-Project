@@ -151,7 +151,7 @@ Polygon intersectingPolygon(Polygon* p1, Polygon* p2) {
 				 
 				 // If 1st vertex not in visible area
 				 if (sideOfLine(outputList.at(j), p2->getVertices().at(i), p2->getVertices().at(i2)) < 0) {
-					 const ImVec2 POI = intersectingSegments(outputList.at(j), outputList.at(j2), p2->getVertices().at(i), p2->getVertices().at(i2));
+					 const ImVec2 POI = intersectingLines(outputList.at(j), outputList.at(j2), p2->getVertices().at(i), p2->getVertices().at(i2));
 					 newOutputList.push_back(POI);
 				 }
 
@@ -159,7 +159,7 @@ Polygon intersectingPolygon(Polygon* p1, Polygon* p2) {
 			 }
 			 // If 1st vertex in visible area
 			 else if (sideOfLine(outputList.at(j), p2->getVertices().at(i), p2->getVertices().at(i2)) >= 0) {
-				  const ImVec2 POI = intersectingSegments(outputList.at(j), outputList.at(j2), p2->getVertices().at(i), p2->getVertices().at(i2));
+				  const ImVec2 POI = intersectingLines(outputList.at(j), outputList.at(j2), p2->getVertices().at(i), p2->getVertices().at(i2));
 				  newOutputList.push_back(POI);
 				  
 
@@ -174,7 +174,7 @@ Polygon intersectingPolygon(Polygon* p1, Polygon* p2) {
 	 return result;
 }
 
-ImVec2 intersectingSegments(ImVec2 a, ImVec2 b, ImVec2 p, ImVec2 q) {
+ImVec2 intersectingLines(ImVec2 a, ImVec2 b, ImVec2 p, ImVec2 q) {
 	/*
 	Given line segments AB and PQ, find point of intersection between AB and PQ if it exists
 	If it does not return (-1,-1) which can't be shown on the canvas and represent a "garbage value"
@@ -185,15 +185,21 @@ ImVec2 intersectingSegments(ImVec2 a, ImVec2 b, ImVec2 p, ImVec2 q) {
 	float y = ((a.x * b.y - a.y * b.x) * (p.y - q.y) - (a.y - b.y) * (p.x * q.y - p.y * q.x)) / d;
 
 	return ImVec2(x, y);
+}
 
-	if (std::max(std::min(a.x, b.x), std::min(p.x, q.x)) <= x <= std::min(std::max(a.x,b.x), std::max(p.x,q.x)) && 
-		std::max(std::min(a.y, b.y), std::min(p.y, q.y)) <= y <= std::min(std::max(a.y, b.y), std::max(p.y, q.y))) {
+ImVec2 intersectingSegments(ImVec2 a, ImVec2 b, ImVec2 p, ImVec2 q)
+{
+	const ImVec2 output = intersectingSegments(a, b, p, q);
 
-		return ImVec2(x, y);
+	if (std::max(std::min(a.x, b.x), std::min(p.x, q.x)) <= output.x <= std::min(std::max(a.x,b.x), std::max(p.x,q.x)) && 
+		std::max(std::min(a.y, b.y), std::min(p.y, q.y)) <= output.y <= std::min(std::max(a.y, b.y), std::max(p.y, q.y))) {
+
+		return output;
 
 	}
 
 	return ImVec2(-1, -1);
+	
 }
 
 float dotProduct(ImVec2 p, ImVec2 q) {
