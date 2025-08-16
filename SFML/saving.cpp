@@ -124,7 +124,8 @@ std::vector<Polygon> openFile(std::string fileLocation)
 			float r, g, b;
 			iss >> r >> g >> b;
 			currentPolygon.setVertices(vertices);
-			currentPolygon.setColour(r, g, b);
+			float colour[3] = { r,g,b };
+			currentPolygon.setColour(colour);
 		}
 		else if (readingPolygon && word == "END")
 		{
