@@ -30,6 +30,7 @@ private:
 int sgn(double x);
 float distanceL2(ImVec2 p, ImVec2 q);
 Polygon intersectingPolygon(Polygon* p1, Polygon* p2);
+ImVec2 intersectingLines(ImVec2 a, ImVec2 b, ImVec2 p, ImVec2 q);
 ImVec2 intersectingSegments(ImVec2 a, ImVec2 b, ImVec2 p, ImVec2 q);
 float angle(ImVec2 p, ImVec2 q, ImVec2 r);
 

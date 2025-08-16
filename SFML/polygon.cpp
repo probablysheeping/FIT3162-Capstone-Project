@@ -175,7 +175,8 @@ Polygon intersectingPolygon(Polygon* p1, Polygon* p2) {
     
 	 Polygon result;
 	 result.setVertices(outputList);
-	 result.setColour(avgR, avgG, avgB);
+	 float colour[3] = { avgR, avgG, avgB };
+	 result.setColour(colour);
 
 	 return result;
 }
