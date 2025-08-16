@@ -82,11 +82,10 @@ std::vector<ImVec2> Polygon::getVertices()
 	return this->vertices;
 }
 
-void Polygon::setColour(float r, float g, float b)
+void Polygon::setColour(float (&color)[3])
 {
-	this->colour[0] = r;
-	this->colour[1] = g;
-	this->colour[2] = b;
+	std::copy(std::begin(color), std::end(color), std::begin(this->colour));
+	this->render.setFillColor(sf::Color((int)(this->colour[0] * 255), (int)(this->colour[1] * 255), (int)(this->colour[2] * 255)));
 }
 
 float Polygon::getColour(int index)

@@ -19,7 +19,7 @@ static bool selectedpolygon = false;
 // How long until we autosave
 static const sf::Time autosaveTime = sf::seconds(20.f);
 
-std::vector<ImVec2> adjustVertices(std::vector<ImVec2> vertices) {
+std::vector<ImVec2> adjustVertices(std::vector<ImVec2>& vertices) {
     /*
     For each angle check if it is close to 90, 60, 45, 30 or 0 degrees (or 180, etc i cbf typing them all out)
 
@@ -125,7 +125,7 @@ int main()
                                 //TODO: Adjust vertex locations as per requirements
                                 //newPolygon.vertices = adjustVertices(vertices);
                                 newPolygon.setVertices(vertices);
-                                newPolygon.setColour(polygonColour[0], polygonColour[1], polygonColour[2]);
+                                newPolygon.setColour(polygonColour);
                                 newPolygon.drawPolygon();
                                 polygons.push_back(newPolygon);
 
@@ -168,6 +168,9 @@ int main()
                         if (selectedPolygons.size() == 1) {
                             area = polygons.at(selectedPolygons.at(0)).polygonArea();
                         }
+                        else {
+                            area = -1;
+                        }
                     }
                 }
             }
@@ -194,7 +197,7 @@ int main()
                     quickSave(polygons, "\\save.sav");
                 }
                 if (ImGui::MenuItem("Save As", "CTRL+SHIFT+S")) {
-                    std::string saveLocation = SaveFileDialog();
+                    std::string saveLocation = SaveFileDialog() + ".sav";
                     if (saveToFile(polygons, saveLocation))
                         std::cout << "Saved file successfully to " << saveLocation << std::endl;
                     else
@@ -262,7 +265,7 @@ int main()
                     intersection = intersectingPolygon(&intersection, &polygons.at(selectedPolygons.at(i)));
                 }
 
-                intersection.setColour(polygonColour[0], polygonColour[1], polygonColour[2]);
+                intersection.setColour(polygonColour);
                 intersection.drawPolygon();
                 polygons.push_back(intersection);
 
@@ -282,7 +285,7 @@ int main()
                 //Alter Polygon Colour
                 if (!selectedPolygons.empty()) {
                     for (int i : selectedPolygons) {
-                        polygons.at(i).render.setFillColor(sf::Color((int)(polygonColour[0] * 255), (int)(polygonColour[1] * 255), (int)(polygonColour[2] * 255)));
+                        polygons.at(i).setColour(polygonColour);
                     }
                 }
             }

@@ -15,8 +15,9 @@ public:
     void setVertices(std::vector<ImVec2> vertices);
     std::vector<ImVec2> getVertices();
 
-    void setColour(float r, float g, float b);
+    
     float getColour(int index);
+    void setColour(float(&color)[3]);
 
     void drawPolygon();
 
