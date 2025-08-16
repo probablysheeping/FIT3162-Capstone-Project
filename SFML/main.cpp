@@ -17,11 +17,11 @@
 
 static bool selectedpolygon = false;
 
-void adjustVertices(std::vector<ImVec2>& vertices ) {
+
 // How long until we autosave
 static const sf::Time autosaveTime = sf::seconds(20.f);
 
-std::vector<ImVec2> adjustVertices(std::vector<ImVec2>& vertices) {
+void adjustVertices(std::vector<ImVec2>& vertices) {
     /*
     For each angle check if it is close to 90, 60, 45, 30 or 0 degrees (or 180, etc i cbf typing them all out)
     Vertices MUST BE ORDERED CLOCKWISE
@@ -147,8 +147,8 @@ int main()
         bool createPolygon = false;
     } status;
 
-    float polygonColour[3] = {0.f, 0.f, 0.f};
-   
+    float polygonColour[3] = { 0.f, 0.f, 0.f };
+
     std::vector<Polygon> polygons;
 
     // Creating Polygon Variables
@@ -171,7 +171,7 @@ int main()
     adjustVertices(testPolygonVertices);
     testPolygon.setVertices(testPolygonVertices);
     testPolygon2.render.setFillColor(sf::Color::Red);
-    
+
     polygons.push_back(testPolygon2);
     polygons.push_back(testPolygon);
     // Autosaving clock
@@ -196,7 +196,7 @@ int main()
                                 std::cout << "ERROR MESSAGE" << std::endl;
                             }
                             else {
-                                
+
                                 newPolygon.setVertices(vertices);
 
                                 //orient vertices clockwise
@@ -207,7 +207,7 @@ int main()
                                 adjustVertices(vertices);
                                 newPolygon.setVertices(vertices);
                                 newPolygon.setColour(polygonColour);
-                                newPolygon.drawPolygon();
+
                                 polygons.push_back(newPolygon);
 
                                 vertices.clear();
@@ -231,7 +231,7 @@ int main()
                         int i = 0;
                         for (i; i < polygons.size(); i++) {
                             polygon = &polygons.at(i);
-                            if (std::find(selectedPolygons.begin(), selectedPolygons.end(), i)==selectedPolygons.end() && polygon->pointInPolygon(p)) {
+                            if (std::find(selectedPolygons.begin(), selectedPolygons.end(), i) == selectedPolygons.end() && polygon->pointInPolygon(p)) {
 
                                 selectedPolygons.push_back(i);
                                 polygon->render.setOutlineThickness(1.f);
@@ -269,42 +269,37 @@ int main()
                 if (ImGui::MenuItem("Open", "CTRL+O")) {
                     std::string openLocation = OpenFileDialog();
                     polygons = openFile(openLocation);
-                    for (Polygon& polygon : polygons) {
-                        // update the SFML ConvexShape render with loaded data
-                        polygon.drawPolygon(); 
-                    }
                 }
-                if (ImGui::MenuItem("Save", "CTRL+S")) {
-                    quickSave(polygons, "\\save.sav");
-                }
-                if (ImGui::MenuItem("Save As", "CTRL+SHIFT+S")) {
-                    std::string saveLocation = SaveFileDialog() + ".sav";
-                    if (saveToFile(polygons, saveLocation))
-                        std::cout << "Saved file successfully to " << saveLocation << std::endl;
-                    else
-                        std::cout << "Saved file un-successfully to" << saveLocation << std::endl;
-
-                }
-                ImGui::Separator();
-                if (ImGui::MenuItem("Settings")) {}
-                if (ImGui::MenuItem("Exit")) {
-                    break; // Not sure if this is the best way to do this
-                }
-                ImGui::EndMenu();
             }
-            if (ImGui::BeginMenu("Edit"))
-            {
-                if (ImGui::MenuItem("Undo", "CTRL+Z")) {}
-                if (ImGui::MenuItem("Redo", "CTRL+Y", false, false)) {} // Disabled item
-                ImGui::Separator();
-                if (ImGui::MenuItem("Cut", "CTRL+X")) {}
-                if (ImGui::MenuItem("Copy", "CTRL+C")) {}
-                if (ImGui::MenuItem("Paste", "CTRL+V")) {}
-                ImGui::EndMenu();
+            if (ImGui::MenuItem("Save", "CTRL+S")) {
+                quickSave(polygons, "\\save.sav");
             }
-            ImGui::EndMainMenuBar();
+            if (ImGui::MenuItem("Save As", "CTRL+SHIFT+S")) {
+                std::string saveLocation = SaveFileDialog() + ".sav";
+                if (saveToFile(polygons, saveLocation))
+                    std::cout << "Saved file successfully to " << saveLocation << std::endl;
+                else
+                    std::cout << "Saved file un-successfully to" << saveLocation << std::endl;
 
+            }
+            ImGui::Separator();
+            if (ImGui::MenuItem("Settings")) {}
+            if (ImGui::MenuItem("Exit")) {
+                break; // Not sure if this is the best way to do this
+            }
+            ImGui::EndMenu();
         }
+        if (ImGui::BeginMenu("Edit"))
+        {
+            if (ImGui::MenuItem("Undo", "CTRL+Z")) {}
+            if (ImGui::MenuItem("Redo", "CTRL+Y", false, false)) {} // Disabled item
+            ImGui::Separator();
+            if (ImGui::MenuItem("Cut", "CTRL+X")) {}
+            if (ImGui::MenuItem("Copy", "CTRL+C")) {}
+            if (ImGui::MenuItem("Paste", "CTRL+V")) {}
+            ImGui::EndMenu();
+        }
+        ImGui::EndMainMenuBar();
 
         // Autosaving functionality
         if (autosaveClock.getElapsedTime() >= autosaveTime) {
@@ -320,7 +315,7 @@ int main()
 
             if (ImGui::Button("Create Polygon", ImVec2(120, 30))) {
                 // Create Polygon
-                status.createPolygon = true; 
+                status.createPolygon = true;
 
                 vertices.clear();
                 newPolygon = Polygon();
@@ -334,19 +329,19 @@ int main()
                 // Delete Polygon
                 for (int i : selectedPolygons) {
                     polygons.erase(polygons.begin() + i);
-                    
+
                 }
                 selectedPolygons.clear();
             }
 
-            if (ImGui::Button("Compute IoU", ImVec2(120, 30)) && selectedPolygons.size()==2) {
+            if (ImGui::Button("Compute IoU", ImVec2(120, 30)) && selectedPolygons.size() == 2) {
                 Polygon intersection = polygons.at(selectedPolygons.at(0));
                 for (int i = 1; i < selectedPolygons.size(); i++) {
                     intersection = intersectingPolygon(&intersection, &polygons.at(selectedPolygons.at(i)));
                 }
 
                 intersection.setColour(polygonColour);
-                intersection.drawPolygon();
+
                 polygons.push_back(intersection);
 
                 // TODO: Calculate IoU Metric and display result.
@@ -394,9 +389,10 @@ int main()
             window.draw(newPolygonOutline.data(), newPolygonOutline.size(), sf::PrimitiveType::LineStrip);
         }
 
-        
+
         ImGui::SFML::Render(window);
         window.display();
+
     }
 
     ImGui::SFML::Shutdown();
