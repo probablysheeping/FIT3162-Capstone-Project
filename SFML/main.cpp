@@ -48,39 +48,6 @@ void adjustVertices(std::vector<ImVec2>& vertices) {
         for (int x : angles) {
             if (abs(abs(pqr) - x) <= delta) {
 
-                /*
-                ATTEMPT 1
-                // We want to use the adjusted vertices.
-                // r will always be not adjusted
-                if (i > 0) {
-                    p = result.at(i - 1);
-                }
-
-                // We will move q.
-                angle2 = angle(r, q, { q.x + 1, q.y });
-                o1 = sgn(sideOfLine(r, q, { q.x + 1,q.y }));
-
-                // TODO: CASE o=0
-
-                unitvec = { static_cast<float>(std::cos(-o1 * angle2 + x * M_PI / 180)), -static_cast<float>(std::sin(-o1 * angle2 + x * M_PI / 180)) };
-                t = (unitvec.y * (q.x - p.x) - unitvec.x * (q.y - p.y)) / (unitvec.x * (r.y - q.y) - unitvec.y * (r.x - q.x));
-                result.push_back({ static_cast<float>(t * (r.x - q.x) + q.x), static_cast<float>(t * (r.y - q.y) + q.y) });
-                adjusted = true;
-
-                // DEBUGGING CODE
-                
-                std::cout << "a" << std::endl;
-                std::cout << p.x << "," << p.y << std::endl;
-                std::cout << q.x << "," << q.y << std::endl;
-                std::cout << r.x << "," << r.y << std::endl;
-                std::cout << angle2 * 180 / M_PI << std::endl;
-                std::cout << o1 << std::endl;
-                std::cout << unitvec.x << "," << unitvec.y << std::endl;
-                std::cout << t * (r.x - q.x) + q.x << "," << t * (r.y - q.y) + q.y << std::endl;
-                std::cout << "b" << std::endl;
-                std::cout << x << " = " << angle(p, result.at(i), r) * 180 / M_PI << std::endl;
-                */
-
                 // using vector projections
                 // we need to get a vector in the direction of "where we want QR' to face" (where R' is adjusted vertex)
 
@@ -166,14 +133,6 @@ int main()
     Polygon testPolygon;
     Polygon testPolygon2;
 
-    std::vector<ImVec2> testPolygonVertices = { {279,539}, {307,307}, {159,507} };
-    testPolygon2.setVertices(testPolygonVertices);
-    adjustVertices(testPolygonVertices);
-    testPolygon.setVertices(testPolygonVertices);
-    testPolygon2.render.setFillColor(sf::Color::Red);
-
-    polygons.push_back(testPolygon2);
-    polygons.push_back(testPolygon);
     // Autosaving clock
     sf::Clock autosaveClock;
 
@@ -236,7 +195,7 @@ int main()
                                 selectedPolygons.push_back(i);
                                 polygon->render.setOutlineThickness(1.f);
                                 polygon->render.setOutlineColor(sf::Color::Cyan);
-                                //polygon -> render.setFillColor(sf::Color((int)(polygonColour[0] * 255), (int)(polygonColour[1] * 255), (int)(polygonColour[2] * 255)));
+
                                 break;
                             }
 
@@ -269,38 +228,49 @@ int main()
                 if (ImGui::MenuItem("Open", "CTRL+O")) {
                     std::string openLocation = OpenFileDialog();
                     polygons = openFile(openLocation);
+                    selectedPolygons.clear();
                 }
-            }
-            if (ImGui::MenuItem("Save", "CTRL+S")) {
-                quickSave(polygons, "\\save.sav");
-            }
-            if (ImGui::MenuItem("Save As", "CTRL+SHIFT+S")) {
-                std::string saveLocation = SaveFileDialog() + ".sav";
-                if (saveToFile(polygons, saveLocation))
-                    std::cout << "Saved file successfully to " << saveLocation << std::endl;
-                else
-                    std::cout << "Saved file un-successfully to" << saveLocation << std::endl;
+
+                if (ImGui::MenuItem("Save", "CTRL+S")) {
+                    quickSave(polygons, "\\save.sav");
+                }
+
+                if (ImGui::MenuItem("Save As", "CTRL+SHIFT+S")) {
+                    std::string saveLocation = SaveFileDialog() + ".sav";
+                    if (saveToFile(polygons, saveLocation))
+                        std::cout << "Saved file successfully to " << saveLocation << std::endl;
+                    else
+                        std::cout << "Saved file un-successfully to" << saveLocation << std::endl;
+
+                }
+                ImGui::EndMenu();
 
             }
+            
             ImGui::Separator();
-            if (ImGui::MenuItem("Settings")) {}
+            if (ImGui::MenuItem("Settings")) {
+            
+            }
+            
+
+        
+            if (ImGui::BeginMenu("Edit"))
+            {
+                if (ImGui::MenuItem("Undo", "CTRL+Z")) {}
+                if (ImGui::MenuItem("Redo", "CTRL+Y", false, false)) {} // Disabled item
+                ImGui::Separator();
+                if (ImGui::MenuItem("Cut", "CTRL+X")) {}
+                if (ImGui::MenuItem("Copy", "CTRL+C")) {}
+                if (ImGui::MenuItem("Paste", "CTRL+V")) {}
+                ImGui::EndMenu();
+            }
+
             if (ImGui::MenuItem("Exit")) {
                 break; // Not sure if this is the best way to do this
             }
-            ImGui::EndMenu();
-        }
-        if (ImGui::BeginMenu("Edit"))
-        {
-            if (ImGui::MenuItem("Undo", "CTRL+Z")) {}
-            if (ImGui::MenuItem("Redo", "CTRL+Y", false, false)) {} // Disabled item
-            ImGui::Separator();
-            if (ImGui::MenuItem("Cut", "CTRL+X")) {}
-            if (ImGui::MenuItem("Copy", "CTRL+C")) {}
-            if (ImGui::MenuItem("Paste", "CTRL+V")) {}
-            ImGui::EndMenu();
-        }
-        ImGui::EndMainMenuBar();
 
+            ImGui::EndMainMenuBar();
+        }
         // Autosaving functionality
         if (autosaveClock.getElapsedTime() >= autosaveTime) {
             quickSave(polygons, "\\autosave.sav");
