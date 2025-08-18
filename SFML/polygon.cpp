@@ -16,6 +16,7 @@ Assumes no overlapping edges and no interior holes.
 Polygon::Polygon() {
 }
 
+//unecessary?
 Polygon::~Polygon() {
 }
 
@@ -52,7 +53,7 @@ bool Polygon::pointInPolygon(ImVec2 p) {
 
 }
 
-double Polygon::signedArea() {
+float Polygon::signedArea() {
 	// https://demonstrations.wolfram.com/SignedAreaOfAPolygon/
 	// If vertices are oriented clockwise then signed area is positive
 	// Otherwise it is negative
@@ -66,7 +67,7 @@ double Polygon::signedArea() {
 	return 0.5 * result;
 }
 
-double Polygon::polygonArea() {
+float Polygon::polygonArea() {
 	return abs(this->signedArea());
 }
 
@@ -75,6 +76,15 @@ double Polygon::polygonArea() {
 void Polygon::setVertices(std::vector<ImVec2> vertices)
 {
 	this->vertices = vertices;
+	sf::ConvexShape convex;
+
+	int n = vertices.size(); // vertex count
+	convex.setPointCount(n);
+	convex.setFillColor(sf::Color((int)(this->colour[0] * 255), (int)(this->colour[1] * 255), (int)(this->colour[2] * 255)));
+	for (int i = 0; i < n; i++) {
+		convex.setPoint(i, vertices.at(i));
+	}
+	this->render = convex;
 }
 
 std::vector<ImVec2> Polygon::getVertices()
@@ -96,30 +106,19 @@ float Polygon::getColour(int index)
 		return this->colour[index];
 }
 
-void Polygon::drawPolygon()
-{
-	sf::ConvexShape convex;
-	
-    int n = this->getVertices().size(); // vertex count
-	convex.setPointCount(n);
-	convex.setFillColor(sf::Color((int)(this->colour[0] * 255), (int)(this->colour[1] * 255), (int)(this->colour[2] * 255)));
-    for (int i = 0; i < n; i++) {
-		convex.setPoint(i, this->getVertices().at(i));
-    }
-	this->render = convex;
-}
 
 int sgn(double x) {
 	return (x > 0) - (x < 0);
 }
 
-double distanceL2(ImVec2 p, ImVec2 q) {
+float distanceL2(ImVec2 p, ImVec2 q) {
 	// distance using L2 metric
-	return sqrt(pow(p.x - q.x, 2) + pow(p.y - q.y, 2));
+	return sqrtf(pow(p.x - q.x, 2) + pow(p.y - q.y, 2));
 }
 
 float sideOfLine(ImVec2 p, ImVec2 a, ImVec2 b) {
 	// returns whether p is to the "left" of AB or to the "right"
+	// left = -1, right = 1, on = 0
 	const int x = (b.x - a.x) * (p.y - a.y) - (b.y - a.y) * (p.x - a.x);
 	return sgn(x);
 }
@@ -152,7 +151,7 @@ Polygon intersectingPolygon(Polygon* p1, Polygon* p2) {
 				 
 				 // If 1st vertex not in visible area
 				 if (sideOfLine(outputList.at(j), p2->getVertices().at(i), p2->getVertices().at(i2)) < 0) {
-					 const ImVec2 POI = intersectingSegments(outputList.at(j), outputList.at(j2), p2->getVertices().at(i), p2->getVertices().at(i2));
+					 const ImVec2 POI = intersectingLines(outputList.at(j), outputList.at(j2), p2->getVertices().at(i), p2->getVertices().at(i2));
 					 newOutputList.push_back(POI);
 				 }
 
@@ -160,7 +159,7 @@ Polygon intersectingPolygon(Polygon* p1, Polygon* p2) {
 			 }
 			 // If 1st vertex in visible area
 			 else if (sideOfLine(outputList.at(j), p2->getVertices().at(i), p2->getVertices().at(i2)) >= 0) {
-				  const ImVec2 POI = intersectingSegments(outputList.at(j), outputList.at(j2), p2->getVertices().at(i), p2->getVertices().at(i2));
+				  const ImVec2 POI = intersectingLines(outputList.at(j), outputList.at(j2), p2->getVertices().at(i), p2->getVertices().at(i2));
 				  newOutputList.push_back(POI);
 				  
 
@@ -170,12 +169,19 @@ Polygon intersectingPolygon(Polygon* p1, Polygon* p2) {
 
 	 }
 
+	 const float avgR = ((p1->getColour(0) + p2->getColour(0)) * 0.5f);
+	 const float avgG = ((p1->getColour(1) + p2->getColour(1)) * 0.5f);
+	 const float avgB = ((p1->getColour(2) + p2->getColour(2)) * 0.5f);
+    
 	 Polygon result;
 	 result.setVertices(outputList);
+	 float colour[3] = { avgR, avgG, avgB };
+	 result.setColour(colour);
+
 	 return result;
 }
 
-ImVec2 intersectingSegments(ImVec2 a, ImVec2 b, ImVec2 p, ImVec2 q) {
+ImVec2 intersectingLines(ImVec2 a, ImVec2 b, ImVec2 p, ImVec2 q) {
 	/*
 	Given line segments AB and PQ, find point of intersection between AB and PQ if it exists
 	If it does not return (-1,-1) which can't be shown on the canvas and represent a "garbage value"
@@ -186,25 +192,37 @@ ImVec2 intersectingSegments(ImVec2 a, ImVec2 b, ImVec2 p, ImVec2 q) {
 	float y = ((a.x * b.y - a.y * b.x) * (p.y - q.y) - (a.y - b.y) * (p.x * q.y - p.y * q.x)) / d;
 
 	return ImVec2(x, y);
+}
 
-	if (std::max(std::min(a.x, b.x), std::min(p.x, q.x)) <= x <= std::min(std::max(a.x,b.x), std::max(p.x,q.x)) && 
-		std::max(std::min(a.y, b.y), std::min(p.y, q.y)) <= y <= std::min(std::max(a.y, b.y), std::max(p.y, q.y))) {
+ImVec2 intersectingSegments(ImVec2 a, ImVec2 b, ImVec2 p, ImVec2 q)
+{
+	const ImVec2 output = intersectingSegments(a, b, p, q);
 
-		return ImVec2(x, y);
+	if (std::max(std::min(a.x, b.x), std::min(p.x, q.x)) <= output.x <= std::min(std::max(a.x,b.x), std::max(p.x,q.x)) && 
+		std::max(std::min(a.y, b.y), std::min(p.y, q.y)) <= output.y <= std::min(std::max(a.y, b.y), std::max(p.y, q.y))) {
+
+		return output;
 
 	}
 
 	return ImVec2(-1, -1);
+	
 }
 
-double angle(ImVec2 p, ImVec2 q, ImVec2 r) {
+float dotProduct(ImVec2 p, ImVec2 q) {
+	return p.x * q.x + p.y * q.y;
+}
+
+float angle(ImVec2 p, ImVec2 q, ImVec2 r) {
 	/*
 	Returns the value of the angle PQR in radians
 	PQ . QR = |PQ||QR|cos(PQR)
 	*/
-	const double dot = (q.x - p.x) * (r.x - q.x) + (q.y - p.y) * (r.y - q.y);
-	const double pq = sqrt(pow(q.x - p.x, 2) + pow(r.x - q.x, 2));
-	const double qr = sqrt(pow(q.y - p.y, 2) + pow(r.y - q.y, 2));
+	const ImVec2 qp = { p.x - q.x,p.y - q.y };
+	const ImVec2 qr = { r.x - q.x,r.y - q.y };
 
-	return std::acos(dot / (pq*qr));
+	const double a = sqrtf(pow(qp.x, 2) + pow(qp.y, 2));
+	const double b = sqrtf(pow(qr.x, 2) + pow(qr.y, 2));
+
+	return std::acosf(dotProduct(qp, qr) / (a*b));
 }
