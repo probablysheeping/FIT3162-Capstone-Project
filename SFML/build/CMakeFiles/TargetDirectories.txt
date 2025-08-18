@@ -1,0 +1,3 @@
+/Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/build/CMakeFiles/ConvexPolygonIoU.dir
+/Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/build/CMakeFiles/edit_cache.dir
+/Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/build/CMakeFiles/rebuild_cache.dir

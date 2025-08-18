@@ -183,8 +183,8 @@ int main()
                         // Left click to select a polygon. We unfortunately need to check each one.
                         ImVec2 p = sf::Mouse::getPosition(window);
                         Polygon* polygon;
-                        int i = 0;
-                        for (i; i < polygons.size(); i++) {
+                        int i;
+                        for (i = 0; i < polygons.size(); i++) {
                             polygon = &polygons.at(i);
                             if (std::find(selectedPolygons.begin(), selectedPolygons.end(), i) == selectedPolygons.end() && polygon->pointInPolygon(p)) {
 
@@ -342,9 +342,9 @@ int main()
             }
 
             ImGui::Text("Area:");
-            ImGui::SameLine(); ImGui::Text(area == -1 ? "" : std::to_string(area).c_str());
+            ImGui::SameLine(); ImGui::Text("%s", area == -1 ? "" : std::to_string(area).c_str());
             ImGui::Text("IoU metric:");
-            ImGui::SameLine(); ImGui::Text(IoUArea == -1 ? "" : std::to_string(IoUArea).c_str());
+            ImGui::SameLine(); ImGui::Text("%s", IoUArea == -1 ? "" : std::to_string(IoUArea).c_str());
 
         }
 
