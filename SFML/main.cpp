@@ -18,9 +18,9 @@
 static bool selectedpolygon = false;
 
 // How long until we autosave
-static const sf::Time autosaveTime = sf::seconds(20.f);
+static const sf::Time autosaveTime = sf::seconds(30.f);
 
-std::vector<ImVec2> adjustVertices(std::vector<ImVec2>& vertices) {
+void adjustVertices(std::vector<ImVec2>& vertices) {
     /*
     For each angle check if it is close to 90, 60, 45, 30 or 0 degrees (or 180, etc i cbf typing them all out)
     Vertices MUST BE ORDERED CLOCKWISE
@@ -239,11 +239,6 @@ int main()
                         std::cout << "Saved file un-successfully to" << saveLocation << std::endl;
 
                 }
-                ImGui::Separator();
-                if (ImGui::MenuItem("Settings")) {}
-                if (ImGui::MenuItem("Exit")) {
-                    break; // Not sure if this is the best way to do this
-                }
                 ImGui::EndMenu();
 
             }
@@ -278,12 +273,6 @@ int main()
             autosaveClock.restart();
         }
 
-        // Autosaving functionality
-        if (autosaveClock.getElapsedTime() >= autosaveTime) {
-            quickSave(polygons, "\\autosave.sav");
-            autosaveClock.restart();
-        }
-
         // Window used for creating polygons
         // Needs to be formatted properly. This is just a placeholder UI
         ImGui::SetNextWindowSize(ImVec2(350, 600));
@@ -312,6 +301,9 @@ int main()
             }
 
             if (ImGui::Button("Compute IoU", ImVec2(120, 30)) && selectedPolygons.size() == 2) {
+                // Save when computing IoU
+                quickSave(polygons, "\\autosave.sav");
+
                 Polygon intersection = polygons.at(selectedPolygons.at(0));
                 for (int i = 1; i < selectedPolygons.size(); i++) {
                     intersection = intersectingPolygon(&intersection, &polygons.at(selectedPolygons.at(i)));
