@@ -17,11 +17,10 @@
 
 static bool selectedpolygon = false;
 
-
 // How long until we autosave
 static const sf::Time autosaveTime = sf::seconds(20.f);
 
-void adjustVertices(std::vector<ImVec2>& vertices) {
+std::vector<ImVec2> adjustVertices(std::vector<ImVec2>& vertices) {
     /*
     For each angle check if it is close to 90, 60, 45, 30 or 0 degrees (or 180, etc i cbf typing them all out)
     Vertices MUST BE ORDERED CLOCKWISE
@@ -130,9 +129,6 @@ int main()
     double area = -1;
     double IoUArea = -1;
 
-    Polygon testPolygon;
-    Polygon testPolygon2;
-
     // Autosaving clock
     sf::Clock autosaveClock;
 
@@ -166,7 +162,7 @@ int main()
                                 adjustVertices(vertices);
                                 newPolygon.setVertices(vertices);
                                 newPolygon.setColour(polygonColour);
-
+                              
                                 polygons.push_back(newPolygon);
 
                                 vertices.clear();
@@ -243,6 +239,11 @@ int main()
                         std::cout << "Saved file un-successfully to" << saveLocation << std::endl;
 
                 }
+                ImGui::Separator();
+                if (ImGui::MenuItem("Settings")) {}
+                if (ImGui::MenuItem("Exit")) {
+                    break; // Not sure if this is the best way to do this
+                }
                 ImGui::EndMenu();
 
             }
@@ -271,6 +272,12 @@ int main()
 
             ImGui::EndMainMenuBar();
         }
+        // Autosaving functionality
+        if (autosaveClock.getElapsedTime() >= autosaveTime) {
+            quickSave(polygons, "\\autosave.sav");
+            autosaveClock.restart();
+        }
+
         // Autosaving functionality
         if (autosaveClock.getElapsedTime() >= autosaveTime) {
             quickSave(polygons, "\\autosave.sav");
@@ -311,7 +318,6 @@ int main()
                 }
 
                 intersection.setColour(polygonColour);
-
                 polygons.push_back(intersection);
 
                 // TODO: Calculate IoU Metric and display result.
