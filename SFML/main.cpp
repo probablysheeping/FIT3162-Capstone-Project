@@ -3,6 +3,7 @@
 #include "polygon.h"
 #include "saving.h"
 #include "filelocationchooser.h"
+#include "logging.h"
 
 #include <SFML/Graphics.hpp>
 // TODO: Set up boost.geometry
@@ -37,13 +38,12 @@ void adjustVertices(std::vector<ImVec2>& vertices) {
     ImVec2 qr;
 
     std::vector<ImVec2> result;
-    std::cout << "new bug" << std::endl;
     for (int i = 0; i < n; i++) {
         p = vertices.at(i - 1 >= 0 ? i - 1 : i - 1 + n);
         q = vertices.at(i);
         r = vertices.at(i + 1 < n ? i + 1 : i + 1 - n);
         pqr = static_cast<float>(angle(p, q, r)*180/M_PI);
-        std::cout << pqr << std::endl;
+        logger << currentDateTime() << "PQR: " << pqr << std::endl;
         for (int x : angles) {
             if (abs(abs(pqr) - x) <= delta) {
 
@@ -148,7 +148,7 @@ int main()
                         ImVec2 mousepos = sf::Mouse::getPosition(window);
                         if (!firstVertex && distanceL2(mousepos, vertices.front()) <= 10) {
                             if (vertices.size() < 3) {
-                                std::cout << "ERROR MESSAGE" << std::endl;
+                                logger << currentDateTime() << "ERROR: Number of vertices less than three and instead is " << vertices.size() << std::endl;
                             }
                             else {
 
@@ -225,6 +225,13 @@ int main()
                     std::string openLocation = OpenFileDialog();
                     polygons = openFile(openLocation);
                     selectedPolygons.clear();
+
+                    logger << currentDateTime() << " File opened from " << openLocation << std::endl;
+
+                    logger << "Polygons in file: \n";
+                    for (Polygon polygon : polygons)
+                        logger << polygon;
+
                 }
 
                 if (ImGui::MenuItem("Save", "CTRL+S")) {
@@ -234,9 +241,9 @@ int main()
                 if (ImGui::MenuItem("Save As", "CTRL+SHIFT+S")) {
                     std::string saveLocation = SaveFileDialog() + ".sav";
                     if (saveToFile(polygons, saveLocation))
-                        std::cout << "Saved file successfully to " << saveLocation << std::endl;
+                        logger << currentDateTime() << " Saved file successfully to " << saveLocation << std::endl;
                     else
-                        std::cout << "Saved file un-successfully to" << saveLocation << std::endl;
+                        logger << currentDateTime() << " Saved file un-successfully to " << saveLocation << std::endl;
 
                 }
                 ImGui::EndMenu();
@@ -365,4 +372,15 @@ int main()
     }
 
     ImGui::SFML::Shutdown();
+
+    if (getExecutablePath() != NULL_SAVE_PATH) {
+        std::string saveLocation = getExecutablePath() + "log_" + currentDateTime() + ".txt";
+        saveLogToFile(saveLocation);
+        std::cout << "Log file saved to " << saveLocation << std::endl;
+    }
+    else {
+        std::cout << "Cannot create log file!" << std::endl;
+    }
+
+    return 0;
 }
