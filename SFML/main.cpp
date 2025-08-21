@@ -116,6 +116,7 @@ int main()
     // Settings
     bool logSavingEnabled = true;
     bool autosaveEnabled = true;
+    bool fullscreenEnabled = false;
 
     float polygonColour[3] = { 0.f, 0.f, 0.f };
 
@@ -258,6 +259,13 @@ int main()
             if (ImGui::BeginMenu("Settings")) {
                 ImGui::MenuItem("Logging", nullptr, &logSavingEnabled);
                 ImGui::MenuItem("Autosaving", nullptr, &autosaveEnabled);
+                if (ImGui::MenuItem("Full Screen", nullptr, &fullscreenEnabled)) {
+                    window.close();
+                    if (fullscreenEnabled)
+                        window.create(sf::VideoMode::getDesktopMode(), WINDOW_DISPLAY_NAME, sf::State::Fullscreen);
+                    else
+                        window.create(sf::VideoMode::getDesktopMode(), WINDOW_DISPLAY_NAME, sf::State::Windowed);
+                }
                 ImGui::EndMenu();
             }
             
@@ -275,7 +283,7 @@ int main()
             }
 
             if (ImGui::MenuItem("Exit")) {
-                break; // Not sure if this is the best way to do this
+                window.close();
             }
 
             ImGui::EndMainMenuBar();
