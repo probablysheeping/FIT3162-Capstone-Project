@@ -92,8 +92,7 @@ void adjustVertices(std::vector<ImVec2>& vertices) {
 /// <summary>
 /// This is the SFML window where polygons will appear.
 /// </summary>
-/// <returns></returns>
-int main()
+void runProgram()
 {
     sf::ContextSettings settings;
     settings.antiAliasingLevel = 8;
@@ -103,7 +102,7 @@ int main()
     window.setSize(sf::Vector2u(WINDOW_WIDTH, WINDOW_HEIGHT));
     window.setFramerateLimit(FRAME_LIMIT);
     if (!ImGui::SFML::Init(window))
-        return -1;
+        throw std::runtime_error("SFML Window could not initialise!");
 
     sf::Clock deltaClock;
 
@@ -167,7 +166,7 @@ int main()
                                 adjustVertices(vertices);
                                 newPolygon.setVertices(vertices);
                                 newPolygon.setColour(polygonColour);
-                              
+
                                 polygons.push_back(newPolygon);
 
                                 vertices.clear();
@@ -254,7 +253,7 @@ int main()
                 ImGui::EndMenu();
 
             }
-            
+
             ImGui::Separator();
             if (ImGui::BeginMenu("Settings")) {
                 ImGui::MenuItem("Logging", nullptr, &logSavingEnabled);
@@ -268,9 +267,9 @@ int main()
                 }
                 ImGui::EndMenu();
             }
-            
 
-        
+
+
             if (ImGui::BeginMenu("Edit"))
             {
                 if (ImGui::MenuItem("Undo", "CTRL+Z")) {}
@@ -390,14 +389,19 @@ int main()
 
     // Save logs to file
     if (logSavingEnabled) {
-        if (getExecutablePath() != NULL_SAVE_PATH) {
-            std::string saveLocation = getExecutablePath() + "log_" + currentDateTime() + ".txt";
-            saveLogToFile(saveLocation);
-            std::cout << "Log file saved to " << saveLocation << std::endl;
-        }
-        else {
-            std::cout << "Cannot create log file!" << std::endl;
-        }
+        saveLogToFile("log");
+    }
+}
+
+int main()
+{
+    try {
+        runProgram();
+    }
+    catch (const std::exception& ex) {
+        logger << "Unhandled exception: " << ex.what() << std::endl;
+        saveLogToFile("crash");
+        return 1;
     }
 
     return 0;
