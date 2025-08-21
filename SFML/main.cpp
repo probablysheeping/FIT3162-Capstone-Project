@@ -113,6 +113,10 @@ int main()
         bool createPolygon = false;
     } status;
 
+    // Settings
+    bool logSavingEnabled = true;
+    bool autosaveEnabled = true;
+
     float polygonColour[3] = { 0.f, 0.f, 0.f };
 
     std::vector<Polygon> polygons;
@@ -251,8 +255,10 @@ int main()
             }
             
             ImGui::Separator();
-            if (ImGui::MenuItem("Settings")) {
-            
+            if (ImGui::BeginMenu("Settings")) {
+                ImGui::MenuItem("Logging", nullptr, &logSavingEnabled);
+                ImGui::MenuItem("Autosaving", nullptr, &autosaveEnabled);
+                ImGui::EndMenu();
             }
             
 
@@ -309,7 +315,8 @@ int main()
 
             if (ImGui::Button("Compute IoU", ImVec2(120, 30)) && selectedPolygons.size() == 2) {
                 // Save when computing IoU
-                quickSave(polygons, "\\autosave.sav");
+                if (autosaveEnabled)
+                    quickSave(polygons, "\\autosave.sav");
 
                 Polygon intersection = polygons.at(selectedPolygons.at(0));
                 for (int i = 1; i < selectedPolygons.size(); i++) {
@@ -373,13 +380,16 @@ int main()
 
     ImGui::SFML::Shutdown();
 
-    if (getExecutablePath() != NULL_SAVE_PATH) {
-        std::string saveLocation = getExecutablePath() + "log_" + currentDateTime() + ".txt";
-        saveLogToFile(saveLocation);
-        std::cout << "Log file saved to " << saveLocation << std::endl;
-    }
-    else {
-        std::cout << "Cannot create log file!" << std::endl;
+    // Save logs to file
+    if (logSavingEnabled) {
+        if (getExecutablePath() != NULL_SAVE_PATH) {
+            std::string saveLocation = getExecutablePath() + "log_" + currentDateTime() + ".txt";
+            saveLogToFile(saveLocation);
+            std::cout << "Log file saved to " << saveLocation << std::endl;
+        }
+        else {
+            std::cout << "Cannot create log file!" << std::endl;
+        }
     }
 
     return 0;
