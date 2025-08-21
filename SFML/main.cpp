@@ -313,6 +313,7 @@ int main()
                 polygons.push_back(intersection);
 
                 // TODO: Calculate IoU Metric and display result.
+                IoUArea = intersection.polygonArea() / (polygons.at(selectedPolygons.at(0)).polygonArea() + polygons.at(selectedPolygons.at(1)).polygonArea());
             }
 
             if (ImGui::Button("Clear Selected", ImVec2(120, 30))) {
