@@ -1,5 +1,7 @@
 #pragma once
 #include <vector>
+#include <string>
+#include <ostream>
 #include "imgui.h"
 #include <SFML/Graphics.hpp>
 
@@ -19,6 +21,8 @@ public:
     float getColour(int index);
     void setColour(float(&color)[3]);
 
+    operator std::string() const;
+    friend std::ostream& operator<<(std::ostream& os, const Polygon& obj);
 
     sf::ConvexShape render;
 

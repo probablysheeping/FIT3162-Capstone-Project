@@ -6,6 +6,8 @@
 #include <filesystem>
 #include <sstream>
 
+#include "logging.h"
+
 // I cannot pull in all of windows.h without breaking program
 #ifdef _WIN32
 extern "C" __declspec(dllimport)
@@ -48,22 +50,7 @@ bool saveToFile(std::vector<Polygon> polygons, std::string fileLocation)
 		return false;
 
 	for (Polygon polygon : polygons)
-	{
-		saveFile << "POLYGON\n";
-
-		std::vector<ImVec2> vertices = polygon.getVertices();
-		saveFile << "VERTICES " << vertices.size() << "\n";
-
-		for (ImVec2 vertex : vertices)
-			saveFile << vertex.x << ' ' << vertex.y << '\n';
-
-		saveFile << "COLOUR "
-			<< polygon.getColour(0) << ' '
-			<< polygon.getColour(1) << ' '
-			<< polygon.getColour(2) << '\n';
-
-		saveFile << "END\n";
-	}
+		saveFile << polygon;
 	
 	// Close file
 	saveFile.close();
