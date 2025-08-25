@@ -57,10 +57,10 @@ RM = /opt/homebrew/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML
+CMAKE_SOURCE_DIR = /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/build
+CMAKE_BINARY_DIR = /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/build/CMakeFiles /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build/CMakeFiles /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -297,6 +297,30 @@ imgui/imgui_widgets.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ConvexPolygonIoU.dir/build.make CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_widgets.cpp.s
 .PHONY : imgui/imgui_widgets.cpp.s
 
+logging.o: logging.cpp.o
+.PHONY : logging.o
+
+# target to build an object file
+logging.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ConvexPolygonIoU.dir/build.make CMakeFiles/ConvexPolygonIoU.dir/logging.cpp.o
+.PHONY : logging.cpp.o
+
+logging.i: logging.cpp.i
+.PHONY : logging.i
+
+# target to preprocess a source file
+logging.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ConvexPolygonIoU.dir/build.make CMakeFiles/ConvexPolygonIoU.dir/logging.cpp.i
+.PHONY : logging.cpp.i
+
+logging.s: logging.cpp.s
+.PHONY : logging.s
+
+# target to generate assembly for a file
+logging.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ConvexPolygonIoU.dir/build.make CMakeFiles/ConvexPolygonIoU.dir/logging.cpp.s
+.PHONY : logging.cpp.s
+
 main.o: main.cpp.o
 .PHONY : main.o
 
@@ -399,6 +423,9 @@ help:
 	@echo "... imgui/imgui_widgets.o"
 	@echo "... imgui/imgui_widgets.i"
 	@echo "... imgui/imgui_widgets.s"
+	@echo "... logging.o"
+	@echo "... logging.i"
+	@echo "... logging.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

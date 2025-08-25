@@ -13,6 +13,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_tables.cpp.o.d"
   "CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_widgets.cpp.o"
   "CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_widgets.cpp.o.d"
+  "CMakeFiles/ConvexPolygonIoU.dir/logging.cpp.o"
+  "CMakeFiles/ConvexPolygonIoU.dir/logging.cpp.o.d"
   "CMakeFiles/ConvexPolygonIoU.dir/main.cpp.o"
   "CMakeFiles/ConvexPolygonIoU.dir/main.cpp.o.d"
   "CMakeFiles/ConvexPolygonIoU.dir/polygon.cpp.o"
