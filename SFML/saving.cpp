@@ -19,9 +19,13 @@ unsigned long __stdcall GetModuleFileNameA(
 #ifndef MAX_PATH
 #define MAX_PATH 260
 #endif
+
+#elif defined(__APPLE__)
+#include <mach-o/dyld.h>
+#include <limits.h>
 #endif
 
-// At the moment only supporting windows for getting file path
+// Supports Windows and Mac OS
 std::string getExecutablePath()
 {
 #ifdef _WIN32
@@ -29,10 +33,24 @@ std::string getExecutablePath()
 	GetModuleFileNameA(NULL, buffer, MAX_PATH);
 	std::filesystem::path exePath(buffer);
 	return exePath.parent_path().string();
+
+#elif defined(__APPLE__)
+	char buffer[PATH_MAX];
+	uint32_t size = sizeof(buffer);
+	if (_NSGetExecutablePath(buffer, &size) == 0) {
+		std::filesystem::path exePath(buffer);
+		return exePath.parent_path().string();
+	}
+	else {
+		// Buffer too small, fallback to NULL_SAVE_PATH
+		return NULL_SAVE_PATH;
+	}
+
 #else
 	return NULL_SAVE_PATH;
 #endif
 }
+
 
 
 /// <summary>
