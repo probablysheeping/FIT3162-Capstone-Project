@@ -152,6 +152,7 @@
     <ClCompile Include="imgui\imgui_draw.cpp" />
     <ClCompile Include="imgui\imgui_tables.cpp" />
     <ClCompile Include="imgui\imgui_widgets.cpp" />
+    <ClCompile Include="logging.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="polygon.cpp" />
     <ClCompile Include="saving.cpp" />
@@ -166,6 +167,7 @@
     <ClInclude Include="imgui\imstb_rectpack.h" />
     <ClInclude Include="imgui\imstb_textedit.h" />
     <ClInclude Include="imgui\imstb_truetype.h" />
+    <ClInclude Include="logging.h" />
     <ClInclude Include="polygon.h" />
     <ClInclude Include="saving.h" />
     <ClInclude Include="SFML-3.0.0\include\SFML\Audio.hpp" />

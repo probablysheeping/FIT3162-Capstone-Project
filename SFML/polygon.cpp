@@ -106,6 +106,34 @@ float Polygon::getColour(int index)
 		return this->colour[index];
 }
 
+// Conversion operator
+Polygon::operator std::string() const {
+	std::string returnString;
+
+	returnString = returnString + 
+		"POLYGON\n" + 
+		"VERTICES " + std::to_string(this->vertices.size()) + "\n";
+
+	for (ImVec2 vertex : this->vertices)
+		returnString = returnString + 
+		std::to_string(vertex.x) + ' ' + 
+		std::to_string(vertex.y) + '\n';
+
+	returnString = returnString + "COLOUR "
+		+ std::to_string(this->colour[0]) + ' '
+		+ std::to_string(this->colour[1]) + ' '
+		+ std::to_string(this->colour[2]) + '\n'
+		+ "END\n";
+
+	return returnString;
+}
+
+// Stream output operator
+std::ostream& operator<<(std::ostream& os, const Polygon& obj) {
+	os << static_cast<std::string>(obj);
+	return os;
+}
+
 
 int sgn(double x) {
 	return (x > 0) - (x < 0);
