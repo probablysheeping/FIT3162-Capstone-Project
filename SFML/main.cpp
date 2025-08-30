@@ -43,7 +43,7 @@ void adjustVertices(std::vector<ImVec2>& vertices) {
         q = vertices.at(i);
         r = vertices.at(i + 1 < n ? i + 1 : i + 1 - n);
         pqr = static_cast<float>(angle(p, q, r)*180/M_PI);
-        logger << currentDateTime() << "PQR: " << pqr << std::endl;
+        logger << currentDateTime() << " PQR: " << pqr << std::endl;
         for (int x : angles) {
             if (abs(abs(pqr) - x) <= delta) {
 
@@ -152,7 +152,7 @@ void runProgram()
                         ImVec2 mousepos = sf::Mouse::getPosition(window);
                         if (!firstVertex && distanceL2(mousepos, vertices.front()) <= 10) {
                             if (vertices.size() < 3) {
-                                logger << currentDateTime() << "ERROR: Number of vertices less than three and instead is " << vertices.size() << std::endl;
+                                logger << currentDateTime() << " ERROR: Number of vertices less than three and instead is " << vertices.size() << std::endl;
                             }
                             else {
 
@@ -166,6 +166,8 @@ void runProgram()
                                 adjustVertices(vertices);
                                 newPolygon.setVertices(vertices);
                                 newPolygon.setColour(polygonColour);
+
+                                logger << currentDateTime() << " NEW " << newPolygon;
 
                                 polygons.push_back(newPolygon);
 
@@ -203,6 +205,8 @@ void runProgram()
                         if (selectedPolygons.size() == 2) {
                             Polygon intersection = intersectingPolygon(&polygons.at(selectedPolygons.at(0)), &polygons.at(selectedPolygons.at(1)));
 
+                            logger << currentDateTime() << " Intersection " << intersection;
+
                             area = polygons.at(selectedPolygons.at(0)).polygonArea() + polygons.at(selectedPolygons.at(1)).polygonArea() - intersection.polygonArea();
                         }
                         if (selectedPolygons.size() == 1) {
@@ -239,7 +243,7 @@ void runProgram()
                 }
 
                 if (ImGui::MenuItem("Save", "CTRL+S")) {
-                    quickSave(polygons, "\\save.sav");
+                    quickSave(polygons, "save.sav");
                 }
 
                 if (ImGui::MenuItem("Save As", "CTRL+SHIFT+S")) {
@@ -259,6 +263,7 @@ void runProgram()
                 ImGui::MenuItem("Logging", nullptr, &logSavingEnabled);
                 ImGui::MenuItem("Autosaving", nullptr, &autosaveEnabled);
                 if (ImGui::MenuItem("Full Screen", nullptr, &fullscreenEnabled)) {
+                    logger << currentDateTime() << " Full screen " << (fullscreenEnabled ? "enabled." : "disabled.") << std::endl;
                     window.close();
                     if (fullscreenEnabled)
                         window.create(sf::VideoMode::getDesktopMode(), WINDOW_DISPLAY_NAME, sf::State::Fullscreen);
@@ -282,6 +287,7 @@ void runProgram()
             }
 
             if (ImGui::MenuItem("Exit")) {
+                logger << currentDateTime() << " User exit.\n";
                 window.close();
             }
 
@@ -289,7 +295,7 @@ void runProgram()
         }
         // Autosaving functionality
         if (autosaveClock.getElapsedTime() >= autosaveTime) {
-            quickSave(polygons, "\\autosave.sav");
+            quickSave(polygons, "autosave.sav");
             autosaveClock.restart();
         }
 
@@ -318,12 +324,13 @@ void runProgram()
 
                 }
                 selectedPolygons.clear();
+                logger << currentDateTime() << " Polygon deleted.\n";
             }
 
             if (ImGui::Button("Compute IoU", ImVec2(120, 30)) && selectedPolygons.size() == 2) {
                 // Save when computing IoU
                 if (autosaveEnabled)
-                    quickSave(polygons, "\\autosave.sav");
+                    quickSave(polygons, "autosave.sav");
 
                 Polygon intersection = polygons.at(selectedPolygons.at(0));
                 for (int i = 1; i < selectedPolygons.size(); i++) {

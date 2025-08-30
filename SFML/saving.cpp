@@ -154,10 +154,10 @@ void quickSave(std::vector<Polygon> polygons, std::string fileName)
 {
 	std::string saveLocation = getExecutablePath();
 	if (saveLocation != NULL_SAVE_PATH) {
-		saveLocation += fileName;
+		saveLocation += FILE_SEPARATOR + fileName;
 		if (saveToFile(polygons, saveLocation))
-			logger << currentDateTime() << "Saved file successfully to " << saveLocation << std::endl;
+			logger << currentDateTime() << " Saved file successfully to " << saveLocation << std::endl;
 		else
-			logger << currentDateTime() << "Saved file un-successfully to " << saveLocation << std::endl;
+			logger << currentDateTime() << " Saved file un-successfully to " << saveLocation << std::endl;
 	}
 }
