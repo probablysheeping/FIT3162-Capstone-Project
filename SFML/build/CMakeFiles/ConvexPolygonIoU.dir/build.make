@@ -53,10 +53,10 @@ RM = /opt/homebrew/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML
+CMAKE_SOURCE_DIR = /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/build
+CMAKE_BINARY_DIR = /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/ConvexPolygonIoU.dir/depend.make
@@ -73,144 +73,158 @@ CMakeFiles/ConvexPolygonIoU.dir/codegen:
 .PHONY : CMakeFiles/ConvexPolygonIoU.dir/codegen
 
 CMakeFiles/ConvexPolygonIoU.dir/main.cpp.o: CMakeFiles/ConvexPolygonIoU.dir/flags.make
-CMakeFiles/ConvexPolygonIoU.dir/main.cpp.o: /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/main.cpp
+CMakeFiles/ConvexPolygonIoU.dir/main.cpp.o: /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/main.cpp
 CMakeFiles/ConvexPolygonIoU.dir/main.cpp.o: CMakeFiles/ConvexPolygonIoU.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/ConvexPolygonIoU.dir/main.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ConvexPolygonIoU.dir/main.cpp.o -MF CMakeFiles/ConvexPolygonIoU.dir/main.cpp.o.d -o CMakeFiles/ConvexPolygonIoU.dir/main.cpp.o -c /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/ConvexPolygonIoU.dir/main.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ConvexPolygonIoU.dir/main.cpp.o -MF CMakeFiles/ConvexPolygonIoU.dir/main.cpp.o.d -o CMakeFiles/ConvexPolygonIoU.dir/main.cpp.o -c /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/main.cpp
 
 CMakeFiles/ConvexPolygonIoU.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/ConvexPolygonIoU.dir/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/main.cpp > CMakeFiles/ConvexPolygonIoU.dir/main.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/main.cpp > CMakeFiles/ConvexPolygonIoU.dir/main.cpp.i
 
 CMakeFiles/ConvexPolygonIoU.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ConvexPolygonIoU.dir/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/main.cpp -o CMakeFiles/ConvexPolygonIoU.dir/main.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/main.cpp -o CMakeFiles/ConvexPolygonIoU.dir/main.cpp.s
 
 CMakeFiles/ConvexPolygonIoU.dir/polygon.cpp.o: CMakeFiles/ConvexPolygonIoU.dir/flags.make
-CMakeFiles/ConvexPolygonIoU.dir/polygon.cpp.o: /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/polygon.cpp
+CMakeFiles/ConvexPolygonIoU.dir/polygon.cpp.o: /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/polygon.cpp
 CMakeFiles/ConvexPolygonIoU.dir/polygon.cpp.o: CMakeFiles/ConvexPolygonIoU.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/ConvexPolygonIoU.dir/polygon.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ConvexPolygonIoU.dir/polygon.cpp.o -MF CMakeFiles/ConvexPolygonIoU.dir/polygon.cpp.o.d -o CMakeFiles/ConvexPolygonIoU.dir/polygon.cpp.o -c /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/polygon.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/ConvexPolygonIoU.dir/polygon.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ConvexPolygonIoU.dir/polygon.cpp.o -MF CMakeFiles/ConvexPolygonIoU.dir/polygon.cpp.o.d -o CMakeFiles/ConvexPolygonIoU.dir/polygon.cpp.o -c /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/polygon.cpp
 
 CMakeFiles/ConvexPolygonIoU.dir/polygon.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/ConvexPolygonIoU.dir/polygon.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/polygon.cpp > CMakeFiles/ConvexPolygonIoU.dir/polygon.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/polygon.cpp > CMakeFiles/ConvexPolygonIoU.dir/polygon.cpp.i
 
 CMakeFiles/ConvexPolygonIoU.dir/polygon.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ConvexPolygonIoU.dir/polygon.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/polygon.cpp -o CMakeFiles/ConvexPolygonIoU.dir/polygon.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/polygon.cpp -o CMakeFiles/ConvexPolygonIoU.dir/polygon.cpp.s
 
 CMakeFiles/ConvexPolygonIoU.dir/saving.cpp.o: CMakeFiles/ConvexPolygonIoU.dir/flags.make
-CMakeFiles/ConvexPolygonIoU.dir/saving.cpp.o: /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/saving.cpp
+CMakeFiles/ConvexPolygonIoU.dir/saving.cpp.o: /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/saving.cpp
 CMakeFiles/ConvexPolygonIoU.dir/saving.cpp.o: CMakeFiles/ConvexPolygonIoU.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/ConvexPolygonIoU.dir/saving.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ConvexPolygonIoU.dir/saving.cpp.o -MF CMakeFiles/ConvexPolygonIoU.dir/saving.cpp.o.d -o CMakeFiles/ConvexPolygonIoU.dir/saving.cpp.o -c /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/saving.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/ConvexPolygonIoU.dir/saving.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ConvexPolygonIoU.dir/saving.cpp.o -MF CMakeFiles/ConvexPolygonIoU.dir/saving.cpp.o.d -o CMakeFiles/ConvexPolygonIoU.dir/saving.cpp.o -c /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/saving.cpp
 
 CMakeFiles/ConvexPolygonIoU.dir/saving.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/ConvexPolygonIoU.dir/saving.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/saving.cpp > CMakeFiles/ConvexPolygonIoU.dir/saving.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/saving.cpp > CMakeFiles/ConvexPolygonIoU.dir/saving.cpp.i
 
 CMakeFiles/ConvexPolygonIoU.dir/saving.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ConvexPolygonIoU.dir/saving.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/saving.cpp -o CMakeFiles/ConvexPolygonIoU.dir/saving.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/saving.cpp -o CMakeFiles/ConvexPolygonIoU.dir/saving.cpp.s
 
 CMakeFiles/ConvexPolygonIoU.dir/filelocationchooser.cpp.o: CMakeFiles/ConvexPolygonIoU.dir/flags.make
-CMakeFiles/ConvexPolygonIoU.dir/filelocationchooser.cpp.o: /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/filelocationchooser.cpp
+CMakeFiles/ConvexPolygonIoU.dir/filelocationchooser.cpp.o: /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/filelocationchooser.cpp
 CMakeFiles/ConvexPolygonIoU.dir/filelocationchooser.cpp.o: CMakeFiles/ConvexPolygonIoU.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/ConvexPolygonIoU.dir/filelocationchooser.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -x objective-c++ -MD -MT CMakeFiles/ConvexPolygonIoU.dir/filelocationchooser.cpp.o -MF CMakeFiles/ConvexPolygonIoU.dir/filelocationchooser.cpp.o.d -o CMakeFiles/ConvexPolygonIoU.dir/filelocationchooser.cpp.o -c /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/filelocationchooser.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/ConvexPolygonIoU.dir/filelocationchooser.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -x objective-c++ -MD -MT CMakeFiles/ConvexPolygonIoU.dir/filelocationchooser.cpp.o -MF CMakeFiles/ConvexPolygonIoU.dir/filelocationchooser.cpp.o.d -o CMakeFiles/ConvexPolygonIoU.dir/filelocationchooser.cpp.o -c /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/filelocationchooser.cpp
 
 CMakeFiles/ConvexPolygonIoU.dir/filelocationchooser.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/ConvexPolygonIoU.dir/filelocationchooser.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -x objective-c++ -E /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/filelocationchooser.cpp > CMakeFiles/ConvexPolygonIoU.dir/filelocationchooser.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -x objective-c++ -E /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/filelocationchooser.cpp > CMakeFiles/ConvexPolygonIoU.dir/filelocationchooser.cpp.i
 
 CMakeFiles/ConvexPolygonIoU.dir/filelocationchooser.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ConvexPolygonIoU.dir/filelocationchooser.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -x objective-c++ -S /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/filelocationchooser.cpp -o CMakeFiles/ConvexPolygonIoU.dir/filelocationchooser.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -x objective-c++ -S /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/filelocationchooser.cpp -o CMakeFiles/ConvexPolygonIoU.dir/filelocationchooser.cpp.s
+
+CMakeFiles/ConvexPolygonIoU.dir/logging.cpp.o: CMakeFiles/ConvexPolygonIoU.dir/flags.make
+CMakeFiles/ConvexPolygonIoU.dir/logging.cpp.o: /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/logging.cpp
+CMakeFiles/ConvexPolygonIoU.dir/logging.cpp.o: CMakeFiles/ConvexPolygonIoU.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/ConvexPolygonIoU.dir/logging.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ConvexPolygonIoU.dir/logging.cpp.o -MF CMakeFiles/ConvexPolygonIoU.dir/logging.cpp.o.d -o CMakeFiles/ConvexPolygonIoU.dir/logging.cpp.o -c /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/logging.cpp
+
+CMakeFiles/ConvexPolygonIoU.dir/logging.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/ConvexPolygonIoU.dir/logging.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/logging.cpp > CMakeFiles/ConvexPolygonIoU.dir/logging.cpp.i
+
+CMakeFiles/ConvexPolygonIoU.dir/logging.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ConvexPolygonIoU.dir/logging.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/logging.cpp -o CMakeFiles/ConvexPolygonIoU.dir/logging.cpp.s
 
 CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui.cpp.o: CMakeFiles/ConvexPolygonIoU.dir/flags.make
-CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui.cpp.o: /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/imgui/imgui.cpp
+CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui.cpp.o: /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/imgui/imgui.cpp
 CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui.cpp.o: CMakeFiles/ConvexPolygonIoU.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui.cpp.o -MF CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui.cpp.o.d -o CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui.cpp.o -c /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/imgui/imgui.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui.cpp.o -MF CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui.cpp.o.d -o CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui.cpp.o -c /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/imgui/imgui.cpp
 
 CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/imgui/imgui.cpp > CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/imgui/imgui.cpp > CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui.cpp.i
 
 CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/imgui/imgui.cpp -o CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/imgui/imgui.cpp -o CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui.cpp.s
 
 CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_demo.cpp.o: CMakeFiles/ConvexPolygonIoU.dir/flags.make
-CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_demo.cpp.o: /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/imgui/imgui_demo.cpp
+CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_demo.cpp.o: /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/imgui/imgui_demo.cpp
 CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_demo.cpp.o: CMakeFiles/ConvexPolygonIoU.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_demo.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_demo.cpp.o -MF CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_demo.cpp.o.d -o CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_demo.cpp.o -c /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/imgui/imgui_demo.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_demo.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_demo.cpp.o -MF CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_demo.cpp.o.d -o CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_demo.cpp.o -c /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/imgui/imgui_demo.cpp
 
 CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_demo.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_demo.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/imgui/imgui_demo.cpp > CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_demo.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/imgui/imgui_demo.cpp > CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_demo.cpp.i
 
 CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_demo.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_demo.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/imgui/imgui_demo.cpp -o CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_demo.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/imgui/imgui_demo.cpp -o CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_demo.cpp.s
 
 CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_draw.cpp.o: CMakeFiles/ConvexPolygonIoU.dir/flags.make
-CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_draw.cpp.o: /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/imgui/imgui_draw.cpp
+CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_draw.cpp.o: /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/imgui/imgui_draw.cpp
 CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_draw.cpp.o: CMakeFiles/ConvexPolygonIoU.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_draw.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_draw.cpp.o -MF CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_draw.cpp.o.d -o CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_draw.cpp.o -c /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/imgui/imgui_draw.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_draw.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_draw.cpp.o -MF CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_draw.cpp.o.d -o CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_draw.cpp.o -c /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/imgui/imgui_draw.cpp
 
 CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_draw.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_draw.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/imgui/imgui_draw.cpp > CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_draw.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/imgui/imgui_draw.cpp > CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_draw.cpp.i
 
 CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_draw.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_draw.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/imgui/imgui_draw.cpp -o CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_draw.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/imgui/imgui_draw.cpp -o CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_draw.cpp.s
 
 CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_tables.cpp.o: CMakeFiles/ConvexPolygonIoU.dir/flags.make
-CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_tables.cpp.o: /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/imgui/imgui_tables.cpp
+CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_tables.cpp.o: /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/imgui/imgui_tables.cpp
 CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_tables.cpp.o: CMakeFiles/ConvexPolygonIoU.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_tables.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_tables.cpp.o -MF CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_tables.cpp.o.d -o CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_tables.cpp.o -c /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/imgui/imgui_tables.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_tables.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_tables.cpp.o -MF CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_tables.cpp.o.d -o CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_tables.cpp.o -c /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/imgui/imgui_tables.cpp
 
 CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_tables.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_tables.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/imgui/imgui_tables.cpp > CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_tables.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/imgui/imgui_tables.cpp > CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_tables.cpp.i
 
 CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_tables.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_tables.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/imgui/imgui_tables.cpp -o CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_tables.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/imgui/imgui_tables.cpp -o CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_tables.cpp.s
 
 CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_widgets.cpp.o: CMakeFiles/ConvexPolygonIoU.dir/flags.make
-CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_widgets.cpp.o: /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/imgui/imgui_widgets.cpp
+CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_widgets.cpp.o: /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/imgui/imgui_widgets.cpp
 CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_widgets.cpp.o: CMakeFiles/ConvexPolygonIoU.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_widgets.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_widgets.cpp.o -MF CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_widgets.cpp.o.d -o CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_widgets.cpp.o -c /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/imgui/imgui_widgets.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_widgets.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_widgets.cpp.o -MF CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_widgets.cpp.o.d -o CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_widgets.cpp.o -c /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/imgui/imgui_widgets.cpp
 
 CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_widgets.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_widgets.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/imgui/imgui_widgets.cpp > CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_widgets.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/imgui/imgui_widgets.cpp > CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_widgets.cpp.i
 
 CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_widgets.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_widgets.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/imgui/imgui_widgets.cpp -o CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_widgets.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/imgui/imgui_widgets.cpp -o CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_widgets.cpp.s
 
 CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui-SFML.cpp.o: CMakeFiles/ConvexPolygonIoU.dir/flags.make
-CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui-SFML.cpp.o: /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/imgui/imgui-SFML.cpp
+CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui-SFML.cpp.o: /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/imgui/imgui-SFML.cpp
 CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui-SFML.cpp.o: CMakeFiles/ConvexPolygonIoU.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui-SFML.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui-SFML.cpp.o -MF CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui-SFML.cpp.o.d -o CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui-SFML.cpp.o -c /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/imgui/imgui-SFML.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui-SFML.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui-SFML.cpp.o -MF CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui-SFML.cpp.o.d -o CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui-SFML.cpp.o -c /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/imgui/imgui-SFML.cpp
 
 CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui-SFML.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui-SFML.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/imgui/imgui-SFML.cpp > CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui-SFML.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/imgui/imgui-SFML.cpp > CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui-SFML.cpp.i
 
 CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui-SFML.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui-SFML.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/imgui/imgui-SFML.cpp -o CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui-SFML.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/imgui/imgui-SFML.cpp -o CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui-SFML.cpp.s
 
 # Object files for target ConvexPolygonIoU
 ConvexPolygonIoU_OBJECTS = \
@@ -218,6 +232,7 @@ ConvexPolygonIoU_OBJECTS = \
 "CMakeFiles/ConvexPolygonIoU.dir/polygon.cpp.o" \
 "CMakeFiles/ConvexPolygonIoU.dir/saving.cpp.o" \
 "CMakeFiles/ConvexPolygonIoU.dir/filelocationchooser.cpp.o" \
+"CMakeFiles/ConvexPolygonIoU.dir/logging.cpp.o" \
 "CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui.cpp.o" \
 "CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_demo.cpp.o" \
 "CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_draw.cpp.o" \
@@ -232,6 +247,7 @@ bin/ConvexPolygonIoU: CMakeFiles/ConvexPolygonIoU.dir/main.cpp.o
 bin/ConvexPolygonIoU: CMakeFiles/ConvexPolygonIoU.dir/polygon.cpp.o
 bin/ConvexPolygonIoU: CMakeFiles/ConvexPolygonIoU.dir/saving.cpp.o
 bin/ConvexPolygonIoU: CMakeFiles/ConvexPolygonIoU.dir/filelocationchooser.cpp.o
+bin/ConvexPolygonIoU: CMakeFiles/ConvexPolygonIoU.dir/logging.cpp.o
 bin/ConvexPolygonIoU: CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui.cpp.o
 bin/ConvexPolygonIoU: CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_demo.cpp.o
 bin/ConvexPolygonIoU: CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui_draw.cpp.o
@@ -243,7 +259,7 @@ bin/ConvexPolygonIoU: /opt/homebrew/lib/libsfml-graphics.3.0.1.dylib
 bin/ConvexPolygonIoU: /opt/homebrew/lib/libsfml-window.3.0.1.dylib
 bin/ConvexPolygonIoU: /opt/homebrew/lib/libsfml-system.3.0.1.dylib
 bin/ConvexPolygonIoU: CMakeFiles/ConvexPolygonIoU.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Linking CXX executable bin/ConvexPolygonIoU"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Linking CXX executable bin/ConvexPolygonIoU"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/ConvexPolygonIoU.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -255,6 +271,6 @@ CMakeFiles/ConvexPolygonIoU.dir/clean:
 .PHONY : CMakeFiles/ConvexPolygonIoU.dir/clean
 
 CMakeFiles/ConvexPolygonIoU.dir/depend:
-	cd /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/build /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/build /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/build/CMakeFiles/ConvexPolygonIoU.dir/DependInfo.cmake "--color=$(COLOR)"
+	cd /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build/CMakeFiles/ConvexPolygonIoU.dir/DependInfo.cmake "--color=$(COLOR)"
 .PHONY : CMakeFiles/ConvexPolygonIoU.dir/depend
 

@@ -30,6 +30,7 @@ set(PROJECT_SOURCES
     polygon.cpp
     saving.cpp
     filelocationchooser.cpp
+    logging.cpp
     ${IMGUI_SOURCES}
 )
 
@@ -46,6 +47,7 @@ set(PROJECT_HEADERS
     polygon.h
     saving.h
     filelocationchooser.h
+    logging.h
     imgui/imgui.h
     imgui/imgui-SFML.h
     imgui/imgui_internal.h

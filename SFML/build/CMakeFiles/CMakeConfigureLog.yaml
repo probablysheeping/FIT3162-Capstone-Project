@@ -20,6 +20,7 @@ events:
     names:
       - "uname"
     candidate_directories:
+      - "/Users/sheep/.nvm/versions/node/v20.15.1/bin/"
       - "/opt/homebrew/bin/"
       - "/opt/homebrew/sbin/"
       - "/usr/local/bin/"
@@ -31,7 +32,14 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/Library/TeX/texbin/"
+      - "/Applications/VMware Fusion.app/Contents/Public/"
+      - "/Users/sheep/anaconda3/condabin/"
+      - "/Users/sheep/.cabal/bin/"
+      - "/Users/sheep/.ghcup/bin/"
+      - "/Users/sheep/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/"
     searched_directories:
+      - "/Users/sheep/.nvm/versions/node/v20.15.1/bin/uname"
       - "/opt/homebrew/bin/uname"
       - "/opt/homebrew/sbin/uname"
       - "/usr/local/bin/uname"
@@ -39,6 +47,7 @@ events:
     found: "/usr/bin/uname"
     search_context:
       ENV{PATH}:
+        - "/Users/sheep/.nvm/versions/node/v20.15.1/bin"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/sbin"
         - "/usr/local/bin"
@@ -50,13 +59,20 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/Library/TeX/texbin"
+        - "/Applications/VMware Fusion.app/Contents/Public"
+        - "/Users/sheep/.nvm/versions/node/v20.15.1/bin"
+        - "/Users/sheep/anaconda3/condabin"
+        - "/Users/sheep/.cabal/bin"
+        - "/Users/sheep/.ghcup/bin"
+        - "/Users/sheep/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand"
   -
     kind: "message-v1"
     backtrace:
       - "/opt/homebrew/share/cmake/Modules/CMakeDetermineSystem.cmake:212 (message)"
       - "CMakeLists.txt:2 (project)"
     message: |
-      The system is: Darwin - 24.6.0 - arm64
+      The system is: Darwin - 24.5.0 - arm64
   -
     kind: "find-v1"
     backtrace:
@@ -78,6 +94,7 @@ events:
       - "make"
       - "smake"
     candidate_directories:
+      - "/Users/sheep/.nvm/versions/node/v20.15.1/bin/"
       - "/opt/homebrew/bin/"
       - "/opt/homebrew/sbin/"
       - "/usr/local/bin/"
@@ -89,25 +106,18 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/Library/TeX/texbin/"
+      - "/Applications/VMware Fusion.app/Contents/Public/"
+      - "/Users/sheep/anaconda3/condabin/"
+      - "/Users/sheep/.cabal/bin/"
+      - "/Users/sheep/.ghcup/bin/"
+      - "/Users/sheep/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/"
     searched_directories:
-      - "/opt/homebrew/bin/gmake"
-      - "/opt/homebrew/sbin/gmake"
-      - "/usr/local/bin/gmake"
-      - "/System/Cryptexes/App/usr/bin/gmake"
-      - "/usr/bin/gmake"
-      - "/bin/gmake"
-      - "/usr/sbin/gmake"
-      - "/sbin/gmake"
-      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/gmake"
-      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/gmake"
-      - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/gmake"
-      - "/opt/homebrew/bin/make"
-      - "/opt/homebrew/sbin/make"
-      - "/usr/local/bin/make"
-      - "/System/Cryptexes/App/usr/bin/make"
-    found: "/usr/bin/make"
+      - "/Users/sheep/.nvm/versions/node/v20.15.1/bin/gmake"
+    found: "/opt/homebrew/bin/gmake"
     search_context:
       ENV{PATH}:
+        - "/Users/sheep/.nvm/versions/node/v20.15.1/bin"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/sbin"
         - "/usr/local/bin"
@@ -119,6 +129,13 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/Library/TeX/texbin"
+        - "/Applications/VMware Fusion.app/Contents/Public"
+        - "/Users/sheep/.nvm/versions/node/v20.15.1/bin"
+        - "/Users/sheep/anaconda3/condabin"
+        - "/Users/sheep/.cabal/bin"
+        - "/Users/sheep/.ghcup/bin"
+        - "/Users/sheep/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand"
   -
     kind: "find-v1"
     backtrace:
@@ -145,6 +162,7 @@ events:
       - "icx"
       - "clang"
     candidate_directories:
+      - "/Users/sheep/.nvm/versions/node/v20.15.1/bin/"
       - "/opt/homebrew/bin/"
       - "/opt/homebrew/sbin/"
       - "/usr/local/bin/"
@@ -156,7 +174,14 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/Library/TeX/texbin/"
+      - "/Applications/VMware Fusion.app/Contents/Public/"
+      - "/Users/sheep/anaconda3/condabin/"
+      - "/Users/sheep/.cabal/bin/"
+      - "/Users/sheep/.ghcup/bin/"
+      - "/Users/sheep/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/"
     searched_directories:
+      - "/Users/sheep/.nvm/versions/node/v20.15.1/bin/cc"
       - "/opt/homebrew/bin/cc"
       - "/opt/homebrew/sbin/cc"
       - "/usr/local/bin/cc"
@@ -164,6 +189,7 @@ events:
     found: "/usr/bin/cc"
     search_context:
       ENV{PATH}:
+        - "/Users/sheep/.nvm/versions/node/v20.15.1/bin"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/sbin"
         - "/usr/local/bin"
@@ -175,6 +201,13 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/Library/TeX/texbin"
+        - "/Applications/VMware Fusion.app/Contents/Public"
+        - "/Users/sheep/.nvm/versions/node/v20.15.1/bin"
+        - "/Users/sheep/anaconda3/condabin"
+        - "/Users/sheep/.cabal/bin"
+        - "/Users/sheep/.ghcup/bin"
+        - "/Users/sheep/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand"
   -
     kind: "find-v1"
     backtrace:
@@ -202,6 +235,7 @@ events:
     found: "/opt/homebrew/share/cmake/Modules/CMakeCCompilerId.c.in"
     search_context:
       ENV{PATH}:
+        - "/Users/sheep/.nvm/versions/node/v20.15.1/bin"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/sbin"
         - "/usr/local/bin"
@@ -213,6 +247,13 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/Library/TeX/texbin"
+        - "/Applications/VMware Fusion.app/Contents/Public"
+        - "/Users/sheep/.nvm/versions/node/v20.15.1/bin"
+        - "/Users/sheep/anaconda3/condabin"
+        - "/Users/sheep/.cabal/bin"
+        - "/Users/sheep/.ghcup/bin"
+        - "/Users/sheep/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand"
   -
     kind: "message-v1"
     backtrace:
@@ -233,7 +274,7 @@ events:
       Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.out"
       
       The C compiler identification is AppleClang, found in:
-        /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/build/CMakeFiles/4.1.0/CompilerIdC/a.out
+        /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build/CMakeFiles/4.1.0/CompilerIdC/a.out
       
   -
     kind: "message-v1"
@@ -297,6 +338,7 @@ events:
       - "ar"
     candidate_directories:
       - "/usr/bin/"
+      - "/Users/sheep/.nvm/versions/node/v20.15.1/bin/"
       - "/opt/homebrew/bin/"
       - "/opt/homebrew/sbin/"
       - "/usr/local/bin/"
@@ -307,9 +349,16 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/Library/TeX/texbin/"
+      - "/Applications/VMware Fusion.app/Contents/Public/"
+      - "/Users/sheep/anaconda3/condabin/"
+      - "/Users/sheep/.cabal/bin/"
+      - "/Users/sheep/.ghcup/bin/"
+      - "/Users/sheep/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/"
     found: "/usr/bin/ar"
     search_context:
       ENV{PATH}:
+        - "/Users/sheep/.nvm/versions/node/v20.15.1/bin"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/sbin"
         - "/usr/local/bin"
@@ -321,6 +370,13 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/Library/TeX/texbin"
+        - "/Applications/VMware Fusion.app/Contents/Public"
+        - "/Users/sheep/.nvm/versions/node/v20.15.1/bin"
+        - "/Users/sheep/anaconda3/condabin"
+        - "/Users/sheep/.cabal/bin"
+        - "/Users/sheep/.ghcup/bin"
+        - "/Users/sheep/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand"
   -
     kind: "find-v1"
     backtrace:
@@ -342,6 +398,7 @@ events:
       - "ranlib"
     candidate_directories:
       - "/usr/bin/"
+      - "/Users/sheep/.nvm/versions/node/v20.15.1/bin/"
       - "/opt/homebrew/bin/"
       - "/opt/homebrew/sbin/"
       - "/usr/local/bin/"
@@ -352,9 +409,16 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/Library/TeX/texbin/"
+      - "/Applications/VMware Fusion.app/Contents/Public/"
+      - "/Users/sheep/anaconda3/condabin/"
+      - "/Users/sheep/.cabal/bin/"
+      - "/Users/sheep/.ghcup/bin/"
+      - "/Users/sheep/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/"
     found: "/usr/bin/ranlib"
     search_context:
       ENV{PATH}:
+        - "/Users/sheep/.nvm/versions/node/v20.15.1/bin"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/sbin"
         - "/usr/local/bin"
@@ -366,6 +430,13 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/Library/TeX/texbin"
+        - "/Applications/VMware Fusion.app/Contents/Public"
+        - "/Users/sheep/.nvm/versions/node/v20.15.1/bin"
+        - "/Users/sheep/anaconda3/condabin"
+        - "/Users/sheep/.cabal/bin"
+        - "/Users/sheep/.ghcup/bin"
+        - "/Users/sheep/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand"
   -
     kind: "find-v1"
     backtrace:
@@ -387,6 +458,7 @@ events:
       - "strip"
     candidate_directories:
       - "/usr/bin/"
+      - "/Users/sheep/.nvm/versions/node/v20.15.1/bin/"
       - "/opt/homebrew/bin/"
       - "/opt/homebrew/sbin/"
       - "/usr/local/bin/"
@@ -397,9 +469,16 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/Library/TeX/texbin/"
+      - "/Applications/VMware Fusion.app/Contents/Public/"
+      - "/Users/sheep/anaconda3/condabin/"
+      - "/Users/sheep/.cabal/bin/"
+      - "/Users/sheep/.ghcup/bin/"
+      - "/Users/sheep/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/"
     found: "/usr/bin/strip"
     search_context:
       ENV{PATH}:
+        - "/Users/sheep/.nvm/versions/node/v20.15.1/bin"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/sbin"
         - "/usr/local/bin"
@@ -411,6 +490,13 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/Library/TeX/texbin"
+        - "/Applications/VMware Fusion.app/Contents/Public"
+        - "/Users/sheep/.nvm/versions/node/v20.15.1/bin"
+        - "/Users/sheep/anaconda3/condabin"
+        - "/Users/sheep/.cabal/bin"
+        - "/Users/sheep/.ghcup/bin"
+        - "/Users/sheep/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand"
   -
     kind: "find-v1"
     backtrace:
@@ -432,6 +518,7 @@ events:
       - "ld"
     candidate_directories:
       - "/usr/bin/"
+      - "/Users/sheep/.nvm/versions/node/v20.15.1/bin/"
       - "/opt/homebrew/bin/"
       - "/opt/homebrew/sbin/"
       - "/usr/local/bin/"
@@ -442,9 +529,16 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/Library/TeX/texbin/"
+      - "/Applications/VMware Fusion.app/Contents/Public/"
+      - "/Users/sheep/anaconda3/condabin/"
+      - "/Users/sheep/.cabal/bin/"
+      - "/Users/sheep/.ghcup/bin/"
+      - "/Users/sheep/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/"
     found: "/usr/bin/ld"
     search_context:
       ENV{PATH}:
+        - "/Users/sheep/.nvm/versions/node/v20.15.1/bin"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/sbin"
         - "/usr/local/bin"
@@ -456,6 +550,13 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/Library/TeX/texbin"
+        - "/Applications/VMware Fusion.app/Contents/Public"
+        - "/Users/sheep/.nvm/versions/node/v20.15.1/bin"
+        - "/Users/sheep/anaconda3/condabin"
+        - "/Users/sheep/.cabal/bin"
+        - "/Users/sheep/.ghcup/bin"
+        - "/Users/sheep/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand"
   -
     kind: "find-v1"
     backtrace:
@@ -477,6 +578,7 @@ events:
       - "nm"
     candidate_directories:
       - "/usr/bin/"
+      - "/Users/sheep/.nvm/versions/node/v20.15.1/bin/"
       - "/opt/homebrew/bin/"
       - "/opt/homebrew/sbin/"
       - "/usr/local/bin/"
@@ -487,9 +589,16 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/Library/TeX/texbin/"
+      - "/Applications/VMware Fusion.app/Contents/Public/"
+      - "/Users/sheep/anaconda3/condabin/"
+      - "/Users/sheep/.cabal/bin/"
+      - "/Users/sheep/.ghcup/bin/"
+      - "/Users/sheep/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/"
     found: "/usr/bin/nm"
     search_context:
       ENV{PATH}:
+        - "/Users/sheep/.nvm/versions/node/v20.15.1/bin"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/sbin"
         - "/usr/local/bin"
@@ -501,6 +610,13 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/Library/TeX/texbin"
+        - "/Applications/VMware Fusion.app/Contents/Public"
+        - "/Users/sheep/.nvm/versions/node/v20.15.1/bin"
+        - "/Users/sheep/anaconda3/condabin"
+        - "/Users/sheep/.cabal/bin"
+        - "/Users/sheep/.ghcup/bin"
+        - "/Users/sheep/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand"
   -
     kind: "find-v1"
     backtrace:
@@ -522,6 +638,7 @@ events:
       - "objdump"
     candidate_directories:
       - "/usr/bin/"
+      - "/Users/sheep/.nvm/versions/node/v20.15.1/bin/"
       - "/opt/homebrew/bin/"
       - "/opt/homebrew/sbin/"
       - "/usr/local/bin/"
@@ -532,9 +649,16 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/Library/TeX/texbin/"
+      - "/Applications/VMware Fusion.app/Contents/Public/"
+      - "/Users/sheep/anaconda3/condabin/"
+      - "/Users/sheep/.cabal/bin/"
+      - "/Users/sheep/.ghcup/bin/"
+      - "/Users/sheep/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/"
     found: "/usr/bin/objdump"
     search_context:
       ENV{PATH}:
+        - "/Users/sheep/.nvm/versions/node/v20.15.1/bin"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/sbin"
         - "/usr/local/bin"
@@ -546,6 +670,13 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/Library/TeX/texbin"
+        - "/Applications/VMware Fusion.app/Contents/Public"
+        - "/Users/sheep/.nvm/versions/node/v20.15.1/bin"
+        - "/Users/sheep/anaconda3/condabin"
+        - "/Users/sheep/.cabal/bin"
+        - "/Users/sheep/.ghcup/bin"
+        - "/Users/sheep/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand"
   -
     kind: "find-v1"
     backtrace:
@@ -567,6 +698,7 @@ events:
       - "objcopy"
     candidate_directories:
       - "/usr/bin/"
+      - "/Users/sheep/.nvm/versions/node/v20.15.1/bin/"
       - "/opt/homebrew/bin/"
       - "/opt/homebrew/sbin/"
       - "/usr/local/bin/"
@@ -577,8 +709,15 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/Library/TeX/texbin/"
+      - "/Applications/VMware Fusion.app/Contents/Public/"
+      - "/Users/sheep/anaconda3/condabin/"
+      - "/Users/sheep/.cabal/bin/"
+      - "/Users/sheep/.ghcup/bin/"
+      - "/Users/sheep/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/"
     searched_directories:
       - "/usr/bin/objcopy"
+      - "/Users/sheep/.nvm/versions/node/v20.15.1/bin/objcopy"
       - "/opt/homebrew/bin/objcopy"
       - "/opt/homebrew/sbin/objcopy"
       - "/usr/local/bin/objcopy"
@@ -589,9 +728,16 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/objcopy"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/objcopy"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/objcopy"
+      - "/Library/TeX/texbin/objcopy"
+      - "/Applications/VMware Fusion.app/Contents/Public/objcopy"
+      - "/Users/sheep/anaconda3/condabin/objcopy"
+      - "/Users/sheep/.cabal/bin/objcopy"
+      - "/Users/sheep/.ghcup/bin/objcopy"
+      - "/Users/sheep/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/objcopy"
     found: false
     search_context:
       ENV{PATH}:
+        - "/Users/sheep/.nvm/versions/node/v20.15.1/bin"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/sbin"
         - "/usr/local/bin"
@@ -603,6 +749,13 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/Library/TeX/texbin"
+        - "/Applications/VMware Fusion.app/Contents/Public"
+        - "/Users/sheep/.nvm/versions/node/v20.15.1/bin"
+        - "/Users/sheep/anaconda3/condabin"
+        - "/Users/sheep/.cabal/bin"
+        - "/Users/sheep/.ghcup/bin"
+        - "/Users/sheep/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand"
   -
     kind: "find-v1"
     backtrace:
@@ -624,6 +777,7 @@ events:
       - "readelf"
     candidate_directories:
       - "/usr/bin/"
+      - "/Users/sheep/.nvm/versions/node/v20.15.1/bin/"
       - "/opt/homebrew/bin/"
       - "/opt/homebrew/sbin/"
       - "/usr/local/bin/"
@@ -634,8 +788,15 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/Library/TeX/texbin/"
+      - "/Applications/VMware Fusion.app/Contents/Public/"
+      - "/Users/sheep/anaconda3/condabin/"
+      - "/Users/sheep/.cabal/bin/"
+      - "/Users/sheep/.ghcup/bin/"
+      - "/Users/sheep/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/"
     searched_directories:
       - "/usr/bin/readelf"
+      - "/Users/sheep/.nvm/versions/node/v20.15.1/bin/readelf"
       - "/opt/homebrew/bin/readelf"
       - "/opt/homebrew/sbin/readelf"
       - "/usr/local/bin/readelf"
@@ -646,9 +807,16 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/readelf"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/readelf"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/readelf"
+      - "/Library/TeX/texbin/readelf"
+      - "/Applications/VMware Fusion.app/Contents/Public/readelf"
+      - "/Users/sheep/anaconda3/condabin/readelf"
+      - "/Users/sheep/.cabal/bin/readelf"
+      - "/Users/sheep/.ghcup/bin/readelf"
+      - "/Users/sheep/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/readelf"
     found: false
     search_context:
       ENV{PATH}:
+        - "/Users/sheep/.nvm/versions/node/v20.15.1/bin"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/sbin"
         - "/usr/local/bin"
@@ -660,6 +828,13 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/Library/TeX/texbin"
+        - "/Applications/VMware Fusion.app/Contents/Public"
+        - "/Users/sheep/.nvm/versions/node/v20.15.1/bin"
+        - "/Users/sheep/anaconda3/condabin"
+        - "/Users/sheep/.cabal/bin"
+        - "/Users/sheep/.ghcup/bin"
+        - "/Users/sheep/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand"
   -
     kind: "find-v1"
     backtrace:
@@ -681,6 +856,7 @@ events:
       - "dlltool"
     candidate_directories:
       - "/usr/bin/"
+      - "/Users/sheep/.nvm/versions/node/v20.15.1/bin/"
       - "/opt/homebrew/bin/"
       - "/opt/homebrew/sbin/"
       - "/usr/local/bin/"
@@ -691,8 +867,15 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/Library/TeX/texbin/"
+      - "/Applications/VMware Fusion.app/Contents/Public/"
+      - "/Users/sheep/anaconda3/condabin/"
+      - "/Users/sheep/.cabal/bin/"
+      - "/Users/sheep/.ghcup/bin/"
+      - "/Users/sheep/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/"
     searched_directories:
       - "/usr/bin/dlltool"
+      - "/Users/sheep/.nvm/versions/node/v20.15.1/bin/dlltool"
       - "/opt/homebrew/bin/dlltool"
       - "/opt/homebrew/sbin/dlltool"
       - "/usr/local/bin/dlltool"
@@ -703,9 +886,16 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/dlltool"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/dlltool"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/dlltool"
+      - "/Library/TeX/texbin/dlltool"
+      - "/Applications/VMware Fusion.app/Contents/Public/dlltool"
+      - "/Users/sheep/anaconda3/condabin/dlltool"
+      - "/Users/sheep/.cabal/bin/dlltool"
+      - "/Users/sheep/.ghcup/bin/dlltool"
+      - "/Users/sheep/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/dlltool"
     found: false
     search_context:
       ENV{PATH}:
+        - "/Users/sheep/.nvm/versions/node/v20.15.1/bin"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/sbin"
         - "/usr/local/bin"
@@ -717,6 +907,13 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/Library/TeX/texbin"
+        - "/Applications/VMware Fusion.app/Contents/Public"
+        - "/Users/sheep/.nvm/versions/node/v20.15.1/bin"
+        - "/Users/sheep/anaconda3/condabin"
+        - "/Users/sheep/.cabal/bin"
+        - "/Users/sheep/.ghcup/bin"
+        - "/Users/sheep/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand"
   -
     kind: "find-v1"
     backtrace:
@@ -738,6 +935,7 @@ events:
       - "addr2line"
     candidate_directories:
       - "/usr/bin/"
+      - "/Users/sheep/.nvm/versions/node/v20.15.1/bin/"
       - "/opt/homebrew/bin/"
       - "/opt/homebrew/sbin/"
       - "/usr/local/bin/"
@@ -748,8 +946,15 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/Library/TeX/texbin/"
+      - "/Applications/VMware Fusion.app/Contents/Public/"
+      - "/Users/sheep/anaconda3/condabin/"
+      - "/Users/sheep/.cabal/bin/"
+      - "/Users/sheep/.ghcup/bin/"
+      - "/Users/sheep/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/"
     searched_directories:
       - "/usr/bin/addr2line"
+      - "/Users/sheep/.nvm/versions/node/v20.15.1/bin/addr2line"
       - "/opt/homebrew/bin/addr2line"
       - "/opt/homebrew/sbin/addr2line"
       - "/usr/local/bin/addr2line"
@@ -760,9 +965,16 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/addr2line"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/addr2line"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/addr2line"
+      - "/Library/TeX/texbin/addr2line"
+      - "/Applications/VMware Fusion.app/Contents/Public/addr2line"
+      - "/Users/sheep/anaconda3/condabin/addr2line"
+      - "/Users/sheep/.cabal/bin/addr2line"
+      - "/Users/sheep/.ghcup/bin/addr2line"
+      - "/Users/sheep/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/addr2line"
     found: false
     search_context:
       ENV{PATH}:
+        - "/Users/sheep/.nvm/versions/node/v20.15.1/bin"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/sbin"
         - "/usr/local/bin"
@@ -774,6 +986,13 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/Library/TeX/texbin"
+        - "/Applications/VMware Fusion.app/Contents/Public"
+        - "/Users/sheep/.nvm/versions/node/v20.15.1/bin"
+        - "/Users/sheep/anaconda3/condabin"
+        - "/Users/sheep/.cabal/bin"
+        - "/Users/sheep/.ghcup/bin"
+        - "/Users/sheep/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand"
   -
     kind: "find-v1"
     backtrace:
@@ -795,6 +1014,7 @@ events:
       - "tapi"
     candidate_directories:
       - "/usr/bin/"
+      - "/Users/sheep/.nvm/versions/node/v20.15.1/bin/"
       - "/opt/homebrew/bin/"
       - "/opt/homebrew/sbin/"
       - "/usr/local/bin/"
@@ -805,8 +1025,15 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/Library/TeX/texbin/"
+      - "/Applications/VMware Fusion.app/Contents/Public/"
+      - "/Users/sheep/anaconda3/condabin/"
+      - "/Users/sheep/.cabal/bin/"
+      - "/Users/sheep/.ghcup/bin/"
+      - "/Users/sheep/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/"
     searched_directories:
       - "/usr/bin/tapi"
+      - "/Users/sheep/.nvm/versions/node/v20.15.1/bin/tapi"
       - "/opt/homebrew/bin/tapi"
       - "/opt/homebrew/sbin/tapi"
       - "/usr/local/bin/tapi"
@@ -817,9 +1044,16 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/tapi"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/tapi"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/tapi"
+      - "/Library/TeX/texbin/tapi"
+      - "/Applications/VMware Fusion.app/Contents/Public/tapi"
+      - "/Users/sheep/anaconda3/condabin/tapi"
+      - "/Users/sheep/.cabal/bin/tapi"
+      - "/Users/sheep/.ghcup/bin/tapi"
+      - "/Users/sheep/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/tapi"
     found: false
     search_context:
       ENV{PATH}:
+        - "/Users/sheep/.nvm/versions/node/v20.15.1/bin"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/sbin"
         - "/usr/local/bin"
@@ -831,6 +1065,13 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/Library/TeX/texbin"
+        - "/Applications/VMware Fusion.app/Contents/Public"
+        - "/Users/sheep/.nvm/versions/node/v20.15.1/bin"
+        - "/Users/sheep/anaconda3/condabin"
+        - "/Users/sheep/.cabal/bin"
+        - "/Users/sheep/.ghcup/bin"
+        - "/Users/sheep/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand"
   -
     kind: "find-v1"
     backtrace:
@@ -861,6 +1102,7 @@ events:
     found: "/usr/bin/c++"
     search_context:
       ENV{PATH}:
+        - "/Users/sheep/.nvm/versions/node/v20.15.1/bin"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/sbin"
         - "/usr/local/bin"
@@ -872,6 +1114,13 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/Library/TeX/texbin"
+        - "/Applications/VMware Fusion.app/Contents/Public"
+        - "/Users/sheep/.nvm/versions/node/v20.15.1/bin"
+        - "/Users/sheep/anaconda3/condabin"
+        - "/Users/sheep/.cabal/bin"
+        - "/Users/sheep/.ghcup/bin"
+        - "/Users/sheep/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand"
   -
     kind: "find-v1"
     backtrace:
@@ -899,6 +1148,7 @@ events:
     found: "/opt/homebrew/share/cmake/Modules/CMakeCXXCompilerId.cpp.in"
     search_context:
       ENV{PATH}:
+        - "/Users/sheep/.nvm/versions/node/v20.15.1/bin"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/sbin"
         - "/usr/local/bin"
@@ -910,6 +1160,13 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/Library/TeX/texbin"
+        - "/Applications/VMware Fusion.app/Contents/Public"
+        - "/Users/sheep/.nvm/versions/node/v20.15.1/bin"
+        - "/Users/sheep/anaconda3/condabin"
+        - "/Users/sheep/.cabal/bin"
+        - "/Users/sheep/.ghcup/bin"
+        - "/Users/sheep/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand"
   -
     kind: "message-v1"
     backtrace:
@@ -930,7 +1187,7 @@ events:
       Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.out"
       
       The CXX compiler identification is AppleClang, found in:
-        /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/build/CMakeFiles/4.1.0/CompilerIdCXX/a.out
+        /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build/CMakeFiles/4.1.0/CompilerIdCXX/a.out
       
   -
     kind: "message-v1"
@@ -993,6 +1250,7 @@ events:
     names:
       - "install_name_tool"
     candidate_directories:
+      - "/Users/sheep/.nvm/versions/node/v20.15.1/bin/"
       - "/opt/homebrew/bin/"
       - "/opt/homebrew/sbin/"
       - "/usr/local/bin/"
@@ -1004,7 +1262,14 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/Library/TeX/texbin/"
+      - "/Applications/VMware Fusion.app/Contents/Public/"
+      - "/Users/sheep/anaconda3/condabin/"
+      - "/Users/sheep/.cabal/bin/"
+      - "/Users/sheep/.ghcup/bin/"
+      - "/Users/sheep/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/"
     searched_directories:
+      - "/Users/sheep/.nvm/versions/node/v20.15.1/bin/install_name_tool"
       - "/opt/homebrew/bin/install_name_tool"
       - "/opt/homebrew/sbin/install_name_tool"
       - "/usr/local/bin/install_name_tool"
@@ -1012,6 +1277,7 @@ events:
     found: "/usr/bin/install_name_tool"
     search_context:
       ENV{PATH}:
+        - "/Users/sheep/.nvm/versions/node/v20.15.1/bin"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/sbin"
         - "/usr/local/bin"
@@ -1023,6 +1289,13 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/Library/TeX/texbin"
+        - "/Applications/VMware Fusion.app/Contents/Public"
+        - "/Users/sheep/.nvm/versions/node/v20.15.1/bin"
+        - "/Users/sheep/anaconda3/condabin"
+        - "/Users/sheep/.cabal/bin"
+        - "/Users/sheep/.ghcup/bin"
+        - "/Users/sheep/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand"
       CMAKE_INSTALL_PREFIX: "/usr/local"
   -
     kind: "try_compile-v1"
@@ -1033,8 +1306,8 @@ events:
     checks:
       - "Detecting C compiler ABI info"
     directories:
-      source: "/Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/build/CMakeFiles/CMakeScratch/TryCompile-lCmkxh"
-      binary: "/Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/build/CMakeFiles/CMakeScratch/TryCompile-lCmkxh"
+      source: "/Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build/CMakeFiles/CMakeScratch/TryCompile-sHRnTE"
+      binary: "/Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build/CMakeFiles/CMakeScratch/TryCompile-sHRnTE"
     cmakeVariables:
       CMAKE_C_FLAGS: ""
       CMAKE_C_FLAGS_DEBUG: "-g"
@@ -1046,37 +1319,38 @@ events:
       variable: "CMAKE_C_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: '/Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/build/CMakeFiles/CMakeScratch/TryCompile-lCmkxh'
+        Change Dir: '/Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build/CMakeFiles/CMakeScratch/TryCompile-sHRnTE'
         
-        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_735b3/fast
-        /Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/cmTC_735b3.dir/build.make CMakeFiles/cmTC_735b3.dir/build
-        Building C object CMakeFiles/cmTC_735b3.dir/CMakeCCompilerABI.c.o
-        /usr/bin/cc   -arch arm64   -v -Wl,-v -MD -MT CMakeFiles/cmTC_735b3.dir/CMakeCCompilerABI.c.o -MF CMakeFiles/cmTC_735b3.dir/CMakeCCompilerABI.c.o.d -o CMakeFiles/cmTC_735b3.dir/CMakeCCompilerABI.c.o -c /opt/homebrew/share/cmake/Modules/CMakeCCompilerABI.c
+        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /opt/homebrew/bin/gmake -f Makefile cmTC_0312a/fast
+        /opt/homebrew/bin/gmake  -f CMakeFiles/cmTC_0312a.dir/build.make CMakeFiles/cmTC_0312a.dir/build
+        gmake[1]: Entering directory '/Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build/CMakeFiles/CMakeScratch/TryCompile-sHRnTE'
+        Building C object CMakeFiles/cmTC_0312a.dir/CMakeCCompilerABI.c.o
+        /usr/bin/cc   -arch arm64   -v -Wl,-v -MD -MT CMakeFiles/cmTC_0312a.dir/CMakeCCompilerABI.c.o -MF CMakeFiles/cmTC_0312a.dir/CMakeCCompilerABI.c.o.d -o CMakeFiles/cmTC_0312a.dir/CMakeCCompilerABI.c.o -c /opt/homebrew/share/cmake/Modules/CMakeCCompilerABI.c
         Apple clang version 17.0.0 (clang-1700.0.13.5)
-        Target: arm64-apple-darwin24.6.0
+        Target: arm64-apple-darwin24.5.0
         Thread model: posix
         InstalledDir: /Library/Developer/CommandLineTools/usr/bin
         clang: warning: -Wl,-v: 'linker' input unused [-Wunused-command-line-argument]
-         "/Library/Developer/CommandLineTools/usr/bin/clang" -cc1 -triple arm64-apple-macosx15.0.0 -Wundef-prefix=TARGET_OS_ -Wdeprecated-objc-isa-usage -Werror=deprecated-objc-isa-usage -Werror=implicit-function-declaration -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model pic -pic-level 2 -mframe-pointer=non-leaf -fno-strict-return -ffp-contract=on -fno-rounding-math -funwind-tables=1 -fobjc-msgsend-selector-stubs -target-sdk-version=15.5 -fvisibility-inlines-hidden-static-local-var -fdefine-target-os-macros -fno-assume-unique-vtables -fno-modulemap-allow-subdirectory-search -target-cpu apple-m1 -target-feature +zcm -target-feature +zcz -target-feature +v8.5a -target-feature +aes -target-feature +altnzcv -target-feature +ccdp -target-feature +complxnum -target-feature +crc -target-feature +dotprod -target-feature +fp-armv8 -target-feature +fp16fml -target-feature +fptoint -target-feature +fullfp16 -target-feature +jsconv -target-feature +lse -target-feature +neon -target-feature +pauth -target-feature +perfmon -target-feature +predres -target-feature +ras -target-feature +rcpc -target-feature +rdm -target-feature +sb -target-feature +sha2 -target-feature +sha3 -target-feature +specrestrict -target-feature +ssbs -target-abi darwinpcs -debugger-tuning=lldb -fdebug-compilation-dir=/Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/build/CMakeFiles/CMakeScratch/TryCompile-lCmkxh -target-linker-version 1167.5 -v -fcoverage-compilation-dir=/Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/build/CMakeFiles/CMakeScratch/TryCompile-lCmkxh -resource-dir /Library/Developer/CommandLineTools/usr/lib/clang/17 -dependency-file CMakeFiles/cmTC_735b3.dir/CMakeCCompilerABI.c.o.d -skip-unused-modulemap-deps -MT CMakeFiles/cmTC_735b3.dir/CMakeCCompilerABI.c.o -sys-header-deps -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -internal-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/local/include -internal-isystem /Library/Developer/CommandLineTools/usr/lib/clang/17/include -internal-externc-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -internal-externc-isystem /Library/Developer/CommandLineTools/usr/include -Wno-reorder-init-list -Wno-implicit-int-float-conversion -Wno-c99-designator -Wno-final-dtor-non-final-class -Wno-extra-semi-stmt -Wno-misleading-indentation -Wno-quoted-include-in-framework-header -Wno-implicit-fallthrough -Wno-enum-enum-conversion -Wno-enum-float-conversion -Wno-elaborated-enum-base -Wno-reserved-identifier -Wno-gnu-folding-constant -ferror-limit 19 -stack-protector 1 -fstack-check -mdarwin-stkchk-strong-link -fblocks -fencode-extended-block-signature -fregister-global-dtors-with-atexit -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fmax-type-align=16 -fcommon -clang-vendor-feature=+disableNonDependentMemberExprInCurrentInstantiation -fno-odr-hash-protocols -clang-vendor-feature=+enableAggressiveVLAFolding -clang-vendor-feature=+revert09abecef7bbf -clang-vendor-feature=+thisNoAlignAttr -clang-vendor-feature=+thisNoNullAttr -clang-vendor-feature=+disableAtImportPrivateFrameworkInImplementationError -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_735b3.dir/CMakeCCompilerABI.c.o -x c /opt/homebrew/share/cmake/Modules/CMakeCCompilerABI.c
-        clang -cc1 version 17.0.0 (clang-1700.0.13.5) default target arm64-apple-darwin24.6.0
-        ignoring nonexistent directory "/usr/local/include"
+         "/Library/Developer/CommandLineTools/usr/bin/clang" -cc1 -triple arm64-apple-macosx15.0.0 -Wundef-prefix=TARGET_OS_ -Wdeprecated-objc-isa-usage -Werror=deprecated-objc-isa-usage -Werror=implicit-function-declaration -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model pic -pic-level 2 -mframe-pointer=non-leaf -fno-strict-return -ffp-contract=on -fno-rounding-math -funwind-tables=1 -fobjc-msgsend-selector-stubs -target-sdk-version=15.5 -fvisibility-inlines-hidden-static-local-var -fdefine-target-os-macros -fno-assume-unique-vtables -fno-modulemap-allow-subdirectory-search -target-cpu apple-m1 -target-feature +zcm -target-feature +zcz -target-feature +v8.5a -target-feature +aes -target-feature +altnzcv -target-feature +ccdp -target-feature +complxnum -target-feature +crc -target-feature +dotprod -target-feature +fp-armv8 -target-feature +fp16fml -target-feature +fptoint -target-feature +fullfp16 -target-feature +jsconv -target-feature +lse -target-feature +neon -target-feature +pauth -target-feature +perfmon -target-feature +predres -target-feature +ras -target-feature +rcpc -target-feature +rdm -target-feature +sb -target-feature +sha2 -target-feature +sha3 -target-feature +specrestrict -target-feature +ssbs -target-abi darwinpcs -debugger-tuning=lldb -fdebug-compilation-dir=/Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build/CMakeFiles/CMakeScratch/TryCompile-sHRnTE -target-linker-version 1167.5 -v -fcoverage-compilation-dir=/Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build/CMakeFiles/CMakeScratch/TryCompile-sHRnTE -resource-dir /Library/Developer/CommandLineTools/usr/lib/clang/17 -dependency-file CMakeFiles/cmTC_0312a.dir/CMakeCCompilerABI.c.o.d -skip-unused-modulemap-deps -MT CMakeFiles/cmTC_0312a.dir/CMakeCCompilerABI.c.o -sys-header-deps -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -internal-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/local/include -internal-isystem /Library/Developer/CommandLineTools/usr/lib/clang/17/include -internal-externc-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -internal-externc-isystem /Library/Developer/CommandLineTools/usr/include -Wno-reorder-init-list -Wno-implicit-int-float-conversion -Wno-c99-designator -Wno-final-dtor-non-final-class -Wno-extra-semi-stmt -Wno-misleading-indentation -Wno-quoted-include-in-framework-header -Wno-implicit-fallthrough -Wno-enum-enum-conversion -Wno-enum-float-conversion -Wno-elaborated-enum-base -Wno-reserved-identifier -Wno-gnu-folding-constant -ferror-limit 19 -stack-protector 1 -fstack-check -mdarwin-stkchk-strong-link -fblocks -fencode-extended-block-signature -fregister-global-dtors-with-atexit -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fmax-type-align=16 -fcommon -clang-vendor-feature=+disableNonDependentMemberExprInCurrentInstantiation -fno-odr-hash-protocols -clang-vendor-feature=+enableAggressiveVLAFolding -clang-vendor-feature=+revert09abecef7bbf -clang-vendor-feature=+thisNoAlignAttr -clang-vendor-feature=+thisNoNullAttr -clang-vendor-feature=+disableAtImportPrivateFrameworkInImplementationError -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_0312a.dir/CMakeCCompilerABI.c.o -x c /opt/homebrew/share/cmake/Modules/CMakeCCompilerABI.c
+        clang -cc1 version 17.0.0 (clang-1700.0.13.5) default target arm64-apple-darwin24.5.0
         ignoring nonexistent directory "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/local/include"
         ignoring nonexistent directory "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/SubFrameworks"
         ignoring nonexistent directory "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/Library/Frameworks"
         #include "..." search starts here:
         #include <...> search starts here:
+         /usr/local/include
          /Library/Developer/CommandLineTools/usr/lib/clang/17/include
          /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include
          /Library/Developer/CommandLineTools/usr/include
          /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks (framework directory)
         End of search list.
-        Linking C executable cmTC_735b3
-        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_735b3.dir/link.txt --verbose=1
+        Linking C executable cmTC_0312a
+        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_0312a.dir/link.txt --verbose=1
         Apple clang version 17.0.0 (clang-1700.0.13.5)
-        Target: arm64-apple-darwin24.6.0
+        Target: arm64-apple-darwin24.5.0
         Thread model: posix
         InstalledDir: /Library/Developer/CommandLineTools/usr/bin
-         "/Library/Developer/CommandLineTools/usr/bin/ld" -demangle -lto_library /Library/Developer/CommandLineTools/usr/lib/libLTO.dylib -dynamic -arch arm64 -platform_version macos 15.0.0 15.5 -syslibroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -mllvm -enable-linkonceodr-outlining -o cmTC_735b3 -L/usr/local/lib -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTC_735b3.dir/CMakeCCompilerABI.c.o -lSystem /Library/Developer/CommandLineTools/usr/lib/clang/17/lib/darwin/libclang_rt.osx.a
+         "/Library/Developer/CommandLineTools/usr/bin/ld" -demangle -lto_library /Library/Developer/CommandLineTools/usr/lib/libLTO.dylib -dynamic -arch arm64 -platform_version macos 15.0.0 15.5 -syslibroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -mllvm -enable-linkonceodr-outlining -o cmTC_0312a -L/usr/local/lib -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTC_0312a.dir/CMakeCCompilerABI.c.o -lSystem /Library/Developer/CommandLineTools/usr/lib/clang/17/lib/darwin/libclang_rt.osx.a
         @(#)PROGRAM:ld PROJECT:ld-1167.5
         BUILD 01:45:05 Apr 30 2025
         configured to support archs: armv6 armv7 armv7s arm64 arm64e arm64_32 i386 x86_64 x86_64h armv6m armv7k armv7m armv7em
@@ -1084,11 +1358,13 @@ events:
         LTO support using: LLVM version 17.0.0 (static support for 29, runtime is 29)
         TAPI support using: Apple TAPI version 17.0.0 (tapi-1700.0.3.5)
         Library search paths:
+        	/usr/local/lib
         	/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib
         	/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib/swift
         Framework search paths:
         	/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks
-        /usr/bin/cc  -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names  -v -Wl,-v CMakeFiles/cmTC_735b3.dir/CMakeCCompilerABI.c.o -o cmTC_735b3
+        /usr/bin/cc  -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names  -v -Wl,-v CMakeFiles/cmTC_0312a.dir/CMakeCCompilerABI.c.o -o cmTC_0312a
+        gmake[1]: Leaving directory '/Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build/CMakeFiles/CMakeScratch/TryCompile-sHRnTE'
         
       exitCode: 0
   -
@@ -1110,14 +1386,16 @@ events:
       Parsed C implicit include dir info: rv=done
         found start of include info
         found start of implicit include info
+          add: [/usr/local/include]
           add: [/Library/Developer/CommandLineTools/usr/lib/clang/17/include]
           add: [/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include]
           add: [/Library/Developer/CommandLineTools/usr/include]
         end of search list found
+        collapse include dir [/usr/local/include] ==> [/usr/local/include]
         collapse include dir [/Library/Developer/CommandLineTools/usr/lib/clang/17/include] ==> [/Library/Developer/CommandLineTools/usr/lib/clang/17/include]
         collapse include dir [/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include] ==> [/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include]
         collapse include dir [/Library/Developer/CommandLineTools/usr/include] ==> [/Library/Developer/CommandLineTools/usr/include]
-        implicit include dirs: [/Library/Developer/CommandLineTools/usr/lib/clang/17/include;/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include;/Library/Developer/CommandLineTools/usr/include]
+        implicit include dirs: [/usr/local/include;/Library/Developer/CommandLineTools/usr/lib/clang/17/include;/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include;/Library/Developer/CommandLineTools/usr/include]
       
       
   -
@@ -1130,37 +1408,38 @@ events:
       Parsed C implicit link information:
         link line regex: [^( *|.*[/\\])(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
         linker tool regex: [^[ 	]*(->|")?[ 	]*(([^"]*[/\\])?(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)))("|,| |$)]
-        ignore line: [Change Dir: '/Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/build/CMakeFiles/CMakeScratch/TryCompile-lCmkxh']
+        ignore line: [Change Dir: '/Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build/CMakeFiles/CMakeScratch/TryCompile-sHRnTE']
         ignore line: []
-        ignore line: [Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_735b3/fast]
-        ignore line: [/Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/cmTC_735b3.dir/build.make CMakeFiles/cmTC_735b3.dir/build]
-        ignore line: [Building C object CMakeFiles/cmTC_735b3.dir/CMakeCCompilerABI.c.o]
-        ignore line: [/usr/bin/cc   -arch arm64   -v -Wl -v -MD -MT CMakeFiles/cmTC_735b3.dir/CMakeCCompilerABI.c.o -MF CMakeFiles/cmTC_735b3.dir/CMakeCCompilerABI.c.o.d -o CMakeFiles/cmTC_735b3.dir/CMakeCCompilerABI.c.o -c /opt/homebrew/share/cmake/Modules/CMakeCCompilerABI.c]
+        ignore line: [Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /opt/homebrew/bin/gmake -f Makefile cmTC_0312a/fast]
+        ignore line: [/opt/homebrew/bin/gmake  -f CMakeFiles/cmTC_0312a.dir/build.make CMakeFiles/cmTC_0312a.dir/build]
+        ignore line: [gmake[1]: Entering directory '/Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build/CMakeFiles/CMakeScratch/TryCompile-sHRnTE']
+        ignore line: [Building C object CMakeFiles/cmTC_0312a.dir/CMakeCCompilerABI.c.o]
+        ignore line: [/usr/bin/cc   -arch arm64   -v -Wl -v -MD -MT CMakeFiles/cmTC_0312a.dir/CMakeCCompilerABI.c.o -MF CMakeFiles/cmTC_0312a.dir/CMakeCCompilerABI.c.o.d -o CMakeFiles/cmTC_0312a.dir/CMakeCCompilerABI.c.o -c /opt/homebrew/share/cmake/Modules/CMakeCCompilerABI.c]
         ignore line: [Apple clang version 17.0.0 (clang-1700.0.13.5)]
-        ignore line: [Target: arm64-apple-darwin24.6.0]
+        ignore line: [Target: arm64-apple-darwin24.5.0]
         ignore line: [Thread model: posix]
         ignore line: [InstalledDir: /Library/Developer/CommandLineTools/usr/bin]
         ignore line: [clang: warning: -Wl -v: 'linker' input unused [-Wunused-command-line-argument]]
-        ignore line: [ "/Library/Developer/CommandLineTools/usr/bin/clang" -cc1 -triple arm64-apple-macosx15.0.0 -Wundef-prefix=TARGET_OS_ -Wdeprecated-objc-isa-usage -Werror=deprecated-objc-isa-usage -Werror=implicit-function-declaration -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model pic -pic-level 2 -mframe-pointer=non-leaf -fno-strict-return -ffp-contract=on -fno-rounding-math -funwind-tables=1 -fobjc-msgsend-selector-stubs -target-sdk-version=15.5 -fvisibility-inlines-hidden-static-local-var -fdefine-target-os-macros -fno-assume-unique-vtables -fno-modulemap-allow-subdirectory-search -target-cpu apple-m1 -target-feature +zcm -target-feature +zcz -target-feature +v8.5a -target-feature +aes -target-feature +altnzcv -target-feature +ccdp -target-feature +complxnum -target-feature +crc -target-feature +dotprod -target-feature +fp-armv8 -target-feature +fp16fml -target-feature +fptoint -target-feature +fullfp16 -target-feature +jsconv -target-feature +lse -target-feature +neon -target-feature +pauth -target-feature +perfmon -target-feature +predres -target-feature +ras -target-feature +rcpc -target-feature +rdm -target-feature +sb -target-feature +sha2 -target-feature +sha3 -target-feature +specrestrict -target-feature +ssbs -target-abi darwinpcs -debugger-tuning=lldb -fdebug-compilation-dir=/Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/build/CMakeFiles/CMakeScratch/TryCompile-lCmkxh -target-linker-version 1167.5 -v -fcoverage-compilation-dir=/Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/build/CMakeFiles/CMakeScratch/TryCompile-lCmkxh -resource-dir /Library/Developer/CommandLineTools/usr/lib/clang/17 -dependency-file CMakeFiles/cmTC_735b3.dir/CMakeCCompilerABI.c.o.d -skip-unused-modulemap-deps -MT CMakeFiles/cmTC_735b3.dir/CMakeCCompilerABI.c.o -sys-header-deps -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -internal-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/local/include -internal-isystem /Library/Developer/CommandLineTools/usr/lib/clang/17/include -internal-externc-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -internal-externc-isystem /Library/Developer/CommandLineTools/usr/include -Wno-reorder-init-list -Wno-implicit-int-float-conversion -Wno-c99-designator -Wno-final-dtor-non-final-class -Wno-extra-semi-stmt -Wno-misleading-indentation -Wno-quoted-include-in-framework-header -Wno-implicit-fallthrough -Wno-enum-enum-conversion -Wno-enum-float-conversion -Wno-elaborated-enum-base -Wno-reserved-identifier -Wno-gnu-folding-constant -ferror-limit 19 -stack-protector 1 -fstack-check -mdarwin-stkchk-strong-link -fblocks -fencode-extended-block-signature -fregister-global-dtors-with-atexit -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fmax-type-align=16 -fcommon -clang-vendor-feature=+disableNonDependentMemberExprInCurrentInstantiation -fno-odr-hash-protocols -clang-vendor-feature=+enableAggressiveVLAFolding -clang-vendor-feature=+revert09abecef7bbf -clang-vendor-feature=+thisNoAlignAttr -clang-vendor-feature=+thisNoNullAttr -clang-vendor-feature=+disableAtImportPrivateFrameworkInImplementationError -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_735b3.dir/CMakeCCompilerABI.c.o -x c /opt/homebrew/share/cmake/Modules/CMakeCCompilerABI.c]
-        ignore line: [clang -cc1 version 17.0.0 (clang-1700.0.13.5) default target arm64-apple-darwin24.6.0]
-        ignore line: [ignoring nonexistent directory "/usr/local/include"]
+        ignore line: [ "/Library/Developer/CommandLineTools/usr/bin/clang" -cc1 -triple arm64-apple-macosx15.0.0 -Wundef-prefix=TARGET_OS_ -Wdeprecated-objc-isa-usage -Werror=deprecated-objc-isa-usage -Werror=implicit-function-declaration -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model pic -pic-level 2 -mframe-pointer=non-leaf -fno-strict-return -ffp-contract=on -fno-rounding-math -funwind-tables=1 -fobjc-msgsend-selector-stubs -target-sdk-version=15.5 -fvisibility-inlines-hidden-static-local-var -fdefine-target-os-macros -fno-assume-unique-vtables -fno-modulemap-allow-subdirectory-search -target-cpu apple-m1 -target-feature +zcm -target-feature +zcz -target-feature +v8.5a -target-feature +aes -target-feature +altnzcv -target-feature +ccdp -target-feature +complxnum -target-feature +crc -target-feature +dotprod -target-feature +fp-armv8 -target-feature +fp16fml -target-feature +fptoint -target-feature +fullfp16 -target-feature +jsconv -target-feature +lse -target-feature +neon -target-feature +pauth -target-feature +perfmon -target-feature +predres -target-feature +ras -target-feature +rcpc -target-feature +rdm -target-feature +sb -target-feature +sha2 -target-feature +sha3 -target-feature +specrestrict -target-feature +ssbs -target-abi darwinpcs -debugger-tuning=lldb -fdebug-compilation-dir=/Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build/CMakeFiles/CMakeScratch/TryCompile-sHRnTE -target-linker-version 1167.5 -v -fcoverage-compilation-dir=/Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build/CMakeFiles/CMakeScratch/TryCompile-sHRnTE -resource-dir /Library/Developer/CommandLineTools/usr/lib/clang/17 -dependency-file CMakeFiles/cmTC_0312a.dir/CMakeCCompilerABI.c.o.d -skip-unused-modulemap-deps -MT CMakeFiles/cmTC_0312a.dir/CMakeCCompilerABI.c.o -sys-header-deps -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -internal-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/local/include -internal-isystem /Library/Developer/CommandLineTools/usr/lib/clang/17/include -internal-externc-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -internal-externc-isystem /Library/Developer/CommandLineTools/usr/include -Wno-reorder-init-list -Wno-implicit-int-float-conversion -Wno-c99-designator -Wno-final-dtor-non-final-class -Wno-extra-semi-stmt -Wno-misleading-indentation -Wno-quoted-include-in-framework-header -Wno-implicit-fallthrough -Wno-enum-enum-conversion -Wno-enum-float-conversion -Wno-elaborated-enum-base -Wno-reserved-identifier -Wno-gnu-folding-constant -ferror-limit 19 -stack-protector 1 -fstack-check -mdarwin-stkchk-strong-link -fblocks -fencode-extended-block-signature -fregister-global-dtors-with-atexit -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fmax-type-align=16 -fcommon -clang-vendor-feature=+disableNonDependentMemberExprInCurrentInstantiation -fno-odr-hash-protocols -clang-vendor-feature=+enableAggressiveVLAFolding -clang-vendor-feature=+revert09abecef7bbf -clang-vendor-feature=+thisNoAlignAttr -clang-vendor-feature=+thisNoNullAttr -clang-vendor-feature=+disableAtImportPrivateFrameworkInImplementationError -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_0312a.dir/CMakeCCompilerABI.c.o -x c /opt/homebrew/share/cmake/Modules/CMakeCCompilerABI.c]
+        ignore line: [clang -cc1 version 17.0.0 (clang-1700.0.13.5) default target arm64-apple-darwin24.5.0]
         ignore line: [ignoring nonexistent directory "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/local/include"]
         ignore line: [ignoring nonexistent directory "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/SubFrameworks"]
         ignore line: [ignoring nonexistent directory "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/Library/Frameworks"]
         ignore line: [#include "..." search starts here:]
         ignore line: [#include <...> search starts here:]
+        ignore line: [ /usr/local/include]
         ignore line: [ /Library/Developer/CommandLineTools/usr/lib/clang/17/include]
         ignore line: [ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include]
         ignore line: [ /Library/Developer/CommandLineTools/usr/include]
         ignore line: [ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks (framework directory)]
         ignore line: [End of search list.]
-        ignore line: [Linking C executable cmTC_735b3]
-        ignore line: [/opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_735b3.dir/link.txt --verbose=1]
+        ignore line: [Linking C executable cmTC_0312a]
+        ignore line: [/opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_0312a.dir/link.txt --verbose=1]
         ignore line: [Apple clang version 17.0.0 (clang-1700.0.13.5)]
-        ignore line: [Target: arm64-apple-darwin24.6.0]
+        ignore line: [Target: arm64-apple-darwin24.5.0]
         ignore line: [Thread model: posix]
         ignore line: [InstalledDir: /Library/Developer/CommandLineTools/usr/bin]
-        link line: [ "/Library/Developer/CommandLineTools/usr/bin/ld" -demangle -lto_library /Library/Developer/CommandLineTools/usr/lib/libLTO.dylib -dynamic -arch arm64 -platform_version macos 15.0.0 15.5 -syslibroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -mllvm -enable-linkonceodr-outlining -o cmTC_735b3 -L/usr/local/lib -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTC_735b3.dir/CMakeCCompilerABI.c.o -lSystem /Library/Developer/CommandLineTools/usr/lib/clang/17/lib/darwin/libclang_rt.osx.a]
+        link line: [ "/Library/Developer/CommandLineTools/usr/bin/ld" -demangle -lto_library /Library/Developer/CommandLineTools/usr/lib/libLTO.dylib -dynamic -arch arm64 -platform_version macos 15.0.0 15.5 -syslibroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -mllvm -enable-linkonceodr-outlining -o cmTC_0312a -L/usr/local/lib -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTC_0312a.dir/CMakeCCompilerABI.c.o -lSystem /Library/Developer/CommandLineTools/usr/lib/clang/17/lib/darwin/libclang_rt.osx.a]
           arg [/Library/Developer/CommandLineTools/usr/bin/ld] ==> ignore
           arg [-demangle] ==> ignore
           arg [-lto_library] ==> ignore, skip following value
@@ -1177,19 +1456,20 @@ events:
           arg [-mllvm] ==> ignore
           arg [-enable-linkonceodr-outlining] ==> ignore
           arg [-o] ==> ignore
-          arg [cmTC_735b3] ==> ignore
+          arg [cmTC_0312a] ==> ignore
           arg [-L/usr/local/lib] ==> dir [/usr/local/lib]
           arg [-search_paths_first] ==> ignore
           arg [-headerpad_max_install_names] ==> ignore
           arg [-v] ==> ignore
-          arg [CMakeFiles/cmTC_735b3.dir/CMakeCCompilerABI.c.o] ==> ignore
+          arg [CMakeFiles/cmTC_0312a.dir/CMakeCCompilerABI.c.o] ==> ignore
           arg [-lSystem] ==> lib [System]
           arg [/Library/Developer/CommandLineTools/usr/lib/clang/17/lib/darwin/libclang_rt.osx.a] ==> lib [/Library/Developer/CommandLineTools/usr/lib/clang/17/lib/darwin/libclang_rt.osx.a]
         linker tool for 'C': /Library/Developer/CommandLineTools/usr/bin/ld
-        Library search paths: [;/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib;/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib/swift]
+        Library search paths: [;/usr/local/lib;/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib;/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib/swift]
         Framework search paths: [;/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks]
         remove lib [System]
         remove lib [/Library/Developer/CommandLineTools/usr/lib/clang/17/lib/darwin/libclang_rt.osx.a]
+        collapse library dir [/usr/local/lib] ==> [/usr/local/lib]
         collapse library dir [/usr/local/lib] ==> [/usr/local/lib]
         collapse library dir [/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib] ==> [/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib]
         collapse library dir [/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib/swift] ==> [/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib/swift]
@@ -1224,8 +1504,8 @@ events:
     checks:
       - "Detecting CXX compiler ABI info"
     directories:
-      source: "/Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/build/CMakeFiles/CMakeScratch/TryCompile-AmvwIG"
-      binary: "/Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/build/CMakeFiles/CMakeScratch/TryCompile-AmvwIG"
+      source: "/Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build/CMakeFiles/CMakeScratch/TryCompile-bHKOj9"
+      binary: "/Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build/CMakeFiles/CMakeScratch/TryCompile-bHKOj9"
     cmakeVariables:
       CMAKE_CXX_FLAGS: ""
       CMAKE_CXX_FLAGS_DEBUG: "-g"
@@ -1238,39 +1518,40 @@ events:
       variable: "CMAKE_CXX_ABI_COMPILED"
       cached: true
       stdout: |
-        Change Dir: '/Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/build/CMakeFiles/CMakeScratch/TryCompile-AmvwIG'
+        Change Dir: '/Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build/CMakeFiles/CMakeScratch/TryCompile-bHKOj9'
         
-        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_55e38/fast
-        /Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/cmTC_55e38.dir/build.make CMakeFiles/cmTC_55e38.dir/build
-        Building CXX object CMakeFiles/cmTC_55e38.dir/CMakeCXXCompilerABI.cpp.o
-        /usr/bin/c++   -arch arm64   -v -Wl,-v -MD -MT CMakeFiles/cmTC_55e38.dir/CMakeCXXCompilerABI.cpp.o -MF CMakeFiles/cmTC_55e38.dir/CMakeCXXCompilerABI.cpp.o.d -o CMakeFiles/cmTC_55e38.dir/CMakeCXXCompilerABI.cpp.o -c /opt/homebrew/share/cmake/Modules/CMakeCXXCompilerABI.cpp
+        Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /opt/homebrew/bin/gmake -f Makefile cmTC_b0011/fast
+        /opt/homebrew/bin/gmake  -f CMakeFiles/cmTC_b0011.dir/build.make CMakeFiles/cmTC_b0011.dir/build
+        gmake[1]: Entering directory '/Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build/CMakeFiles/CMakeScratch/TryCompile-bHKOj9'
+        Building CXX object CMakeFiles/cmTC_b0011.dir/CMakeCXXCompilerABI.cpp.o
+        /usr/bin/c++   -arch arm64   -v -Wl,-v -MD -MT CMakeFiles/cmTC_b0011.dir/CMakeCXXCompilerABI.cpp.o -MF CMakeFiles/cmTC_b0011.dir/CMakeCXXCompilerABI.cpp.o.d -o CMakeFiles/cmTC_b0011.dir/CMakeCXXCompilerABI.cpp.o -c /opt/homebrew/share/cmake/Modules/CMakeCXXCompilerABI.cpp
         Apple clang version 17.0.0 (clang-1700.0.13.5)
-        Target: arm64-apple-darwin24.6.0
+        Target: arm64-apple-darwin24.5.0
         Thread model: posix
         InstalledDir: /Library/Developer/CommandLineTools/usr/bin
         clang++: warning: -Wl,-v: 'linker' input unused [-Wunused-command-line-argument]
         ignoring nonexistent directory "/Library/Developer/CommandLineTools/usr/bin/../include/c++/v1"
-         "/Library/Developer/CommandLineTools/usr/bin/clang" -cc1 -triple arm64-apple-macosx15.0.0 -Wundef-prefix=TARGET_OS_ -Wdeprecated-objc-isa-usage -Werror=deprecated-objc-isa-usage -Werror=implicit-function-declaration -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model pic -pic-level 2 -mframe-pointer=non-leaf -fno-strict-return -ffp-contract=on -fno-rounding-math -funwind-tables=1 -fobjc-msgsend-selector-stubs -target-sdk-version=15.5 -fvisibility-inlines-hidden-static-local-var -fdefine-target-os-macros -fno-assume-unique-vtables -fno-modulemap-allow-subdirectory-search -target-cpu apple-m1 -target-feature +zcm -target-feature +zcz -target-feature +v8.5a -target-feature +aes -target-feature +altnzcv -target-feature +ccdp -target-feature +complxnum -target-feature +crc -target-feature +dotprod -target-feature +fp-armv8 -target-feature +fp16fml -target-feature +fptoint -target-feature +fullfp16 -target-feature +jsconv -target-feature +lse -target-feature +neon -target-feature +pauth -target-feature +perfmon -target-feature +predres -target-feature +ras -target-feature +rcpc -target-feature +rdm -target-feature +sb -target-feature +sha2 -target-feature +sha3 -target-feature +specrestrict -target-feature +ssbs -target-abi darwinpcs -debugger-tuning=lldb -fdebug-compilation-dir=/Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/build/CMakeFiles/CMakeScratch/TryCompile-AmvwIG -target-linker-version 1167.5 -v -fcoverage-compilation-dir=/Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/build/CMakeFiles/CMakeScratch/TryCompile-AmvwIG -resource-dir /Library/Developer/CommandLineTools/usr/lib/clang/17 -dependency-file CMakeFiles/cmTC_55e38.dir/CMakeCXXCompilerABI.cpp.o.d -skip-unused-modulemap-deps -MT CMakeFiles/cmTC_55e38.dir/CMakeCXXCompilerABI.cpp.o -sys-header-deps -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -internal-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1 -internal-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/local/include -internal-isystem /Library/Developer/CommandLineTools/usr/lib/clang/17/include -internal-externc-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -internal-externc-isystem /Library/Developer/CommandLineTools/usr/include -Wno-reorder-init-list -Wno-implicit-int-float-conversion -Wno-c99-designator -Wno-final-dtor-non-final-class -Wno-extra-semi-stmt -Wno-misleading-indentation -Wno-quoted-include-in-framework-header -Wno-implicit-fallthrough -Wno-enum-enum-conversion -Wno-enum-float-conversion -Wno-elaborated-enum-base -Wno-reserved-identifier -Wno-gnu-folding-constant -fdeprecated-macro -ferror-limit 19 -stack-protector 1 -fstack-check -mdarwin-stkchk-strong-link -fblocks -fencode-extended-block-signature -fregister-global-dtors-with-atexit -fgnuc-version=4.2.1 -fno-cxx-modules -fskip-odr-check-in-gmf -fcxx-exceptions -fexceptions -fmax-type-align=16 -fcommon -clang-vendor-feature=+disableNonDependentMemberExprInCurrentInstantiation -fno-odr-hash-protocols -clang-vendor-feature=+enableAggressiveVLAFolding -clang-vendor-feature=+revert09abecef7bbf -clang-vendor-feature=+thisNoAlignAttr -clang-vendor-feature=+thisNoNullAttr -clang-vendor-feature=+disableAtImportPrivateFrameworkInImplementationError -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_55e38.dir/CMakeCXXCompilerABI.cpp.o -x c++ /opt/homebrew/share/cmake/Modules/CMakeCXXCompilerABI.cpp
-        clang -cc1 version 17.0.0 (clang-1700.0.13.5) default target arm64-apple-darwin24.6.0
-        ignoring nonexistent directory "/usr/local/include"
+         "/Library/Developer/CommandLineTools/usr/bin/clang" -cc1 -triple arm64-apple-macosx15.0.0 -Wundef-prefix=TARGET_OS_ -Wdeprecated-objc-isa-usage -Werror=deprecated-objc-isa-usage -Werror=implicit-function-declaration -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model pic -pic-level 2 -mframe-pointer=non-leaf -fno-strict-return -ffp-contract=on -fno-rounding-math -funwind-tables=1 -fobjc-msgsend-selector-stubs -target-sdk-version=15.5 -fvisibility-inlines-hidden-static-local-var -fdefine-target-os-macros -fno-assume-unique-vtables -fno-modulemap-allow-subdirectory-search -target-cpu apple-m1 -target-feature +zcm -target-feature +zcz -target-feature +v8.5a -target-feature +aes -target-feature +altnzcv -target-feature +ccdp -target-feature +complxnum -target-feature +crc -target-feature +dotprod -target-feature +fp-armv8 -target-feature +fp16fml -target-feature +fptoint -target-feature +fullfp16 -target-feature +jsconv -target-feature +lse -target-feature +neon -target-feature +pauth -target-feature +perfmon -target-feature +predres -target-feature +ras -target-feature +rcpc -target-feature +rdm -target-feature +sb -target-feature +sha2 -target-feature +sha3 -target-feature +specrestrict -target-feature +ssbs -target-abi darwinpcs -debugger-tuning=lldb -fdebug-compilation-dir=/Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build/CMakeFiles/CMakeScratch/TryCompile-bHKOj9 -target-linker-version 1167.5 -v -fcoverage-compilation-dir=/Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build/CMakeFiles/CMakeScratch/TryCompile-bHKOj9 -resource-dir /Library/Developer/CommandLineTools/usr/lib/clang/17 -dependency-file CMakeFiles/cmTC_b0011.dir/CMakeCXXCompilerABI.cpp.o.d -skip-unused-modulemap-deps -MT CMakeFiles/cmTC_b0011.dir/CMakeCXXCompilerABI.cpp.o -sys-header-deps -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -internal-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1 -internal-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/local/include -internal-isystem /Library/Developer/CommandLineTools/usr/lib/clang/17/include -internal-externc-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -internal-externc-isystem /Library/Developer/CommandLineTools/usr/include -Wno-reorder-init-list -Wno-implicit-int-float-conversion -Wno-c99-designator -Wno-final-dtor-non-final-class -Wno-extra-semi-stmt -Wno-misleading-indentation -Wno-quoted-include-in-framework-header -Wno-implicit-fallthrough -Wno-enum-enum-conversion -Wno-enum-float-conversion -Wno-elaborated-enum-base -Wno-reserved-identifier -Wno-gnu-folding-constant -fdeprecated-macro -ferror-limit 19 -stack-protector 1 -fstack-check -mdarwin-stkchk-strong-link -fblocks -fencode-extended-block-signature -fregister-global-dtors-with-atexit -fgnuc-version=4.2.1 -fno-cxx-modules -fskip-odr-check-in-gmf -fcxx-exceptions -fexceptions -fmax-type-align=16 -fcommon -clang-vendor-feature=+disableNonDependentMemberExprInCurrentInstantiation -fno-odr-hash-protocols -clang-vendor-feature=+enableAggressiveVLAFolding -clang-vendor-feature=+revert09abecef7bbf -clang-vendor-feature=+thisNoAlignAttr -clang-vendor-feature=+thisNoNullAttr -clang-vendor-feature=+disableAtImportPrivateFrameworkInImplementationError -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_b0011.dir/CMakeCXXCompilerABI.cpp.o -x c++ /opt/homebrew/share/cmake/Modules/CMakeCXXCompilerABI.cpp
+        clang -cc1 version 17.0.0 (clang-1700.0.13.5) default target arm64-apple-darwin24.5.0
         ignoring nonexistent directory "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/local/include"
         ignoring nonexistent directory "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/SubFrameworks"
         ignoring nonexistent directory "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/Library/Frameworks"
         #include "..." search starts here:
         #include <...> search starts here:
+         /usr/local/include
          /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1
          /Library/Developer/CommandLineTools/usr/lib/clang/17/include
          /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include
          /Library/Developer/CommandLineTools/usr/include
          /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks (framework directory)
         End of search list.
-        Linking CXX executable cmTC_55e38
-        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_55e38.dir/link.txt --verbose=1
+        Linking CXX executable cmTC_b0011
+        /opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b0011.dir/link.txt --verbose=1
         Apple clang version 17.0.0 (clang-1700.0.13.5)
-        Target: arm64-apple-darwin24.6.0
+        Target: arm64-apple-darwin24.5.0
         Thread model: posix
         InstalledDir: /Library/Developer/CommandLineTools/usr/bin
-         "/Library/Developer/CommandLineTools/usr/bin/ld" -demangle -lto_library /Library/Developer/CommandLineTools/usr/lib/libLTO.dylib -dynamic -arch arm64 -platform_version macos 15.0.0 15.5 -syslibroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -mllvm -enable-linkonceodr-outlining -o cmTC_55e38 -L/usr/local/lib -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTC_55e38.dir/CMakeCXXCompilerABI.cpp.o -lc++ -lSystem /Library/Developer/CommandLineTools/usr/lib/clang/17/lib/darwin/libclang_rt.osx.a
+         "/Library/Developer/CommandLineTools/usr/bin/ld" -demangle -lto_library /Library/Developer/CommandLineTools/usr/lib/libLTO.dylib -dynamic -arch arm64 -platform_version macos 15.0.0 15.5 -syslibroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -mllvm -enable-linkonceodr-outlining -o cmTC_b0011 -L/usr/local/lib -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTC_b0011.dir/CMakeCXXCompilerABI.cpp.o -lc++ -lSystem /Library/Developer/CommandLineTools/usr/lib/clang/17/lib/darwin/libclang_rt.osx.a
         @(#)PROGRAM:ld PROJECT:ld-1167.5
         BUILD 01:45:05 Apr 30 2025
         configured to support archs: armv6 armv7 armv7s arm64 arm64e arm64_32 i386 x86_64 x86_64h armv6m armv7k armv7m armv7em
@@ -1278,11 +1559,13 @@ events:
         LTO support using: LLVM version 17.0.0 (static support for 29, runtime is 29)
         TAPI support using: Apple TAPI version 17.0.0 (tapi-1700.0.3.5)
         Library search paths:
+        	/usr/local/lib
         	/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib
         	/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib/swift
         Framework search paths:
         	/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks
-        /usr/bin/c++  -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names  -v -Wl,-v CMakeFiles/cmTC_55e38.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_55e38
+        /usr/bin/c++  -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names  -v -Wl,-v CMakeFiles/cmTC_b0011.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_b0011
+        gmake[1]: Leaving directory '/Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build/CMakeFiles/CMakeScratch/TryCompile-bHKOj9'
         
       exitCode: 0
   -
@@ -1304,16 +1587,18 @@ events:
       Parsed CXX implicit include dir info: rv=done
         found start of include info
         found start of implicit include info
+          add: [/usr/local/include]
           add: [/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1]
           add: [/Library/Developer/CommandLineTools/usr/lib/clang/17/include]
           add: [/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include]
           add: [/Library/Developer/CommandLineTools/usr/include]
         end of search list found
+        collapse include dir [/usr/local/include] ==> [/usr/local/include]
         collapse include dir [/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1] ==> [/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1]
         collapse include dir [/Library/Developer/CommandLineTools/usr/lib/clang/17/include] ==> [/Library/Developer/CommandLineTools/usr/lib/clang/17/include]
         collapse include dir [/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include] ==> [/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include]
         collapse include dir [/Library/Developer/CommandLineTools/usr/include] ==> [/Library/Developer/CommandLineTools/usr/include]
-        implicit include dirs: [/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1;/Library/Developer/CommandLineTools/usr/lib/clang/17/include;/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include;/Library/Developer/CommandLineTools/usr/include]
+        implicit include dirs: [/usr/local/include;/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1;/Library/Developer/CommandLineTools/usr/lib/clang/17/include;/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include;/Library/Developer/CommandLineTools/usr/include]
       
       
   -
@@ -1326,39 +1611,40 @@ events:
       Parsed CXX implicit link information:
         link line regex: [^( *|.*[/\\])(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
         linker tool regex: [^[ 	]*(->|")?[ 	]*(([^"]*[/\\])?(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)))("|,| |$)]
-        ignore line: [Change Dir: '/Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/build/CMakeFiles/CMakeScratch/TryCompile-AmvwIG']
+        ignore line: [Change Dir: '/Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build/CMakeFiles/CMakeScratch/TryCompile-bHKOj9']
         ignore line: []
-        ignore line: [Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /usr/bin/make -f Makefile cmTC_55e38/fast]
-        ignore line: [/Library/Developer/CommandLineTools/usr/bin/make  -f CMakeFiles/cmTC_55e38.dir/build.make CMakeFiles/cmTC_55e38.dir/build]
-        ignore line: [Building CXX object CMakeFiles/cmTC_55e38.dir/CMakeCXXCompilerABI.cpp.o]
-        ignore line: [/usr/bin/c++   -arch arm64   -v -Wl -v -MD -MT CMakeFiles/cmTC_55e38.dir/CMakeCXXCompilerABI.cpp.o -MF CMakeFiles/cmTC_55e38.dir/CMakeCXXCompilerABI.cpp.o.d -o CMakeFiles/cmTC_55e38.dir/CMakeCXXCompilerABI.cpp.o -c /opt/homebrew/share/cmake/Modules/CMakeCXXCompilerABI.cpp]
+        ignore line: [Run Build Command(s): /opt/homebrew/bin/cmake -E env VERBOSE=1 /opt/homebrew/bin/gmake -f Makefile cmTC_b0011/fast]
+        ignore line: [/opt/homebrew/bin/gmake  -f CMakeFiles/cmTC_b0011.dir/build.make CMakeFiles/cmTC_b0011.dir/build]
+        ignore line: [gmake[1]: Entering directory '/Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build/CMakeFiles/CMakeScratch/TryCompile-bHKOj9']
+        ignore line: [Building CXX object CMakeFiles/cmTC_b0011.dir/CMakeCXXCompilerABI.cpp.o]
+        ignore line: [/usr/bin/c++   -arch arm64   -v -Wl -v -MD -MT CMakeFiles/cmTC_b0011.dir/CMakeCXXCompilerABI.cpp.o -MF CMakeFiles/cmTC_b0011.dir/CMakeCXXCompilerABI.cpp.o.d -o CMakeFiles/cmTC_b0011.dir/CMakeCXXCompilerABI.cpp.o -c /opt/homebrew/share/cmake/Modules/CMakeCXXCompilerABI.cpp]
         ignore line: [Apple clang version 17.0.0 (clang-1700.0.13.5)]
-        ignore line: [Target: arm64-apple-darwin24.6.0]
+        ignore line: [Target: arm64-apple-darwin24.5.0]
         ignore line: [Thread model: posix]
         ignore line: [InstalledDir: /Library/Developer/CommandLineTools/usr/bin]
         ignore line: [clang++: warning: -Wl -v: 'linker' input unused [-Wunused-command-line-argument]]
         ignore line: [ignoring nonexistent directory "/Library/Developer/CommandLineTools/usr/bin/../include/c++/v1"]
-        ignore line: [ "/Library/Developer/CommandLineTools/usr/bin/clang" -cc1 -triple arm64-apple-macosx15.0.0 -Wundef-prefix=TARGET_OS_ -Wdeprecated-objc-isa-usage -Werror=deprecated-objc-isa-usage -Werror=implicit-function-declaration -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model pic -pic-level 2 -mframe-pointer=non-leaf -fno-strict-return -ffp-contract=on -fno-rounding-math -funwind-tables=1 -fobjc-msgsend-selector-stubs -target-sdk-version=15.5 -fvisibility-inlines-hidden-static-local-var -fdefine-target-os-macros -fno-assume-unique-vtables -fno-modulemap-allow-subdirectory-search -target-cpu apple-m1 -target-feature +zcm -target-feature +zcz -target-feature +v8.5a -target-feature +aes -target-feature +altnzcv -target-feature +ccdp -target-feature +complxnum -target-feature +crc -target-feature +dotprod -target-feature +fp-armv8 -target-feature +fp16fml -target-feature +fptoint -target-feature +fullfp16 -target-feature +jsconv -target-feature +lse -target-feature +neon -target-feature +pauth -target-feature +perfmon -target-feature +predres -target-feature +ras -target-feature +rcpc -target-feature +rdm -target-feature +sb -target-feature +sha2 -target-feature +sha3 -target-feature +specrestrict -target-feature +ssbs -target-abi darwinpcs -debugger-tuning=lldb -fdebug-compilation-dir=/Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/build/CMakeFiles/CMakeScratch/TryCompile-AmvwIG -target-linker-version 1167.5 -v -fcoverage-compilation-dir=/Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/build/CMakeFiles/CMakeScratch/TryCompile-AmvwIG -resource-dir /Library/Developer/CommandLineTools/usr/lib/clang/17 -dependency-file CMakeFiles/cmTC_55e38.dir/CMakeCXXCompilerABI.cpp.o.d -skip-unused-modulemap-deps -MT CMakeFiles/cmTC_55e38.dir/CMakeCXXCompilerABI.cpp.o -sys-header-deps -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -internal-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1 -internal-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/local/include -internal-isystem /Library/Developer/CommandLineTools/usr/lib/clang/17/include -internal-externc-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -internal-externc-isystem /Library/Developer/CommandLineTools/usr/include -Wno-reorder-init-list -Wno-implicit-int-float-conversion -Wno-c99-designator -Wno-final-dtor-non-final-class -Wno-extra-semi-stmt -Wno-misleading-indentation -Wno-quoted-include-in-framework-header -Wno-implicit-fallthrough -Wno-enum-enum-conversion -Wno-enum-float-conversion -Wno-elaborated-enum-base -Wno-reserved-identifier -Wno-gnu-folding-constant -fdeprecated-macro -ferror-limit 19 -stack-protector 1 -fstack-check -mdarwin-stkchk-strong-link -fblocks -fencode-extended-block-signature -fregister-global-dtors-with-atexit -fgnuc-version=4.2.1 -fno-cxx-modules -fskip-odr-check-in-gmf -fcxx-exceptions -fexceptions -fmax-type-align=16 -fcommon -clang-vendor-feature=+disableNonDependentMemberExprInCurrentInstantiation -fno-odr-hash-protocols -clang-vendor-feature=+enableAggressiveVLAFolding -clang-vendor-feature=+revert09abecef7bbf -clang-vendor-feature=+thisNoAlignAttr -clang-vendor-feature=+thisNoNullAttr -clang-vendor-feature=+disableAtImportPrivateFrameworkInImplementationError -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_55e38.dir/CMakeCXXCompilerABI.cpp.o -x c++ /opt/homebrew/share/cmake/Modules/CMakeCXXCompilerABI.cpp]
-        ignore line: [clang -cc1 version 17.0.0 (clang-1700.0.13.5) default target arm64-apple-darwin24.6.0]
-        ignore line: [ignoring nonexistent directory "/usr/local/include"]
+        ignore line: [ "/Library/Developer/CommandLineTools/usr/bin/clang" -cc1 -triple arm64-apple-macosx15.0.0 -Wundef-prefix=TARGET_OS_ -Wdeprecated-objc-isa-usage -Werror=deprecated-objc-isa-usage -Werror=implicit-function-declaration -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model pic -pic-level 2 -mframe-pointer=non-leaf -fno-strict-return -ffp-contract=on -fno-rounding-math -funwind-tables=1 -fobjc-msgsend-selector-stubs -target-sdk-version=15.5 -fvisibility-inlines-hidden-static-local-var -fdefine-target-os-macros -fno-assume-unique-vtables -fno-modulemap-allow-subdirectory-search -target-cpu apple-m1 -target-feature +zcm -target-feature +zcz -target-feature +v8.5a -target-feature +aes -target-feature +altnzcv -target-feature +ccdp -target-feature +complxnum -target-feature +crc -target-feature +dotprod -target-feature +fp-armv8 -target-feature +fp16fml -target-feature +fptoint -target-feature +fullfp16 -target-feature +jsconv -target-feature +lse -target-feature +neon -target-feature +pauth -target-feature +perfmon -target-feature +predres -target-feature +ras -target-feature +rcpc -target-feature +rdm -target-feature +sb -target-feature +sha2 -target-feature +sha3 -target-feature +specrestrict -target-feature +ssbs -target-abi darwinpcs -debugger-tuning=lldb -fdebug-compilation-dir=/Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build/CMakeFiles/CMakeScratch/TryCompile-bHKOj9 -target-linker-version 1167.5 -v -fcoverage-compilation-dir=/Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build/CMakeFiles/CMakeScratch/TryCompile-bHKOj9 -resource-dir /Library/Developer/CommandLineTools/usr/lib/clang/17 -dependency-file CMakeFiles/cmTC_b0011.dir/CMakeCXXCompilerABI.cpp.o.d -skip-unused-modulemap-deps -MT CMakeFiles/cmTC_b0011.dir/CMakeCXXCompilerABI.cpp.o -sys-header-deps -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include -internal-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1 -internal-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/local/include -internal-isystem /Library/Developer/CommandLineTools/usr/lib/clang/17/include -internal-externc-isystem /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include -internal-externc-isystem /Library/Developer/CommandLineTools/usr/include -Wno-reorder-init-list -Wno-implicit-int-float-conversion -Wno-c99-designator -Wno-final-dtor-non-final-class -Wno-extra-semi-stmt -Wno-misleading-indentation -Wno-quoted-include-in-framework-header -Wno-implicit-fallthrough -Wno-enum-enum-conversion -Wno-enum-float-conversion -Wno-elaborated-enum-base -Wno-reserved-identifier -Wno-gnu-folding-constant -fdeprecated-macro -ferror-limit 19 -stack-protector 1 -fstack-check -mdarwin-stkchk-strong-link -fblocks -fencode-extended-block-signature -fregister-global-dtors-with-atexit -fgnuc-version=4.2.1 -fno-cxx-modules -fskip-odr-check-in-gmf -fcxx-exceptions -fexceptions -fmax-type-align=16 -fcommon -clang-vendor-feature=+disableNonDependentMemberExprInCurrentInstantiation -fno-odr-hash-protocols -clang-vendor-feature=+enableAggressiveVLAFolding -clang-vendor-feature=+revert09abecef7bbf -clang-vendor-feature=+thisNoAlignAttr -clang-vendor-feature=+thisNoNullAttr -clang-vendor-feature=+disableAtImportPrivateFrameworkInImplementationError -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_b0011.dir/CMakeCXXCompilerABI.cpp.o -x c++ /opt/homebrew/share/cmake/Modules/CMakeCXXCompilerABI.cpp]
+        ignore line: [clang -cc1 version 17.0.0 (clang-1700.0.13.5) default target arm64-apple-darwin24.5.0]
         ignore line: [ignoring nonexistent directory "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/local/include"]
         ignore line: [ignoring nonexistent directory "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/SubFrameworks"]
         ignore line: [ignoring nonexistent directory "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/Library/Frameworks"]
         ignore line: [#include "..." search starts here:]
         ignore line: [#include <...> search starts here:]
+        ignore line: [ /usr/local/include]
         ignore line: [ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1]
         ignore line: [ /Library/Developer/CommandLineTools/usr/lib/clang/17/include]
         ignore line: [ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include]
         ignore line: [ /Library/Developer/CommandLineTools/usr/include]
         ignore line: [ /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks (framework directory)]
         ignore line: [End of search list.]
-        ignore line: [Linking CXX executable cmTC_55e38]
-        ignore line: [/opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_55e38.dir/link.txt --verbose=1]
+        ignore line: [Linking CXX executable cmTC_b0011]
+        ignore line: [/opt/homebrew/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b0011.dir/link.txt --verbose=1]
         ignore line: [Apple clang version 17.0.0 (clang-1700.0.13.5)]
-        ignore line: [Target: arm64-apple-darwin24.6.0]
+        ignore line: [Target: arm64-apple-darwin24.5.0]
         ignore line: [Thread model: posix]
         ignore line: [InstalledDir: /Library/Developer/CommandLineTools/usr/bin]
-        link line: [ "/Library/Developer/CommandLineTools/usr/bin/ld" -demangle -lto_library /Library/Developer/CommandLineTools/usr/lib/libLTO.dylib -dynamic -arch arm64 -platform_version macos 15.0.0 15.5 -syslibroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -mllvm -enable-linkonceodr-outlining -o cmTC_55e38 -L/usr/local/lib -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTC_55e38.dir/CMakeCXXCompilerABI.cpp.o -lc++ -lSystem /Library/Developer/CommandLineTools/usr/lib/clang/17/lib/darwin/libclang_rt.osx.a]
+        link line: [ "/Library/Developer/CommandLineTools/usr/bin/ld" -demangle -lto_library /Library/Developer/CommandLineTools/usr/lib/libLTO.dylib -dynamic -arch arm64 -platform_version macos 15.0.0 15.5 -syslibroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -mllvm -enable-linkonceodr-outlining -o cmTC_b0011 -L/usr/local/lib -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTC_b0011.dir/CMakeCXXCompilerABI.cpp.o -lc++ -lSystem /Library/Developer/CommandLineTools/usr/lib/clang/17/lib/darwin/libclang_rt.osx.a]
           arg [/Library/Developer/CommandLineTools/usr/bin/ld] ==> ignore
           arg [-demangle] ==> ignore
           arg [-lto_library] ==> ignore, skip following value
@@ -1375,20 +1661,21 @@ events:
           arg [-mllvm] ==> ignore
           arg [-enable-linkonceodr-outlining] ==> ignore
           arg [-o] ==> ignore
-          arg [cmTC_55e38] ==> ignore
+          arg [cmTC_b0011] ==> ignore
           arg [-L/usr/local/lib] ==> dir [/usr/local/lib]
           arg [-search_paths_first] ==> ignore
           arg [-headerpad_max_install_names] ==> ignore
           arg [-v] ==> ignore
-          arg [CMakeFiles/cmTC_55e38.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+          arg [CMakeFiles/cmTC_b0011.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
           arg [-lc++] ==> lib [c++]
           arg [-lSystem] ==> lib [System]
           arg [/Library/Developer/CommandLineTools/usr/lib/clang/17/lib/darwin/libclang_rt.osx.a] ==> lib [/Library/Developer/CommandLineTools/usr/lib/clang/17/lib/darwin/libclang_rt.osx.a]
         linker tool for 'CXX': /Library/Developer/CommandLineTools/usr/bin/ld
-        Library search paths: [;/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib;/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib/swift]
+        Library search paths: [;/usr/local/lib;/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib;/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib/swift]
         Framework search paths: [;/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks]
         remove lib [System]
         remove lib [/Library/Developer/CommandLineTools/usr/lib/clang/17/lib/darwin/libclang_rt.osx.a]
+        collapse library dir [/usr/local/lib] ==> [/usr/local/lib]
         collapse library dir [/usr/local/lib] ==> [/usr/local/lib]
         collapse library dir [/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib] ==> [/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib]
         collapse library dir [/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib/swift] ==> [/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib/swift]
@@ -1434,6 +1721,7 @@ events:
       - "pkg-config"
       - "pkgconf"
     candidate_directories:
+      - "/Users/sheep/.nvm/versions/node/v20.15.1/bin/"
       - "/opt/homebrew/bin/"
       - "/opt/homebrew/sbin/"
       - "/usr/local/bin/"
@@ -1445,6 +1733,12 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/Library/TeX/texbin/"
+      - "/Applications/VMware Fusion.app/Contents/Public/"
+      - "/Users/sheep/anaconda3/condabin/"
+      - "/Users/sheep/.cabal/bin/"
+      - "/Users/sheep/.ghcup/bin/"
+      - "/Users/sheep/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/"
       - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/bin/"
       - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/sbin/"
       - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/"
@@ -1474,11 +1768,15 @@ events:
       - "/opt/local/bin/"
       - "/opt/local/sbin/"
       - "/opt/local/"
-      - "/Users/adityadesai/Applications/"
+      - "/Users/sheep/Applications/"
       - "/Applications/"
+    searched_directories:
+      - "/Users/sheep/.nvm/versions/node/v20.15.1/bin/pkg-config"
+      - "/Users/sheep/.nvm/versions/node/v20.15.1/bin/pkgconf"
     found: "/opt/homebrew/bin/pkg-config"
     search_context:
       ENV{PATH}:
+        - "/Users/sheep/.nvm/versions/node/v20.15.1/bin"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/sbin"
         - "/usr/local/bin"
@@ -1490,6 +1788,13 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/Library/TeX/texbin"
+        - "/Applications/VMware Fusion.app/Contents/Public"
+        - "/Users/sheep/.nvm/versions/node/v20.15.1/bin"
+        - "/Users/sheep/anaconda3/condabin"
+        - "/Users/sheep/.cabal/bin"
+        - "/Users/sheep/.ghcup/bin"
+        - "/Users/sheep/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand"
       CMAKE_INSTALL_PREFIX: "/usr/local"
       CMAKE_SYSTEM_PREFIX_PATH:
         - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr"
@@ -1505,228 +1810,8 @@ events:
         - "/sw"
         - "/opt/local"
       CMAKE_SYSTEM_APPBUNDLE_PATH:
-        - "/Users/adityadesai/Applications"
+        - "/Users/sheep/Applications"
         - "/Applications"
-  -
-    kind: "find_package-v1"
-    backtrace:
-      - "CMakeLists.txt:10 (find_package)"
-    name: "sfml"
-    components:
-      -
-        name: "system"
-        required: true
-        found: false
-      -
-        name: "window"
-        required: true
-        found: false
-      -
-        name: "graphics"
-        required: true
-        found: false
-    configs:
-      -
-        filename: "sfmlConfig.cmake"
-        kind: "cmake"
-      -
-        filename: "sfml-config.cmake"
-        kind: "cmake"
-    version_request:
-      exact: false
-    settings:
-      required: "required_explicit"
-      quiet: false
-      global: false
-      policy_scope: true
-      bypass_provider: false
-      names:
-        - "sfml"
-      path_suffixes:
-        - ""
-      paths:
-        CMAKE_FIND_USE_CMAKE_PATH: true
-        CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
-        CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
-        CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
-        CMAKE_FIND_USE_INSTALL_PREFIX: true
-        CMAKE_FIND_USE_PACKAGE_ROOT_PATH: true
-        CMAKE_FIND_USE_CMAKE_PACKAGE_REGISTRY: true
-        CMAKE_FIND_USE_SYSTEM_PACKAGE_REGISTRY: true
-        CMAKE_FIND_ROOT_PATH_MODE: "BOTH"
-    candidates:
-      -
-        path: "/Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/build/CMakeFiles/pkgRedirects/sfmlConfig.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/build/CMakeFiles/pkgRedirects/sfml-config.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/opt/homebrew/sfmlConfig.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/opt/homebrew/sfml-config.cmake"
-        mode: "config"
-        reason: "no_exist"
-    found:
-      path: "/opt/homebrew/lib/cmake/SFML/SFMLConfig.cmake"
-      mode: "config"
-      version: "3.0.1"
-    search_context:
-      ENV{PATH}:
-        - "/opt/homebrew/bin"
-        - "/opt/homebrew/sbin"
-        - "/usr/local/bin"
-        - "/System/Cryptexes/App/usr/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
-        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
-        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
-        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
-      CMAKE_INSTALL_PREFIX: "/usr/local"
-      CMAKE_SYSTEM_PREFIX_PATH:
-        - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr"
-        - "/opt/homebrew"
-        - "/usr/local"
-        - "/usr"
-        - "/"
-        - "/opt/homebrew"
-        - "/usr/local"
-        - "/usr/X11R6"
-        - "/usr/pkg"
-        - "/opt"
-        - "/sw"
-        - "/opt/local"
-      CMAKE_SYSTEM_FRAMEWORK_PATH:
-        - "~/Library/Frameworks"
-        - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/Library/Frameworks"
-        - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/Network/Library/Frameworks"
-        - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks"
-        - "/Library/Developer/CommandLineTools/Library/Frameworks"
-        - "/Library/Developer/CommandLineTools/Library/Frameworks"
-        - "/Library/Frameworks"
-        - "/Network/Library/Frameworks"
-        - "/System/Library/Frameworks"
-...
-
----
-events:
-  -
-    kind: "find_package-v1"
-    backtrace:
-      - "CMakeLists.txt:10 (find_package)"
-    name: "SFML"
-    components:
-      -
-        name: "system"
-        required: true
-        found: false
-      -
-        name: "window"
-        required: true
-        found: false
-      -
-        name: "graphics"
-        required: true
-        found: false
-    configs:
-      -
-        filename: "SFMLConfig.cmake"
-        kind: "cmake"
-      -
-        filename: "sfml-config.cmake"
-        kind: "cmake"
-    version_request:
-      version: "3"
-      version_complete: "3"
-      exact: false
-    settings:
-      required: "required_explicit"
-      quiet: false
-      global: false
-      policy_scope: true
-      bypass_provider: false
-      names:
-        - "SFML"
-      path_suffixes:
-        - ""
-      paths:
-        CMAKE_FIND_USE_CMAKE_PATH: true
-        CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
-        CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
-        CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
-        CMAKE_FIND_USE_INSTALL_PREFIX: true
-        CMAKE_FIND_USE_PACKAGE_ROOT_PATH: true
-        CMAKE_FIND_USE_CMAKE_PACKAGE_REGISTRY: true
-        CMAKE_FIND_USE_SYSTEM_PACKAGE_REGISTRY: true
-        CMAKE_FIND_ROOT_PATH_MODE: "BOTH"
-    candidates:
-      -
-        path: "/Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/build/CMakeFiles/pkgRedirects/SFMLConfig.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/build/CMakeFiles/pkgRedirects/sfml-config.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/opt/homebrew/SFMLConfig.cmake"
-        mode: "config"
-        reason: "no_exist"
-      -
-        path: "/opt/homebrew/sfml-config.cmake"
-        mode: "config"
-        reason: "no_exist"
-    found:
-      path: "/opt/homebrew/lib/cmake/SFML/SFMLConfig.cmake"
-      mode: "config"
-      version: "3.0.1"
-    search_context:
-      ENV{PATH}:
-        - "/opt/homebrew/bin"
-        - "/opt/homebrew/sbin"
-        - "/usr/local/bin"
-        - "/System/Cryptexes/App/usr/bin"
-        - "/usr/bin"
-        - "/bin"
-        - "/usr/sbin"
-        - "/sbin"
-        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
-        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
-        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
-      CMAKE_INSTALL_PREFIX: "/usr/local"
-      CMAKE_SYSTEM_PREFIX_PATH:
-        - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr"
-        - "/opt/homebrew"
-        - "/usr/local"
-        - "/usr"
-        - "/"
-        - "/opt/homebrew"
-        - "/usr/local"
-        - "/usr/X11R6"
-        - "/usr/pkg"
-        - "/opt"
-        - "/sw"
-        - "/opt/local"
-      CMAKE_SYSTEM_FRAMEWORK_PATH:
-        - "~/Library/Frameworks"
-        - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/Library/Frameworks"
-        - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/Network/Library/Frameworks"
-        - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks"
-        - "/Library/Developer/CommandLineTools/Library/Frameworks"
-        - "/Library/Developer/CommandLineTools/Library/Frameworks"
-        - "/Library/Frameworks"
-        - "/Network/Library/Frameworks"
-        - "/System/Library/Frameworks"
-...
-
----
-events:
   -
     kind: "find-v1"
     backtrace:
@@ -1746,6 +1831,9 @@ events:
     names:
       - "SFML.tag"
     candidate_directories:
+      - "/Users/sheep/.nvm/versions/node/v20.15.1/bin/SFML/doc/"
+      - "/Users/sheep/.nvm/versions/node/v20.15.1/bin/share/doc/SFML/"
+      - "/Users/sheep/.nvm/versions/node/v20.15.1/bin/"
       - "/opt/homebrew/bin/SFML/doc/"
       - "/opt/homebrew/bin/share/doc/SFML/"
       - "/opt/homebrew/bin/"
@@ -1779,6 +1867,24 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/SFML/doc/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/share/doc/SFML/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/Library/TeX/texbin/SFML/doc/"
+      - "/Library/TeX/texbin/share/doc/SFML/"
+      - "/Library/TeX/texbin/"
+      - "/Applications/VMware Fusion.app/Contents/Public/SFML/doc/"
+      - "/Applications/VMware Fusion.app/Contents/Public/share/doc/SFML/"
+      - "/Applications/VMware Fusion.app/Contents/Public/"
+      - "/Users/sheep/anaconda3/condabin/SFML/doc/"
+      - "/Users/sheep/anaconda3/condabin/share/doc/SFML/"
+      - "/Users/sheep/anaconda3/condabin/"
+      - "/Users/sheep/.cabal/bin/SFML/doc/"
+      - "/Users/sheep/.cabal/bin/share/doc/SFML/"
+      - "/Users/sheep/.cabal/bin/"
+      - "/Users/sheep/.ghcup/bin/SFML/doc/"
+      - "/Users/sheep/.ghcup/bin/share/doc/SFML/"
+      - "/Users/sheep/.ghcup/bin/"
+      - "/Users/sheep/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/SFML/doc/"
+      - "/Users/sheep/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/share/doc/SFML/"
+      - "/Users/sheep/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/"
       - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/SFML/doc/"
       - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/share/doc/SFML/"
       - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/"
@@ -1839,9 +1945,9 @@ events:
       - "/usr/include/X11/SFML/doc/"
       - "/usr/include/X11/share/doc/SFML/"
       - "/usr/include/X11/"
-      - "/Users/adityadesai/Library/Frameworks/SFML/doc/"
-      - "/Users/adityadesai/Library/Frameworks/share/doc/SFML/"
-      - "/Users/adityadesai/Library/Frameworks/"
+      - "/Users/sheep/Library/Frameworks/SFML/doc/"
+      - "/Users/sheep/Library/Frameworks/share/doc/SFML/"
+      - "/Users/sheep/Library/Frameworks/"
       - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/Library/Frameworks/SFML/doc/"
       - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/Library/Frameworks/share/doc/SFML/"
       - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/Library/Frameworks/"
@@ -1885,6 +1991,9 @@ events:
       - "/opt/share/doc/SFML/"
       - "/opt/"
     searched_directories:
+      - "/Users/sheep/.nvm/versions/node/v20.15.1/bin/SFML/doc/SFML.tag"
+      - "/Users/sheep/.nvm/versions/node/v20.15.1/bin/share/doc/SFML/SFML.tag"
+      - "/Users/sheep/.nvm/versions/node/v20.15.1/bin/SFML.tag"
       - "/opt/homebrew/bin/SFML/doc/SFML.tag"
       - "/opt/homebrew/bin/share/doc/SFML/SFML.tag"
       - "/opt/homebrew/bin/SFML.tag"
@@ -1918,6 +2027,24 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/SFML/doc/SFML.tag"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/share/doc/SFML/SFML.tag"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/SFML.tag"
+      - "/Library/TeX/texbin/SFML/doc/SFML.tag"
+      - "/Library/TeX/texbin/share/doc/SFML/SFML.tag"
+      - "/Library/TeX/texbin/SFML.tag"
+      - "/Applications/VMware Fusion.app/Contents/Public/SFML/doc/SFML.tag"
+      - "/Applications/VMware Fusion.app/Contents/Public/share/doc/SFML/SFML.tag"
+      - "/Applications/VMware Fusion.app/Contents/Public/SFML.tag"
+      - "/Users/sheep/anaconda3/condabin/SFML/doc/SFML.tag"
+      - "/Users/sheep/anaconda3/condabin/share/doc/SFML/SFML.tag"
+      - "/Users/sheep/anaconda3/condabin/SFML.tag"
+      - "/Users/sheep/.cabal/bin/SFML/doc/SFML.tag"
+      - "/Users/sheep/.cabal/bin/share/doc/SFML/SFML.tag"
+      - "/Users/sheep/.cabal/bin/SFML.tag"
+      - "/Users/sheep/.ghcup/bin/SFML/doc/SFML.tag"
+      - "/Users/sheep/.ghcup/bin/share/doc/SFML/SFML.tag"
+      - "/Users/sheep/.ghcup/bin/SFML.tag"
+      - "/Users/sheep/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/SFML/doc/SFML.tag"
+      - "/Users/sheep/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/share/doc/SFML/SFML.tag"
+      - "/Users/sheep/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/SFML.tag"
       - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/SFML/doc/SFML.tag"
       - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/share/doc/SFML/SFML.tag"
       - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/SFML.tag"
@@ -1931,6 +2058,7 @@ events:
     found: "/opt/homebrew/share/doc/SFML/"
     search_context:
       ENV{PATH}:
+        - "/Users/sheep/.nvm/versions/node/v20.15.1/bin"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/sbin"
         - "/usr/local/bin"
@@ -1942,6 +2070,13 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/Library/TeX/texbin"
+        - "/Applications/VMware Fusion.app/Contents/Public"
+        - "/Users/sheep/.nvm/versions/node/v20.15.1/bin"
+        - "/Users/sheep/anaconda3/condabin"
+        - "/Users/sheep/.cabal/bin"
+        - "/Users/sheep/.ghcup/bin"
+        - "/Users/sheep/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand"
       CMAKE_INSTALL_PREFIX: "/usr/local"
       CMAKE_SYSTEM_PREFIX_PATH:
         - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr"
@@ -1958,6 +2093,129 @@ events:
         - "/opt/local"
       CMAKE_SYSTEM_INCLUDE_PATH:
         - "/usr/include/X11"
+      CMAKE_SYSTEM_FRAMEWORK_PATH:
+        - "~/Library/Frameworks"
+        - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/Library/Frameworks"
+        - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/Network/Library/Frameworks"
+        - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks"
+        - "/Library/Developer/CommandLineTools/Library/Frameworks"
+        - "/Library/Developer/CommandLineTools/Library/Frameworks"
+        - "/Library/Frameworks"
+        - "/Network/Library/Frameworks"
+        - "/System/Library/Frameworks"
+  -
+    kind: "find_package-v1"
+    backtrace:
+      - "CMakeLists.txt:10 (find_package)"
+    name: "SFML"
+    components:
+      -
+        name: "System"
+        required: true
+        found: false
+      -
+        name: "Window"
+        required: true
+        found: false
+      -
+        name: "Graphics"
+        required: true
+        found: false
+    configs:
+      -
+        filename: "SFMLConfig.cmake"
+        kind: "cmake"
+      -
+        filename: "sfml-config.cmake"
+        kind: "cmake"
+    version_request:
+      version: "3"
+      version_complete: "3"
+      exact: false
+    settings:
+      required: "required_explicit"
+      quiet: false
+      global: false
+      policy_scope: true
+      bypass_provider: false
+      names:
+        - "SFML"
+      path_suffixes:
+        - ""
+      paths:
+        CMAKE_FIND_USE_CMAKE_PATH: true
+        CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+        CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+        CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+        CMAKE_FIND_USE_INSTALL_PREFIX: true
+        CMAKE_FIND_USE_PACKAGE_ROOT_PATH: true
+        CMAKE_FIND_USE_CMAKE_PACKAGE_REGISTRY: true
+        CMAKE_FIND_USE_SYSTEM_PACKAGE_REGISTRY: true
+        CMAKE_FIND_ROOT_PATH_MODE: "BOTH"
+    candidates:
+      -
+        path: "/Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build/CMakeFiles/pkgRedirects/SFMLConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build/CMakeFiles/pkgRedirects/sfml-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/Users/sheep/.nvm/versions/node/v20.15.1/SFMLConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/Users/sheep/.nvm/versions/node/v20.15.1/sfml-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/opt/homebrew/SFMLConfig.cmake"
+        mode: "config"
+        reason: "no_exist"
+      -
+        path: "/opt/homebrew/sfml-config.cmake"
+        mode: "config"
+        reason: "no_exist"
+    found:
+      path: "/opt/homebrew/lib/cmake/SFML/SFMLConfig.cmake"
+      mode: "config"
+      version: "3.0.1"
+    search_context:
+      ENV{PATH}:
+        - "/Users/sheep/.nvm/versions/node/v20.15.1/bin"
+        - "/opt/homebrew/bin"
+        - "/opt/homebrew/sbin"
+        - "/usr/local/bin"
+        - "/System/Cryptexes/App/usr/bin"
+        - "/usr/bin"
+        - "/bin"
+        - "/usr/sbin"
+        - "/sbin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
+        - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/Library/TeX/texbin"
+        - "/Applications/VMware Fusion.app/Contents/Public"
+        - "/Users/sheep/.nvm/versions/node/v20.15.1/bin"
+        - "/Users/sheep/anaconda3/condabin"
+        - "/Users/sheep/.cabal/bin"
+        - "/Users/sheep/.ghcup/bin"
+        - "/Users/sheep/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand"
+      CMAKE_INSTALL_PREFIX: "/usr/local"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr"
+        - "/opt/homebrew"
+        - "/usr/local"
+        - "/usr"
+        - "/"
+        - "/opt/homebrew"
+        - "/usr/local"
+        - "/usr/X11R6"
+        - "/usr/pkg"
+        - "/opt"
+        - "/sw"
+        - "/opt/local"
       CMAKE_SYSTEM_FRAMEWORK_PATH:
         - "~/Library/Frameworks"
         - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/Library/Frameworks"
@@ -1988,6 +2246,7 @@ events:
       - "OpenGL"
       - "GL"
     candidate_directories:
+      - "/Users/sheep/.nvm/versions/node/v20.15.1/bin/"
       - "/opt/homebrew/bin/"
       - "/opt/homebrew/sbin/"
       - "/usr/local/bin/"
@@ -1996,10 +2255,16 @@ events:
       - "/bin/"
       - "/usr/sbin/"
       - "/sbin/"
+      - "/Library/TeX/texbin/"
+      - "/Applications/VMware Fusion.app/Contents/Public/"
+      - "/Users/sheep/anaconda3/condabin/"
+      - "/Users/sheep/.ghcup/bin/"
+      - "/Users/sheep/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/"
       - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib/"
       - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/"
       - "/opt/homebrew/lib/"
       - "/opt/homebrew/"
+      - "/usr/local/lib/"
       - "/usr/local/"
       - "/usr/lib/"
       - "/usr/"
@@ -2011,6 +2276,7 @@ events:
     found: "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework"
     search_context:
       ENV{PATH}:
+        - "/Users/sheep/.nvm/versions/node/v20.15.1/bin"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/sbin"
         - "/usr/local/bin"
@@ -2022,6 +2288,13 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/Library/TeX/texbin"
+        - "/Applications/VMware Fusion.app/Contents/Public"
+        - "/Users/sheep/.nvm/versions/node/v20.15.1/bin"
+        - "/Users/sheep/anaconda3/condabin"
+        - "/Users/sheep/.cabal/bin"
+        - "/Users/sheep/.ghcup/bin"
+        - "/Users/sheep/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand"
       CMAKE_INSTALL_PREFIX: "/usr/local"
       CMAKE_SYSTEM_PREFIX_PATH:
         - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr"
@@ -2068,6 +2341,7 @@ events:
       - "OpenGL"
       - "GLU"
     candidate_directories:
+      - "/Users/sheep/.nvm/versions/node/v20.15.1/bin/"
       - "/opt/homebrew/bin/"
       - "/opt/homebrew/sbin/"
       - "/usr/local/bin/"
@@ -2076,10 +2350,16 @@ events:
       - "/bin/"
       - "/usr/sbin/"
       - "/sbin/"
+      - "/Library/TeX/texbin/"
+      - "/Applications/VMware Fusion.app/Contents/Public/"
+      - "/Users/sheep/anaconda3/condabin/"
+      - "/Users/sheep/.ghcup/bin/"
+      - "/Users/sheep/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/"
       - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/lib/"
       - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/"
       - "/opt/homebrew/lib/"
       - "/opt/homebrew/"
+      - "/usr/local/lib/"
       - "/usr/local/"
       - "/usr/lib/"
       - "/usr/"
@@ -2091,6 +2371,7 @@ events:
     found: "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework"
     search_context:
       ENV{PATH}:
+        - "/Users/sheep/.nvm/versions/node/v20.15.1/bin"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/sbin"
         - "/usr/local/bin"
@@ -2102,6 +2383,13 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/Library/TeX/texbin"
+        - "/Applications/VMware Fusion.app/Contents/Public"
+        - "/Users/sheep/.nvm/versions/node/v20.15.1/bin"
+        - "/Users/sheep/anaconda3/condabin"
+        - "/Users/sheep/.cabal/bin"
+        - "/Users/sheep/.ghcup/bin"
+        - "/Users/sheep/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand"
       CMAKE_INSTALL_PREFIX: "/usr/local"
       CMAKE_SYSTEM_PREFIX_PATH:
         - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr"
@@ -2148,6 +2436,7 @@ events:
       - "OpenGL/gl.h"
       - "GL/gl.h"
     candidate_directories:
+      - "/Users/sheep/.nvm/versions/node/v20.15.1/bin/"
       - "/opt/homebrew/bin/"
       - "/opt/homebrew/sbin/"
       - "/usr/local/bin/"
@@ -2159,6 +2448,12 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/Library/TeX/texbin/"
+      - "/Applications/VMware Fusion.app/Contents/Public/"
+      - "/Users/sheep/anaconda3/condabin/"
+      - "/Users/sheep/.cabal/bin/"
+      - "/Users/sheep/.ghcup/bin/"
+      - "/Users/sheep/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/"
       - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/"
       - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/"
       - "/opt/homebrew/include/"
@@ -2179,7 +2474,7 @@ events:
       - "/opt/local/include/"
       - "/opt/local/"
       - "/usr/include/X11/"
-      - "/Users/adityadesai/Library/Frameworks/"
+      - "/Users/sheep/Library/Frameworks/"
       - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/Library/Frameworks/"
       - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/Network/Library/Frameworks/"
       - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/"
@@ -2188,6 +2483,7 @@ events:
       - "/Network/Library/Frameworks/"
       - "/System/Library/Frameworks/"
     searched_directories:
+      - "/Users/sheep/.nvm/versions/node/v20.15.1/bin/OpenGL.framework/Headers/gl.h"
       - "/opt/homebrew/bin/OpenGL.framework/Headers/gl.h"
       - "/opt/homebrew/sbin/OpenGL.framework/Headers/gl.h"
       - "/usr/local/bin/OpenGL.framework/Headers/gl.h"
@@ -2199,6 +2495,12 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/OpenGL.framework/Headers/gl.h"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/OpenGL.framework/Headers/gl.h"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/OpenGL.framework/Headers/gl.h"
+      - "/Library/TeX/texbin/OpenGL.framework/Headers/gl.h"
+      - "/Applications/VMware Fusion.app/Contents/Public/OpenGL.framework/Headers/gl.h"
+      - "/Users/sheep/anaconda3/condabin/OpenGL.framework/Headers/gl.h"
+      - "/Users/sheep/.cabal/bin/OpenGL.framework/Headers/gl.h"
+      - "/Users/sheep/.ghcup/bin/OpenGL.framework/Headers/gl.h"
+      - "/Users/sheep/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/OpenGL.framework/Headers/gl.h"
       - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/OpenGL.framework/Headers/gl.h"
       - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/OpenGL.framework/Headers/gl.h"
       - "/opt/homebrew/include/OpenGL.framework/Headers/gl.h"
@@ -2219,12 +2521,13 @@ events:
       - "/opt/local/include/OpenGL.framework/Headers/gl.h"
       - "/opt/local/OpenGL.framework/Headers/gl.h"
       - "/usr/include/X11/OpenGL.framework/Headers/gl.h"
-      - "/Users/adityadesai/Library/Frameworks/OpenGL.framework/Headers/gl.h"
+      - "/Users/sheep/Library/Frameworks/OpenGL.framework/Headers/gl.h"
       - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/Library/Frameworks/OpenGL.framework/Headers/gl.h"
       - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/Network/Library/Frameworks/OpenGL.framework/Headers/gl.h"
     found: "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework"
     search_context:
       ENV{PATH}:
+        - "/Users/sheep/.nvm/versions/node/v20.15.1/bin"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/sbin"
         - "/usr/local/bin"
@@ -2236,6 +2539,13 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/Library/TeX/texbin"
+        - "/Applications/VMware Fusion.app/Contents/Public"
+        - "/Users/sheep/.nvm/versions/node/v20.15.1/bin"
+        - "/Users/sheep/anaconda3/condabin"
+        - "/Users/sheep/.cabal/bin"
+        - "/Users/sheep/.ghcup/bin"
+        - "/Users/sheep/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand"
       CMAKE_INSTALL_PREFIX: "/usr/local"
       CMAKE_SYSTEM_PREFIX_PATH:
         - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr"
@@ -2282,6 +2592,7 @@ events:
       - "OpenGL/glu.h"
       - "GL/glu.h"
     candidate_directories:
+      - "/Users/sheep/.nvm/versions/node/v20.15.1/bin/"
       - "/opt/homebrew/bin/"
       - "/opt/homebrew/sbin/"
       - "/usr/local/bin/"
@@ -2293,6 +2604,12 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/"
+      - "/Library/TeX/texbin/"
+      - "/Applications/VMware Fusion.app/Contents/Public/"
+      - "/Users/sheep/anaconda3/condabin/"
+      - "/Users/sheep/.cabal/bin/"
+      - "/Users/sheep/.ghcup/bin/"
+      - "/Users/sheep/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/"
       - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/"
       - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/"
       - "/opt/homebrew/include/"
@@ -2313,7 +2630,7 @@ events:
       - "/opt/local/include/"
       - "/opt/local/"
       - "/usr/include/X11/"
-      - "/Users/adityadesai/Library/Frameworks/"
+      - "/Users/sheep/Library/Frameworks/"
       - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/Library/Frameworks/"
       - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/Network/Library/Frameworks/"
       - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/"
@@ -2322,6 +2639,7 @@ events:
       - "/Network/Library/Frameworks/"
       - "/System/Library/Frameworks/"
     searched_directories:
+      - "/Users/sheep/.nvm/versions/node/v20.15.1/bin/OpenGL.framework/Headers/glu.h"
       - "/opt/homebrew/bin/OpenGL.framework/Headers/glu.h"
       - "/opt/homebrew/sbin/OpenGL.framework/Headers/glu.h"
       - "/usr/local/bin/OpenGL.framework/Headers/glu.h"
@@ -2333,6 +2651,12 @@ events:
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin/OpenGL.framework/Headers/glu.h"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin/OpenGL.framework/Headers/glu.h"
       - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin/OpenGL.framework/Headers/glu.h"
+      - "/Library/TeX/texbin/OpenGL.framework/Headers/glu.h"
+      - "/Applications/VMware Fusion.app/Contents/Public/OpenGL.framework/Headers/glu.h"
+      - "/Users/sheep/anaconda3/condabin/OpenGL.framework/Headers/glu.h"
+      - "/Users/sheep/.cabal/bin/OpenGL.framework/Headers/glu.h"
+      - "/Users/sheep/.ghcup/bin/OpenGL.framework/Headers/glu.h"
+      - "/Users/sheep/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand/OpenGL.framework/Headers/glu.h"
       - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/OpenGL.framework/Headers/glu.h"
       - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/OpenGL.framework/Headers/glu.h"
       - "/opt/homebrew/include/OpenGL.framework/Headers/glu.h"
@@ -2353,12 +2677,13 @@ events:
       - "/opt/local/include/OpenGL.framework/Headers/glu.h"
       - "/opt/local/OpenGL.framework/Headers/glu.h"
       - "/usr/include/X11/OpenGL.framework/Headers/glu.h"
-      - "/Users/adityadesai/Library/Frameworks/OpenGL.framework/Headers/glu.h"
+      - "/Users/sheep/Library/Frameworks/OpenGL.framework/Headers/glu.h"
       - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/Library/Frameworks/OpenGL.framework/Headers/glu.h"
       - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/Network/Library/Frameworks/OpenGL.framework/Headers/glu.h"
     found: "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks/OpenGL.framework"
     search_context:
       ENV{PATH}:
+        - "/Users/sheep/.nvm/versions/node/v20.15.1/bin"
         - "/opt/homebrew/bin"
         - "/opt/homebrew/sbin"
         - "/usr/local/bin"
@@ -2370,6 +2695,13 @@ events:
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin"
         - "/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin"
+        - "/Library/TeX/texbin"
+        - "/Applications/VMware Fusion.app/Contents/Public"
+        - "/Users/sheep/.nvm/versions/node/v20.15.1/bin"
+        - "/Users/sheep/anaconda3/condabin"
+        - "/Users/sheep/.cabal/bin"
+        - "/Users/sheep/.ghcup/bin"
+        - "/Users/sheep/Library/Application Support/Code/User/globalStorage/github.copilot-chat/debugCommand"
       CMAKE_INSTALL_PREFIX: "/usr/local"
       CMAKE_SYSTEM_PREFIX_PATH:
         - "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr"
