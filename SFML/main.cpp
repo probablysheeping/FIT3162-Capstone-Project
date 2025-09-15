@@ -89,6 +89,15 @@ void adjustVertices(std::vector<ImVec2>& vertices) {
 
 }
 
+void createToolTip(const char* toolTipStr, bool tooltipsEnabled)
+{
+    if (ImGui::IsItemHovered() && tooltipsEnabled) {
+        ImGui::BeginTooltip();
+        ImGui::Text(toolTipStr);
+        ImGui::EndTooltip();
+    }
+}
+
 /// <summary>
 /// This is the SFML window where polygons will appear.
 /// </summary>
@@ -116,6 +125,7 @@ void runProgram()
     bool logSavingEnabled = true;
     bool autosaveEnabled = true;
     bool fullscreenEnabled = false;
+    bool tooltipsEnabled = true;
 
     float polygonColour[3] = { 0.f, 0.f, 0.f };
 
@@ -257,23 +267,7 @@ void runProgram()
                 ImGui::EndMenu();
 
             }
-
-            ImGui::Separator();
-            if (ImGui::BeginMenu("Settings")) {
-                ImGui::MenuItem("Logging", nullptr, &logSavingEnabled);
-                ImGui::MenuItem("Autosaving", nullptr, &autosaveEnabled);
-                if (ImGui::MenuItem("Full Screen", nullptr, &fullscreenEnabled)) {
-                    logger << currentDateTime() << " Full screen " << (fullscreenEnabled ? "enabled." : "disabled.") << std::endl;
-                    window.close();
-                    if (fullscreenEnabled)
-                        window.create(sf::VideoMode::getDesktopMode(), WINDOW_DISPLAY_NAME, sf::State::Fullscreen);
-                    else
-                        window.create(sf::VideoMode::getDesktopMode(), WINDOW_DISPLAY_NAME, sf::State::Windowed);
-                }
-                ImGui::EndMenu();
-            }
-
-
+            createToolTip("Save and open files", tooltipsEnabled);
 
             if (ImGui::BeginMenu("Edit"))
             {
@@ -285,11 +279,30 @@ void runProgram()
                 if (ImGui::MenuItem("Paste", "CTRL+V")) {}
                 ImGui::EndMenu();
             }
+            createToolTip("Modify program state", tooltipsEnabled);
+
+            if (ImGui::BeginMenu("Settings")) {
+                ImGui::MenuItem("Logging", nullptr, &logSavingEnabled);
+                ImGui::MenuItem("Autosaving", nullptr, &autosaveEnabled);
+                ImGui::MenuItem("Tooltips", nullptr, &tooltipsEnabled);
+                if (ImGui::MenuItem("Full Screen", nullptr, &fullscreenEnabled)) {
+                    logger << currentDateTime() << " Full screen " << (fullscreenEnabled ? "enabled." : "disabled.") << std::endl;
+                    window.close();
+                    if (fullscreenEnabled)
+                        window.create(sf::VideoMode::getDesktopMode(), WINDOW_DISPLAY_NAME, sf::State::Fullscreen);
+                    else
+                        window.create(sf::VideoMode::getDesktopMode(), WINDOW_DISPLAY_NAME, sf::State::Windowed);
+                }
+                ImGui::EndMenu();
+            }
+            createToolTip("Change program functionality", tooltipsEnabled);
+
 
             if (ImGui::MenuItem("Exit")) {
                 logger << currentDateTime() << " User exit.\n";
                 window.close();
             }
+            createToolTip("Exit from program", tooltipsEnabled);
 
             ImGui::EndMainMenuBar();
         }
@@ -317,6 +330,7 @@ void runProgram()
                 firstVertex = true;
 
             }
+            createToolTip("Click on canvas to create vertices", tooltipsEnabled);
             if (ImGui::Button("Delete Polygon", ImVec2(120, 30))) {
                 // Delete Polygon
                 for (int i : selectedPolygons) {
@@ -326,6 +340,7 @@ void runProgram()
                 selectedPolygons.clear();
                 logger << currentDateTime() << " Polygon deleted.\n";
             }
+            createToolTip("Select polygon and then click delete", tooltipsEnabled);
 
             if (ImGui::Button("Compute IoU", ImVec2(120, 30)) && selectedPolygons.size() == 2) {
                 // Save when computing IoU
@@ -343,6 +358,7 @@ void runProgram()
                 // TODO: Calculate IoU Metric and display result.
                 IoUArea = intersection.polygonArea() / (polygons.at(selectedPolygons.at(0)).polygonArea() + polygons.at(selectedPolygons.at(1)).polygonArea());
             }
+            createToolTip("Select polygons and then calculate", tooltipsEnabled);
 
             if (ImGui::Button("Clear Selected", ImVec2(120, 30))) {
                 // User clicked the canvas, so we reset everything.
@@ -352,6 +368,7 @@ void runProgram()
                 selectedPolygons.clear();
                 area = -1;
             }
+            createToolTip("Unselect all polygons", tooltipsEnabled);
 
             if (ImGui::ColorPicker3("Select Colour", polygonColour)) {
                 //Alter Polygon Colour
@@ -361,6 +378,7 @@ void runProgram()
                     }
                 }
             }
+            createToolTip("Change selected polygon colour", tooltipsEnabled);
 
             ImGui::Text("Area:");
             ImGui::SameLine(); ImGui::Text("%s", area == -1 ? "" : std::to_string(area).c_str());
