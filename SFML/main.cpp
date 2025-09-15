@@ -4,6 +4,7 @@
 #include "saving.h"
 #include "filelocationchooser.h"
 #include "logging.h"
+#include "tutorial.h"
 
 #include <SFML/Graphics.hpp>
 // TODO: Set up boost.geometry
@@ -145,6 +146,12 @@ void runProgram()
 
     // Autosaving clock
     sf::Clock autosaveClock;
+
+    // Setup tutorial
+    Tutorial tutorial;
+    tutorial.addStep("Welcome", "Welcome to Convex Polygon IoU. Let's run through how this program works");
+    tutorial.addStep("Item1", "wasd");
+    tutorial.addStep("End", "You have successfully completed the tutorial! If you want to go through this tutorial again please press the 'Tutorial' button on the main menu bar.");
 
     while (window.isOpen())
     {
@@ -297,6 +304,11 @@ void runProgram()
             }
             createToolTip("Change program functionality", tooltipsEnabled);
 
+            if (ImGui::MenuItem("Tutorial")) {
+                logger << currentDateTime() << " Tutorial started.\n";
+                tutorial.start();
+            }
+            createToolTip("Start tutorial", tooltipsEnabled);
 
             if (ImGui::MenuItem("Exit")) {
                 logger << currentDateTime() << " User exit.\n";
@@ -403,6 +415,9 @@ void runProgram()
             newPolygonOutline.back().position = mousepos;
             window.draw(newPolygonOutline.data(), newPolygonOutline.size(), sf::PrimitiveType::LineStrip);
         }
+
+        if (tutorial.isActive())
+            tutorial.render();
 
 
         ImGui::SFML::Render(window);

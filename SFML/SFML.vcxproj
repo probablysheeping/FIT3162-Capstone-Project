@@ -156,6 +156,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="polygon.cpp" />
     <ClCompile Include="saving.cpp" />
+    <ClCompile Include="tutorial.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="filelocationchooser.h" />
@@ -271,6 +272,7 @@
     <ClInclude Include="SFML-3.0.0\include\SFML\Window\WindowBase.hpp" />
     <ClInclude Include="SFML-3.0.0\include\SFML\Window\WindowEnums.hpp" />
     <ClInclude Include="SFML-3.0.0\include\SFML\Window\WindowHandle.hpp" />
+    <ClInclude Include="tutorial.h" />
     <ClInclude Include="vectordefs.h" />
   </ItemGroup>
   <ItemGroup>
