@@ -37,7 +37,7 @@ bool Tutorial::render() {
 
     const TutorialStep& step = steps[currentStep];
 
-    ImGui::Begin(step.title.c_str());
+    ImGui::Begin(step.title.c_str(), &active);
 
     ImGui::TextWrapped("%s", step.text.c_str());
 
