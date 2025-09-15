@@ -364,6 +364,7 @@ void runProgram()
                     intersection = intersectingPolygon(&intersection, &polygons.at(selectedPolygons.at(i)));
                 }
 
+                intersection.setColour(polygonColour);
                 polygons.push_back(intersection);
 
                 // TODO: Calculate IoU Metric and display result.
