@@ -149,8 +149,11 @@ void runProgram()
 
     // Setup tutorial
     Tutorial tutorial;
-    tutorial.addStep("Welcome", "Welcome to Convex Polygon IoU. Let's run through how this program works");
-    tutorial.addStep("Item1", "wasd");
+    tutorial.addStep("Welcome", "Welcome to Convex Polygon IoU. Let's run through how this program works!");
+    tutorial.addStep("Selecting a Colour", "Before choosing a polygon, you must first select its colour.\n\nThe program provides several ways to select your desired colour:\n\n1. Colour Picker\n    - On the left you will see a colour square.\n    - Click anywhere inside the square to pick a base colour.\n    - The selected colour will appear in the \"Select Colour\" preview box to the right.\n\n2. Using the RGB and HSV Sliders\n    - Below the colour picker, there are boxes for RGB and HSV values. Each box acts as a slider. Drag to increase/decrease values (0-255).\n\n3. Hex Codes\n    - At the bottom, there is a hexidecimal input field.\n    - Click the box and type your desired hex value, the colour will actively update as you type.");
+    tutorial.addStep("Drawing a Polygon", "After choosing a colour, the nexts step is to draw your polygon.\nThis is done by selecting vertices on the canvas.\n\n1. Placing vertices\n    - Click anywhere on the canvas to place the first vertex.\n    - Continue clicking to add additional vertices. Each click will mark a new corner of your polygon.\n\n2. Connecting the Shape\n    - As vertices are added, lines will automatically connect them.\n    - When you click back on the origin vertex, the outline closes and the polygon is created.\n\nNote that at any point after your polygon is created, you can change the colour. Simply select the polygon you wish to recolour and go back through the steps as in the previous page.");
+    tutorial.addStep("Calculating the Intersection over Union", "Once two polygons have been created, we can measure their IoU value.\n\n1. Selecting Polygons\n    - Click on the first polygon you wish to calculate the IoU value for. The selected polygon will be outlined with a cyan line edge.\n    - Select the second polygon.\n\n2. Click the \"Compute IoU\" button.\n    - The calculated IoU will be printed in the bottom of the polygon creator menu.");
+    tutorial.addStep("Deleting Polygons", "Deleting a polygon is as simple as selecting the single polygon you wish to delete (outlined in cyan), and clicking the \"Delete Polygon\" button in the menu.");
     tutorial.addStep("End", "You have successfully completed the tutorial! If you want to go through this tutorial again please press the 'Tutorial' button on the main menu bar.");
 
     while (window.isOpen())
