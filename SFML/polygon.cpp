@@ -197,13 +197,49 @@ Polygon intersectingPolygon(Polygon* p1, Polygon* p2) {
 
 	 }
 
-	 const float avgR = ((p1->getColour(0) + p2->getColour(0)) * 0.5f);
-	 const float avgG = ((p1->getColour(1) + p2->getColour(1)) * 0.5f);
-	 const float avgB = ((p1->getColour(2) + p2->getColour(2)) * 0.5f);
+	 float colour[3]{}, high[3]{}, low[3]{};
+	 bool sameColour = false;
+
+	 for (int i = 0; i < 4; i++)
+	 {
+		 if (i == 3) {
+			 sameColour = true;
+			 break;
+		 }
+
+		 if (p1->getColour(i) > p2->getColour(i)) {
+			 high[0] = p1->getColour(0); high[1] = p1->getColour(1); high[2] = p1->getColour(2);
+			 low[0] = p2->getColour(0); low[1] = p2->getColour(1); low[2] = p2->getColour(2);
+			 break;
+		 }
+		 else if (p1->getColour(i) < p2->getColour(i)) {
+			 low[0] = p1->getColour(0); low[1] = p1->getColour(1); low[2] = p1->getColour(2);
+			 high[0] = p2->getColour(0); high[1] = p2->getColour(1); high[2] = p2->getColour(2);
+			 break;
+		 }
+	 }
+
+	 if (!sameColour) {
+		 for (int i = 0; i < 3; i++)
+		 {
+			 if (high[i] > low[i]) {
+				 colour[i] = 1 - (floor((high[i] - low[i]) * 0.5f) + low[i]);
+			 }
+			 else {
+				 colour[i] = 1 - low[i];
+			 }
+		 }
+	 }
+	 else {
+		for (int i = 0; i < 3; i++)
+		{
+			colour[i] = 1 - high[i];
+		}
+	 }
+	
     
 	 Polygon result;
 	 result.setVertices(outputList);
-	 float colour[3] = { avgR, avgG, avgB };
 	 result.setColour(colour);
 
 	 return result;
