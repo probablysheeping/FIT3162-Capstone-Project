@@ -192,6 +192,7 @@ int runProgram()
         bool createPolygon = false;
 		bool menuInteraction = false;
         bool colourPicker = false;
+        bool adjustVertices = true;
     } status;
 
     typedef struct {
@@ -224,6 +225,7 @@ int runProgram()
     double IoUArea = -1;
 
 	ImVec2 mainMenuBarSize = ImVec2(0, 0);
+    const float idk = (WINDOW_WIDTH - 280) / 2;
 
     // Autosaving clock
     sf::Clock autosaveClock;
@@ -269,8 +271,11 @@ int runProgram()
             if (const auto mouseButtonPressed = event->getIf<sf::Event::MouseButtonPressed>()) {
 
                 if (mouseButtonPressed->button == sf::Mouse::Button::Left) {
+                    ImVec2 mousepos = sf::Mouse::getPosition(window);
+                    if (mousepos.y <= mainMenuBarSize.y or (mousepos.x >= idk and (mousepos.x <= idk + 280) and mousepos.y <= 60)) { status.menuInteraction = true; }
+                    else status.menuInteraction = false;
                     if (status.createPolygon) {
-                        ImVec2 mousepos = sf::Mouse::getPosition(window);
+                        
                         if (!firstVertex && distanceL2(mousepos, vertices.front()) <= 10) {
                             if (vertices.size() < 3) {
                                 logger << currentDateTime() << " ERROR: Number of vertices less than three and instead is " << vertices.size() << std::endl;
@@ -308,6 +313,7 @@ int runProgram()
                     }
                     else {
                         if (!status.menuInteraction) {
+
                             if (selectedPolygons.size() > 0 and !ImGui::IsKeyDown(ImGuiKey_ModShift)) {
 
                                 for (int j : selectedPolygons) {
@@ -344,7 +350,7 @@ int runProgram()
                             else {
                                 area = -1;
                             }
-                            std::cout << selectedPolygons.size() << std::endl;
+                            std::cout << "Number of Selected Polygons: " << selectedPolygons.size() << std::endl;
                         }
                     }
                 }
@@ -355,9 +361,10 @@ int runProgram()
 
         ImGui::SFML::Update(window, deltaClock.restart());
         
-
         //TODO: Add functionality to main menu
+
         if (ImGui::BeginMainMenuBar()) {
+            status.menuInteraction = true;
 			mainMenuBarSize = ImGui::GetWindowSize();
             if (ImGui::BeginMenu("File"))
             {
@@ -407,6 +414,7 @@ int runProgram()
                 ImGui::MenuItem("Logging", nullptr, &logSavingEnabled);
                 ImGui::MenuItem("Autosaving", nullptr, &autosaveEnabled);
                 ImGui::MenuItem("Tooltips", nullptr, &tooltipsEnabled);
+				ImGui::MenuItem("Adjust Vertices", nullptr, &status.adjustVertices);
                 if (ImGui::MenuItem("Full Screen", nullptr, &fullscreenEnabled)) {
                     logger << currentDateTime() << " Full screen " << (fullscreenEnabled ? "enabled." : "disabled.") << std::endl;
                     window.close();
@@ -415,6 +423,7 @@ int runProgram()
                     else
                         window.create(sf::VideoMode::getDesktopMode(), WINDOW_DISPLAY_NAME, sf::State::Windowed);
                 }
+                
                 ImGui::EndMenu();
             }
             createToolTip("Change program functionality", tooltipsEnabled);
@@ -442,12 +451,11 @@ int runProgram()
 
         // Window used for creating polygons
         // Needs to be formatted properly. This is just a placeholder UI
-        
 
         ImGui::SetNextWindowSize(ImVec2(280, 60));
         ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(1.0f, 1.0f, 1.0f, 1.0f));
         
-        ImGui::SetNextWindowPos(ImVec2((WINDOW_WIDTH - 280) / 2, mainMenuBarSize.y));
+        ImGui::SetNextWindowPos(ImVec2(idk, mainMenuBarSize.y));
         if (ImGui::Begin("Polygon Creator", nullptr, ImGuiWindowFlags_NoScrollWithMouse + ImGuiWindowFlags_NoScrollbar + 7)) {
             ImVec2 currentWindowSize = ImGui::GetWindowSize();
             ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(1.0f, 1.0f, 1.0f, 1.0f));
@@ -513,7 +521,7 @@ int runProgram()
                 // TODO: Calculate IoU Metric and display result.
                 IoUArea = intersection.polygonArea() / (polygons.at(selectedPolygons.at(0)).polygonArea() + polygons.at(selectedPolygons.at(1)).polygonArea());
             }
-            createToolTip("Select polygons and then calculate", tooltipsEnabled);
+            createToolTip("Select two polygons and then calculate", tooltipsEnabled);
             /*
             
             */
@@ -576,17 +584,6 @@ int runProgram()
     return 0;
 }
 
-void framebuffer_size_callback(GLFWwindow* window, int width, int height)
-{
-    glViewport(0, 0, width, height);
-}
-
-
-void processInput(GLFWwindow* window)
-{
-    if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-        glfwSetWindowShouldClose(window, true);
-}
 
 int main()
 {   
