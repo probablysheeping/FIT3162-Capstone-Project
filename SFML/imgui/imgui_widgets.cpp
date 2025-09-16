@@ -573,7 +573,7 @@ bool ImGui::ButtonBehavior(const ImRect& bb, ImGuiID id, bool* out_hovered, bool
     bool pressed = false;
     bool hovered = ItemHoverable(bb, id, item_flags);
 
-    // Special mode for Drag and Drop where holding button pressed for a long time while dragging another item triggers the button
+    // Special mode for Drag and Drop where holding button pressed for a long time while draggingPolygons another item triggers the button
     if (g.DragDropActive && (flags & ImGuiButtonFlags_PressedOnDragDropHold) && !(g.DragDropSourceFlags & ImGuiDragDropFlags_SourceNoHoldToOpenOthers))
         if (IsItemHovered(ImGuiHoveredFlags_AllowWhenBlockedByActiveItem))
         {
@@ -940,7 +940,7 @@ bool ImGui::CollapseButton(ImGuiID id, const ImVec2& pos)
     RenderArrow(window->DrawList, bb.Min, text_col, window->Collapsed ? ImGuiDir_Right : ImGuiDir_Down, 1.0f);
 
     // Switch to moving the window after mouse is moved beyond the initial drag threshold
-    if (IsItemActive() && IsMouseDragging(0))
+    if (IsItemActive() && IsMousedraggingPolygons(0))
         StartMouseMovingWindow(window);
 
     return pressed;
@@ -10348,7 +10348,7 @@ bool    ImGui::TabItemEx(ImGuiTabBar* tab_bar, const char* label, bool* p_open, 
         TabBarQueueFocus(tab_bar, tab);
 
     // Drag and drop: re-order tabs
-    if (held && !tab_appearing && IsMouseDragging(0))
+    if (held && !tab_appearing && IsMousedraggingPolygons(0))
     {
         if (!g.DragDropActive && (tab_bar->Flags & ImGuiTabBarFlags_Reorderable))
         {

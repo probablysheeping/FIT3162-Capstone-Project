@@ -193,6 +193,9 @@ int runProgram()
 		bool menuInteraction = false;
         bool colourPicker = false;
         bool adjustVertices = true;
+        bool draggingPolygons = false;
+        bool draggingVertex = false;
+		ImVec2 lastMousePos = ImVec2(0, 0);
     } status;
 
     typedef struct {
@@ -267,10 +270,28 @@ int runProgram()
 
             if (event->is<sf::Event::Closed>())
                 window.close();
-
-            if (const auto mouseButtonPressed = event->getIf<sf::Event::MouseButtonPressed>()) {
-
+            if (const auto mouseButtonMoved = event->getIf<sf::Event::MouseMoved>()) {
+                if (status.draggingPolygons) {
+                    ImVec2 delta = {sf::Mouse::getPosition(window).x - status.lastMousePos.x, sf::Mouse::getPosition(window).y - status.lastMousePos.y};
+                    for (int i : selectedPolygons) {
+                        polygons.at(i).shift(delta);
+                    }
+                }
+				status.lastMousePos = sf::Mouse::getPosition(window);
+            }
+            else if (const auto mouseButtonReleased = event -> getIf<sf::Event::MouseButtonReleased>()) {
+                status.draggingPolygons = false;
+				status.menuInteraction = false;
+                
+			}
+            else if (const auto mouseButtonPressed = event->getIf<sf::Event::MouseButtonPressed>()) {
+                
                 if (mouseButtonPressed->button == sf::Mouse::Button::Left) {
+                    /*
+                    * Check if mouse is in menu area.
+                    * Otherwise check if we are creating a polygon
+                    * Else do logic for selecting polygons
+                    */
                     ImVec2 mousepos = sf::Mouse::getPosition(window);
                     if (mousepos.y <= mainMenuBarSize.y or (mousepos.x >= idk and (mousepos.x <= idk + 280) and mousepos.y <= 60)) { status.menuInteraction = true; }
                     else status.menuInteraction = false;
@@ -312,12 +333,12 @@ int runProgram()
                         }
                     }
                     else {
-                        if (!status.menuInteraction) {
+                        if (!status.menuInteraction and !status.draggingPolygons and !status.draggingVertex) {
 
                             if (selectedPolygons.size() > 0 and !ImGui::IsKeyDown(ImGuiKey_ModShift)) {
 
                                 for (int j : selectedPolygons) {
-                                    polygons.at(j).render.setOutlineThickness(0.f);
+									polygons.at(j).toggleSelected();
                                 }
                                 selectedPolygons.clear();
                                 area = -1;
@@ -329,11 +350,12 @@ int runProgram()
                             int i = 0;
                             for (i; i < polygons.size(); i++) {
                                 polygon = &polygons.at(i);
-                                if (std::find(selectedPolygons.begin(), selectedPolygons.end(), i) == selectedPolygons.end() && polygon->pointInPolygon(p)) {
-
-                                    selectedPolygons.push_back(i);
-                                    polygon->render.setOutlineThickness(1.f);
-                                    polygon->render.setOutlineColor(sf::Color::Cyan);
+                                if (polygon->pointInPolygon(p)) {
+                                    if (std::find(selectedPolygons.begin(), selectedPolygons.end(), i) == selectedPolygons.end()) {
+                                        selectedPolygons.push_back(i);
+										polygons.at(i).toggleSelected();
+                                    }
+                                    
 
                                     break;
                                 }
@@ -350,7 +372,10 @@ int runProgram()
                             else {
                                 area = -1;
                             }
-                            std::cout << "Number of Selected Polygons: " << selectedPolygons.size() << std::endl;
+                            std::cout << "Number of Selected Polygons: " << selectedPolygons.size() << std::endl; 
+                            status.lastMousePos = mousepos;
+							status.draggingPolygons = true;
+                            status.menuInteraction = true;
                         }
                     }
                 }

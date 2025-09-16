@@ -1469,7 +1469,7 @@ void    ImGui::EndTable()
             SetScrollFromPosX(inner_window, column->MaxX - inner_window->Pos.x + neighbor_width_to_keep_visible, 1.0f);
     }
 
-    // Apply resizing/dragging at the end of the frame
+    // Apply resizing/draggingPolygons at the end of the frame
     if (table->ResizedColumn != -1 && table->InstanceCurrent == table->InstanceInteracted)
     {
         ImGuiTableColumn* column = &table->Columns[table->ResizedColumn];
@@ -1935,7 +1935,7 @@ void ImGui::TableBeginRow(ImGuiTable* table)
     window->DC.IsSameLine = window->DC.IsSetPos = false;
     window->DC.CursorMaxPos.y = next_y1;
 
-    // Making the header BG color non-transparent will allow us to overlay it multiple times when handling smooth dragging.
+    // Making the header BG color non-transparent will allow us to overlay it multiple times when handling smooth draggingPolygons.
     if (table->RowFlags & ImGuiTableRowFlags_Headers)
     {
         TableSetBgColor(ImGuiTableBgTarget_RowBg0, GetColorU32(ImGuiCol_TableHeaderBg));
@@ -3230,7 +3230,7 @@ void ImGui::TableHeader(const char* label)
 
     // Drag and drop to re-order columns.
     // FIXME-TABLE: Scroll request while reordering a column and it lands out of the scrolling zone.
-    if (held && (table->Flags & ImGuiTableFlags_Reorderable) && IsMouseDragging(0) && !g.DragDropActive)
+    if (held && (table->Flags & ImGuiTableFlags_Reorderable) && IsMousedraggingPolygons(0) && !g.DragDropActive)
     {
         // While moving a column it will jump on the other side of the mouse, so we also test for MouseDelta.x
         table->ReorderColumn = (ImGuiTableColumnIdx)column_n;
@@ -4172,8 +4172,8 @@ static const float COLUMNS_HIT_RECT_HALF_THICKNESS = 4.0f;
 
 static float GetDraggedColumnOffset(ImGuiOldColumns* columns, int column_index)
 {
-    // Active (dragged) column always follow mouse. The reason we need this is that dragging a column to the right edge of an auto-resizing
-    // window creates a feedback loop because we store normalized positions. So while dragging we enforce absolute positioning.
+    // Active (dragged) column always follow mouse. The reason we need this is that draggingPolygons a column to the right edge of an auto-resizing
+    // window creates a feedback loop because we store normalized positions. So while draggingPolygons we enforce absolute positioning.
     ImGuiContext& g = *GImGui;
     ImGuiWindow* window = g.CurrentWindow;
     IM_ASSERT(column_index > 0); // We are not supposed to drag column 0.
@@ -4488,7 +4488,7 @@ void ImGui::EndColumns()
         // We clip Y boundaries CPU side because very long triangles are mishandled by some GPU drivers.
         const float y1 = ImMax(columns->HostCursorPosY, window->ClipRect.Min.y);
         const float y2 = ImMin(window->DC.CursorPos.y, window->ClipRect.Max.y);
-        int dragging_column = -1;
+        int draggingPolygons_column = -1;
         for (int n = 1; n < columns->Count; n++)
         {
             ImGuiOldColumnData* column = &columns->Columns[n];
@@ -4506,7 +4506,7 @@ void ImGui::EndColumns()
                 if (hovered || held)
                     SetMouseCursor(ImGuiMouseCursor_ResizeEW);
                 if (held && !(column->Flags & ImGuiOldColumnFlags_NoResize))
-                    dragging_column = n;
+                    draggingPolygons_column = n;
             }
 
             // Draw column
@@ -4515,15 +4515,15 @@ void ImGui::EndColumns()
             window->DrawList->AddLine(ImVec2(xi, y1 + 1.0f), ImVec2(xi, y2), col);
         }
 
-        // Apply dragging after drawing the column lines, so our rendered lines are in sync with how items were displayed during the frame.
-        if (dragging_column != -1)
+        // Apply draggingPolygons after drawing the column lines, so our rendered lines are in sync with how items were displayed during the frame.
+        if (draggingPolygons_column != -1)
         {
             if (!columns->IsBeingResized)
                 for (int n = 0; n < columns->Count + 1; n++)
                     columns->Columns[n].OffsetNormBeforeResize = columns->Columns[n].OffsetNorm;
             columns->IsBeingResized = is_being_resized = true;
-            float x = GetDraggedColumnOffset(columns, dragging_column);
-            SetColumnOffset(dragging_column, x);
+            float x = GetDraggedColumnOffset(columns, draggingPolygons_column);
+            SetColumnOffset(draggingPolygons_column, x);
         }
     }
     columns->IsBeingResized = is_being_resized;

@@ -2416,7 +2416,7 @@ struct ImGuiContext
     float                   SliderCurrentAccum;                 // Accumulated slider delta when using navigation controls.
     bool                    SliderCurrentAccumDirty;            // Has the accumulated slider delta changed since last time we tried to apply it?
     bool                    DragCurrentAccumDirty;
-    float                   DragCurrentAccum;                   // Accumulator for dragging modification. Always high-precision, not rounded by end-user precision settings
+    float                   DragCurrentAccum;                   // Accumulator for draggingPolygons modification. Always high-precision, not rounded by end-user precision settings
     float                   DragSpeedDefaultRatio;              // If speed == 0.0f, uses (max-min) * DragSpeedDefaultRatio
     float                   DisabledAlphaBackup;                // Backup for style.Alpha for BeginDisabled()
     short                   DisabledStackSize;
@@ -3753,7 +3753,7 @@ struct ImFontAtlasPostProcessData
     int                 Height;
 };
 
-// We avoid dragging imstb_rectpack.h into public header (partly because binding generators are having issues with it)
+// We avoid draggingPolygons imstb_rectpack.h into public header (partly because binding generators are having issues with it)
 #ifdef IMGUI_STB_NAMESPACE
 namespace IMGUI_STB_NAMESPACE { struct stbrp_node; }
 typedef IMGUI_STB_NAMESPACE::stbrp_node stbrp_node_im;
