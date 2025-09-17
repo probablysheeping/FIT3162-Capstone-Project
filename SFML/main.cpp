@@ -5,6 +5,7 @@
 #include "filelocationchooser.h"
 #include "logging.h"
 #include "tutorial.h"
+#include "actions.h"
 
 #include <SFML/Graphics.hpp>
 // TODO: Set up boost.geometry
@@ -99,6 +100,7 @@ void createToolTip(const char* toolTipStr, bool tooltipsEnabled)
     }
 }
 
+
 /// <summary>
 /// This is the SFML window where polygons will appear.
 /// </summary>
@@ -146,6 +148,14 @@ void runProgram()
 
     // Autosaving clock
     sf::Clock autosaveClock;
+
+    // Setup actions
+    Actions actions;
+
+    // Clipboard and undo/redo action
+    std::vector<Polygon> clipboard;
+    ImVec2 undoVertex;
+    sf::Vertex undoPolygonOutline;
 
     // Setup tutorial
     Tutorial tutorial;
@@ -199,6 +209,7 @@ void runProgram()
 
                             newPolygonOutline.back().position = mousepos;
                             newPolygonOutline.push_back(sf::Vertex{ mousepos, sf::Color::Black });
+                            undoVertex = ImVec2(-1, -1);
                             firstVertex = false;
                         }
                     }
@@ -235,42 +246,90 @@ void runProgram()
                     }
                 }
             }
+            // Menu shortcuts
+            if (const auto key = event->getIf<sf::Event::KeyPressed>()) {
+                // Open file
+                if (key->code == sf::Keyboard::Key::O &&
+                    (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::LControl) ||
+                        sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::RControl))) {
+                    actions.OpenFile(polygons, selectedPolygons);
+                }
+                // Save file
+                if (key->code == sf::Keyboard::Key::S &&
+                    (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::LControl) ||
+                        sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::RControl)) &&
+                    !(sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::LShift) ||
+                        sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::RShift))) {
+                    actions.SaveFile(polygons);
+                }
+                // Save file as
+                if (key->code == sf::Keyboard::Key::S &&
+                    (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::LControl) ||
+                        sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::RControl)) &&
+                    (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::LShift) ||
+                        sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::RShift))) {
+                    actions.SaveFileAs(polygons);
+                }
+                // Undo
+                if (key->code == sf::Keyboard::Key::Z &&
+                    (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::LControl) ||
+                        sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::RControl)) &&
+                    !(sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::LShift) ||
+                        sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::RShift))) {
+                    actions.CopyCut(polygons, selectedPolygons, clipboard, true);
+                }
+                // Redo
+                if (key->code == sf::Keyboard::Key::Z &&
+                    (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::LControl) ||
+                        sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::RControl)) &&
+                    (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::LShift) ||
+                        sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::RShift))) {
+                    actions.Redo(vertices, newPolygonOutline, status.createPolygon, undoVertex, undoPolygonOutline);
+                }
+                // Cut
+                if (key->code == sf::Keyboard::Key::X &&
+                    (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::LControl) ||
+                        sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::RControl))) {
+                    actions.CopyCut(polygons, selectedPolygons, clipboard, true);
+                }
+                // Copy
+                if (key->code == sf::Keyboard::Key::C &&
+                    (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::LControl) ||
+                        sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::RControl))) {
+                    actions.CopyCut(polygons, selectedPolygons, clipboard, false);
+                }
+                // Paste
+                if (key->code == sf::Keyboard::Key::P &&
+                    (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::LControl) ||
+                        sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::RControl))) {
+                    actions.Paste(polygons, clipboard);
+                }
+                // Delete
+                if (key->code == sf::Keyboard::Key::Delete) {
+                    actions.Delete(polygons, selectedPolygons);
+                }
+                // Clear selected
+                if (key->code == sf::Keyboard::Key::Escape) {
+                    actions.ClearSelected(polygons, selectedPolygons, area);
+                }
+            }
         }
 
 
         ImGui::SFML::Update(window, deltaClock.restart());
 
-
-        //TODO: Add functionality to main menu
+        // Menu bar
         if (ImGui::BeginMainMenuBar()) {
 
             if (ImGui::BeginMenu("File"))
             {
-                if (ImGui::MenuItem("Open", "CTRL+O")) {
-                    std::string openLocation = OpenFileDialog();
-                    polygons = openFile(openLocation);
-                    selectedPolygons.clear();
+                if (ImGui::MenuItem("Open", "CTRL+O"))
+                    actions.OpenFile(polygons, selectedPolygons);
+                if (ImGui::MenuItem("Save", "CTRL+S"))
+                    actions.SaveFile(polygons);
+                if (ImGui::MenuItem("Save As", "CTRL+SHIFT+S"))
+                    actions.SaveFile(polygons);
 
-                    logger << currentDateTime() << " File opened from " << openLocation << std::endl;
-
-                    logger << "Polygons in file: \n";
-                    for (Polygon polygon : polygons)
-                        logger << polygon;
-
-                }
-
-                if (ImGui::MenuItem("Save", "CTRL+S")) {
-                    quickSave(polygons, "save.sav");
-                }
-
-                if (ImGui::MenuItem("Save As", "CTRL+SHIFT+S")) {
-                    std::string saveLocation = SaveFileDialog() + ".sav";
-                    if (saveToFile(polygons, saveLocation))
-                        logger << currentDateTime() << " Saved file successfully to " << saveLocation << std::endl;
-                    else
-                        logger << currentDateTime() << " Saved file un-successfully to " << saveLocation << std::endl;
-
-                }
                 ImGui::EndMenu();
 
             }
@@ -278,12 +337,18 @@ void runProgram()
 
             if (ImGui::BeginMenu("Edit"))
             {
-                if (ImGui::MenuItem("Undo", "CTRL+Z")) {}
-                if (ImGui::MenuItem("Redo", "CTRL+Y", false, false)) {} // Disabled item
+                if (ImGui::MenuItem("Undo", "CTRL+Z"))
+                    actions.Undo(vertices, newPolygonOutline, status.createPolygon, undoVertex, undoPolygonOutline);
+                if (ImGui::MenuItem("Redo", "CTRL+SHIFT+Z"))
+                    actions.Redo(vertices, newPolygonOutline, status.createPolygon, undoVertex, undoPolygonOutline);
                 ImGui::Separator();
-                if (ImGui::MenuItem("Cut", "CTRL+X")) {}
-                if (ImGui::MenuItem("Copy", "CTRL+C")) {}
-                if (ImGui::MenuItem("Paste", "CTRL+V")) {}
+                if (ImGui::MenuItem("Cut", "CTRL+X"))
+                    actions.CopyCut(polygons, selectedPolygons, clipboard, true);
+                if (ImGui::MenuItem("Copy", "CTRL+C"))
+                    actions.CopyCut(polygons, selectedPolygons, clipboard, false);
+                if (ImGui::MenuItem("Paste", "CTRL+V"))
+                    actions.Paste(polygons, clipboard);
+
                 ImGui::EndMenu();
             }
             createToolTip("Modify program state", tooltipsEnabled);
@@ -338,21 +403,16 @@ void runProgram()
                 newPolygon = Polygon();
                 newPolygonOutline.clear();
                 newPolygonOutline.push_back(sf::Vertex{ ImVec2(0,0), sf::Color::Black });
+                undoVertex = ImVec2(-1, -1);
 
                 firstVertex = true;
 
             }
             createToolTip("Click on canvas to create vertices", tooltipsEnabled);
-            if (ImGui::Button("Delete Polygon", ImVec2(120, 30))) {
-                // Delete Polygon
-                for (int i : selectedPolygons) {
-                    polygons.erase(polygons.begin() + i);
+            if (ImGui::Button("Delete Polygon", ImVec2(120, 30)))
+                actions.Delete(polygons, selectedPolygons);
 
-                }
-                selectedPolygons.clear();
-                logger << currentDateTime() << " Polygon deleted.\n";
-            }
-            createToolTip("Select polygon and then click delete", tooltipsEnabled);
+            createToolTip("Select polygon and then click delete (DEL)", tooltipsEnabled);
 
             if (ImGui::Button("Compute IoU", ImVec2(120, 30)) && selectedPolygons.size() == 2) {
                 // Save when computing IoU
@@ -373,14 +433,9 @@ void runProgram()
             createToolTip("Select polygons and then calculate", tooltipsEnabled);
 
             if (ImGui::Button("Clear Selected", ImVec2(120, 30))) {
-                // User clicked the canvas, so we reset everything.
-                for (int j : selectedPolygons) {
-                    polygons.at(j).render.setOutlineThickness(0.f);
-                }
-                selectedPolygons.clear();
-                area = -1;
+                actions.ClearSelected(polygons, selectedPolygons, area);
             }
-            createToolTip("Unselect all polygons", tooltipsEnabled);
+            createToolTip("Unselect all polygons (ESV)", tooltipsEnabled);
 
             if (ImGui::ColorPicker3("Select Colour", polygonColour)) {
                 //Alter Polygon Colour
