@@ -245,7 +245,9 @@ Polygon intersectingPolygon(Polygon* p1, Polygon* p2) {
 				 // If 1st vertex not in visible area
 				 if (sideOfLine(outputList.at(j), p2->getVertices().at(i), p2->getVertices().at(i2)) < 0) {
 					 const ImVec2 POI = intersectingSegments(outputList.at(j), outputList.at(j2), p2->getVertices().at(i), p2->getVertices().at(i2));
-					 newOutputList.push_back(POI);
+					 // Block failed vertex (-1,-1)
+					 if (POI.x != -1 && POI.y != -1)
+						newOutputList.push_back(POI);
 				 }
 
 				 newOutputList.push_back(outputList.at(j2));
@@ -253,13 +255,24 @@ Polygon intersectingPolygon(Polygon* p1, Polygon* p2) {
 			 // If 1st vertex in visible area
 			 else if (sideOfLine(outputList.at(j), p2->getVertices().at(i), p2->getVertices().at(i2)) >= 0) {
 				  const ImVec2 POI = intersectingSegments(outputList.at(j), outputList.at(j2), p2->getVertices().at(i), p2->getVertices().at(i2));
-				  newOutputList.push_back(POI);
+				  // Block failed vertex (-1,-1)
+				  if (POI.x != -1 && POI.y != -1)
+					newOutputList.push_back(POI);
 				  
 
 			 }
 		 }
 		 outputList = newOutputList;
 
+	 }
+
+	 // Failure case
+	 if (outputList.size() < 3) {
+		 Polygon empty;
+		 empty.setVertices({});
+		 float black[3] = { 0,0,0 };
+		 empty.setColour(black);
+		 return empty;
 	 }
 
 	 float r1 = p1->getColour(0), g1 = p1->getColour(1), b1 = p1->getColour(2);
