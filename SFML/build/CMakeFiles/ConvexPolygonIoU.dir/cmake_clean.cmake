@@ -21,6 +21,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/ConvexPolygonIoU.dir/polygon.cpp.o.d"
   "CMakeFiles/ConvexPolygonIoU.dir/saving.cpp.o"
   "CMakeFiles/ConvexPolygonIoU.dir/saving.cpp.o.d"
+  "CMakeFiles/ConvexPolygonIoU.dir/tutorial.cpp.o"
+  "CMakeFiles/ConvexPolygonIoU.dir/tutorial.cpp.o.d"
   "bin/ConvexPolygonIoU"
   "bin/ConvexPolygonIoU.pdb"
 )
