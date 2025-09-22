@@ -164,6 +164,7 @@ void runProgram()
     tutorial.addStep("Drawing a Polygon", "After choosing a colour, the nexts step is to draw your polygon.\nThis is done by selecting vertices on the canvas.\n\n1. Placing vertices\n    - Click anywhere on the canvas to place the first vertex.\n    - Continue clicking to add additional vertices. Each click will mark a new corner of your polygon.\n\n2. Connecting the Shape\n    - As vertices are added, lines will automatically connect them.\n    - When you click back on the origin vertex, the outline closes and the polygon is created.\n\nNote that at any point after your polygon is created, you can change the colour. Simply select the polygon you wish to recolour and go back through the steps as in the previous page.");
     tutorial.addStep("Calculating the Intersection over Union", "Once two polygons have been created, we can measure their IoU value.\n\n1. Selecting Polygons\n    - Click on the first polygon you wish to calculate the IoU value for. The selected polygon will be outlined with a cyan line edge.\n    - Select the second polygon.\n\n2. Click the \"Compute IoU\" button.\n    - The calculated IoU will be printed in the bottom of the polygon creator menu.");
     tutorial.addStep("Deleting Polygons", "Deleting a polygon is as simple as selecting the single polygon you wish to delete (outlined in cyan), and clicking the \"Delete Polygon\" button in the menu.");
+    tutorial.addStep("Shortcuts", "Ctrl+O - Open File\nCtrl+S - Save File\nCtrl+Shift+S - Save File As\nCtrl+Z - Undo Vertex\nCtrl+Shift+Z - Redo Vertex\nCtrl+X - Cut Polygons\nCtrl+C - Copy Polygons\nCtrl+P - Paste Polygons\nDel - Delete Polygons\nEsc - Clear Selected Polygons\n");
     tutorial.addStep("End", "You have successfully completed the tutorial! If you want to go through this tutorial again please press the 'Tutorial' button on the main menu bar.");
 
     while (window.isOpen())
@@ -437,7 +438,7 @@ void runProgram()
             if (ImGui::Button("Clear Selected", ImVec2(120, 30))) {
                 actions.ClearSelected(polygons, selectedPolygons, area);
             }
-            createToolTip("Unselect all polygons (ESV)", tooltipsEnabled);
+            createToolTip("Unselect all polygons (ESC)", tooltipsEnabled);
 
             if (ImGui::ColorPicker3("Select Colour", polygonColour)) {
                 //Alter Polygon Colour
