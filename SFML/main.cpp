@@ -13,7 +13,7 @@
 #include <glad/glad.h> 
 #include <GLFW/glfw3.h>
 
-
+#include <fstream>
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <string>
@@ -72,7 +72,7 @@ bool LoadTextureFromFile(const char* file_name, GLuint* out_texture, int* out_wi
 {   
     std::cout << file_name << std::endl;
     FILE* f;
-    fopen_s(&f, file_name, "rb");
+    f = fopen(file_name, "rb");
     if (f == NULL)
         return false;
     fseek(f, 0, SEEK_END);
