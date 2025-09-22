@@ -57,10 +57,10 @@ RM = /opt/homebrew/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML
+CMAKE_SOURCE_DIR = /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build
+CMAKE_BINARY_DIR = /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build/CMakeFiles /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/build/CMakeFiles /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -393,6 +393,30 @@ saving.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ConvexPolygonIoU.dir/build.make CMakeFiles/ConvexPolygonIoU.dir/saving.cpp.s
 .PHONY : saving.cpp.s
 
+tutorial.o: tutorial.cpp.o
+.PHONY : tutorial.o
+
+# target to build an object file
+tutorial.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ConvexPolygonIoU.dir/build.make CMakeFiles/ConvexPolygonIoU.dir/tutorial.cpp.o
+.PHONY : tutorial.cpp.o
+
+tutorial.i: tutorial.cpp.i
+.PHONY : tutorial.i
+
+# target to preprocess a source file
+tutorial.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ConvexPolygonIoU.dir/build.make CMakeFiles/ConvexPolygonIoU.dir/tutorial.cpp.i
+.PHONY : tutorial.cpp.i
+
+tutorial.s: tutorial.cpp.s
+.PHONY : tutorial.s
+
+# target to generate assembly for a file
+tutorial.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ConvexPolygonIoU.dir/build.make CMakeFiles/ConvexPolygonIoU.dir/tutorial.cpp.s
+.PHONY : tutorial.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -435,6 +459,9 @@ help:
 	@echo "... saving.o"
 	@echo "... saving.i"
 	@echo "... saving.s"
+	@echo "... tutorial.o"
+	@echo "... tutorial.i"
+	@echo "... tutorial.s"
 .PHONY : help
 
 

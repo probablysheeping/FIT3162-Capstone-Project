@@ -31,6 +31,7 @@ set(PROJECT_SOURCES
     saving.cpp
     filelocationchooser.cpp
     logging.cpp
+    tutorial.cpp
     ${IMGUI_SOURCES}
 )
 
@@ -48,6 +49,7 @@ set(PROJECT_HEADERS
     saving.h
     filelocationchooser.h
     logging.h
+    tutorial.h
     imgui/imgui.h
     imgui/imgui-SFML.h
     imgui/imgui_internal.h
