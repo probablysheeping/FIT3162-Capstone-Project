@@ -1,0 +1,28 @@
+2025-09-22_14-33-47 File opened from /Users/adityadesai/Downloads/imagesav.sav.sav
+Polygons in file: 
+POLYGON
+VERTICES 3
+847.258545 290.808624
+755.000000 460.000000
+649.393311 286.966461
+COLOUR 0.000000 0.000000 0.000000
+END
+POLYGON
+VERTICES 4
+898.000000 412.000000
+863.000000 565.000000
+684.000000 563.000000
+685.875732 395.110321
+COLOUR 0.866995 0.000000 0.000000
+END
+POLYGON
+VERTICES 3
+786.035156 403.085144
+752.418701 455.770538
+716.904053 397.580719
+COLOUR 0.325123 0.108374 0.108374
+END
+2025-09-22_14-33-47 Image restored from /Users/adityadesai/Downloads/droplet.jpeg
+2025-09-22_14-33-59 Image loaded successfully from /Users/adityadesai/Downloads/droplet.jpeg with resize mode 2
+2025-09-22_14-34-09 Saved file successfully to /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/build/bin/save.sav
+2025-09-22_14-34-10 Saved file successfully to /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/build/bin/save.sav
