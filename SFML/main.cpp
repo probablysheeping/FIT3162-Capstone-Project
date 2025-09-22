@@ -280,15 +280,15 @@ void runProgram()
                         sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::RControl)) &&
                     !(sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::LShift) ||
                         sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::RShift))) {
-                    actions.CopyCut(polygons, selectedPolygons, clipboard, true);
+                    actions.Undo(vertices, newPolygonOutline, status.createPolygon, undoVertex, undoPolygonOutline);
                 }
-                // Redo
+                // Redo (DISABLED)
                 if (key->code == sf::Keyboard::Key::Z &&
                     (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::LControl) ||
                         sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::RControl)) &&
                     (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::LShift) ||
                         sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::RShift))) {
-                    actions.Redo(vertices, newPolygonOutline, status.createPolygon, undoVertex, undoPolygonOutline);
+                    //actions.Redo(vertices, newPolygonOutline, status.createPolygon, undoVertex, undoPolygonOutline);
                 }
                 // Cut
                 if (key->code == sf::Keyboard::Key::X &&
@@ -343,7 +343,7 @@ void runProgram()
             {
                 if (ImGui::MenuItem("Undo", "CTRL+Z"))
                     actions.Undo(vertices, newPolygonOutline, status.createPolygon, undoVertex, undoPolygonOutline);
-                if (ImGui::MenuItem("Redo", "CTRL+SHIFT+Z"))
+                if (ImGui::MenuItem("Redo", "CTRL+SHIFT+Z", false, false))
                     actions.Redo(vertices, newPolygonOutline, status.createPolygon, undoVertex, undoPolygonOutline);
                 ImGui::Separator();
                 if (ImGui::MenuItem("Cut", "CTRL+X"))
