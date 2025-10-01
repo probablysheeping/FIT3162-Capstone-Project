@@ -379,6 +379,21 @@ void runProgram()
             }
             createToolTip("Start tutorial", tooltipsEnabled);
 
+            if (ImGui::MenuItem("Contact")) {
+                logger << currentDateTime() << " User opened contact window.\n";
+                ImGui::OpenPopup("Contact");
+            }
+
+            if (ImGui::BeginPopup("Contact")) {
+                ImGui::Text("Please send any questions, log or crash reports to the lead developer's email here: mmun0026@student.monash.edu.");
+                if (ImGui::Button("Close")) {
+                    ImGui::CloseCurrentPopup();
+                }
+                ImGui::EndPopup();
+            }
+
+            createToolTip("Contact information", tooltipsEnabled);
+
             if (ImGui::MenuItem("Exit")) {
                 logger << currentDateTime() << " User exit.\n";
                 window.close();
