@@ -116,6 +116,14 @@ void runProgram()
     if (!ImGui::SFML::Init(window))
         throw std::runtime_error("SFML Window could not initialise!");
 
+    sf::View view = window.getDefaultView();
+    float zoomLevel = 1.0f;
+    const float zoomSpeed = 0.1f;
+    const float minZoom = 0.1f;
+    const float maxZoom = 5.0f;
+    bool isPanning = false;
+    sf::Vector2f panStart;
+
     sf::Clock deltaClock;
 
     // This is the data for a polygon not the actual displayed shape
@@ -180,7 +188,8 @@ void runProgram()
 
                 if (mouseButtonPressed->button == sf::Mouse::Button::Left) {
                     if (status.createPolygon) {
-                        ImVec2 mousepos = sf::Mouse::getPosition(window);
+                        sf::Vector2f worldPos = window.mapPixelToCoords(sf::Mouse::getPosition(window), view);
+                        ImVec2 mousepos = ImVec2(worldPos.x, worldPos.y);
                         if (!firstVertex && distanceL2(mousepos, vertices.front()) <= 10) {
                             if (vertices.size() < 3) {
                                 logger << currentDateTime() << " ERROR: Number of vertices less than three and instead is " << vertices.size() << std::endl;
@@ -219,12 +228,13 @@ void runProgram()
                     }
                     else {
                         // Left click to select a polygon. We unfortunately need to check each one.
-                        ImVec2 p = sf::Mouse::getPosition(window);
+                        sf::Vector2f worldPos = window.mapPixelToCoords(sf::Mouse::getPosition(window), view);
+                        ImVec2 mousepos = ImVec2(worldPos.x, worldPos.y);
                         Polygon* polygon;
                         int i;
                         for (i = 0; i < polygons.size(); i++) {
                             polygon = &polygons.at(i);
-                            if (std::find(selectedPolygons.begin(), selectedPolygons.end(), i) == selectedPolygons.end() && polygon->pointInPolygon(p)) {
+                            if (std::find(selectedPolygons.begin(), selectedPolygons.end(), i) == selectedPolygons.end() && polygon->pointInPolygon(mousepos)) {
 
                                 selectedPolygons.push_back(i);
                                 polygon->render.setOutlineThickness(1.f);
@@ -249,7 +259,56 @@ void runProgram()
                         }
                     }
                 }
+                if (mouseButtonPressed->button == sf::Mouse::Button::Right) {
+                    isPanning = true;
+                    panStart = window.mapPixelToCoords(sf::Mouse::getPosition(window), view);
+				}
             }
+
+            if (const auto mouseButtonReleased = event->getIf<sf::Event::MouseButtonReleased>()) {
+                if (mouseButtonReleased->button == sf::Mouse::Button::Right) {
+                    isPanning = false;
+                }
+            }
+
+            if (const auto mouseMoved = event->getIf<sf::Event::MouseMoved>()) {
+                if (isPanning) {
+                    sf::Vector2f newPos = window.mapPixelToCoords(sf::Mouse::getPosition(window), view);
+                    sf::Vector2f delta = panStart - newPos;
+                    view.move(delta);
+                    window.setView(view);
+                }
+            }
+
+            if (const auto mouseWheel = event->getIf<sf::Event::MouseWheelScrolled>()) {
+                if (mouseWheel->wheel == sf::Mouse::Wheel::Vertical) {
+                    // Get mouse position before zoom
+                    sf::Vector2f beforeCoord = window.mapPixelToCoords(sf::Mouse::getPosition(window), view);
+
+                    // Zoom in or out
+                    if (mouseWheel->delta > 0) {
+                        // Zoom in
+                        zoomLevel = std::max(minZoom, zoomLevel - zoomSpeed);
+                    }
+                    else {
+                        // Zoom out
+                        zoomLevel = std::min(maxZoom, zoomLevel + zoomSpeed);
+                    }
+
+                    view.setSize(window.getDefaultView().getSize());
+                    view.zoom(zoomLevel);
+
+                    // Get mouse position after zoom
+                    sf::Vector2f afterCoord = window.mapPixelToCoords(sf::Mouse::getPosition(window), view);
+
+                    // Adjust view to keep mouse position consistent
+                    sf::Vector2f offset = beforeCoord - afterCoord;
+                    view.move(offset);
+
+                    window.setView(view);
+                }
+            }
+
             // Menu shortcuts
             if (const auto key = event->getIf<sf::Event::KeyPressed>()) {
                 // Open file
@@ -469,7 +528,8 @@ void runProgram()
 
         if (status.createPolygon && !firstVertex) {
             // Draw boundary of supposed polygon
-            ImVec2 mousepos = sf::Mouse::getPosition(window);
+            sf::Vector2f worldPos = window.mapPixelToCoords(sf::Mouse::getPosition(window), view);
+            ImVec2 mousepos = ImVec2(worldPos.x, worldPos.y);
             newPolygonOutline.back().position = mousepos;
             window.draw(newPolygonOutline.data(), newPolygonOutline.size(), sf::PrimitiveType::LineStrip);
         }
