@@ -10,10 +10,16 @@
 #define FILE_SEPARATOR '/'
 #endif
 
+struct ViewState {
+    float zoomLevel;
+    float centerX;
+    float centerY;
+};
+
 std::string getExecutablePath();
 
-bool saveToFile(std::vector<Polygon> polygons, std::string fileLocation);
+bool saveToFile(std::vector<Polygon> polygons, std::string fileLocation, const ViewState& viewState);
 
-std::vector<Polygon> openFile(std::string fileLocation);
+std::pair< std::vector<Polygon>, ViewState> openFile(std::string fileLocation);
 
-void quickSave(std::vector<Polygon> polygons, std::string fileName);
+void quickSave(std::vector<Polygon> polygons, std::string fileName, const ViewState& viewState);
