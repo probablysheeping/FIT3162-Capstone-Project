@@ -3,7 +3,7 @@
 #include "saving.h"
 #include "logging.h"
 
-void Actions::OpenFile(std::vector<Polygon>& polygons, std::vector<int>& selectedPolygons, sf::View& view, float& zoomLevel, const sf::RenderWindow& window)
+void Actions::OpenFile(std::vector<Polygon>& polygons, std::vector<int>& selectedPolygons, sf::View& view, float& zoomLevel, sf::RenderWindow& window)
 {
     std::string openLocation = OpenFileDialog();
 
@@ -23,6 +23,8 @@ void Actions::OpenFile(std::vector<Polygon>& polygons, std::vector<int>& selecte
 
     view.setCenter(sf::Vector2f(viewState.centerX, viewState.centerY));
     view.zoom(zoomLevel);
+
+    window.setView(view);
 
     logger << "Zoom: " << viewState.zoomLevel << ", Center: (" << viewState.centerX << ", " << viewState.centerY << ")" << std::endl;
 }
