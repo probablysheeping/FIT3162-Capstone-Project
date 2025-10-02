@@ -444,6 +444,27 @@ void runProgram()
             }
             createToolTip("Exit from program", tooltipsEnabled);
 
+            if (ImGui::Button("Zoom Out")) {
+				zoomLevel = std::min(maxZoom, zoomLevel + 0.2f);
+                view.setSize(window.getDefaultView().getSize());
+                view.zoom(zoomLevel);
+                window.setView(view);
+            }
+
+            if (ImGui::Button("Zoom In")) {
+                zoomLevel = std::max(minZoom, zoomLevel - 0.2f);
+                view.setSize(window.getDefaultView().getSize());
+                view.zoom(zoomLevel);
+                window.setView(view);
+            }
+
+            if (ImGui::Button("Reset Zoom Level")) {
+                zoomLevel = 1.0f;
+                view.setSize(window.getDefaultView().getSize());
+                view.zoom(zoomLevel);
+                window.setView(view);
+            }
+
             ImGui::EndMainMenuBar();
         }
         // Autosaving functionality
