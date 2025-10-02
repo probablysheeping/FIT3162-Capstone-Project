@@ -17,6 +17,7 @@ public:
     void setVertices(std::vector<ImVec2> vertices);
     std::vector<ImVec2> getVertices();
 
+    void translate(ImVec2 delta);
     
     float getColour(int index);
     void setColour(float(&color)[3]);

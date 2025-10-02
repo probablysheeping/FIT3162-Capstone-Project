@@ -122,6 +122,7 @@ void runProgram()
     struct {
         bool drawPolygon = false;
         bool createPolygon = false;
+        bool movePolygon = false;
     } status;
 
     // Settings
@@ -412,8 +413,13 @@ void runProgram()
         // Needs to be formatted properly. This is just a placeholder UI
         ImGui::SetNextWindowSize(ImVec2(350, 600));
         if (ImGui::Begin("Polygon Creator")) {
-
-
+            // Create polygon toggle colour
+            bool wasActive = status.createPolygon;
+            if (wasActive) {
+                ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.2f, 0.7f, 0.3f, 1.0f));
+                ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.3f, 0.8f, 0.4f, 1.0f));
+                ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.1f, 0.6f, 0.2f, 1.0f));
+            }
             if (ImGui::Button("Create Polygon", ImVec2(120, 30))) {
                 // Create Polygon
                 status.createPolygon = true;
@@ -427,11 +433,28 @@ void runProgram()
                 firstVertex = true;
 
             }
+            if (wasActive)
+                ImGui::PopStyleColor(3);
             createToolTip("Click on canvas to create vertices", tooltipsEnabled);
+
             if (ImGui::Button("Delete Polygon", ImVec2(120, 30)))
                 actions.Delete(polygons, selectedPolygons);
-
             createToolTip("Select polygon and then click delete (DEL)", tooltipsEnabled);
+
+            // Move polygon toggle colour
+            wasActive = status.movePolygon;
+            if (wasActive) {
+                ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.2f, 0.7f, 0.3f, 1.0f));
+                ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.3f, 0.8f, 0.4f, 1.0f));
+                ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.1f, 0.6f, 0.2f, 1.0f));
+            }
+            if (ImGui::Button("Move Polygon", ImVec2(120, 30))) {
+                status.movePolygon = !status.movePolygon;
+                logger << currentDateTime() << " Move polygon toggled.\n";
+            }
+            if (wasActive)
+                ImGui::PopStyleColor(3);
+            createToolTip("Select polygons and then drag to move", tooltipsEnabled);
 
             if (ImGui::Button("Compute IoU", ImVec2(120, 30)) && selectedPolygons.size() == 2) {
                 // Save when computing IoU
@@ -470,6 +493,26 @@ void runProgram()
             ImGui::Text("IoU metric:");
             ImGui::SameLine(); ImGui::Text("%s", IoUArea == -1 ? "" : std::to_string(IoUArea).c_str());
 
+        }
+
+        // When left mouse is held, move polygons
+        if (ImGui::IsMouseDown(ImGuiMouseButton_Left) && !selectedPolygons.empty() && status.movePolygon) {
+            static ImVec2 lastMousePos = ImGui::GetMousePos();
+            ImVec2 currentMousePos = ImGui::GetMousePos();
+            ImVec2 delta = { currentMousePos.x - lastMousePos.x, currentMousePos.y - lastMousePos.y };
+
+            if (delta.x != 0 || delta.y != 0) {
+                for (int i : selectedPolygons) {
+                    polygons[i].translate(delta);
+                }
+            }
+
+            lastMousePos = currentMousePos;
+        }
+
+        // Reset lastMousePos when mouse released
+        if (ImGui::IsMouseReleased(ImGuiMouseButton_Left)) {
+            logger << currentDateTime() << " Polygon moved.\n";
         }
 
         ImGui::End();

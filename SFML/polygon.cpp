@@ -92,6 +92,19 @@ std::vector<ImVec2> Polygon::getVertices()
 	return this->vertices;
 }
 
+void Polygon::translate(ImVec2 delta) {
+	for (auto& v : this->vertices) {
+		v.x += delta.x;
+		v.y += delta.y;
+	}
+
+	// Update SFML render shape
+	this->render.setPointCount(this->vertices.size());
+	for (size_t i = 0; i < this->vertices.size(); i++) {
+		this->render.setPoint(i, sf::Vector2f(this->vertices[i].x, this->vertices[i].y));
+	}
+}
+
 void Polygon::setColour(float (&color)[3])
 {
 	std::copy(std::begin(color), std::end(color), std::begin(this->colour));
