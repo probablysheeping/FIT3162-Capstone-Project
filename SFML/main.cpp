@@ -315,7 +315,7 @@ void runProgram()
                 if (key->code == sf::Keyboard::Key::O &&
                     (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::LControl) ||
                         sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::RControl))) {
-                    actions.OpenFile(polygons, selectedPolygons);
+                    actions.OpenFile(polygons, selectedPolygons, view, zoomLevel, window);
                 }
                 // Save file
                 if (key->code == sf::Keyboard::Key::S &&
@@ -323,7 +323,7 @@ void runProgram()
                         sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::RControl)) &&
                     !(sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::LShift) ||
                         sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::RShift))) {
-                    actions.SaveFile(polygons);
+                    actions.SaveFile(polygons, selectedPolygons, view, zoomLevel, window);
                 }
                 // Save file as
                 if (key->code == sf::Keyboard::Key::S &&
@@ -331,7 +331,7 @@ void runProgram()
                         sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::RControl)) &&
                     (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::LShift) ||
                         sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::RShift))) {
-                    actions.SaveFileAs(polygons);
+                    actions.SaveFileAs(polygons, selectedPolygons, view, zoomLevel, window);
                 }
                 // Undo
                 if (key->code == sf::Keyboard::Key::Z &&
@@ -387,11 +387,11 @@ void runProgram()
             if (ImGui::BeginMenu("File"))
             {
                 if (ImGui::MenuItem("Open", "CTRL+O"))
-                    actions.OpenFile(polygons, selectedPolygons);
+                    actions.OpenFile(polygons, selectedPolygons, view, zoomLevel, window);
                 if (ImGui::MenuItem("Save", "CTRL+S"))
-                    actions.SaveFile(polygons);
+                    actions.SaveFile(polygons, selectedPolygons, view, zoomLevel, window);
                 if (ImGui::MenuItem("Save As", "CTRL+SHIFT+S"))
-                    actions.SaveFile(polygons);
+                    actions.SaveFileAs(polygons, selectedPolygons, view, zoomLevel, window);
 
                 ImGui::EndMenu();
 
