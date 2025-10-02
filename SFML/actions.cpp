@@ -1,13 +1,15 @@
 #include "actions.h"
-
 #include "filelocationchooser.h"
 #include "saving.h"
 #include "logging.h"
 
-void Actions::OpenFile(std::vector<Polygon>& polygons, std::vector<int>& selectedPolygons)
+void Actions::OpenFile(std::vector<Polygon>& polygons, std::vector<int>& selectedPolygons, sf::View& view, float& zoomLevel, const sf::RenderWindow& window)
 {
     std::string openLocation = OpenFileDialog();
-    polygons = openFile(openLocation);
+
+	auto [loadedPolygons, viewState] = openFile(openLocation);
+
+    polygons = loadedPolygons;
     selectedPolygons.clear();
 
     logger << currentDateTime() << " File opened from " << openLocation << std::endl;
@@ -15,17 +17,29 @@ void Actions::OpenFile(std::vector<Polygon>& polygons, std::vector<int>& selecte
     logger << "Polygons in file: \n";
     for (Polygon polygon : polygons)
         logger << polygon;
+
+    zoomLevel = viewState.zoomLevel;
+    view = window.getDefaultView();
+
+    view.setCenter(sf::Vector2f(viewState.centerX, viewState.centerY));
+    view.zoom(zoomLevel);
+
+    logger << " - Zoom: " << viewState.zoomLevel << ", Center: (" << viewState.centerX << ", " << viewState.centerY << ")" << std::endl;
 }
 
-void Actions::SaveFile(std::vector<Polygon>& polygons)
+void Actions::SaveFile(std::vector<Polygon>& polygons, std::vector<int>& selectedPolygons, sf::View& view, float& zoomLevel, const sf::RenderWindow& window)
 {
-    quickSave(polygons, "save.sav");
+	sf::Vector2f center = view.getCenter();
+	ViewState viewState = { zoomLevel, center.x, center.y };
+    quickSave(polygons, "save.sav", viewState);
 }
 
-void Actions::SaveFileAs(std::vector<Polygon>& polygons)
+void Actions::SaveFileAs(std::vector<Polygon>& polygons, std::vector<int>& selectedPolygons, sf::View& view, float& zoomLevel, const sf::RenderWindow& window)
 {
     std::string saveLocation = SaveFileDialog() + ".sav";
-    if (saveToFile(polygons, saveLocation))
+	sf::Vector2f center = view.getCenter();
+	ViewState viewState = { zoomLevel, center.x, center.y };
+    if (saveToFile(polygons, saveLocation, viewState))
         logger << currentDateTime() << " Saved file successfully to " << saveLocation << std::endl;
     else
         logger << currentDateTime() << " Saved file un-successfully to " << saveLocation << std::endl;
