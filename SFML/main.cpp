@@ -502,8 +502,11 @@ void runProgram()
 
             if (ImGui::Button("Compute IoU", ImVec2(120, 30)) && selectedPolygons.size() == 2) {
                 // Save when computing IoU
-                if (autosaveEnabled)
-                    quickSave(polygons, "autosave.sav");
+                if (autosaveEnabled) {
+                    sf::Vector2f center = view.getCenter();
+                    ViewState viewState{ zoomLevel, center.x, center.y };
+                    quickSave(polygons, "autosave.sav", viewState);
+                }
 
                 Polygon intersection = polygons.at(selectedPolygons.at(0));
                 for (int i = 1; i < selectedPolygons.size(); i++) {
