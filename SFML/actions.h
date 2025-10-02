@@ -5,7 +5,6 @@
 
 class Actions {
 public:
-	void OpenFile(std::vector<Polygon>& polygons, std::vector<int>& selectedPolygons);
 	void OpenFile(std::vector<Polygon>& polygons, std::vector<int>& selectedPolygons, sf::View& view, float& zoomLevel, const sf::RenderWindow& window);
 	void SaveFile(std::vector<Polygon>& polygons, std::vector<int>& selectedPolygons, sf::View& view, float& zoomLevel, const sf::RenderWindow& window);
 	void SaveFileAs(std::vector<Polygon>& polygons, std::vector<int>& selectedPolygons, sf::View& view, float& zoomLevel, const sf::RenderWindow& window);
