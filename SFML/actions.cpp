@@ -24,7 +24,7 @@ void Actions::OpenFile(std::vector<Polygon>& polygons, std::vector<int>& selecte
     view.setCenter(sf::Vector2f(viewState.centerX, viewState.centerY));
     view.zoom(zoomLevel);
 
-    logger << " - Zoom: " << viewState.zoomLevel << ", Center: (" << viewState.centerX << ", " << viewState.centerY << ")" << std::endl;
+    logger << "Zoom: " << viewState.zoomLevel << ", Center: (" << viewState.centerX << ", " << viewState.centerY << ")" << std::endl;
 }
 
 void Actions::SaveFile(std::vector<Polygon>& polygons, std::vector<int>& selectedPolygons, sf::View& view, float& zoomLevel, const sf::RenderWindow& window)
