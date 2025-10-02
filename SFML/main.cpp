@@ -469,7 +469,9 @@ void runProgram()
         }
         // Autosaving functionality
         if (autosaveClock.getElapsedTime() >= autosaveTime) {
-            quickSave(polygons, "autosave.sav");
+			sf::Vector2f center = view.getCenter();
+			ViewState viewState = { zoomLevel, center.x, center.y };
+            quickSave(polygons, "autosave.sav", viewState);
             autosaveClock.restart();
         }
 
