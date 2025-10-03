@@ -213,8 +213,11 @@ void runProgram()
                                 newPolygon = Polygon();
                                 status.createPolygon = false;
 
-                                if (autosaveEnabled)
-                                    quickSave(polygons, "autosave.sav");
+                                if (autosaveEnabled) {
+                                    sf::Vector2f center = view.getCenter();
+                                    ViewState viewState{ zoomLevel, center.x, center.y };
+                                    quickSave(polygons, "autosave.sav", viewState);
+                                }
                             }
                         }
                         else {
@@ -507,8 +510,11 @@ void runProgram()
 
                 firstVertex = true;
 
-                if (autosaveEnabled)
-                    quickSave(polygons, "autosave.sav");
+                if (autosaveEnabled) {
+                    sf::Vector2f center = view.getCenter();
+                    ViewState viewState{ zoomLevel, center.x, center.y };
+                    quickSave(polygons, "autosave.sav", viewState);
+                }
 
                 logger << currentDateTime() << " Began polygon creation.\n";
             }
@@ -546,8 +552,11 @@ void runProgram()
                 // TODO: Calculate IoU Metric and display result.
                 IoUArea = intersection.polygonArea() / (polygons.at(selectedPolygons.at(0)).polygonArea() + polygons.at(selectedPolygons.at(1)).polygonArea());
 
-                if (autosaveEnabled)
-                    quickSave(polygons, "autosave.sav");
+                if (autosaveEnabled) {
+                    sf::Vector2f center = view.getCenter();
+                    ViewState viewState{ zoomLevel, center.x, center.y };
+                    quickSave(polygons, "autosave.sav", viewState);
+                }
 
                 logger << currentDateTime << " Computed IoU.\n";
             }
