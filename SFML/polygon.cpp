@@ -98,11 +98,23 @@ void Polygon::translate(ImVec2 delta) {
 		v.y += delta.y;
 	}
 
-	// Update SFML render shape
-	this->render.setPointCount(this->vertices.size());
-	for (size_t i = 0; i < this->vertices.size(); i++) {
-		this->render.setPoint(i, sf::Vector2f(this->vertices[i].x, this->vertices[i].y));
+	// Update SFML convex shape to match new vertices
+	this->render.setPointCount(vertices.size());
+	for (size_t i = 0; i < vertices.size(); ++i) {
+		this->render.setPoint(i, sf::Vector2f(vertices[i].x, vertices[i].y));
 	}
+}
+
+ImVec2 Polygon::centroid() const {
+	ImVec2 c = { 0.f, 0.f };
+	if (vertices.empty()) return c;
+	for (const auto& v : vertices) {
+		c.x += v.x;
+		c.y += v.y;
+	}
+	c.x /= static_cast<float>(vertices.size());
+	c.y /= static_cast<float>(vertices.size());
+	return c;
 }
 
 void Polygon::setColour(float (&color)[3])
