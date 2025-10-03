@@ -20,9 +20,6 @@
 
 static bool selectedpolygon = false;
 
-// How long until we autosave
-static const sf::Time autosaveTime = sf::seconds(30.f);
-
 void adjustVertices(std::vector<ImVec2>& vertices) {
     /*
     For each angle check if it is close to 90, 60, 45, 30 or 0 degrees (or 180, etc i cbf typing them all out)
@@ -116,6 +113,14 @@ void runProgram()
     if (!ImGui::SFML::Init(window))
         throw std::runtime_error("SFML Window could not initialise!");
 
+    sf::View view = window.getDefaultView();
+    float zoomLevel = 1.0f;
+    const float zoomSpeed = 0.1f;
+    const float minZoom = 0.1f;
+    const float maxZoom = 5.0f;
+    bool isPanning = false;
+    sf::Vector2f panStart;
+
     sf::Clock deltaClock;
 
     // This is the data for a polygon not the actual displayed shape
@@ -181,7 +186,8 @@ void runProgram()
 
                 if (mouseButtonPressed->button == sf::Mouse::Button::Left) {
                     if (status.createPolygon) {
-                        ImVec2 mousepos = sf::Mouse::getPosition(window);
+                        sf::Vector2f worldPos = window.mapPixelToCoords(sf::Mouse::getPosition(window), view);
+                        ImVec2 mousepos = ImVec2(worldPos.x, worldPos.y);
                         if (!firstVertex && distanceL2(mousepos, vertices.front()) <= 10) {
                             if (vertices.size() < 3) {
                                 logger << currentDateTime() << " ERROR: Number of vertices less than three and instead is " << vertices.size() << std::endl;
@@ -206,6 +212,12 @@ void runProgram()
                                 vertices.clear();
                                 newPolygon = Polygon();
                                 status.createPolygon = false;
+
+                                if (autosaveEnabled) {
+                                    sf::Vector2f center = view.getCenter();
+                                    ViewState viewState{ zoomLevel, center.x, center.y };
+                                    quickSave(polygons, "autosave.sav", viewState);
+                                }
                             }
                         }
                         else {
@@ -220,12 +232,13 @@ void runProgram()
                     }
                     else {
                         // Left click to select a polygon. We unfortunately need to check each one.
-                        ImVec2 p = sf::Mouse::getPosition(window);
+                        sf::Vector2f worldPos = window.mapPixelToCoords(sf::Mouse::getPosition(window), view);
+                        ImVec2 mousepos = ImVec2(worldPos.x, worldPos.y);
                         Polygon* polygon;
                         int i;
                         for (i = 0; i < polygons.size(); i++) {
                             polygon = &polygons.at(i);
-                            if (std::find(selectedPolygons.begin(), selectedPolygons.end(), i) == selectedPolygons.end() && polygon->pointInPolygon(p)) {
+                            if (std::find(selectedPolygons.begin(), selectedPolygons.end(), i) == selectedPolygons.end() && polygon->pointInPolygon(mousepos)) {
 
                                 selectedPolygons.push_back(i);
                                 polygon->render.setOutlineThickness(1.f);
@@ -250,14 +263,63 @@ void runProgram()
                         }
                     }
                 }
+                if (mouseButtonPressed->button == sf::Mouse::Button::Right) {
+                    isPanning = true;
+                    panStart = window.mapPixelToCoords(sf::Mouse::getPosition(window), view);
+				}
             }
+
+            if (const auto mouseButtonReleased = event->getIf<sf::Event::MouseButtonReleased>()) {
+                if (mouseButtonReleased->button == sf::Mouse::Button::Right) {
+                    isPanning = false;
+                }
+            }
+
+            if (const auto mouseMoved = event->getIf<sf::Event::MouseMoved>()) {
+                if (isPanning) {
+                    sf::Vector2f newPos = window.mapPixelToCoords(sf::Mouse::getPosition(window), view);
+                    sf::Vector2f delta = panStart - newPos;
+                    view.move(delta);
+                    window.setView(view);
+                }
+            }
+
+            if (const auto mouseWheel = event->getIf<sf::Event::MouseWheelScrolled>()) {
+                if (mouseWheel->wheel == sf::Mouse::Wheel::Vertical) {
+                    // Get mouse position before zoom
+                    sf::Vector2f beforeCoord = window.mapPixelToCoords(sf::Mouse::getPosition(window), view);
+
+                    // Zoom in or out
+                    if (mouseWheel->delta > 0) {
+                        // Zoom in
+                        zoomLevel = std::max(minZoom, zoomLevel - zoomSpeed);
+                    }
+                    else {
+                        // Zoom out
+                        zoomLevel = std::min(maxZoom, zoomLevel + zoomSpeed);
+                    }
+
+                    view.setSize(window.getDefaultView().getSize());
+                    view.zoom(zoomLevel);
+
+                    // Get mouse position after zoom
+                    sf::Vector2f afterCoord = window.mapPixelToCoords(sf::Mouse::getPosition(window), view);
+
+                    // Adjust view to keep mouse position consistent
+                    sf::Vector2f offset = beforeCoord - afterCoord;
+                    view.move(offset);
+
+                    window.setView(view);
+                }
+            }
+
             // Menu shortcuts
             if (const auto key = event->getIf<sf::Event::KeyPressed>()) {
                 // Open file
                 if (key->code == sf::Keyboard::Key::O &&
                     (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::LControl) ||
                         sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::RControl))) {
-                    actions.OpenFile(polygons, selectedPolygons);
+                    actions.OpenFile(polygons, selectedPolygons, view, zoomLevel, window);
                 }
                 // Save file
                 if (key->code == sf::Keyboard::Key::S &&
@@ -265,7 +327,7 @@ void runProgram()
                         sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::RControl)) &&
                     !(sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::LShift) ||
                         sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::RShift))) {
-                    actions.SaveFile(polygons);
+                    actions.SaveFile(polygons, selectedPolygons, view, zoomLevel, window);
                 }
                 // Save file as
                 if (key->code == sf::Keyboard::Key::S &&
@@ -273,7 +335,7 @@ void runProgram()
                         sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::RControl)) &&
                     (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::LShift) ||
                         sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::RShift))) {
-                    actions.SaveFileAs(polygons);
+                    actions.SaveFileAs(polygons, selectedPolygons, view, zoomLevel, window);
                 }
                 // Undo
                 if (key->code == sf::Keyboard::Key::Z &&
@@ -329,11 +391,11 @@ void runProgram()
             if (ImGui::BeginMenu("File"))
             {
                 if (ImGui::MenuItem("Open", "CTRL+O"))
-                    actions.OpenFile(polygons, selectedPolygons);
+                    actions.OpenFile(polygons, selectedPolygons, view, zoomLevel, window);
                 if (ImGui::MenuItem("Save", "CTRL+S"))
-                    actions.SaveFile(polygons);
+                    actions.SaveFile(polygons, selectedPolygons, view, zoomLevel, window);
                 if (ImGui::MenuItem("Save As", "CTRL+SHIFT+S"))
-                    actions.SaveFile(polygons);
+                    actions.SaveFileAs(polygons, selectedPolygons, view, zoomLevel, window);
 
                 ImGui::EndMenu();
 
@@ -401,12 +463,28 @@ void runProgram()
             }
             createToolTip("Exit from program", tooltipsEnabled);
 
+            if (ImGui::Button("Zoom Out")) {
+				zoomLevel = std::min(maxZoom, zoomLevel + 0.2f);
+                view.setSize(window.getDefaultView().getSize());
+                view.zoom(zoomLevel);
+                window.setView(view);
+            }
+
+            if (ImGui::Button("Zoom In")) {
+                zoomLevel = std::max(minZoom, zoomLevel - 0.2f);
+                view.setSize(window.getDefaultView().getSize());
+                view.zoom(zoomLevel);
+                window.setView(view);
+            }
+
+            if (ImGui::Button("Reset Zoom Level")) {
+                zoomLevel = 1.0f;
+                view.setSize(window.getDefaultView().getSize());
+                view.zoom(zoomLevel);
+                window.setView(view);
+            }
+
             ImGui::EndMainMenuBar();
-        }
-        // Autosaving functionality
-        if (autosaveClock.getElapsedTime() >= autosaveTime) {
-            quickSave(polygons, "autosave.sav");
-            autosaveClock.restart();
         }
 
         // Window used for creating polygons
@@ -432,6 +510,13 @@ void runProgram()
 
                 firstVertex = true;
 
+                if (autosaveEnabled) {
+                    sf::Vector2f center = view.getCenter();
+                    ViewState viewState{ zoomLevel, center.x, center.y };
+                    quickSave(polygons, "autosave.sav", viewState);
+                }
+
+                logger << currentDateTime() << " Began polygon creation.\n";
             }
             if (wasActive)
                 ImGui::PopStyleColor(3);
@@ -457,10 +542,6 @@ void runProgram()
             createToolTip("Select polygons and then drag to move", tooltipsEnabled);
 
             if (ImGui::Button("Compute IoU", ImVec2(120, 30)) && selectedPolygons.size() == 2) {
-                // Save when computing IoU
-                if (autosaveEnabled)
-                    quickSave(polygons, "autosave.sav");
-
                 Polygon intersection = polygons.at(selectedPolygons.at(0));
                 for (int i = 1; i < selectedPolygons.size(); i++) {
                     intersection = intersectingPolygon(&intersection, &polygons.at(selectedPolygons.at(i)));
@@ -470,6 +551,14 @@ void runProgram()
 
                 // TODO: Calculate IoU Metric and display result.
                 IoUArea = intersection.polygonArea() / (polygons.at(selectedPolygons.at(0)).polygonArea() + polygons.at(selectedPolygons.at(1)).polygonArea());
+
+                if (autosaveEnabled) {
+                    sf::Vector2f center = view.getCenter();
+                    ViewState viewState{ zoomLevel, center.x, center.y };
+                    quickSave(polygons, "autosave.sav", viewState);
+                }
+
+                logger << currentDateTime << " Computed IoU.\n";
             }
             createToolTip("Select polygons and then calculate", tooltipsEnabled);
 
@@ -497,8 +586,12 @@ void runProgram()
 
         // When left mouse is held, move polygons
         if (ImGui::IsMouseDown(ImGuiMouseButton_Left) && !selectedPolygons.empty() && status.movePolygon) {
-            static ImVec2 lastMousePos = ImGui::GetMousePos();
-            ImVec2 currentMousePos = ImGui::GetMousePos();
+            sf::Vector2f lastWorldPos = window.mapPixelToCoords(sf::Mouse::getPosition(window), view);
+            static ImVec2 lastMousePos = ImVec2(lastWorldPos.x, lastWorldPos.y);
+            
+            sf::Vector2f currentWorldPos = window.mapPixelToCoords(sf::Mouse::getPosition(window), view);
+            ImVec2 currentMousePos = ImVec2(currentWorldPos.x, currentWorldPos.y);
+
             ImVec2 delta = { currentMousePos.x - lastMousePos.x, currentMousePos.y - lastMousePos.y };
 
             if (delta.x != 0 || delta.y != 0) {
@@ -527,7 +620,8 @@ void runProgram()
 
         if (status.createPolygon && !firstVertex) {
             // Draw boundary of supposed polygon
-            ImVec2 mousepos = sf::Mouse::getPosition(window);
+            sf::Vector2f worldPos = window.mapPixelToCoords(sf::Mouse::getPosition(window), view);
+            ImVec2 mousepos = ImVec2(worldPos.x, worldPos.y);
             newPolygonOutline.back().position = mousepos;
             window.draw(newPolygonOutline.data(), newPolygonOutline.size(), sf::PrimitiveType::LineStrip);
         }
@@ -555,9 +649,35 @@ int main()
         runProgram();
     }
     catch (const std::exception& ex) {
-        logger << "Unhandled exception: " << ex.what() << std::endl;
+        // Try to log into your logger, but don't rely on it
+        try {
+            logger << "Unhandled exception: " << ex.what() << std::endl;
+        }
+        catch (...) {
+            // logger itself broke, fallback to cerr
+            std::cerr << "Logger failed while handling std::exception!" << std::endl;
+        }
+
+        // Always attempt saving log, regardless of logger state
         saveLogToFile("crash");
+
+        // Also send to stderr for immediate visibility
+        std::cerr << "Unhandled exception: " << ex.what() << std::endl;
+
         return 1;
+    }
+    catch (...) {
+        try {
+            logger << "Unhandled unknown exception." << std::endl;
+        }
+        catch (...) {
+            std::cerr << "Logger failed while handling unknown exception!" << std::endl;
+        }
+
+        saveLogToFile("crash");
+        std::cerr << "Unhandled unknown exception." << std::endl;
+
+        return 2;
     }
 
     return 0;
