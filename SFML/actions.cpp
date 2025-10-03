@@ -7,7 +7,7 @@ void Actions::OpenFile(std::vector<Polygon>& polygons, std::vector<int>& selecte
 {
     std::string openLocation = OpenFileDialog();
 
-	auto [loadedPolygons, viewState] = openFile(openLocation);
+	auto [loadedPolygons, viewState] = openFromFile(openLocation);
 
     polygons = loadedPolygons;
     selectedPolygons.clear();

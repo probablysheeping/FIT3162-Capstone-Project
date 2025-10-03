@@ -87,7 +87,7 @@ bool saveToFile(std::vector<Polygon> polygons, std::string fileLocation, const V
 /// </summary>
 /// <param name="fileLocation"></param>
 /// <returns></returns>
-std::pair<std::vector<Polygon>, ViewState> openFile(std::string fileLocation)
+std::pair<std::vector<Polygon>, ViewState> openFromFile(std::string fileLocation)
 {
 	std::vector<Polygon> polygons;
 	ViewState viewState = { 1.0f, 0.0f, 0.0f };

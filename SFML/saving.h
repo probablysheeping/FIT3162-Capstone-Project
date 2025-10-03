@@ -20,6 +20,6 @@ std::string getExecutablePath();
 
 bool saveToFile(std::vector<Polygon> polygons, std::string fileLocation, const ViewState& viewState);
 
-std::pair< std::vector<Polygon>, ViewState> openFile(std::string fileLocation);
+std::pair<std::vector<Polygon>, ViewState> openFromFile(std::string fileLocation);
 
 void quickSave(std::vector<Polygon> polygons, std::string fileName, const ViewState& viewState);
