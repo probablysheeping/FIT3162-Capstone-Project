@@ -20,9 +20,6 @@
 
 static bool selectedpolygon = false;
 
-// How long until we autosave
-static const sf::Time autosaveTime = sf::seconds(30.f);
-
 void adjustVertices(std::vector<ImVec2>& vertices) {
     /*
     For each angle check if it is close to 90, 60, 45, 30 or 0 degrees (or 180, etc i cbf typing them all out)
@@ -130,6 +127,7 @@ void runProgram()
     struct {
         bool drawPolygon = false;
         bool createPolygon = false;
+        bool movePolygon = false;
     } status;
 
     // Settings
@@ -214,6 +212,9 @@ void runProgram()
                                 vertices.clear();
                                 newPolygon = Polygon();
                                 status.createPolygon = false;
+
+                                if (autosaveEnabled)
+                                    quickSave(polygons, "autosave.sav");
                             }
                         }
                         else {
@@ -438,6 +439,21 @@ void runProgram()
             }
             createToolTip("Start tutorial", tooltipsEnabled);
 
+            if (ImGui::MenuItem("Contact")) {
+                logger << currentDateTime() << " User opened contact window.\n";
+                ImGui::OpenPopup("Contact");
+            }
+
+            if (ImGui::BeginPopup("Contact")) {
+                ImGui::Text("Please send any questions, log or crash reports to the lead developer's email here: mmun0026@student.monash.edu.");
+                if (ImGui::Button("Close")) {
+                    ImGui::CloseCurrentPopup();
+                }
+                ImGui::EndPopup();
+            }
+
+            createToolTip("Contact information", tooltipsEnabled);
+
             if (ImGui::MenuItem("Exit")) {
                 logger << currentDateTime() << " User exit.\n";
                 window.close();
@@ -467,20 +483,18 @@ void runProgram()
 
             ImGui::EndMainMenuBar();
         }
-        // Autosaving functionality
-        if (autosaveClock.getElapsedTime() >= autosaveTime) {
-			sf::Vector2f center = view.getCenter();
-			ViewState viewState = { zoomLevel, center.x, center.y };
-            quickSave(polygons, "autosave.sav", viewState);
-            autosaveClock.restart();
-        }
 
         // Window used for creating polygons
         // Needs to be formatted properly. This is just a placeholder UI
         ImGui::SetNextWindowSize(ImVec2(350, 600));
         if (ImGui::Begin("Polygon Creator")) {
-
-
+            // Create polygon toggle colour
+            bool wasActive = status.createPolygon;
+            if (wasActive) {
+                ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.2f, 0.7f, 0.3f, 1.0f));
+                ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.3f, 0.8f, 0.4f, 1.0f));
+                ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.1f, 0.6f, 0.2f, 1.0f));
+            }
             if (ImGui::Button("Create Polygon", ImVec2(120, 30))) {
                 // Create Polygon
                 status.createPolygon = true;
@@ -493,21 +507,35 @@ void runProgram()
 
                 firstVertex = true;
 
+                if (autosaveEnabled)
+                    quickSave(polygons, "autosave.sav");
+
+                logger << currentDateTime() << " Began polygon creation.\n";
             }
+            if (wasActive)
+                ImGui::PopStyleColor(3);
             createToolTip("Click on canvas to create vertices", tooltipsEnabled);
+
             if (ImGui::Button("Delete Polygon", ImVec2(120, 30)))
                 actions.Delete(polygons, selectedPolygons);
-
             createToolTip("Select polygon and then click delete (DEL)", tooltipsEnabled);
 
-            if (ImGui::Button("Compute IoU", ImVec2(120, 30)) && selectedPolygons.size() == 2) {
-                // Save when computing IoU
-                if (autosaveEnabled) {
-                    sf::Vector2f center = view.getCenter();
-                    ViewState viewState{ zoomLevel, center.x, center.y };
-                    quickSave(polygons, "autosave.sav", viewState);
-                }
+            // Move polygon toggle colour
+            wasActive = status.movePolygon;
+            if (wasActive) {
+                ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.2f, 0.7f, 0.3f, 1.0f));
+                ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.3f, 0.8f, 0.4f, 1.0f));
+                ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.1f, 0.6f, 0.2f, 1.0f));
+            }
+            if (ImGui::Button("Move Polygon", ImVec2(120, 30))) {
+                status.movePolygon = !status.movePolygon;
+                logger << currentDateTime() << " Move polygon toggled.\n";
+            }
+            if (wasActive)
+                ImGui::PopStyleColor(3);
+            createToolTip("Select polygons and then drag to move", tooltipsEnabled);
 
+            if (ImGui::Button("Compute IoU", ImVec2(120, 30)) && selectedPolygons.size() == 2) {
                 Polygon intersection = polygons.at(selectedPolygons.at(0));
                 for (int i = 1; i < selectedPolygons.size(); i++) {
                     intersection = intersectingPolygon(&intersection, &polygons.at(selectedPolygons.at(i)));
@@ -517,6 +545,11 @@ void runProgram()
 
                 // TODO: Calculate IoU Metric and display result.
                 IoUArea = intersection.polygonArea() / (polygons.at(selectedPolygons.at(0)).polygonArea() + polygons.at(selectedPolygons.at(1)).polygonArea());
+
+                if (autosaveEnabled)
+                    quickSave(polygons, "autosave.sav");
+
+                logger << currentDateTime << " Computed IoU.\n";
             }
             createToolTip("Select polygons and then calculate", tooltipsEnabled);
 
@@ -540,6 +573,26 @@ void runProgram()
             ImGui::Text("IoU metric:");
             ImGui::SameLine(); ImGui::Text("%s", IoUArea == -1 ? "" : std::to_string(IoUArea).c_str());
 
+        }
+
+        // When left mouse is held, move polygons
+        if (ImGui::IsMouseDown(ImGuiMouseButton_Left) && !selectedPolygons.empty() && status.movePolygon) {
+            static ImVec2 lastMousePos = ImGui::GetMousePos();
+            ImVec2 currentMousePos = ImGui::GetMousePos();
+            ImVec2 delta = { currentMousePos.x - lastMousePos.x, currentMousePos.y - lastMousePos.y };
+
+            if (delta.x != 0 || delta.y != 0) {
+                for (int i : selectedPolygons) {
+                    polygons[i].translate(delta);
+                }
+            }
+
+            lastMousePos = currentMousePos;
+        }
+
+        // Reset lastMousePos when mouse released
+        if (ImGui::IsMouseReleased(ImGuiMouseButton_Left)) {
+            logger << currentDateTime() << " Polygon moved.\n";
         }
 
         ImGui::End();
@@ -583,9 +636,35 @@ int main()
         runProgram();
     }
     catch (const std::exception& ex) {
-        logger << "Unhandled exception: " << ex.what() << std::endl;
+        // Try to log into your logger, but don't rely on it
+        try {
+            logger << "Unhandled exception: " << ex.what() << std::endl;
+        }
+        catch (...) {
+            // logger itself broke, fallback to cerr
+            std::cerr << "Logger failed while handling std::exception!" << std::endl;
+        }
+
+        // Always attempt saving log, regardless of logger state
         saveLogToFile("crash");
+
+        // Also send to stderr for immediate visibility
+        std::cerr << "Unhandled exception: " << ex.what() << std::endl;
+
         return 1;
+    }
+    catch (...) {
+        try {
+            logger << "Unhandled unknown exception." << std::endl;
+        }
+        catch (...) {
+            std::cerr << "Logger failed while handling unknown exception!" << std::endl;
+        }
+
+        saveLogToFile("crash");
+        std::cerr << "Unhandled unknown exception." << std::endl;
+
+        return 2;
     }
 
     return 0;
