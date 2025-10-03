@@ -586,8 +586,12 @@ void runProgram()
 
         // When left mouse is held, move polygons
         if (ImGui::IsMouseDown(ImGuiMouseButton_Left) && !selectedPolygons.empty() && status.movePolygon) {
-            static ImVec2 lastMousePos = ImGui::GetMousePos();
-            ImVec2 currentMousePos = ImGui::GetMousePos();
+            sf::Vector2f lastWorldPos = window.mapPixelToCoords(sf::Mouse::getPosition(window), view);
+            static ImVec2 lastMousePos = ImVec2(lastWorldPos.x, lastWorldPos.y);
+            
+            sf::Vector2f currentWorldPos = window.mapPixelToCoords(sf::Mouse::getPosition(window), view);
+            ImVec2 currentMousePos = ImVec2(currentWorldPos.x, currentWorldPos.y);
+
             ImVec2 delta = { currentMousePos.x - lastMousePos.x, currentMousePos.y - lastMousePos.y };
 
             if (delta.x != 0 || delta.y != 0) {
