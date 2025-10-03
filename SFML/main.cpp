@@ -555,9 +555,35 @@ int main()
         runProgram();
     }
     catch (const std::exception& ex) {
-        logger << "Unhandled exception: " << ex.what() << std::endl;
+        // Try to log into your logger, but don't rely on it
+        try {
+            logger << "Unhandled exception: " << ex.what() << std::endl;
+        }
+        catch (...) {
+            // logger itself broke, fallback to cerr
+            std::cerr << "Logger failed while handling std::exception!" << std::endl;
+        }
+
+        // Always attempt saving log, regardless of logger state
         saveLogToFile("crash");
+
+        // Also send to stderr for immediate visibility
+        std::cerr << "Unhandled exception: " << ex.what() << std::endl;
+
         return 1;
+    }
+    catch (...) {
+        try {
+            logger << "Unhandled unknown exception." << std::endl;
+        }
+        catch (...) {
+            std::cerr << "Logger failed while handling unknown exception!" << std::endl;
+        }
+
+        saveLogToFile("crash");
+        std::cerr << "Unhandled unknown exception." << std::endl;
+
+        return 2;
     }
 
     return 0;
