@@ -125,7 +125,6 @@ void runProgram()
 
     // This is the data for a polygon not the actual displayed shape
     struct {
-        bool drawPolygon = false;
         bool createPolygon = false;
         bool movePolygon = false;
     } status;
@@ -151,6 +150,7 @@ void runProgram()
 
     double area = -1;
     double IoUArea = -1;
+    double IoUMetric = -1;
 
     // Autosaving clock
     sf::Clock autosaveClock;
@@ -550,7 +550,9 @@ void runProgram()
                 polygons.push_back(intersection);
 
                 // TODO: Calculate IoU Metric and display result.
-                IoUArea = intersection.polygonArea() / (polygons.at(selectedPolygons.at(0)).polygonArea() + polygons.at(selectedPolygons.at(1)).polygonArea());
+                IoUArea = intersection.polygonArea();
+                area = polygons.at(selectedPolygons.at(0)).polygonArea() + polygons.at(selectedPolygons.at(1)).polygonArea();
+                IoUMetric = IoUArea / area;
 
                 if (autosaveEnabled) {
                     sf::Vector2f center = view.getCenter();
@@ -579,8 +581,10 @@ void runProgram()
 
             ImGui::Text("Area:");
             ImGui::SameLine(); ImGui::Text("%s", area == -1 ? "" : std::to_string(area).c_str());
-            ImGui::Text("IoU metric:");
+            ImGui::Text("IoU Area:");
             ImGui::SameLine(); ImGui::Text("%s", IoUArea == -1 ? "" : std::to_string(IoUArea).c_str());
+            ImGui::Text("IoU metric:");
+            ImGui::SameLine(); ImGui::Text("%s", IoUMetric == -1 ? "" : std::to_string(IoUMetric).c_str());
 
         }
 
@@ -601,11 +605,6 @@ void runProgram()
             }
 
             lastMousePos = currentMousePos;
-        }
-
-        // Reset lastMousePos when mouse released
-        if (ImGui::IsMouseReleased(ImGuiMouseButton_Left)) {
-            logger << currentDateTime() << " Polygon moved.\n";
         }
 
         ImGui::End();

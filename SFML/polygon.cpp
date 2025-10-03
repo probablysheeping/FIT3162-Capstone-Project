@@ -11,15 +11,6 @@ Implementation of algorithms for polygons
 Assumes no overlapping edges and no interior holes.
 */
 
-// CONSTRUCTOR AND DESTRUCTOR
-
-Polygon::Polygon() {
-}
-
-//unecessary?
-Polygon::~Polygon() {
-}
-
 // CLASS METHODS
 
 bool Polygon::pointInPolygon(ImVec2 p) {

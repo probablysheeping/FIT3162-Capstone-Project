@@ -7,9 +7,6 @@
 
 class Polygon {
 public:
-    Polygon();
-    ~Polygon();
-
     bool pointInPolygon(ImVec2 p);
     float signedArea();
     float polygonArea();
