@@ -20,9 +20,6 @@
 
 static bool selectedpolygon = false;
 
-// How long until we autosave
-static const sf::Time autosaveTime = sf::seconds(30.f);
-
 void adjustVertices(std::vector<ImVec2>& vertices) {
     /*
     For each angle check if it is close to 90, 60, 45, 30 or 0 degrees (or 180, etc i cbf typing them all out)
@@ -206,6 +203,9 @@ void runProgram()
                                 vertices.clear();
                                 newPolygon = Polygon();
                                 status.createPolygon = false;
+
+                                if (autosaveEnabled)
+                                    quickSave(polygons, "autosave.sav");
                             }
                         }
                         else {
@@ -403,11 +403,6 @@ void runProgram()
 
             ImGui::EndMainMenuBar();
         }
-        // Autosaving functionality
-        if (autosaveClock.getElapsedTime() >= autosaveTime) {
-            quickSave(polygons, "autosave.sav");
-            autosaveClock.restart();
-        }
 
         // Window used for creating polygons
         // Needs to be formatted properly. This is just a placeholder UI
@@ -432,6 +427,10 @@ void runProgram()
 
                 firstVertex = true;
 
+                if (autosaveEnabled)
+                    quickSave(polygons, "autosave.sav");
+
+                logger << currentDateTime() << " Began polygon creation.\n";
             }
             if (wasActive)
                 ImGui::PopStyleColor(3);
@@ -457,10 +456,6 @@ void runProgram()
             createToolTip("Select polygons and then drag to move", tooltipsEnabled);
 
             if (ImGui::Button("Compute IoU", ImVec2(120, 30)) && selectedPolygons.size() == 2) {
-                // Save when computing IoU
-                if (autosaveEnabled)
-                    quickSave(polygons, "autosave.sav");
-
                 Polygon intersection = polygons.at(selectedPolygons.at(0));
                 for (int i = 1; i < selectedPolygons.size(); i++) {
                     intersection = intersectingPolygon(&intersection, &polygons.at(selectedPolygons.at(i)));
@@ -470,6 +465,11 @@ void runProgram()
 
                 // TODO: Calculate IoU Metric and display result.
                 IoUArea = intersection.polygonArea() / (polygons.at(selectedPolygons.at(0)).polygonArea() + polygons.at(selectedPolygons.at(1)).polygonArea());
+
+                if (autosaveEnabled)
+                    quickSave(polygons, "autosave.sav");
+
+                logger << currentDateTime << " Computed IoU.\n";
             }
             createToolTip("Select polygons and then calculate", tooltipsEnabled);
 
