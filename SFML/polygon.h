@@ -18,6 +18,7 @@ public:
     std::vector<ImVec2> getVertices();
 
     void translate(ImVec2 delta);
+    ImVec2 centroid() const;
     
     float getColour(int index);
     void setColour(float(&color)[3]);
