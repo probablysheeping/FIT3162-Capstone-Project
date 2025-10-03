@@ -59,7 +59,7 @@ std::string getExecutablePath()
 /// <param name="polygons">The list of polygons to save to file</param>
 /// <param name="fileLocation">The location that the save file will be written to</param>
 /// <returns>A boolean output determining whether file was successfully saved or not</returns>
-bool saveToFile(std::vector<Polygon> polygons, std::string fileLocation)
+bool saveToFile(std::vector<Polygon> polygons, std::string fileLocation, const ViewState& viewState)
 {
 	std::ofstream saveFile(fileLocation);
 
@@ -69,6 +69,11 @@ bool saveToFile(std::vector<Polygon> polygons, std::string fileLocation)
 
 	for (Polygon polygon : polygons)
 		saveFile << polygon;
+
+	saveFile << "VIEW\n";
+	saveFile << "ZOOM " << viewState.zoomLevel << "\n";	
+	saveFile << "CENTER " << viewState.centerX << " " << viewState.centerY << "\n";
+	saveFile << "ENDVIEW\n";
 	
 	// Close file
 	saveFile.close();
@@ -82,21 +87,23 @@ bool saveToFile(std::vector<Polygon> polygons, std::string fileLocation)
 /// </summary>
 /// <param name="fileLocation"></param>
 /// <returns></returns>
-std::vector<Polygon> openFile(std::string fileLocation)
+std::pair<std::vector<Polygon>, ViewState> openFromFile(std::string fileLocation)
 {
 	std::vector<Polygon> polygons;
+	ViewState viewState = { 1.0f, 0.0f, 0.0f };
 
 	std::ifstream saveFile(fileLocation);
 
 	// File failed to open
 	if (!saveFile.is_open())
-		return polygons;
+		return { polygons, viewState };
 
 
 	std::string line;
 	Polygon currentPolygon;
 	std::vector<ImVec2> vertices;
 	bool readingPolygon = false;
+	bool readingView = false;
 	int verticesToRead = 0;
 
 	while (std::getline(saveFile, line)) {
@@ -137,12 +144,28 @@ std::vector<Polygon> openFile(std::string fileLocation)
 			polygons.push_back(currentPolygon);
 			readingPolygon = false;
 		}
+		else if (word == "VIEW")
+		{
+			readingView = true;
+		}
+		else if (readingView && word == "ZOOM")
+		{
+			iss >> viewState.zoomLevel;
+		}
+		else if (readingView && word == "CENTER")
+		{
+			iss >> viewState.centerX >> viewState.centerY;
+		}
+		else if (readingView && word == "ENDVIEW")
+		{
+			readingView = false;
+		}
 	}
 
 	// Close file
 	saveFile.close();
 
-	return polygons;
+	return { polygons, viewState };
 }
 
 /// <summary>
@@ -150,12 +173,12 @@ std::vector<Polygon> openFile(std::string fileLocation)
 /// </summary>
 /// <param name="polygons"></param>
 /// <param name="fileName"></param>
-void quickSave(std::vector<Polygon> polygons, std::string fileName)
+void quickSave(std::vector<Polygon> polygons, std::string fileName, const ViewState& viewState)
 {
 	std::string saveLocation = getExecutablePath();
 	if (saveLocation != NULL_SAVE_PATH) {
 		saveLocation += FILE_SEPARATOR + fileName;
-		if (saveToFile(polygons, saveLocation))
+		if (saveToFile(polygons, saveLocation, viewState))
 			logger << currentDateTime() << " Saved file successfully to " << saveLocation << std::endl;
 		else
 			logger << currentDateTime() << " Saved file un-successfully to " << saveLocation << std::endl;
