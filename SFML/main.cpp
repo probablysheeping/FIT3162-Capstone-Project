@@ -21,11 +21,11 @@
 #include <cstdio>
 #include <map>
 
-#define WINDOW_WIDTH 1000
-#define WINDOW_HEIGHT 800
+int WINDOW_WIDTH = 1000;
+int WINDOW_HEIGHT = 800;
 #define FRAME_LIMIT 60
 #define WINDOW_DISPLAY_NAME "Convex Polygon IoU"
-#define ICON_SIZE 36
+int ICON_SIZE = 36;
 
 static bool selectedpolygon = false;
 
@@ -180,12 +180,27 @@ int runProgram()
     settings.antiAliasingLevel = 8;
 
     // One can set the dimensions based on screen size.
+
+    float SCALE_FACTOR = 2.f;
+
+    
+    WINDOW_HEIGHT *= SCALE_FACTOR;
+    WINDOW_WIDTH *= SCALE_FACTOR;
+    ICON_SIZE *= SCALE_FACTOR;
+
+
+
     sf::RenderWindow window(sf::VideoMode(ImVec2(WINDOW_WIDTH, WINDOW_HEIGHT)), WINDOW_DISPLAY_NAME);
     window.setSize(sf::Vector2u(WINDOW_WIDTH, WINDOW_HEIGHT));
     window.setFramerateLimit(FRAME_LIMIT);
+
+
+
     if (!ImGui::SFML::Init(window))
         throw std::runtime_error("SFML Window could not initialise!");
 
+    
+    ImGui::GetStyle().ScaleAllSizes(SCALE_FACTOR);
     sf::Clock deltaClock;
 
     // This is the data for a polygon not the actual displayed shape
@@ -205,6 +220,8 @@ int runProgram()
         int width;
         int height;
     } image;
+
+    
 
     // Settings
     bool logSavingEnabled = true;
@@ -229,8 +246,8 @@ int runProgram()
     double IoUArea = -1;
 
 	ImVec2 mainMenuBarSize = ImVec2(0, 0);
-    const float idk = (WINDOW_WIDTH - 280) / 2;
-
+    const float idk = (WINDOW_WIDTH - 280*SCALE_FACTOR) / 2;
+    
     // Autosaving clock
     sf::Clock autosaveClock;
 
@@ -248,8 +265,8 @@ int runProgram()
     
 
     std::string dirpath = std::filesystem::current_path().string();
-    
-    std::string icon_names[] = {"drag", "draw", "bin", "shapes", "colour-pallet", "intersect"};
+    //"circle", "triangle", "rectangle", "square"
+    std::string icon_names[] = {"drag", "draw", "bin", "shapes", "colour-pallet", "intersect", };
     std::map<std::string, image> icons;
 
     for (std::string i : icon_names) {
@@ -265,6 +282,7 @@ int runProgram()
 
     while (window.isOpen())
     {   
+
         status.menuInteraction = ImGui::IsAnyItemHovered() || ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow) || ImGui::GetIO().WantCaptureMouse;
         while (const auto event = window.pollEvent())
         {
@@ -288,11 +306,7 @@ int runProgram()
             else if (const auto mouseButtonPressed = event->getIf<sf::Event::MouseButtonPressed>()) {
 
                 if (mouseButtonPressed->button == sf::Mouse::Button::Left) {
-                    /*
-                    * Check if mouse is in menu area.
-                    * Otherwise check if we are creating a polygon
-                    * Else do logic for selecting polygons
-                    */
+
                     ImVec2 mousepos = sf::Mouse::getPosition(window);
 
                     if (status.createPolygon) {
@@ -309,8 +323,7 @@ int runProgram()
                                 if (sgn(newPolygon.signedArea()) == -1) {
                                     std::reverse(vertices.begin(), vertices.end());
                                 }
-
-                                adjustVertices(vertices);
+                                if (status.adjustVertices) adjustVertices(vertices);
                                 newPolygon.setVertices(vertices);
                                 newPolygon.setColour(polygonColour);
 
@@ -333,8 +346,9 @@ int runProgram()
                         }
                     }
                     else {
+                        
                         if (!status.menuInteraction and !status.draggingPolygons and !status.draggingVertex) {
-
+                            //select polygon
                             if (selectedPolygons.size() > 0 and !ImGui::IsKeyDown(ImGuiKey_ModShift)) {
 
                                 for (int j : selectedPolygons) {
@@ -390,7 +404,7 @@ int runProgram()
         //TODO: Add functionality to main menu
 
         if (ImGui::BeginMainMenuBar()) {
-
+            ImGui::SetWindowFontScale(SCALE_FACTOR);
 			mainMenuBarSize = ImGui::GetWindowSize();
             if (ImGui::BeginMenu("File"))
             {
@@ -478,12 +492,14 @@ int runProgram()
         // Window used for creating polygons
         // Needs to be formatted properly. This is just a placeholder UI
 
-        ImGui::SetNextWindowSize(ImVec2(280, 60));
+
+        ImGui::SetNextWindowSize(ImVec2(280 * SCALE_FACTOR, 60 * SCALE_FACTOR));
         ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(1.0f, 1.0f, 1.0f, 1.0f));
-        //ImGui::GetStyle().Colors[ImGuiCol_PopupBg] = ImVec4(1.0f, 1.0f, 1.0f, 1.0f);
+
         
         ImGui::SetNextWindowPos(ImVec2(idk, mainMenuBarSize.y));
         if (ImGui::Begin("Polygon Creator", nullptr, ImGuiWindowFlags_NoScrollWithMouse + ImGuiWindowFlags_NoScrollbar + 7)) {
+            ImGui::SetWindowFontScale(SCALE_FACTOR);
             if (ImGui::IsWindowHovered()) {
                 // Mouse is over the popup
                 status.menuInteraction = true;
