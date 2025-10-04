@@ -55,7 +55,10 @@ bool Polygon::pointInPolygon(ImVec2 p) {
 
 void Polygon::toggleSelected() {
 	this->selected = !(this->selected);
-	if (this->selected) this -> render.setOutlineThickness(2.f);
+	if (this->selected) {
+		this->render.setOutlineThickness(2.f);
+    }
+	else { this->render.setOutlineThickness(0.f); };
 }
 
 float Polygon::signedArea() {
