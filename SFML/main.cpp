@@ -551,7 +551,7 @@ void runProgram()
 
                 // TODO: Calculate IoU Metric and display result.
                 IoUArea = intersection.polygonArea();
-                area = polygons.at(selectedPolygons.at(0)).polygonArea() + polygons.at(selectedPolygons.at(1)).polygonArea();
+                area = polygons.at(selectedPolygons.at(0)).polygonArea() + polygons.at(selectedPolygons.at(1)).polygonArea() - IoUArea;
                 IoUMetric = IoUArea / area;
 
                 if (autosaveEnabled) {
