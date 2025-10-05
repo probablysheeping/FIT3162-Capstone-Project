@@ -88,6 +88,14 @@ void Polygon::shift(ImVec2& delta) {
 	this->updateRender();
 }
 
+float Polygon::getRadius() {
+	return this->radius;
+}
+
+void Polygon::setRadius(float r) {
+	this->radius = r;
+}
+
 void Polygon::updateRender() {
 	// Updates the sf::ConvexShape render variable to match the vertices and colour
 	sf::ConvexShape convex;

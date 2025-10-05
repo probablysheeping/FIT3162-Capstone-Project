@@ -29,9 +29,13 @@ public:
 
     sf::ConvexShape render;
 
+    float getRadius();
+    void setRadius(float r);
+
 private:
     std::vector<ImVec2> vertices;
     float colour[3] = { 0.f, 0.f, 0.f };
+    float radius = -1; //for circle
     void updateRender();    
     bool selected = false;
 };

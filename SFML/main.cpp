@@ -169,7 +169,14 @@ void createToolTip(const char* toolTipStr, bool tooltipsEnabled)
     }
 }
 
+ImVec2 getMousePos(sf::RenderWindow &window) {
+    sf::View view = window.getDefaultView();
+    sf::Vector2f lastWorldPos = window.mapPixelToCoords(sf::Mouse::getPosition(window), view);
+    static ImVec2 lastMousePos = ImVec2(lastWorldPos.x, lastWorldPos.y);
+    sf::Vector2f currentWorldPos = window.mapPixelToCoords(sf::Mouse::getPosition(window), view);
+    return ImVec2(currentWorldPos.x, currentWorldPos.y);
 
+}
 
 /// <summary>
 /// This is the SFML window where polygons will appear.
@@ -188,9 +195,12 @@ int runProgram()
     WINDOW_WIDTH *= SCALE_FACTOR;
     ICON_SIZE *= SCALE_FACTOR;
 
-
-
-    sf::RenderWindow window(sf::VideoMode(ImVec2(WINDOW_WIDTH, WINDOW_HEIGHT)), WINDOW_DISPLAY_NAME);
+    
+    sf::RenderWindow window(
+        sf::VideoMode(ImVec2(WINDOW_WIDTH, WINDOW_HEIGHT)),
+        WINDOW_DISPLAY_NAME,
+        sf::Style::Titlebar | sf::Style::Close
+);
     window.setSize(sf::Vector2u(WINDOW_WIDTH, WINDOW_HEIGHT));
     window.setFramerateLimit(FRAME_LIMIT);
 
@@ -198,6 +208,14 @@ int runProgram()
 
     if (!ImGui::SFML::Init(window))
         throw std::runtime_error("SFML Window could not initialise!");
+
+    ImGuiIO& io = ImGui::GetIO();
+    ImFont* largeFont = io.Fonts->AddFontFromFileTTF(
+        "assets\\Roboto-VariableFont_wdth,wght.ttf", // Use the correct extension if it's .ttf or .otf
+        18.0f * SCALE_FACTOR
+    );
+    io.FontDefault = largeFont; // Set as default font
+    ImGui::SFML::UpdateFontTexture();
 
     
     ImGui::GetStyle().ScaleAllSizes(SCALE_FACTOR);
@@ -211,6 +229,9 @@ int runProgram()
         bool adjustVertices = true;
         bool draggingPolygons = false;
         bool draggingVertex = false;
+        bool createTemplatePolygon = false;
+        bool createTemplateCircle = false;
+        bool templateStage = 0; //0 for first part, 1 for second part (eg top left bot right corners)
 		ImVec2 lastMousePos = ImVec2(0, 0);
     } status;
 
@@ -246,7 +267,7 @@ int runProgram()
     double IoUArea = -1;
 
 	ImVec2 mainMenuBarSize = ImVec2(0, 0);
-    const float idk = (WINDOW_WIDTH - 280*SCALE_FACTOR) / 2;
+    
     
     // Autosaving clock
     sf::Clock autosaveClock;
@@ -265,24 +286,22 @@ int runProgram()
     
 
     std::string dirpath = std::filesystem::current_path().string();
-    //"circle", "triangle", "rectangle", "square"
-    std::string icon_names[] = {"drag", "draw", "bin", "shapes", "colour-pallet", "intersect", };
+    //
+    std::string icon_names[] = {"drag", "draw", "bin", "shapes", "colour-pallet", "intersect", "circle", "triangle", "rectangle", "square" };
     std::map<std::string, image> icons;
 
     for (std::string i : icon_names) {
         image img;
-        bool ret = LoadTextureFromFile((dirpath + "\\assets\\" + i + ".png").c_str(), &img.textureID, &img.width, &img.height);
+        bool ret = LoadTextureFromFile((dirpath + "/assets/" + i + ".png").c_str(), &img.textureID, &img.width, &img.height);
         IM_ASSERT(ret);
 		img.texture = (ImTextureID)(intptr_t)img.textureID;
         icons[i] = img;
 
     }
 
-    
-
     while (window.isOpen())
     {   
-
+        
         status.menuInteraction = ImGui::IsAnyItemHovered() || ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow) || ImGui::GetIO().WantCaptureMouse;
         while (const auto event = window.pollEvent())
         {
@@ -292,12 +311,12 @@ int runProgram()
                 window.close();
             if (const auto mouseButtonMoved = event->getIf<sf::Event::MouseMoved>()) {
                 if (status.draggingPolygons) {
-                    ImVec2 delta = { sf::Mouse::getPosition(window).x - status.lastMousePos.x, sf::Mouse::getPosition(window).y - status.lastMousePos.y };
+                    ImVec2 delta = { getMousePos(window).x - status.lastMousePos.x, getMousePos(window).y - status.lastMousePos.y };
                     for (int i : selectedPolygons) {
                         polygons.at(i).shift(delta);
                     }
                 }
-                status.lastMousePos = sf::Mouse::getPosition(window);
+                status.lastMousePos = getMousePos(window);
             }
             else if (const auto mouseButtonReleased = event->getIf<sf::Event::MouseButtonReleased>()) {
                 status.draggingPolygons = false;
@@ -307,7 +326,7 @@ int runProgram()
 
                 if (mouseButtonPressed->button == sf::Mouse::Button::Left) {
 
-                    ImVec2 mousepos = sf::Mouse::getPosition(window);
+                    ImVec2 mousepos = getMousePos(window);
 
                     if (status.createPolygon) {
 
@@ -332,7 +351,7 @@ int runProgram()
                                 polygons.push_back(newPolygon);
 
                                 vertices.clear();
-                                newPolygon = Polygon();
+
                                 status.createPolygon = false;
                             }
                         }
@@ -360,7 +379,7 @@ int runProgram()
 
                             }
 
-                            ImVec2 p = sf::Mouse::getPosition(window);
+                            ImVec2 p = getMousePos(window);
                             Polygon* polygon;
                             int i = 0;
                             for (i; i < polygons.size(); i++) {
@@ -400,11 +419,14 @@ int runProgram()
 		//After SFML Stuff, before ImGui stuff
 		ImGui::SFML::Update(window, deltaClock.restart());
         
-        
+        sf::Vector2u size = window.getSize();
+        WINDOW_WIDTH = size.x;
+        WINDOW_HEIGHT = size.y;
+        const float idk = (WINDOW_WIDTH - 280 * SCALE_FACTOR) / 2; //toolazytochange
         //TODO: Add functionality to main menu
 
         if (ImGui::BeginMainMenuBar()) {
-            ImGui::SetWindowFontScale(SCALE_FACTOR);
+
 			mainMenuBarSize = ImGui::GetWindowSize();
             if (ImGui::BeginMenu("File"))
             {
@@ -498,14 +520,17 @@ int runProgram()
 
         
         ImGui::SetNextWindowPos(ImVec2(idk, mainMenuBarSize.y));
-        if (ImGui::Begin("Polygon Creator", nullptr, ImGuiWindowFlags_NoScrollWithMouse + ImGuiWindowFlags_NoScrollbar + 7)) {
-            ImGui::SetWindowFontScale(SCALE_FACTOR);
+        if (ImGui::Begin("Polygon Creator", nullptr, 7 + ImGuiWindowFlags_NoScrollbar + ImGuiWindowFlags_NoScrollWithMouse)) {
+
             if (ImGui::IsWindowHovered()) {
                 // Mouse is over the popup
                 status.menuInteraction = true;
             }
             ImVec2 currentWindowSize = ImGui::GetWindowSize();
-            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(1.0f, 1.0f, 1.0f, 1.0f));
+            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(1.0f, 1.0f, 1.0f, 1.0f)); // Normal: white
+            ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.9f, 0.9f, 0.9f, 1.0f)); // Hovered: light gray
+            ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.8f, 0.8f, 0.8f, 1.0f)); // Active: slightly darker gray
+
 
             ImGui::SameLine();
 
@@ -571,10 +596,6 @@ int runProgram()
                 IoUArea = intersection.polygonArea() / (polygons.at(selectedPolygons.at(0)).polygonArea() + polygons.at(selectedPolygons.at(1)).polygonArea());
             }
             createToolTip("Select two polygons and then calculate", tooltipsEnabled);
-            /*
-            
-            */
-            createToolTip("Change selected polygon colour", tooltipsEnabled);
             ImGui::PopStyleColor();
             ImGui::Text("Area:");
             ImGui::SameLine(); ImGui::Text("%s", area == -1 ? "" : std::to_string(area).c_str());
@@ -584,16 +605,19 @@ int runProgram()
 
 
         }
-        ImGui::PopStyleColor();
+        ImGui::PopStyleColor(3);
         ImGui::PushStyleColor(ImGuiCol_PopupBg, ImVec4(1.0f, 1.0f, 1.0f, 1.0f));
         ImGui::PushStyleVar(ImGuiStyleVar_PopupBorderSize, 1.0f); // Set to your desired border thickness
-
+        ImGui::SetNextWindowSize(ImVec2(ICON_SIZE*2, 400*SCALE_FACTOR), ImGuiCond_Appearing);
         if (ImGui::BeginPopup("ShapeSelector", ImGuiWindowFlags_AlwaysAutoResize)) {
-            
-            
-            ImGui::Text("Select a shape to create");
-            ImGui::Separator();
-            if (ImGui::Button("Triangle")) {
+            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(1.0f, 1.0f, 1.0f, 1.0f)); // Normal: white
+            ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.9f, 0.9f, 0.9f, 1.0f)); // Hovered: light gray
+            ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.8f, 0.8f, 0.8f, 1.0f)); // Active: slightly darker gray
+            ImGui::PushStyleColor(ImGuiCol_PopupBg, ImVec4(0, 0, 0, 1));
+
+
+            if (ImGui::ImageButton("Triangle", icons["triangle"].texture, ImVec2(ICON_SIZE, ICON_SIZE))) {
+                newPolygon = Polygon();
                 vertices = { ImVec2(100,100), ImVec2(150,200), ImVec2(50,200) };
                 if (status.adjustVertices)
                     adjustVertices(vertices);
@@ -607,34 +631,25 @@ int runProgram()
             }
             createToolTip("Create triangle", tooltipsEnabled);
             ImGui::SameLine();
-            if (ImGui::Button("Square")) {
-                vertices = { ImVec2(100,100), ImVec2(200,100), ImVec2(200,200), ImVec2(100,200) };
-                if (status.adjustVertices)
-                    adjustVertices(vertices);
-                newPolygon.setVertices(vertices);
-                newPolygon.setColour(polygonColour);
-                polygons.push_back(newPolygon);
-                logger << currentDateTime() << " NEW " << newPolygon;
-                newPolygon = Polygon();
-                vertices.clear();
-                ImGui::CloseCurrentPopup();
-            }
-            createToolTip("Create square", tooltipsEnabled);
-            ImGui::SameLine();
-            if (ImGui::Button("Pentagon")) {
-                vertices = { ImVec2(150,80), ImVec2(220,140), ImVec2(190,220), ImVec2(110,220), ImVec2(80,140) };
-                if (status.adjustVertices)
-                    adjustVertices(vertices);
-                newPolygon.setVertices(vertices);
-                newPolygon.setColour(polygonColour);
-                polygons.push_back(newPolygon);
-                logger << currentDateTime() << " NEW " << newPolygon;
-                newPolygon = Polygon();
-                vertices.clear();
-                ImGui::CloseCurrentPopup();
-            }
-            createToolTip("Create pentagon", tooltipsEnabled);
+            if (ImGui::ImageButton("Circle", icons["circle"].texture, ImVec2(ICON_SIZE, ICON_SIZE))) {
 
+                ImGui::CloseCurrentPopup();
+            }
+            createToolTip("Create a circle by clicking the centre and moving outwards to define radius", tooltipsEnabled);
+
+            if (ImGui::ImageButton("Rectangle", icons["rectangle"].texture, ImVec2(ICON_SIZE, ICON_SIZE))) {
+
+                ImGui::CloseCurrentPopup();
+            }
+            createToolTip("Create rectangle by clicking top left corner and dragging the bottom right corner out", tooltipsEnabled);
+            ImGui::SameLine();
+            if (ImGui::ImageButton("Square", icons["square"].texture, ImVec2(ICON_SIZE, ICON_SIZE))) {
+
+                ImGui::CloseCurrentPopup();
+            }
+            createToolTip("Create square by clicking top left corner and dragging the bottom right corner out", tooltipsEnabled);
+
+            ImGui::PopStyleColor(4);
             ImGui::EndPopup();
         }
         
@@ -680,9 +695,13 @@ int runProgram()
             window.draw(polygon.render);
         }
 
+        if (status.createTemplatePolygon) {
+
+        }
+
         if (status.createPolygon && !firstVertex) {
             // Draw boundary of supposed polygon
-            ImVec2 mousepos = sf::Mouse::getPosition(window);
+            ImVec2 mousepos = getMousePos(window);
             newPolygonOutline.back().position = mousepos;
             window.draw(newPolygonOutline.data(), newPolygonOutline.size(), sf::PrimitiveType::LineStrip);
         }
