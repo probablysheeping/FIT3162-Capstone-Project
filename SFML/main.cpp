@@ -616,6 +616,13 @@ int runProgram()
             
 
             ImGui::SameLine();
+            ImGui::BeginDisabled(selectedPolygons.size() != 2);
+            if (selectedPolygons.size() != 2) {
+                ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.6f, 0.6f, 0.6f, 1.0f)); // Disabled: gray
+            }
+            else {
+                ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(1.0f, 1.0f, 1.0f, 1.0f)); // Normal: white
+            }
             if (ImGui::ImageButton("Compute IoU", icons["intersect"].texture, ImVec2(ICON_SIZE, ICON_SIZE)) && selectedPolygons.size() == 2) {
                 // Save when computing IoU
                 if (autosaveEnabled)
@@ -642,7 +649,10 @@ int runProgram()
 
 
         }
-        ImGui::PopStyleColor(3);
+        ImGui::PopStyleColor(4);
+        ImGui::EndDisabled();
+
+
         ImGui::PushStyleColor(ImGuiCol_PopupBg, ImVec4(1.0f, 1.0f, 1.0f, 1.0f));
         ImGui::PushStyleVar(ImGuiStyleVar_PopupBorderSize, 1.0f); // Set to your desired border thickness
         ImGui::SetNextWindowSize(ImVec2(ICON_SIZE*2, 400*SCALE_FACTOR), ImGuiCond_Appearing);
