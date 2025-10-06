@@ -6,11 +6,12 @@
 #include "imgui.h"     // ImGui::GetMousePos()
 #include <numeric>     // for accumulate if needed
 
-void Actions::OpenFile(std::vector<Polygon>& polygons, std::vector<int>& selectedPolygons, sf::View& view, float& zoomLevel, sf::RenderWindow& window)
+std::pair<std::vector<Polygon>, std::pair<ImageState, ViewState>> Actions::OpenFile(std::vector<Polygon>& polygons, std::vector<int>& selectedPolygons, sf::View& view, float& zoomLevel, sf::RenderWindow& window)
 {
     std::string openLocation = OpenFileDialog();
 
-	auto [loadedPolygons, viewState] = openFromFile(openLocation);
+	auto [loadedPolygons, statesPair] = openFromFile(openLocation);
+	auto [imageState, viewState] = statesPair;
 
     polygons = loadedPolygons;
     selectedPolygons.clear();
@@ -30,21 +31,23 @@ void Actions::OpenFile(std::vector<Polygon>& polygons, std::vector<int>& selecte
     window.setView(view);
 
     logger << "Zoom: " << viewState.zoomLevel << ", Center: (" << viewState.centerX << ", " << viewState.centerY << ")" << std::endl;
+    
+    return { loadedPolygons, { imageState, viewState } };
 }
 
-void Actions::SaveFile(std::vector<Polygon>& polygons, std::vector<int>& selectedPolygons, sf::View& view, float& zoomLevel, const sf::RenderWindow& window)
+void Actions::SaveFile(std::vector<Polygon>& polygons, const ImageState& imageState, std::vector<int>& selectedPolygons, sf::View& view, float& zoomLevel, const sf::RenderWindow& window)
 {
 	sf::Vector2f center = view.getCenter();
 	ViewState viewState = { zoomLevel, center.x, center.y };
-    quickSave(polygons, "save.sav", viewState);
+    quickSave(polygons, imageState, "save.sav", viewState);
 }
 
-void Actions::SaveFileAs(std::vector<Polygon>& polygons, std::vector<int>& selectedPolygons, sf::View& view, float& zoomLevel, const sf::RenderWindow& window)
+void Actions::SaveFileAs(std::vector<Polygon>& polygons, const ImageState& imageState, std::vector<int>& selectedPolygons, sf::View& view, float& zoomLevel, const sf::RenderWindow& window)
 {
     std::string saveLocation = SaveFileDialog() + ".sav";
 	sf::Vector2f center = view.getCenter();
 	ViewState viewState = { zoomLevel, center.x, center.y };
-    if (saveToFile(polygons, saveLocation, viewState))
+    if (saveToFile(polygons, imageState, saveLocation, viewState))
         logger << currentDateTime() << " Saved file successfully to " << saveLocation << std::endl;
     else
         logger << currentDateTime() << " Saved file un-successfully to " << saveLocation << std::endl;

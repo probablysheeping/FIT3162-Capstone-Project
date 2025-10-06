@@ -61,7 +61,7 @@ std::string getExecutablePath()
 /// <param name="fileLocation">The location that the save file will be written to</param>
 /// <returns>A boolean output determining whether file was successfully saved or not</returns>
 
-bool saveToFile(std::vector<Polygon> polygons, std::string fileLocation, const ViewState& viewState)
+bool saveToFile(std::vector<Polygon> polygons, const ImageState& imageState, std::string fileLocation, const ViewState& viewState)
 
 {
 	std::ofstream saveFile(fileLocation);
@@ -103,22 +103,24 @@ bool saveToFile(std::vector<Polygon> polygons, std::string fileLocation, const V
 /// </summary>
 /// <param name="fileLocation"></param>
 /// <returns></returns>
-std::pair<std::vector<Polygon>, ViewState> openFromFile(std::string fileLocation)
+std::pair<std::vector<Polygon>, std::pair<ImageState, ViewState>> openFromFile(std::string fileLocation)
 {
 	std::vector<Polygon> polygons;
+	ImageState imageState;
 	ViewState viewState = { 1.0f, 0.0f, 0.0f };
 
 	std::ifstream saveFile(fileLocation);
 
 	// File failed to open
 	if (!saveFile.is_open())
-		return { polygons, viewState };
+		return { polygons, { imageState, viewState } };
 
 
 	std::string line;
 	Polygon currentPolygon;
 	std::vector<ImVec2> vertices;
 	bool readingPolygon = false;
+	bool readingImageState = false;
 	bool readingView = false;
 	int verticesToRead = 0;
 
@@ -221,7 +223,7 @@ std::pair<std::vector<Polygon>, ViewState> openFromFile(std::string fileLocation
 	// Close file
 	saveFile.close();
 
-	return { polygons, viewState };
+	return { polygons, { imageState, viewState } };
 }
 
 /// <summary>
@@ -230,12 +232,12 @@ std::pair<std::vector<Polygon>, ViewState> openFromFile(std::string fileLocation
 /// <param name="polygons"></param>
 /// <param name="imageState"></param>
 /// <param name="fileName"></param>
-void quickSave(std::vector<Polygon> polygons, std::string fileName, const ViewState& viewState)
+void quickSave(std::vector<Polygon> polygons, const ImageState& imageState, std::string fileName, const ViewState& viewState)
 {
 	std::string saveLocation = getExecutablePath();
 	if (saveLocation != NULL_SAVE_PATH) {
 		saveLocation += FILE_SEPARATOR + fileName;
-		if (saveToFile(polygons, saveLocation, viewState))
+		if (saveToFile(polygons, imageState, saveLocation, viewState))
 			logger << currentDateTime() << " Saved file successfully to " << saveLocation << std::endl;
 		else
 			logger << currentDateTime() << " Saved file un-successfully to " << saveLocation << std::endl;

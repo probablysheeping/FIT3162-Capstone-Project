@@ -355,6 +355,7 @@ void runProgram()
 
     // Autosaving clock
     sf::Clock autosaveClock;
+    const sf::Time autosaveTime = sf::seconds(60); // Autosave every 60 seconds
 
 
     // Setup tutorial with smaller, focused steps
@@ -526,7 +527,8 @@ void runProgram()
                                 if (autosaveEnabled) {
                                     sf::Vector2f center = view.getCenter();
                                     ViewState viewState{ zoomLevel, center.x, center.y };
-                                    quickSave(polygons, "autosave.sav", viewState);
+                                    ImageState imageState = getCurrentImageState(hasBackgroundImage, currentImagePath, backgroundSprite, imageOpacity, imageEnabled);
+                                    quickSave(polygons, imageState, "autosave.sav", viewState);
                                 }
                             }
                         }
@@ -655,71 +657,16 @@ void runProgram()
                     }
                 }
             }
-        }
 
-
-            if (const auto mouseButtonReleased = event->getIf<sf::Event::MouseButtonReleased>()) {
-                if (mouseButtonReleased->button == sf::Mouse::Button::Right) {
-                    isPanning = false;
-                }
-            }
-
-            if (const auto mouseMoved = event->getIf<sf::Event::MouseMoved>()) {
-                if (isPanning) {
-                    sf::Vector2f newPos = window.mapPixelToCoords(sf::Mouse::getPosition(window), view);
-                    sf::Vector2f delta = panStart - newPos;
-                    view.move(delta);
-                    window.setView(view);
-                }
-            }
-
-            if (const auto mouseWheel = event->getIf<sf::Event::MouseWheelScrolled>()) {
-                if (mouseWheel->wheel == sf::Mouse::Wheel::Vertical) {
-                    // Get mouse position before zoom
-                    sf::Vector2f beforeCoord = window.mapPixelToCoords(sf::Mouse::getPosition(window), view);
-
-
-        //TODO: Add functionality to main menu
-        if (ImGui::BeginMainMenuBar()) {
-            ImVec2 menuBarPos = ImGui::GetCursorScreenPos();
-            ImVec2 menuBarSize = ImVec2(ImGui::GetWindowWidth(), ImGui::GetFrameHeight());
-            tutorial.updateTargetPosition(TutorialTargetType::MENU_BAR, menuBarPos, menuBarSize);
-
-            if (ImGui::BeginMenu("File"))
-            {
-                ImVec2 fileMenuPos = ImGui::GetCursorScreenPos();
-                ImVec2 fileMenuSize = ImVec2(200, 100);
-                tutorial.updateTargetPosition(TutorialTargetType::FILE_MENU, fileMenuPos, fileMenuSize);
-                
-                if (ImGui::MenuItem("Open", "CTRL+O")) {
-                    std::string openLocation = OpenFileDialog();
-                    auto result = openFile(openLocation);
-                    polygons = result.first;
-                    ImageState loadedImageState = result.second;
-                    selectedPolygons.clear();
-
-                    // Zoom in or out
-                    if (mouseWheel->delta > 0) {
-                        // Zoom in
-                        zoomLevel = std::max(minZoom, zoomLevel - zoomSpeed);
-                    }
-                    else {
-                        // Zoom out
-                        zoomLevel = std::min(maxZoom, zoomLevel + zoomSpeed);
-                    }
-
-                    view.setSize(window.getDefaultView().getSize());
-                    view.zoom(zoomLevel);
-
-
-                    // Get mouse position after zoom
-                    sf::Vector2f afterCoord = window.mapPixelToCoords(sf::Mouse::getPosition(window), view);
-
-                    // Adjust view to keep mouse position consistent
-                    sf::Vector2f offset = beforeCoord - afterCoord;
-                    view.move(offset);
-
-
+            // Menu shortcuts
+            if (const auto key = event->getIf<sf::Event::KeyPressed>()) {
+                // Open file
+                if (key->code == sf::Keyboard::Key::O &&
+                    (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::LControl) ||
+                        sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::RControl))) {
+                    auto [loadedPolygons, statesPair] = actions.OpenFile(polygons, selectedPolygons, view, zoomLevel, window);
+                    auto [loadedImageState, loadedViewState] = statesPair;
+                    
                     // Restore image state if present
                     if (loadedImageState.hasImage && !loadedImageState.imagePath.empty()) {
                         if (backgroundSprite) {
@@ -741,7 +688,7 @@ void runProgram()
                             currentImagePath = loadedImageState.imagePath;
                             imageOpacity = loadedImageState.opacity;
                             imageEnabled = loadedImageState.enabled;
-                            imageScale = loadedImageState.scaleX; // Update global scale to match loaded scale
+                            imageScale = loadedImageState.scaleX;
                             
                             logger << currentDateTime() << " Image restored from " << loadedImageState.imagePath << std::endl;
                         } else {
@@ -760,46 +707,14 @@ void runProgram()
                         imageEnabled = false;
                     }
                 }
-
-                if (ImGui::MenuItem("Import Image")) {
-                    std::string imageLocation = OpenImageDialog();
-                    if (!imageLocation.empty()) {
-                        // Load texture temporarily to get original size
-                        sf::Texture tempTexture;
-                        if (tempTexture.loadFromFile(imageLocation)) {
-                            pendingImagePath = imageLocation;
-                            originalImageSize = tempTexture.getSize();
-                            customWidth = static_cast<float>(originalImageSize.x);
-                            customHeight = static_cast<float>(originalImageSize.y);
-                            showImageResizeDialog = true;
-                        }
-                    }
-                }
-                createToolTip("Import an image to draw polygons on top of", tooltipsEnabled);
-
-                if (ImGui::MenuItem("Save", "CTRL+S")) {
-                    ImageState imageState = getCurrentImageState(hasBackgroundImage, currentImagePath, backgroundSprite, imageOpacity, imageEnabled);
-                    quickSave(polygons, imageState, "save.sav");
-
-                    window.setView(view);
-                }
-            }
-
-            // Menu shortcuts
-            if (const auto key = event->getIf<sf::Event::KeyPressed>()) {
-                // Open file
-                if (key->code == sf::Keyboard::Key::O &&
-                    (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::LControl) ||
-                        sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::RControl))) {
-                    actions.OpenFile(polygons, selectedPolygons, view, zoomLevel, window);
-                }
                 // Save file
                 if (key->code == sf::Keyboard::Key::S &&
                     (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::LControl) ||
                         sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::RControl)) &&
                     !(sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::LShift) ||
                         sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::RShift))) {
-                    actions.SaveFile(polygons, selectedPolygons, view, zoomLevel, window);
+                    ImageState imageState = getCurrentImageState(hasBackgroundImage, currentImagePath, backgroundSprite, imageOpacity, imageEnabled);
+                    actions.SaveFile(polygons, imageState, selectedPolygons, view, zoomLevel, window);
                 }
                 // Save file as
                 if (key->code == sf::Keyboard::Key::S &&
@@ -807,7 +722,8 @@ void runProgram()
                         sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::RControl)) &&
                     (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::LShift) ||
                         sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::RShift))) {
-                    actions.SaveFileAs(polygons, selectedPolygons, view, zoomLevel, window);
+                    ImageState imageState = getCurrentImageState(hasBackgroundImage, currentImagePath, backgroundSprite, imageOpacity, imageEnabled);
+                    actions.SaveFileAs(polygons, imageState, selectedPolygons, view, zoomLevel, window);
 
                 }
                 // Undo
@@ -855,15 +771,6 @@ void runProgram()
             }
         }
 
-
-                if (ImGui::MenuItem("Save As", "CTRL+SHIFT+S")) {
-                    std::string saveLocation = SaveFileDialog() + ".sav";
-                    ImageState imageState = getCurrentImageState(hasBackgroundImage, currentImagePath, backgroundSprite, imageOpacity, imageEnabled);
-                    if (saveToFile(polygons, imageState, saveLocation))
-                        logger << currentDateTime() << " Saved file successfully to " << saveLocation << std::endl;
-                    else
-                        logger << currentDateTime() << " Saved file un-successfully to " << saveLocation << std::endl;
-
         ImGui::SFML::Update(window, deltaClock.restart());
 
         // Menu bar
@@ -871,12 +778,58 @@ void runProgram()
 
             if (ImGui::BeginMenu("File"))
             {
-                if (ImGui::MenuItem("Open", "CTRL+O"))
-                    actions.OpenFile(polygons, selectedPolygons, view, zoomLevel, window);
-                if (ImGui::MenuItem("Save", "CTRL+S"))
-                    actions.SaveFile(polygons, selectedPolygons, view, zoomLevel, window);
-                if (ImGui::MenuItem("Save As", "CTRL+SHIFT+S"))
-                    actions.SaveFileAs(polygons, selectedPolygons, view, zoomLevel, window);
+                if (ImGui::MenuItem("Open", "CTRL+O")) {
+                    auto [loadedPolygons, statesPair] = actions.OpenFile(polygons, selectedPolygons, view, zoomLevel, window);
+                    auto [loadedImageState, loadedViewState] = statesPair;
+                    
+                    // Restore image state if present
+                    if (loadedImageState.hasImage && !loadedImageState.imagePath.empty()) {
+                        if (backgroundSprite) {
+                            delete backgroundSprite;
+                        }
+                        backgroundSprite = new sf::Sprite(backgroundTexture);
+                        
+                        if (backgroundTexture.loadFromFile(loadedImageState.imagePath)) {
+                            backgroundSprite->setTexture(backgroundTexture);
+                            backgroundSprite->setPosition(sf::Vector2f(loadedImageState.positionX, loadedImageState.positionY));
+                            backgroundSprite->setScale(sf::Vector2f(loadedImageState.scaleX, loadedImageState.scaleY));
+                            
+                            // Set the initial color/opacity
+                            sf::Color imageColor = sf::Color::White;
+                            imageColor.a = static_cast<std::uint8_t>(loadedImageState.opacity * 255);
+                            backgroundSprite->setColor(imageColor);
+                            
+                            hasBackgroundImage = true;
+                            currentImagePath = loadedImageState.imagePath;
+                            imageOpacity = loadedImageState.opacity;
+                            imageEnabled = loadedImageState.enabled;
+                            imageScale = loadedImageState.scaleX;
+                            
+                            logger << currentDateTime() << " Image restored from " << loadedImageState.imagePath << std::endl;
+                        } else {
+                            logger << currentDateTime() << " ERROR: Failed to load saved image from " << loadedImageState.imagePath << std::endl;
+                            hasBackgroundImage = false;
+                            currentImagePath = "";
+                        }
+                    } else {
+                        // Clear any existing image
+                        if (backgroundSprite) {
+                            delete backgroundSprite;
+                            backgroundSprite = nullptr;
+                        }
+                        hasBackgroundImage = false;
+                        currentImagePath = "";
+                        imageEnabled = false;
+                    }
+                }
+                if (ImGui::MenuItem("Save", "CTRL+S")) {
+                    ImageState imageState = getCurrentImageState(hasBackgroundImage, currentImagePath, backgroundSprite, imageOpacity, imageEnabled);
+                    actions.SaveFile(polygons, imageState, selectedPolygons, view, zoomLevel, window);
+                }
+                if (ImGui::MenuItem("Save As", "CTRL+SHIFT+S")) {
+                    ImageState imageState = getCurrentImageState(hasBackgroundImage, currentImagePath, backgroundSprite, imageOpacity, imageEnabled);
+                    actions.SaveFileAs(polygons, imageState, selectedPolygons, view, zoomLevel, window);
+                }
 
                 ImGui::EndMenu();
 
@@ -981,7 +934,9 @@ void runProgram()
         // Autosaving functionality
         if (autosaveClock.getElapsedTime() >= autosaveTime) {
             ImageState imageState = getCurrentImageState(hasBackgroundImage, currentImagePath, backgroundSprite, imageOpacity, imageEnabled);
-            quickSave(polygons, imageState, "autosave.sav");
+            sf::Vector2f center = view.getCenter();
+            ViewState viewState{ zoomLevel, center.x, center.y };
+            quickSave(polygons, imageState, "autosave.sav", viewState);
             autosaveClock.restart();
         }
 
@@ -1020,29 +975,25 @@ void runProgram()
                 if (autosaveEnabled) {
                     sf::Vector2f center = view.getCenter();
                     ViewState viewState{ zoomLevel, center.x, center.y };
-                    quickSave(polygons, "autosave.sav", viewState);
+                    ImageState imageState = getCurrentImageState(hasBackgroundImage, currentImagePath, backgroundSprite, imageOpacity, imageEnabled);
+                    quickSave(polygons, imageState, "autosave.sav", viewState);
                 }
 
                 logger << currentDateTime() << " Began polygon creation.\n";
             }
 
             tutorial.updateTargetPosition(TutorialTargetType::CREATE_BUTTON, createButtonPos, ImVec2(120, 30));
-            createToolTip("Click on canvas to create vertices", tooltipsEnabled);
-            
-            // Capture position BEFORE drawing button
-            ImVec2 deleteButtonPos = ImGui::GetCursorScreenPos();
-            if (ImGui::Button("Delete Polygon", ImVec2(120, 30))) {
-                // Delete Polygon
-                for (int i : selectedPolygons) {
-                    polygons.erase(polygons.begin() + i);
 
             if (wasActive)
                 ImGui::PopStyleColor(3);
             createToolTip("Click on canvas to create vertices", tooltipsEnabled);
 
-
+            // Capture position BEFORE drawing button
+            ImVec2 deleteButtonPos = ImGui::GetCursorScreenPos();
             if (ImGui::Button("Delete Polygon", ImVec2(120, 30)))
                 actions.Delete(polygons, selectedPolygons);
+            
+            tutorial.updateTargetPosition(TutorialTargetType::DELETE_BUTTON, deleteButtonPos, ImVec2(120, 30));
             createToolTip("Select polygon and then click delete (DEL)", tooltipsEnabled);
 
             // Move polygon toggle colour
@@ -1057,9 +1008,6 @@ void runProgram()
                 logger << currentDateTime() << " Move polygon toggled.\n";
             }
 
-            tutorial.updateTargetPosition(TutorialTargetType::DELETE_BUTTON, deleteButtonPos, ImVec2(120, 30));
-            createToolTip("Select polygon and then click delete", tooltipsEnabled);
-
             if (wasActive)
                 ImGui::PopStyleColor(3);
             createToolTip("Select polygons and then drag to move", tooltipsEnabled);
@@ -1072,7 +1020,9 @@ void runProgram()
                 // Save when computing IoU
                 if (autosaveEnabled) {
                     ImageState imageState = getCurrentImageState(hasBackgroundImage, currentImagePath, backgroundSprite, imageOpacity, imageEnabled);
-                    quickSave(polygons, imageState, "autosave.sav");
+                    sf::Vector2f center = view.getCenter();
+                    ViewState viewState{ zoomLevel, center.x, center.y };
+                    quickSave(polygons, imageState, "autosave.sav", viewState);
                 }
 
 
@@ -1091,7 +1041,8 @@ void runProgram()
                 if (autosaveEnabled) {
                     sf::Vector2f center = view.getCenter();
                     ViewState viewState{ zoomLevel, center.x, center.y };
-                    quickSave(polygons, "autosave.sav", viewState);
+                    ImageState imageState = getCurrentImageState(hasBackgroundImage, currentImagePath, backgroundSprite, imageOpacity, imageEnabled);
+                    quickSave(polygons, imageState, "autosave.sav", viewState);
                 }
 
                 logger << currentDateTime << " Computed IoU.\n";

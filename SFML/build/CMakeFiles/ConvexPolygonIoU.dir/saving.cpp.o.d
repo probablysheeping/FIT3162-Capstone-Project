@@ -1,7 +1,7 @@
 CMakeFiles/ConvexPolygonIoU.dir/saving.cpp.o: \
-  /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/saving.cpp \
-  /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/saving.h \
-  /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/polygon.h \
+  /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/saving.cpp \
+  /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/saving.h \
+  /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/polygon.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/vector \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__algorithm/copy.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__algorithm/copy_move_common.h \
@@ -793,8 +793,8 @@ CMakeFiles/ConvexPolygonIoU.dir/saving.cpp.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__fwd/stack.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/print \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/unistd.h \
-  /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/imgui/imgui.h \
-  /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/imgui/imconfig.h \
+  /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/imgui/imgui.h \
+  /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/imgui/imconfig.h \
   /opt/homebrew/include/SFML/Graphics/Color.hpp \
   /opt/homebrew/include/SFML/Graphics/Color.inl \
   /opt/homebrew/include/SFML/System/Vector2.hpp \
@@ -808,7 +808,7 @@ CMakeFiles/ConvexPolygonIoU.dir/saving.cpp.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_assert.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_static_assert.h \
   /opt/homebrew/include/SFML/System/Vector2.inl \
-  /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/imgui/imgui-SFML_export.h \
+  /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/imgui/imgui-SFML_export.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/float.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/17/include/float.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/float.h \
@@ -907,7 +907,7 @@ CMakeFiles/ConvexPolygonIoU.dir/saving.cpp.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/fstream \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/sstream \
-  /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/logging.h \
+  /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/logging.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/mach-o/dyld.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/stdbool.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/17/include/stdbool.h \

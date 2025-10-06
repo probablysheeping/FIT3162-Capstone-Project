@@ -32,6 +32,7 @@ set(PROJECT_SOURCES
     filelocationchooser.cpp
     logging.cpp
     tutorial.cpp
+    actions.cpp
     ${IMGUI_SOURCES}
 )
 
@@ -50,6 +51,7 @@ set(PROJECT_HEADERS
     filelocationchooser.h
     logging.h
     tutorial.h
+    actions.h
     imgui/imgui.h
     imgui/imgui-SFML.h
     imgui/imgui_internal.h
