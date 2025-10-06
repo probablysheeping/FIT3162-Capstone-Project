@@ -3,4 +3,5 @@
 #include <string>
 
 std::string OpenFileDialog();
+std::string OpenImageDialog();
 std::string SaveFileDialog();

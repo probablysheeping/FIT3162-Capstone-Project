@@ -1,6 +1,7 @@
 #pragma once
 
 #include "polygon.h"
+#include <string>
 
 #define NULL_SAVE_PATH "NULL"
 

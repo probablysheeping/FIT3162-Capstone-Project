@@ -57,9 +57,12 @@ std::string getExecutablePath()
 /// Save to file based on fileLocation
 /// </summary>
 /// <param name="polygons">The list of polygons to save to file</param>
+/// <param name="imageState">The image state to save</param>
 /// <param name="fileLocation">The location that the save file will be written to</param>
 /// <returns>A boolean output determining whether file was successfully saved or not</returns>
+
 bool saveToFile(std::vector<Polygon> polygons, std::string fileLocation, const ViewState& viewState)
+
 {
 	std::ofstream saveFile(fileLocation);
 
@@ -67,6 +70,19 @@ bool saveToFile(std::vector<Polygon> polygons, std::string fileLocation, const V
 	if (!saveFile.is_open())
 		return false;
 
+	// Save image state first
+	saveFile << "IMAGE_STATE\n";
+	saveFile << "HAS_IMAGE " << (imageState.hasImage ? "1" : "0") << "\n";
+	if (imageState.hasImage) {
+		saveFile << "IMAGE_PATH " << imageState.imagePath << "\n";
+		saveFile << "POSITION " << imageState.positionX << " " << imageState.positionY << "\n";
+		saveFile << "SCALE " << imageState.scaleX << " " << imageState.scaleY << "\n";
+		saveFile << "OPACITY " << imageState.opacity << "\n";
+		saveFile << "ENABLED " << (imageState.enabled ? "1" : "0") << "\n";
+	}
+	saveFile << "IMAGE_END\n";
+
+	// Save polygons
 	for (Polygon polygon : polygons)
 		saveFile << polygon;
 
@@ -82,7 +98,7 @@ bool saveToFile(std::vector<Polygon> polygons, std::string fileLocation, const V
 }
 
 /// <summary>
-/// Opens file and returns polygons
+/// Opens file and returns polygons and image state
 /// Re-wrote large portions of this function using AI
 /// </summary>
 /// <param name="fileLocation"></param>
@@ -111,7 +127,47 @@ std::pair<std::vector<Polygon>, ViewState> openFromFile(std::string fileLocation
 		std::string word;
 		iss >> word;
 
-		if (word == "POLYGON")
+		if (word == "IMAGE_STATE")
+		{
+			readingImageState = true;
+		}
+		else if (readingImageState && word == "HAS_IMAGE")
+		{
+			int hasImage;
+			iss >> hasImage;
+			imageState.hasImage = (hasImage == 1);
+		}
+		else if (readingImageState && word == "IMAGE_PATH")
+		{
+			std::string path;
+			std::getline(iss, path);
+			// Remove leading whitespace
+			path.erase(0, path.find_first_not_of(" \t"));
+			imageState.imagePath = path;
+		}
+		else if (readingImageState && word == "POSITION")
+		{
+			iss >> imageState.positionX >> imageState.positionY;
+		}
+		else if (readingImageState && word == "SCALE")
+		{
+			iss >> imageState.scaleX >> imageState.scaleY;
+		}
+		else if (readingImageState && word == "OPACITY")
+		{
+			iss >> imageState.opacity;
+		}
+		else if (readingImageState && word == "ENABLED")
+		{
+			int enabled;
+			iss >> enabled;
+			imageState.enabled = (enabled == 1);
+		}
+		else if (readingImageState && word == "IMAGE_END")
+		{
+			readingImageState = false;
+		}
+		else if (word == "POLYGON")
 		{
 			readingPolygon = true;
 			vertices.clear();
@@ -172,6 +228,7 @@ std::pair<std::vector<Polygon>, ViewState> openFromFile(std::string fileLocation
 /// Used for auto saving and normal saving (but not save as)
 /// </summary>
 /// <param name="polygons"></param>
+/// <param name="imageState"></param>
 /// <param name="fileName"></param>
 void quickSave(std::vector<Polygon> polygons, std::string fileName, const ViewState& viewState)
 {

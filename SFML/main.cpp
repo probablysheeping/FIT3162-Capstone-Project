@@ -92,11 +92,184 @@ void createToolTip(const char* toolTipStr, bool tooltipsEnabled)
 {
     if (ImGui::IsItemHovered() && tooltipsEnabled) {
         ImGui::BeginTooltip();
-        ImGui::Text(toolTipStr);
+        ImGui::Text("%s", toolTipStr);
         ImGui::EndTooltip();
     }
 }
 
+
+/// <summary>
+/// Draws a grid background on the window
+/// </summary>
+/// <param name="window">The SFML render window</param>
+/// <param name="gridSize">Size of each grid cell in pixels</param>
+/// <param name="gridColor">Color of the grid lines</param>
+void drawGrid(sf::RenderWindow& window, float gridSize = 50.0f, sf::Color gridColor = sf::Color(220, 220, 220))
+{
+    sf::Vector2u windowSize = window.getSize();
+    std::vector<sf::Vertex> gridLines;
+    
+    // Vertical lines
+    for (float x = 0; x <= windowSize.x; x += gridSize) {
+        sf::Vertex v1, v2;
+        v1.position = sf::Vector2f(x, 0);
+        v1.color = gridColor;
+        v2.position = sf::Vector2f(x, windowSize.y);
+        v2.color = gridColor;
+        gridLines.push_back(v1);
+        gridLines.push_back(v2);
+    }
+    
+    // Horizontal lines
+    for (float y = 0; y <= windowSize.y; y += gridSize) {
+        sf::Vertex v1, v2;
+        v1.position = sf::Vector2f(0, y);
+        v1.color = gridColor;
+        v2.position = sf::Vector2f(windowSize.x, y);
+        v2.color = gridColor;
+        gridLines.push_back(v1);
+        gridLines.push_back(v2);
+    }
+    
+    window.draw(gridLines.data(), gridLines.size(), sf::PrimitiveType::Lines);
+}
+
+/// <summary>
+/// Loads a background image from file with specified resize mode
+/// </summary>
+/// <param name="texture">The texture to load the image into</param>
+/// <param name="sprite">The sprite to display the image</param>
+/// <param name="filename">Path to the image file</param>
+/// <param name="windowSize">Size of the window for scaling</param>
+/// <param name="resizeMode">0: Fit to window, 1: Original size, 2: Custom size</param>
+/// <param name="customWidth">Custom width (used when resizeMode = 2)</param>
+/// <param name="customHeight">Custom height (used when resizeMode = 2)</param>
+/// <returns>True if image loaded successfully</returns>
+bool loadBackgroundImage(sf::Texture& texture, sf::Sprite& sprite, const std::string& filename, sf::Vector2u windowSize, int resizeMode = 0, float customWidth = 800.0f, float customHeight = 600.0f)
+{
+    if (!texture.loadFromFile(filename)) {
+        logger << currentDateTime() << " ERROR: Failed to load image from " << filename << std::endl;
+        return false;
+    }
+    
+    sprite.setTexture(texture);
+    
+    sf::Vector2u imageSize = texture.getSize();
+    float scaleX = 1.0f, scaleY = 1.0f;
+    sf::Vector2f position(0.0f, 0.0f);
+    
+    switch (resizeMode) {
+        case 0: // Fit to window
+        {
+            scaleX = static_cast<float>(windowSize.x) / imageSize.x;
+            scaleY = static_cast<float>(windowSize.y) / imageSize.y;
+            float scale = std::min(scaleX, scaleY);
+            scaleX = scaleY = scale;
+            
+            // Center the image
+            sf::Vector2f scaledSize = sf::Vector2f(imageSize.x * scale, imageSize.y * scale);
+            position = sf::Vector2f((windowSize.x - scaledSize.x) / 2.0f, (windowSize.y - scaledSize.y) / 2.0f);
+            break;
+        }
+        case 1: // Original size
+        {
+            scaleX = scaleY = 1.0f;
+            // Center the image
+            position = sf::Vector2f((windowSize.x - imageSize.x) / 2.0f, (windowSize.y - imageSize.y) / 2.0f);
+            break;
+        }
+        case 2: // Custom size
+        {
+            scaleX = customWidth / imageSize.x;
+            scaleY = customHeight / imageSize.y;
+            // Center the image
+            position = sf::Vector2f((windowSize.x - customWidth) / 2.0f, (windowSize.y - customHeight) / 2.0f);
+            break;
+        }
+    }
+    
+    sprite.setScale(sf::Vector2f(scaleX, scaleY));
+    sprite.setPosition(position);
+    
+    logger << currentDateTime() << " Image loaded successfully from " << filename << " with resize mode " << resizeMode << std::endl;
+    return true;
+}
+
+/// <summary>
+/// Gets the bounding rectangle of the current image
+/// </summary>
+sf::FloatRect getImageBounds(sf::Sprite* sprite) {
+    if (!sprite) return sf::FloatRect(sf::Vector2f(0, 0), sf::Vector2f(0, 0));
+    return sprite->getGlobalBounds();
+}
+
+/// <summary>
+/// Gets resize handle rectangles for the image
+/// </summary>
+std::vector<sf::FloatRect> getResizeHandles(sf::FloatRect imageBounds, float handleSize) {
+    std::vector<sf::FloatRect> handles;
+    float hs = handleSize / 2.0f;
+    
+    // Corner handles (0-3)
+    handles.push_back(sf::FloatRect(sf::Vector2f(imageBounds.position.x - hs, imageBounds.position.y - hs), sf::Vector2f(handleSize, handleSize))); // Top-left
+    handles.push_back(sf::FloatRect(sf::Vector2f(imageBounds.position.x + imageBounds.size.x - hs, imageBounds.position.y - hs), sf::Vector2f(handleSize, handleSize))); // Top-right
+    handles.push_back(sf::FloatRect(sf::Vector2f(imageBounds.position.x + imageBounds.size.x - hs, imageBounds.position.y + imageBounds.size.y - hs), sf::Vector2f(handleSize, handleSize))); // Bottom-right
+    handles.push_back(sf::FloatRect(sf::Vector2f(imageBounds.position.x - hs, imageBounds.position.y + imageBounds.size.y - hs), sf::Vector2f(handleSize, handleSize))); // Bottom-left
+    
+    // Edge handles (4-7)
+    handles.push_back(sf::FloatRect(sf::Vector2f(imageBounds.position.x + imageBounds.size.x/2 - hs, imageBounds.position.y - hs), sf::Vector2f(handleSize, handleSize))); // Top
+    handles.push_back(sf::FloatRect(sf::Vector2f(imageBounds.position.x + imageBounds.size.x - hs, imageBounds.position.y + imageBounds.size.y/2 - hs), sf::Vector2f(handleSize, handleSize))); // Right
+    handles.push_back(sf::FloatRect(sf::Vector2f(imageBounds.position.x + imageBounds.size.x/2 - hs, imageBounds.position.y + imageBounds.size.y - hs), sf::Vector2f(handleSize, handleSize))); // Bottom
+    handles.push_back(sf::FloatRect(sf::Vector2f(imageBounds.position.x - hs, imageBounds.position.y + imageBounds.size.y/2 - hs), sf::Vector2f(handleSize, handleSize))); // Left
+    
+    return handles;
+}
+
+/// <summary>
+/// Draws resize handles for the image
+/// </summary>
+void drawResizeHandles(sf::RenderWindow& window, sf::FloatRect imageBounds, float handleSize) {
+    auto handles = getResizeHandles(imageBounds, handleSize);
+    
+    for (const auto& handle : handles) {
+        sf::RectangleShape handleRect(sf::Vector2f(handleSize, handleSize));
+        handleRect.setPosition(handle.position);
+        handleRect.setFillColor(sf::Color::White);
+        handleRect.setOutlineColor(sf::Color::Black);
+        handleRect.setOutlineThickness(1.0f);
+        window.draw(handleRect);
+    }
+    
+    // Draw selection border
+    sf::RectangleShape border(imageBounds.size);
+    border.setPosition(imageBounds.position);
+    border.setFillColor(sf::Color::Transparent);
+    border.setOutlineColor(sf::Color::Blue);
+    border.setOutlineThickness(2.0f);
+    window.draw(border);
+}
+
+/// <summary>
+/// Creates an ImageState from current application state
+/// </summary>
+ImageState getCurrentImageState(bool hasImage, const std::string& imagePath, sf::Sprite* sprite, float opacity, bool enabled) {
+    ImageState state;
+    state.hasImage = hasImage;
+    state.imagePath = imagePath;
+    state.opacity = opacity;
+    state.enabled = enabled;
+    
+    if (hasImage && sprite) {
+        sf::Vector2f position = sprite->getPosition();
+        sf::Vector2f scale = sprite->getScale();
+        state.positionX = position.x;
+        state.positionY = position.y;
+        state.scaleX = scale.x;
+        state.scaleY = scale.y;
+    }
+    
+    return state;
+}
 
 /// <summary>
 /// This is the SFML window where polygons will appear.
@@ -134,10 +307,38 @@ void runProgram()
     bool autosaveEnabled = true;
     bool fullscreenEnabled = false;
     bool tooltipsEnabled = true;
+    bool gridEnabled = true;
+    float gridSize = 50.0f;
+    bool imageEnabled = false;
+    float imageOpacity = 0.7f;
+    float imageScale = 1.0f;
 
     float polygonColour[3] = { 0.f, 0.f, 0.f };
 
     std::vector<Polygon> polygons;
+
+    // Background image variables
+    sf::Texture backgroundTexture;
+    sf::Sprite* backgroundSprite = nullptr;
+    bool hasBackgroundImage = false;
+    std::string currentImagePath = "";
+    
+    // Image resize dialog variables
+    bool showImageResizeDialog = false;
+    std::string pendingImagePath = "";
+    int resizeMode = 0; // 0: Fit to window, 1: Original size, 2: Custom size
+    float customWidth = 800.0f;
+    float customHeight = 600.0f;
+    sf::Vector2u originalImageSize;
+    
+    // Interactive image resize variables
+    bool imageResizeMode = false;
+    bool isDraggingImage = false;
+    int dragHandle = -1; // -1: none, 0-3: corners, 4-7: edges, 8: move
+    sf::Vector2f dragStartPos;
+    sf::Vector2f imageStartPos;
+    sf::Vector2f imageStartSize;
+    const float handleSize = 8.0f;
 
     // Creating Polygon Variables
     Polygon newPolygon;
@@ -155,6 +356,89 @@ void runProgram()
     // Autosaving clock
     sf::Clock autosaveClock;
 
+
+    // Setup tutorial with smaller, focused steps
+    Tutorial tutorial;
+    
+    // Welcome
+    tutorial.addStep("Welcome! 👋", 
+        "Welcome to Convex Polygon IoU!\n\n"
+        "This quick tutorial will show you how to use the main features.\n\n"
+        "You can skip this tutorial at any time and restart it from the Help menu.",
+        TutorialTargetType::NONE);
+    
+    // Menu bar overview
+    tutorial.addStep("Menu Bar", 
+        "This is the menu bar where you can access File operations, Edit tools, View options, and Help.",
+        TutorialTargetType::MENU_BAR);
+    
+    // File menu
+    tutorial.addStep("File Menu", 
+        "Use the File menu to:\n"
+        "• Open existing polygon files (Ctrl+O)\n"
+        "• Save your work (Ctrl+S)\n"
+        "• Save to a new file (Ctrl+Shift+S)\n"
+        "• Import background images",
+        TutorialTargetType::FILE_MENU);
+    
+    // Polygon Creator window
+    tutorial.addStep("Your Workspace", 
+        "This is your main workspace - the Polygon Creator panel.\n\n"
+        "Here you can create polygons, select colors, and calculate IoU values.",
+        TutorialTargetType::POLYGON_CREATOR);
+    
+    // Color picker
+    tutorial.addStep("Choose a Color", 
+        "Before creating a polygon, select a color here.\n\n"
+        "• Click in the color square to pick a color\n"
+        "• Use RGB/HSV sliders for precise control\n"
+        "• Enter hex codes directly",
+        TutorialTargetType::COLOR_PICKER);
+    
+    // Create polygon button
+    tutorial.addStep("Create Polygon", 
+        "Click this button to start drawing a polygon.\n\n"
+        "Then click on the canvas to place vertices. Click the first vertex again to close the polygon.",
+        TutorialTargetType::CREATE_BUTTON);
+    
+    // Canvas
+    tutorial.addStep("The Canvas", 
+        "This is where you draw and interact with polygons.\n\n"
+        "• Click to place vertices when creating\n"
+        "• Click polygons to select them (cyan outline)\n"
+        "• Selected polygons can be edited or deleted",
+        TutorialTargetType::CANVAS);
+    
+    // Compute IoU
+    tutorial.addStep("Calculate IoU", 
+        "To calculate Intersection over Union:\n\n"
+        "1. Select two polygons by clicking them\n"
+        "2. Click this button\n"
+        "3. The IoU value appears at the bottom of the panel",
+        TutorialTargetType::COMPUTE_BUTTON);
+    
+    // Delete
+    tutorial.addStep("Delete Polygons", 
+        "Select one or more polygons, then click this button to delete them.\n\n"
+        "Shortcut: Delete key",
+        TutorialTargetType::DELETE_BUTTON);
+    
+    // Clear selection
+    tutorial.addStep("Clear Selection", 
+        "Click here to deselect all polygons.\n\n"
+        "Shortcut: Escape key",
+        TutorialTargetType::CLEAR_BUTTON);
+    
+    // Completion
+    tutorial.addStep("You're Ready! 🎉", 
+        "That's it! You now know the basics.\n\n"
+        "Tips:\n"
+        "• Hover over buttons for tooltips\n"
+        "• Your work auto-saves periodically\n"
+        "• Check the Help menu to restart this tutorial\n\n"
+        "Happy polygon drawing!",
+        TutorialTargetType::NONE);
+
     // Setup actions
     Actions actions;
 
@@ -163,15 +447,7 @@ void runProgram()
     ImVec2 undoVertex;
     sf::Vertex undoPolygonOutline;
 
-    // Setup tutorial
-    Tutorial tutorial;
-    tutorial.addStep("Welcome", "Welcome to Convex Polygon IoU. Let's run through how this program works!");
-    tutorial.addStep("Selecting a Colour", "Before choosing a polygon, you must first select its colour.\n\nThe program provides several ways to select your desired colour:\n\n1. Colour Picker\n    - On the left you will see a colour square.\n    - Click anywhere inside the square to pick a base colour.\n    - The selected colour will appear in the \"Select Colour\" preview box to the right.\n\n2. Using the RGB and HSV Sliders\n    - Below the colour picker, there are boxes for RGB and HSV values. Each box acts as a slider. Drag to increase/decrease values (0-255).\n\n3. Hex Codes\n    - At the bottom, there is a hexidecimal input field.\n    - Click the box and type your desired hex value, the colour will actively update as you type.");
-    tutorial.addStep("Drawing a Polygon", "After choosing a colour, the nexts step is to draw your polygon.\nThis is done by selecting vertices on the canvas.\n\n1. Placing vertices\n    - Click anywhere on the canvas to place the first vertex.\n    - Continue clicking to add additional vertices. Each click will mark a new corner of your polygon.\n\n2. Connecting the Shape\n    - As vertices are added, lines will automatically connect them.\n    - When you click back on the origin vertex, the outline closes and the polygon is created.\n\nNote that at any point after your polygon is created, you can change the colour. Simply select the polygon you wish to recolour and go back through the steps as in the previous page.");
-    tutorial.addStep("Calculating the Intersection over Union", "Once two polygons have been created, we can measure their IoU value.\n\n1. Selecting Polygons\n    - Click on the first polygon you wish to calculate the IoU value for. The selected polygon will be outlined with a cyan line edge.\n    - Select the second polygon.\n\n2. Click the \"Compute IoU\" button.\n    - The calculated IoU will be printed in the bottom of the polygon creator menu.");
-    tutorial.addStep("Deleting Polygons", "Deleting a polygon is as simple as selecting the single polygon you wish to delete (outlined in cyan), and clicking the \"Delete Polygon\" button in the menu.");
-    tutorial.addStep("Shortcuts", "Ctrl+O - Open File\nCtrl+S - Save File\nCtrl+Shift+S - Save File As\nCtrl+Z - Undo Vertex\nCtrl+Shift+Z - Redo Vertex\nCtrl+X - Cut Polygons\nCtrl+C - Copy Polygons\nCtrl+V - Paste Polygons\nDel - Delete Polygons\nEsc - Clear Selected Polygons\n");
-    tutorial.addStep("End", "You have successfully completed the tutorial! If you want to go through this tutorial again please press the 'Tutorial' button on the main menu bar.");
+
 
     while (window.isOpen())
     {
@@ -185,6 +461,40 @@ void runProgram()
             if (const auto mouseButtonPressed = event->getIf<sf::Event::MouseButtonPressed>()) {
 
                 if (mouseButtonPressed->button == sf::Mouse::Button::Left) {
+                    ImVec2 mousepos = sf::Mouse::getPosition(window);
+                    
+                    // Handle image resize mode
+                    if (imageResizeMode && hasBackgroundImage && imageEnabled) {
+                        sf::FloatRect imageBounds = getImageBounds(backgroundSprite);
+                        auto handles = getResizeHandles(imageBounds, handleSize);
+                        
+                        // Check if clicking on a resize handle
+                        for (int i = 0; i < handles.size(); i++) {
+                            if (handles[i].contains(sf::Vector2f(mousepos.x, mousepos.y))) {
+                                isDraggingImage = true;
+                                dragHandle = i;
+                                dragStartPos = mousepos;
+                                imageStartPos = backgroundSprite->getPosition();
+                                imageStartSize = imageBounds.size;
+                                break;
+                            }
+                        }
+                        
+                        // Check if clicking inside image for moving
+                        if (!isDraggingImage && imageBounds.contains(sf::Vector2f(mousepos.x, mousepos.y))) {
+                            isDraggingImage = true;
+                            dragHandle = 8; // Move mode
+                            dragStartPos = mousepos;
+                            imageStartPos = backgroundSprite->getPosition();
+                        }
+                        
+                        // If we're in resize mode and clicked somewhere, don't create polygons
+                        if (isDraggingImage) {
+                            continue;
+                        }
+                    }
+                    
+                    
                     if (status.createPolygon) {
                         sf::Vector2f worldPos = window.mapPixelToCoords(sf::Mouse::getPosition(window), view);
                         ImVec2 mousepos = ImVec2(worldPos.x, worldPos.y);
@@ -269,6 +579,85 @@ void runProgram()
 				}
             }
 
+            
+            if (const auto mouseButtonReleased = event->getIf<sf::Event::MouseButtonReleased>()) {
+                if (mouseButtonReleased->button == sf::Mouse::Button::Left) {
+                    isDraggingImage = false;
+                    dragHandle = -1;
+                }
+            }
+            
+            if (const auto mouseMoved = event->getIf<sf::Event::MouseMoved>()) {
+                if (isDraggingImage && hasBackgroundImage && backgroundSprite) {
+                    ImVec2 currentPos = sf::Mouse::getPosition(window);
+                    sf::Vector2f delta = sf::Vector2f(currentPos.x - dragStartPos.x, currentPos.y - dragStartPos.y);
+                    
+                    if (dragHandle == 8) { // Move mode
+                        backgroundSprite->setPosition(imageStartPos + delta);
+                    } else if (dragHandle >= 0 && dragHandle <= 7) { // Resize handles
+                        sf::Vector2f newScale = backgroundSprite->getScale();
+                        sf::Vector2f newPos = backgroundSprite->getPosition();
+                        
+                        // Calculate new scale based on handle
+                        sf::Vector2u textureSize = backgroundTexture.getSize();
+                        float scaleFactorX = 1.0f;
+                        float scaleFactorY = 1.0f;
+                        
+                        switch (dragHandle) {
+                            case 0: // Top-left corner
+                                scaleFactorX = (imageStartSize.x - delta.x) / textureSize.x;
+                                scaleFactorY = (imageStartSize.y - delta.y) / textureSize.y;
+                                newPos = imageStartPos + delta;
+                                break;
+                            case 1: // Top-right corner
+                                scaleFactorX = (imageStartSize.x + delta.x) / textureSize.x;
+                                scaleFactorY = (imageStartSize.y - delta.y) / textureSize.y;
+                                newPos = sf::Vector2f(imageStartPos.x, imageStartPos.y + delta.y);
+                                break;
+                            case 2: // Bottom-right corner
+                                scaleFactorX = (imageStartSize.x + delta.x) / textureSize.x;
+                                scaleFactorY = (imageStartSize.y + delta.y) / textureSize.y;
+                                break;
+                            case 3: // Bottom-left corner
+                                scaleFactorX = (imageStartSize.x - delta.x) / textureSize.x;
+                                scaleFactorY = (imageStartSize.y + delta.y) / textureSize.y;
+                                newPos = sf::Vector2f(imageStartPos.x + delta.x, imageStartPos.y);
+                                break;
+                            case 4: // Top edge
+                                scaleFactorY = (imageStartSize.y - delta.y) / textureSize.y;
+                                newPos = sf::Vector2f(imageStartPos.x, imageStartPos.y + delta.y);
+                                scaleFactorX = backgroundSprite->getScale().x;
+                                break;
+                            case 5: // Right edge
+                                scaleFactorX = (imageStartSize.x + delta.x) / textureSize.x;
+                                scaleFactorY = backgroundSprite->getScale().y;
+                                break;
+                            case 6: // Bottom edge
+                                scaleFactorY = (imageStartSize.y + delta.y) / textureSize.y;
+                                scaleFactorX = backgroundSprite->getScale().x;
+                                break;
+                            case 7: // Left edge
+                                scaleFactorX = (imageStartSize.x - delta.x) / textureSize.x;
+                                scaleFactorY = backgroundSprite->getScale().y;
+                                newPos = sf::Vector2f(imageStartPos.x + delta.x, imageStartPos.y);
+                                break;
+                        }
+                        
+                        // Prevent negative scaling
+                        scaleFactorX = std::max(0.1f, scaleFactorX);
+                        scaleFactorY = std::max(0.1f, scaleFactorY);
+                        
+                        backgroundSprite->setScale(sf::Vector2f(scaleFactorX, scaleFactorY));
+                        backgroundSprite->setPosition(newPos);
+                        
+                        // Update the global imageScale to match the sprite's scale
+                        imageScale = scaleFactorX; // Assuming uniform scaling
+                    }
+                }
+            }
+        }
+
+
             if (const auto mouseButtonReleased = event->getIf<sf::Event::MouseButtonReleased>()) {
                 if (mouseButtonReleased->button == sf::Mouse::Button::Right) {
                     isPanning = false;
@@ -289,6 +678,26 @@ void runProgram()
                     // Get mouse position before zoom
                     sf::Vector2f beforeCoord = window.mapPixelToCoords(sf::Mouse::getPosition(window), view);
 
+
+        //TODO: Add functionality to main menu
+        if (ImGui::BeginMainMenuBar()) {
+            ImVec2 menuBarPos = ImGui::GetCursorScreenPos();
+            ImVec2 menuBarSize = ImVec2(ImGui::GetWindowWidth(), ImGui::GetFrameHeight());
+            tutorial.updateTargetPosition(TutorialTargetType::MENU_BAR, menuBarPos, menuBarSize);
+
+            if (ImGui::BeginMenu("File"))
+            {
+                ImVec2 fileMenuPos = ImGui::GetCursorScreenPos();
+                ImVec2 fileMenuSize = ImVec2(200, 100);
+                tutorial.updateTargetPosition(TutorialTargetType::FILE_MENU, fileMenuPos, fileMenuSize);
+                
+                if (ImGui::MenuItem("Open", "CTRL+O")) {
+                    std::string openLocation = OpenFileDialog();
+                    auto result = openFile(openLocation);
+                    polygons = result.first;
+                    ImageState loadedImageState = result.second;
+                    selectedPolygons.clear();
+
                     // Zoom in or out
                     if (mouseWheel->delta > 0) {
                         // Zoom in
@@ -302,12 +711,75 @@ void runProgram()
                     view.setSize(window.getDefaultView().getSize());
                     view.zoom(zoomLevel);
 
+
                     // Get mouse position after zoom
                     sf::Vector2f afterCoord = window.mapPixelToCoords(sf::Mouse::getPosition(window), view);
 
                     // Adjust view to keep mouse position consistent
                     sf::Vector2f offset = beforeCoord - afterCoord;
                     view.move(offset);
+
+
+                    // Restore image state if present
+                    if (loadedImageState.hasImage && !loadedImageState.imagePath.empty()) {
+                        if (backgroundSprite) {
+                            delete backgroundSprite;
+                        }
+                        backgroundSprite = new sf::Sprite(backgroundTexture);
+                        
+                        if (backgroundTexture.loadFromFile(loadedImageState.imagePath)) {
+                            backgroundSprite->setTexture(backgroundTexture);
+                            backgroundSprite->setPosition(sf::Vector2f(loadedImageState.positionX, loadedImageState.positionY));
+                            backgroundSprite->setScale(sf::Vector2f(loadedImageState.scaleX, loadedImageState.scaleY));
+                            
+                            // Set the initial color/opacity
+                            sf::Color imageColor = sf::Color::White;
+                            imageColor.a = static_cast<std::uint8_t>(loadedImageState.opacity * 255);
+                            backgroundSprite->setColor(imageColor);
+                            
+                            hasBackgroundImage = true;
+                            currentImagePath = loadedImageState.imagePath;
+                            imageOpacity = loadedImageState.opacity;
+                            imageEnabled = loadedImageState.enabled;
+                            imageScale = loadedImageState.scaleX; // Update global scale to match loaded scale
+                            
+                            logger << currentDateTime() << " Image restored from " << loadedImageState.imagePath << std::endl;
+                        } else {
+                            logger << currentDateTime() << " ERROR: Failed to load saved image from " << loadedImageState.imagePath << std::endl;
+                            hasBackgroundImage = false;
+                            currentImagePath = "";
+                        }
+                    } else {
+                        // Clear any existing image
+                        if (backgroundSprite) {
+                            delete backgroundSprite;
+                            backgroundSprite = nullptr;
+                        }
+                        hasBackgroundImage = false;
+                        currentImagePath = "";
+                        imageEnabled = false;
+                    }
+                }
+
+                if (ImGui::MenuItem("Import Image")) {
+                    std::string imageLocation = OpenImageDialog();
+                    if (!imageLocation.empty()) {
+                        // Load texture temporarily to get original size
+                        sf::Texture tempTexture;
+                        if (tempTexture.loadFromFile(imageLocation)) {
+                            pendingImagePath = imageLocation;
+                            originalImageSize = tempTexture.getSize();
+                            customWidth = static_cast<float>(originalImageSize.x);
+                            customHeight = static_cast<float>(originalImageSize.y);
+                            showImageResizeDialog = true;
+                        }
+                    }
+                }
+                createToolTip("Import an image to draw polygons on top of", tooltipsEnabled);
+
+                if (ImGui::MenuItem("Save", "CTRL+S")) {
+                    ImageState imageState = getCurrentImageState(hasBackgroundImage, currentImagePath, backgroundSprite, imageOpacity, imageEnabled);
+                    quickSave(polygons, imageState, "save.sav");
 
                     window.setView(view);
                 }
@@ -336,6 +808,7 @@ void runProgram()
                     (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::LShift) ||
                         sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::RShift))) {
                     actions.SaveFileAs(polygons, selectedPolygons, view, zoomLevel, window);
+
                 }
                 // Undo
                 if (key->code == sf::Keyboard::Key::Z &&
@@ -383,6 +856,14 @@ void runProgram()
         }
 
 
+                if (ImGui::MenuItem("Save As", "CTRL+SHIFT+S")) {
+                    std::string saveLocation = SaveFileDialog() + ".sav";
+                    ImageState imageState = getCurrentImageState(hasBackgroundImage, currentImagePath, backgroundSprite, imageOpacity, imageEnabled);
+                    if (saveToFile(polygons, imageState, saveLocation))
+                        logger << currentDateTime() << " Saved file successfully to " << saveLocation << std::endl;
+                    else
+                        logger << currentDateTime() << " Saved file un-successfully to " << saveLocation << std::endl;
+
         ImGui::SFML::Update(window, deltaClock.restart());
 
         // Menu bar
@@ -424,6 +905,16 @@ void runProgram()
                 ImGui::MenuItem("Logging", nullptr, &logSavingEnabled);
                 ImGui::MenuItem("Autosaving", nullptr, &autosaveEnabled);
                 ImGui::MenuItem("Tooltips", nullptr, &tooltipsEnabled);
+                ImGui::MenuItem("Grid", nullptr, &gridEnabled);
+                ImGui::SliderFloat("Grid Size", &gridSize, 10.0f, 100.0f);
+                ImGui::Separator();
+                if (hasBackgroundImage) {
+                    ImGui::MenuItem("Show Image", nullptr, &imageEnabled);
+                    ImGui::MenuItem("Image Resize Mode", nullptr, &imageResizeMode);
+                    createToolTip("Enable interactive resizing with mouse drag handles", tooltipsEnabled);
+                    ImGui::SliderFloat("Image Opacity", &imageOpacity, 0.1f, 1.0f);
+                    ImGui::SliderFloat("Image Scale", &imageScale, 0.1f, 3.0f);
+                }
                 if (ImGui::MenuItem("Full Screen", nullptr, &fullscreenEnabled)) {
                     logger << currentDateTime() << " Full screen " << (fullscreenEnabled ? "enabled." : "disabled.") << std::endl;
                     window.close();
@@ -487,10 +978,25 @@ void runProgram()
             ImGui::EndMainMenuBar();
         }
 
+        // Autosaving functionality
+        if (autosaveClock.getElapsedTime() >= autosaveTime) {
+            ImageState imageState = getCurrentImageState(hasBackgroundImage, currentImagePath, backgroundSprite, imageOpacity, imageEnabled);
+            quickSave(polygons, imageState, "autosave.sav");
+            autosaveClock.restart();
+        }
+
+
         // Window used for creating polygons
-        // Needs to be formatted properly. This is just a placeholder UI
         ImGui::SetNextWindowSize(ImVec2(350, 600));
         if (ImGui::Begin("Polygon Creator")) {
+
+            ImVec2 windowPos = ImGui::GetWindowPos();
+            ImVec2 windowSize = ImGui::GetWindowSize();
+            tutorial.updateTargetPosition(TutorialTargetType::POLYGON_CREATOR, windowPos, windowSize);
+
+            // Capture position BEFORE drawing button
+            ImVec2 createButtonPos = ImGui::GetCursorScreenPos();
+
             // Create polygon toggle colour
             bool wasActive = status.createPolygon;
             if (wasActive) {
@@ -498,6 +1004,7 @@ void runProgram()
                 ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.3f, 0.8f, 0.4f, 1.0f));
                 ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.1f, 0.6f, 0.2f, 1.0f));
             }
+
             if (ImGui::Button("Create Polygon", ImVec2(120, 30))) {
                 // Create Polygon
                 status.createPolygon = true;
@@ -518,9 +1025,21 @@ void runProgram()
 
                 logger << currentDateTime() << " Began polygon creation.\n";
             }
+
+            tutorial.updateTargetPosition(TutorialTargetType::CREATE_BUTTON, createButtonPos, ImVec2(120, 30));
+            createToolTip("Click on canvas to create vertices", tooltipsEnabled);
+            
+            // Capture position BEFORE drawing button
+            ImVec2 deleteButtonPos = ImGui::GetCursorScreenPos();
+            if (ImGui::Button("Delete Polygon", ImVec2(120, 30))) {
+                // Delete Polygon
+                for (int i : selectedPolygons) {
+                    polygons.erase(polygons.begin() + i);
+
             if (wasActive)
                 ImGui::PopStyleColor(3);
             createToolTip("Click on canvas to create vertices", tooltipsEnabled);
+
 
             if (ImGui::Button("Delete Polygon", ImVec2(120, 30)))
                 actions.Delete(polygons, selectedPolygons);
@@ -537,11 +1056,26 @@ void runProgram()
                 status.movePolygon = !status.movePolygon;
                 logger << currentDateTime() << " Move polygon toggled.\n";
             }
+
+            tutorial.updateTargetPosition(TutorialTargetType::DELETE_BUTTON, deleteButtonPos, ImVec2(120, 30));
+            createToolTip("Select polygon and then click delete", tooltipsEnabled);
+
             if (wasActive)
                 ImGui::PopStyleColor(3);
             createToolTip("Select polygons and then drag to move", tooltipsEnabled);
 
+
+            // Capture position BEFORE drawing button
+            ImVec2 computeButtonPos = ImGui::GetCursorScreenPos();
             if (ImGui::Button("Compute IoU", ImVec2(120, 30)) && selectedPolygons.size() == 2) {
+
+                // Save when computing IoU
+                if (autosaveEnabled) {
+                    ImageState imageState = getCurrentImageState(hasBackgroundImage, currentImagePath, backgroundSprite, imageOpacity, imageEnabled);
+                    quickSave(polygons, imageState, "autosave.sav");
+                }
+
+
                 Polygon intersection = polygons.at(selectedPolygons.at(0));
                 for (int i = 1; i < selectedPolygons.size(); i++) {
                     intersection = intersectingPolygon(&intersection, &polygons.at(selectedPolygons.at(i)));
@@ -562,13 +1096,21 @@ void runProgram()
 
                 logger << currentDateTime << " Computed IoU.\n";
             }
+            tutorial.updateTargetPosition(TutorialTargetType::COMPUTE_BUTTON, computeButtonPos, ImVec2(120, 30));
             createToolTip("Select polygons and then calculate", tooltipsEnabled);
 
+            // Capture position BEFORE drawing button
+            ImVec2 clearButtonPos = ImGui::GetCursorScreenPos();
             if (ImGui::Button("Clear Selected", ImVec2(120, 30))) {
                 actions.ClearSelected(polygons, selectedPolygons, area);
             }
+
+            tutorial.updateTargetPosition(TutorialTargetType::CLEAR_BUTTON, clearButtonPos, ImVec2(120, 30));
             createToolTip("Unselect all polygons (ESC)", tooltipsEnabled);
 
+
+            // Capture position BEFORE drawing color picker
+            ImVec2 colorPickerPos = ImGui::GetCursorScreenPos();
             if (ImGui::ColorPicker3("Select Colour", polygonColour)) {
                 //Alter Polygon Colour
                 if (!selectedPolygons.empty()) {
@@ -577,6 +1119,8 @@ void runProgram()
                     }
                 }
             }
+            ImVec2 colorPickerSize = ImGui::GetItemRectSize();
+            tutorial.updateTargetPosition(TutorialTargetType::COLOR_PICKER, colorPickerPos, colorPickerSize);
             createToolTip("Change selected polygon colour", tooltipsEnabled);
 
             ImGui::Text("Area:");
@@ -609,12 +1153,108 @@ void runProgram()
 
         ImGui::End();
 
+        // Update canvas target (main window minus UI)
+        ImVec2 canvasPos = ImVec2(350, 20);  // After polygon creator window
+        ImVec2 canvasSize = ImVec2(window.getSize().x - 350, window.getSize().y - 20);
+        tutorial.updateTargetPosition(TutorialTargetType::CANVAS, canvasPos, canvasSize);
+
+        // Image Resize Dialog
+        if (showImageResizeDialog) {
+            ImGui::SetNextWindowSize(ImVec2(400, 300));
+            ImGui::SetNextWindowPos(ImVec2(window.getSize().x / 2 - 200, window.getSize().y / 2 - 150));
+            if (ImGui::Begin("Import Image - Resize Options", &showImageResizeDialog, ImGuiWindowFlags_NoResize)) {
+                
+                ImGui::Text("Original Size: %dx%d", originalImageSize.x, originalImageSize.y);
+                ImGui::Text("Window Size: %dx%d", window.getSize().x, window.getSize().y);
+                ImGui::Separator();
+                
+                ImGui::Text("Choose resize option:");
+                ImGui::RadioButton("Fit to Window (maintain aspect ratio)", &resizeMode, 0);
+                createToolTip("Scale image to fit window while keeping proportions", tooltipsEnabled);
+                
+                ImGui::RadioButton("Original Size (no scaling)", &resizeMode, 1);
+                createToolTip("Keep image at its original pixel dimensions", tooltipsEnabled);
+                
+                ImGui::RadioButton("Custom Size", &resizeMode, 2);
+                createToolTip("Specify exact width and height for the image", tooltipsEnabled);
+                
+                if (resizeMode == 2) {
+                    ImGui::Indent();
+                    ImGui::SliderFloat("Width", &customWidth, 50.0f, static_cast<float>(window.getSize().x * 2));
+                    ImGui::SliderFloat("Height", &customHeight, 50.0f, static_cast<float>(window.getSize().y * 2));
+                    
+                    if (ImGui::Button("Reset to Original")) {
+                        customWidth = static_cast<float>(originalImageSize.x);
+                        customHeight = static_cast<float>(originalImageSize.y);
+                    }
+                    ImGui::SameLine();
+                    if (ImGui::Button("Fit to Window")) {
+                        float scaleX = static_cast<float>(window.getSize().x) / originalImageSize.x;
+                        float scaleY = static_cast<float>(window.getSize().y) / originalImageSize.y;
+                        float scale = std::min(scaleX, scaleY);
+                        customWidth = originalImageSize.x * scale;
+                        customHeight = originalImageSize.y * scale;
+                    }
+                    ImGui::Unindent();
+                }
+                
+                ImGui::Separator();
+                
+                if (ImGui::Button("Import", ImVec2(120, 30))) {
+                    if (backgroundSprite) {
+                        delete backgroundSprite;
+                    }
+                    backgroundSprite = new sf::Sprite(backgroundTexture);
+                    hasBackgroundImage = loadBackgroundImage(backgroundTexture, *backgroundSprite, pendingImagePath, window.getSize(), resizeMode, customWidth, customHeight);
+                    if (hasBackgroundImage) {
+                        // Set the initial color/opacity
+                        sf::Color imageColor = sf::Color::White;
+                        imageColor.a = static_cast<std::uint8_t>(imageOpacity * 255);
+                        backgroundSprite->setColor(imageColor);
+                        
+                        // Update global scale to match the loaded image's scale
+                        imageScale = backgroundSprite->getScale().x;
+                        
+                        imageEnabled = true;
+                        currentImagePath = pendingImagePath;
+                    }
+                    showImageResizeDialog = false;
+                }
+                ImGui::SameLine();
+                if (ImGui::Button("Cancel", ImVec2(120, 30))) {
+                    showImageResizeDialog = false;
+                }
+            }
+            ImGui::End();
+        }
+
         window.clear(sf::Color::White);
+        
+        // Draw background image
+        if (hasBackgroundImage && imageEnabled) {
+            // Update sprite properties based on settings
+            backgroundSprite->setScale(sf::Vector2f(imageScale, imageScale));
+            sf::Color imageColor = backgroundSprite->getColor();
+            imageColor.a = static_cast<std::uint8_t>(imageOpacity * 255);
+            backgroundSprite->setColor(imageColor);
+            window.draw(*backgroundSprite);
+        }
+        
+        // Draw grid background
+        if (gridEnabled) {
+            drawGrid(window, gridSize);
+        }
 
         // Draw everything here
 
         for (Polygon polygon : polygons) {
             window.draw(polygon.render);
+        }
+        
+        // Draw resize handles if in resize mode
+        if (imageResizeMode && hasBackgroundImage && imageEnabled && backgroundSprite) {
+            sf::FloatRect imageBounds = getImageBounds(backgroundSprite);
+            drawResizeHandles(window, imageBounds, handleSize);
         }
 
         if (status.createPolygon && !firstVertex) {
@@ -632,6 +1272,11 @@ void runProgram()
         ImGui::SFML::Render(window);
         window.display();
 
+    }
+
+    // Cleanup
+    if (backgroundSprite) {
+        delete backgroundSprite;
     }
 
     ImGui::SFML::Shutdown();
