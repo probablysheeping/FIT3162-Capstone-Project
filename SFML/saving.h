@@ -11,22 +11,16 @@
 #define FILE_SEPARATOR '/'
 #endif
 
-// Structure to hold image state information
-struct ImageState {
-    bool hasImage = false;
-    std::string imagePath = "";
-    float positionX = 0.0f;
-    float positionY = 0.0f;
-    float scaleX = 1.0f;
-    float scaleY = 1.0f;
-    float opacity = 0.7f;
-    bool enabled = true;
+struct ViewState {
+    float zoomLevel;
+    float centerX;
+    float centerY;
 };
 
 std::string getExecutablePath();
 
-bool saveToFile(std::vector<Polygon> polygons, const ImageState& imageState, std::string fileLocation);
+bool saveToFile(std::vector<Polygon> polygons, std::string fileLocation, const ViewState& viewState);
 
-std::pair<std::vector<Polygon>, ImageState> openFile(std::string fileLocation);
+std::pair<std::vector<Polygon>, ViewState> openFromFile(std::string fileLocation);
 
-void quickSave(std::vector<Polygon> polygons, const ImageState& imageState, std::string fileName);
+void quickSave(std::vector<Polygon> polygons, std::string fileName, const ViewState& viewState);

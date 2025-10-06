@@ -7,9 +7,6 @@
 
 class Polygon {
 public:
-    Polygon();
-    ~Polygon();
-
     bool pointInPolygon(ImVec2 p);
     float signedArea();
     float polygonArea();
@@ -17,6 +14,8 @@ public:
     void setVertices(std::vector<ImVec2> vertices);
     std::vector<ImVec2> getVertices();
 
+    void translate(ImVec2 delta);
+    ImVec2 centroid() const;
     
     float getColour(int index);
     void setColour(float(&color)[3]);
