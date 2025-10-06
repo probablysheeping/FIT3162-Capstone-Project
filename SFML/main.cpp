@@ -348,14 +348,87 @@ void runProgram()
     // Autosaving clock
     sf::Clock autosaveClock;
 
-    // Setup tutorial
+    // Setup tutorial with smaller, focused steps
     Tutorial tutorial;
-    tutorial.addStep("Welcome", "Welcome to Convex Polygon IoU. Let's run through how this program works!");
-    tutorial.addStep("Selecting a Colour", "Before choosing a polygon, you must first select its colour.\n\nThe program provides several ways to select your desired colour:\n\n1. Colour Picker\n    - On the left you will see a colour square.\n    - Click anywhere inside the square to pick a base colour.\n    - The selected colour will appear in the \"Select Colour\" preview box to the right.\n\n2. Using the RGB and HSV Sliders\n    - Below the colour picker, there are boxes for RGB and HSV values. Each box acts as a slider. Drag to increase/decrease values (0-255).\n\n3. Hex Codes\n    - At the bottom, there is a hexidecimal input field.\n    - Click the box and type your desired hex value, the colour will actively update as you type.");
-    tutorial.addStep("Drawing a Polygon", "After choosing a colour, the nexts step is to draw your polygon.\nThis is done by selecting vertices on the canvas.\n\n1. Optional: Import Background Image\n    - Go to File > Import Image to load an image as a background reference.\n    - Choose from resize options: Fit to Window, Original Size, or Custom Size.\n    - Enable 'Image Resize Mode' in Settings for interactive mouse resizing.\n    - Use Settings menu to adjust image opacity and scale after importing.\n    - Your image settings are automatically saved with your project!\n\n2. Placing vertices\n    - Click anywhere on the canvas to place the first vertex.\n    - Continue clicking to add additional vertices. Each click will mark a new corner of your polygon.\n\n3. Connecting the Shape\n    - As vertices are added, lines will automatically connect them.\n    - When you click back on the origin vertex, the outline closes and the polygon is created.\n\nNote that at any point after your polygon is created, you can change the colour. Simply select the polygon you wish to recolour and go back through the steps as in the previous page.");
-    tutorial.addStep("Calculating the Intersection over Union", "Once two polygons have been created, we can measure their IoU value.\n\n1. Selecting Polygons\n    - Click on the first polygon you wish to calculate the IoU value for. The selected polygon will be outlined with a cyan line edge.\n    - Select the second polygon.\n\n2. Click the \"Compute IoU\" button.\n    - The calculated IoU will be printed in the bottom of the polygon creator menu.");
-    tutorial.addStep("Deleting Polygons", "Deleting a polygon is as simple as selecting the single polygon you wish to delete (outlined in cyan), and clicking the \"Delete Polygon\" button in the menu.");
-    tutorial.addStep("End", "You have successfully completed the tutorial! If you want to go through this tutorial again please press the 'Tutorial' button on the main menu bar.");
+    
+    // Welcome
+    tutorial.addStep("Welcome! 👋", 
+        "Welcome to Convex Polygon IoU!\n\n"
+        "This quick tutorial will show you how to use the main features.\n\n"
+        "You can skip this tutorial at any time and restart it from the Help menu.",
+        TutorialTargetType::NONE);
+    
+    // Menu bar overview
+    tutorial.addStep("Menu Bar", 
+        "This is the menu bar where you can access File operations, Edit tools, View options, and Help.",
+        TutorialTargetType::MENU_BAR);
+    
+    // File menu
+    tutorial.addStep("File Menu", 
+        "Use the File menu to:\n"
+        "• Open existing polygon files (Ctrl+O)\n"
+        "• Save your work (Ctrl+S)\n"
+        "• Save to a new file (Ctrl+Shift+S)\n"
+        "• Import background images",
+        TutorialTargetType::FILE_MENU);
+    
+    // Polygon Creator window
+    tutorial.addStep("Your Workspace", 
+        "This is your main workspace - the Polygon Creator panel.\n\n"
+        "Here you can create polygons, select colors, and calculate IoU values.",
+        TutorialTargetType::POLYGON_CREATOR);
+    
+    // Color picker
+    tutorial.addStep("Choose a Color", 
+        "Before creating a polygon, select a color here.\n\n"
+        "• Click in the color square to pick a color\n"
+        "• Use RGB/HSV sliders for precise control\n"
+        "• Enter hex codes directly",
+        TutorialTargetType::COLOR_PICKER);
+    
+    // Create polygon button
+    tutorial.addStep("Create Polygon", 
+        "Click this button to start drawing a polygon.\n\n"
+        "Then click on the canvas to place vertices. Click the first vertex again to close the polygon.",
+        TutorialTargetType::CREATE_BUTTON);
+    
+    // Canvas
+    tutorial.addStep("The Canvas", 
+        "This is where you draw and interact with polygons.\n\n"
+        "• Click to place vertices when creating\n"
+        "• Click polygons to select them (cyan outline)\n"
+        "• Selected polygons can be edited or deleted",
+        TutorialTargetType::CANVAS);
+    
+    // Compute IoU
+    tutorial.addStep("Calculate IoU", 
+        "To calculate Intersection over Union:\n\n"
+        "1. Select two polygons by clicking them\n"
+        "2. Click this button\n"
+        "3. The IoU value appears at the bottom of the panel",
+        TutorialTargetType::COMPUTE_BUTTON);
+    
+    // Delete
+    tutorial.addStep("Delete Polygons", 
+        "Select one or more polygons, then click this button to delete them.\n\n"
+        "Shortcut: Delete key",
+        TutorialTargetType::DELETE_BUTTON);
+    
+    // Clear selection
+    tutorial.addStep("Clear Selection", 
+        "Click here to deselect all polygons.\n\n"
+        "Shortcut: Escape key",
+        TutorialTargetType::CLEAR_BUTTON);
+    
+    // Completion
+    tutorial.addStep("You're Ready! 🎉", 
+        "That's it! You now know the basics.\n\n"
+        "Tips:\n"
+        "• Hover over buttons for tooltips\n"
+        "• Your work auto-saves periodically\n"
+        "• Check the Help menu to restart this tutorial\n\n"
+        "Happy polygon drawing!",
+        TutorialTargetType::NONE);
 
     while (window.isOpen())
     {
@@ -557,9 +630,16 @@ void runProgram()
 
         //TODO: Add functionality to main menu
         if (ImGui::BeginMainMenuBar()) {
+            ImVec2 menuBarPos = ImGui::GetCursorScreenPos();
+            ImVec2 menuBarSize = ImVec2(ImGui::GetWindowWidth(), ImGui::GetFrameHeight());
+            tutorial.updateTargetPosition(TutorialTargetType::MENU_BAR, menuBarPos, menuBarSize);
 
             if (ImGui::BeginMenu("File"))
             {
+                ImVec2 fileMenuPos = ImGui::GetCursorScreenPos();
+                ImVec2 fileMenuSize = ImVec2(200, 100);
+                tutorial.updateTargetPosition(TutorialTargetType::FILE_MENU, fileMenuPos, fileMenuSize);
+                
                 if (ImGui::MenuItem("Open", "CTRL+O")) {
                     std::string openLocation = OpenFileDialog();
                     auto result = openFile(openLocation);
@@ -709,11 +789,14 @@ void runProgram()
         }
 
         // Window used for creating polygons
-        // Needs to be formatted properly. This is just a placeholder UI
         ImGui::SetNextWindowSize(ImVec2(350, 600));
         if (ImGui::Begin("Polygon Creator")) {
+            ImVec2 windowPos = ImGui::GetWindowPos();
+            ImVec2 windowSize = ImGui::GetWindowSize();
+            tutorial.updateTargetPosition(TutorialTargetType::POLYGON_CREATOR, windowPos, windowSize);
 
-
+            // Capture position BEFORE drawing button
+            ImVec2 createButtonPos = ImGui::GetCursorScreenPos();
             if (ImGui::Button("Create Polygon", ImVec2(120, 30))) {
                 // Create Polygon
                 status.createPolygon = true;
@@ -726,7 +809,11 @@ void runProgram()
                 firstVertex = true;
 
             }
+            tutorial.updateTargetPosition(TutorialTargetType::CREATE_BUTTON, createButtonPos, ImVec2(120, 30));
             createToolTip("Click on canvas to create vertices", tooltipsEnabled);
+            
+            // Capture position BEFORE drawing button
+            ImVec2 deleteButtonPos = ImGui::GetCursorScreenPos();
             if (ImGui::Button("Delete Polygon", ImVec2(120, 30))) {
                 // Delete Polygon
                 for (int i : selectedPolygons) {
@@ -736,8 +823,11 @@ void runProgram()
                 selectedPolygons.clear();
                 logger << currentDateTime() << " Polygon deleted.\n";
             }
+            tutorial.updateTargetPosition(TutorialTargetType::DELETE_BUTTON, deleteButtonPos, ImVec2(120, 30));
             createToolTip("Select polygon and then click delete", tooltipsEnabled);
 
+            // Capture position BEFORE drawing button
+            ImVec2 computeButtonPos = ImGui::GetCursorScreenPos();
             if (ImGui::Button("Compute IoU", ImVec2(120, 30)) && selectedPolygons.size() == 2) {
                 // Save when computing IoU
                 if (autosaveEnabled) {
@@ -755,8 +845,11 @@ void runProgram()
                 // TODO: Calculate IoU Metric and display result.
                 IoUArea = intersection.polygonArea() / (polygons.at(selectedPolygons.at(0)).polygonArea() + polygons.at(selectedPolygons.at(1)).polygonArea());
             }
+            tutorial.updateTargetPosition(TutorialTargetType::COMPUTE_BUTTON, computeButtonPos, ImVec2(120, 30));
             createToolTip("Select polygons and then calculate", tooltipsEnabled);
 
+            // Capture position BEFORE drawing button
+            ImVec2 clearButtonPos = ImGui::GetCursorScreenPos();
             if (ImGui::Button("Clear Selected", ImVec2(120, 30))) {
                 // User clicked the canvas, so we reset everything.
                 for (int j : selectedPolygons) {
@@ -765,8 +858,11 @@ void runProgram()
                 selectedPolygons.clear();
                 area = -1;
             }
+            tutorial.updateTargetPosition(TutorialTargetType::CLEAR_BUTTON, clearButtonPos, ImVec2(120, 30));
             createToolTip("Unselect all polygons", tooltipsEnabled);
 
+            // Capture position BEFORE drawing color picker
+            ImVec2 colorPickerPos = ImGui::GetCursorScreenPos();
             if (ImGui::ColorPicker3("Select Colour", polygonColour)) {
                 //Alter Polygon Colour
                 if (!selectedPolygons.empty()) {
@@ -775,6 +871,8 @@ void runProgram()
                     }
                 }
             }
+            ImVec2 colorPickerSize = ImGui::GetItemRectSize();
+            tutorial.updateTargetPosition(TutorialTargetType::COLOR_PICKER, colorPickerPos, colorPickerSize);
             createToolTip("Change selected polygon colour", tooltipsEnabled);
 
             ImGui::Text("Area:");
@@ -785,6 +883,11 @@ void runProgram()
         }
 
         ImGui::End();
+
+        // Update canvas target (main window minus UI)
+        ImVec2 canvasPos = ImVec2(350, 20);  // After polygon creator window
+        ImVec2 canvasSize = ImVec2(window.getSize().x - 350, window.getSize().y - 20);
+        tutorial.updateTargetPosition(TutorialTargetType::CANVAS, canvasPos, canvasSize);
 
         // Image Resize Dialog
         if (showImageResizeDialog) {

@@ -1,4 +1,0 @@
-2025-09-22_14-34-43 Image loaded successfully from /Users/adityadesai/Downloads/droplet.jpeg with resize mode 2
-2025-09-22_14-35-00 Image loaded successfully from /Users/adityadesai/Downloads/droplet.jpeg with resize mode 2
-2025-09-22_14-35-01 Saved file successfully to /Users/adityadesai/Desktop/projects/Capstone/FIT3162-Capstone-Project/SFML/build/bin/autosave.sav
-2025-09-22_14-35-10 Saved file successfully to /Users/adityadesai/Downloads/imageonlysav.sav.sav
