@@ -67,6 +67,33 @@ bool LoadTextureFromMemory(const void* data, size_t data_size, GLuint* out_textu
     return true;
 }
 
+#include <fstream>
+bool LoadTextureFromFile(const char* file_name, GLuint* out_texture, int* out_width, int* out_height)
+{
+    std::cout << file_name << std::endl;
+    std::ifstream file(file_name, std::ios::binary | std::ios::ate);
+    if (!file.is_open())
+        return false;
+
+    std::streamsize file_size = file.tellg();
+    if (file_size <= 0)
+        return false;
+
+    file.seekg(0, std::ios::beg);
+    void* file_data = IM_ALLOC(static_cast<size_t>(file_size));
+    if (!file.read(reinterpret_cast<char*>(file_data), file_size)) {
+        IM_FREE(file_data);
+        return false;
+    }
+    file.close();
+
+    bool ret = LoadTextureFromMemory(file_data, static_cast<size_t>(file_size), out_texture, out_width, out_height);
+    IM_FREE(file_data);
+    return ret;
+}
+
+/*
+
 // Open and read a file, then forward to LoadTextureFromMemory()
 bool LoadTextureFromFile(const char* file_name, GLuint* out_texture, int* out_width, int* out_height)
 {   
@@ -89,7 +116,7 @@ bool LoadTextureFromFile(const char* file_name, GLuint* out_texture, int* out_wi
     IM_FREE(file_data);
     return ret;
 }
-
+*/
 void adjustVertices(std::vector<ImVec2>& vertices) {
     /*
     For each angle check if it is close to 90, 60, 45, 30 or 0 degrees (or 180, etc i cbf typing them all out)
@@ -181,6 +208,8 @@ ImVec2 getMousePos(sf::RenderWindow &window) {
 /// <summary>
 /// This is the SFML window where polygons will appear.
 /// </summary>
+
+#include <filesystem>
 int runProgram()
 {
     sf::ContextSettings settings;
@@ -188,7 +217,7 @@ int runProgram()
 
     // One can set the dimensions based on screen size.
 
-    float SCALE_FACTOR = 2.f;
+    float SCALE_FACTOR = 1.f;
 
     
     WINDOW_HEIGHT *= SCALE_FACTOR;
@@ -205,13 +234,20 @@ int runProgram()
     window.setFramerateLimit(FRAME_LIMIT);
 
 
-
+    std::filesystem::path assetPath = "assets";
+    if (!std::filesystem::exists(assetPath)) {
+        assetPath = std::filesystem::current_path().parent_path() / "assets";
+    }
     if (!ImGui::SFML::Init(window))
         throw std::runtime_error("SFML Window could not initialise!");
 
     ImGuiIO& io = ImGui::GetIO();
+
+    std::cout << "File path:" << assetPath << std::endl;
+    
+    
     ImFont* largeFont = io.Fonts->AddFontFromFileTTF(
-        "assets\\Roboto-VariableFont_wdth,wght.ttf", // Use the correct extension if it's .ttf or .otf
+        (assetPath / "Roboto-VariableFont_wdth,wght.ttf").string().c_str(), // Use the correct extension if it's .ttf or .otf
         18.0f * SCALE_FACTOR
     );
     io.FontDefault = largeFont; // Set as default font
@@ -292,7 +328,8 @@ int runProgram()
 
     for (std::string i : icon_names) {
         image img;
-        bool ret = LoadTextureFromFile((dirpath + "/assets/" + i + ".png").c_str(), &img.textureID, &img.width, &img.height);
+        std::cout << (assetPath / (i + ".png")).string() << std::endl;
+        bool ret = LoadTextureFromFile((assetPath / (i + ".png")).string().c_str(), &img.textureID, &img.width, &img.height);
         IM_ASSERT(ret);
 		img.texture = (ImTextureID)(intptr_t)img.textureID;
         icons[i] = img;
