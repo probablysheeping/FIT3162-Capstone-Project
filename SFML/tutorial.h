@@ -12,6 +12,7 @@ enum class TutorialTargetType {
     HELP_MENU,         // Help menu
     CREATE_BUTTON,     // Create Polygon button
     DELETE_BUTTON,     // Delete Polygon button
+    MOVE_BUTTON,       // Move Polygon button
     COMPUTE_BUTTON,    // Compute IoU button
     CLEAR_BUTTON,      // Clear Selected button
     COLOR_PICKER,      // Color picker area

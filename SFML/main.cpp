@@ -423,6 +423,12 @@ void runProgram()
         "Select one or more polygons, then click this button to delete them.\n\n"
         "Shortcut: Delete key",
         TutorialTargetType::DELETE_BUTTON);
+
+    // Move
+    tutorial.addStep("Move Polygons",
+        "Click this button, then select one or more polygons and click to drag.\n\n"
+        "Press escape to deselect polygon before pressing this button again to deactivate.",
+        TutorialTargetType::MOVE_BUTTON);
     
     // Clear selection
     tutorial.addStep("Clear Selection", 
@@ -1003,6 +1009,7 @@ void runProgram()
                 ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.3f, 0.8f, 0.4f, 1.0f));
                 ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.1f, 0.6f, 0.2f, 1.0f));
             }
+            ImVec2 moveButtonPos = ImGui::GetCursorScreenPos();
             if (ImGui::Button("Move Polygon", ImVec2(120, 30))) {
                 status.movePolygon = !status.movePolygon;
                 logger << currentDateTime() << " Move polygon toggled.\n";
@@ -1010,6 +1017,7 @@ void runProgram()
 
             if (wasActive)
                 ImGui::PopStyleColor(3);
+            tutorial.updateTargetPosition(TutorialTargetType::MOVE_BUTTON, moveButtonPos, ImVec2(120, 30));
             createToolTip("Select polygons and then drag to move", tooltipsEnabled);
 
 
