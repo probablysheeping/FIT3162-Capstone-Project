@@ -593,6 +593,9 @@ void runProgram()
                     isDraggingImage = false;
                     dragHandle = -1;
                 }
+                if (mouseButtonReleased->button == sf::Mouse::Button::Right) {
+                    isPanning = false;
+				}
             }
             
             if (const auto mouseMoved = event->getIf<sf::Event::MouseMoved>()) {
@@ -662,7 +665,14 @@ void runProgram()
                         imageScale = scaleFactorX; // Assuming uniform scaling
                     }
                 }
-            }
+                if (isPanning) {
+                    sf::Vector2f newPos = window.mapPixelToCoords(sf::Mouse::getPosition(window), view);
+                    sf::Vector2f delta = panStart - newPos;
+
+                    view.move(delta);
+                    window.setView(view);
+                }
+        }
 
             // Menu shortcuts
             if (const auto key = event->getIf<sf::Event::KeyPressed>()) {
