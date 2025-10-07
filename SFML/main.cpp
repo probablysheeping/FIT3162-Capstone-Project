@@ -785,6 +785,35 @@ void runProgram()
                     actions.ClearSelected(polygons, selectedPolygons, area);
                 }
             }
+
+            if (const auto mouseWheel = event->getIf<sf::Event::MouseWheelScrolled>()) {
+                if (mouseWheel->wheel == sf::Mouse::Wheel::Vertical) {
+                    // Get mouse position before zoom
+                    sf::Vector2f beforeCoord = window.mapPixelToCoords(sf::Mouse::getPosition(window), view);
+
+                    // Zoom in or out
+                    if (mouseWheel->delta > 0) {
+                        // Zoom in
+                        zoomLevel = std::max(minZoom, zoomLevel - zoomSpeed);
+                    }
+                    else {
+                        // Zoom out
+                        zoomLevel = std::min(maxZoom, zoomLevel + zoomSpeed);
+                    }
+
+                    view.setSize(window.getDefaultView().getSize());
+                    view.zoom(zoomLevel);
+
+                    // Get mouse position after zoom
+                    sf::Vector2f afterCoord = window.mapPixelToCoords(sf::Mouse::getPosition(window), view);
+
+                    // Adjust view to keep mouse position consistent
+                    sf::Vector2f offset = beforeCoord - afterCoord;
+                    view.move(offset);
+
+                    window.setView(view);
+                }
+            }
         }
 
         ImGui::SFML::Update(window, deltaClock.restart());
