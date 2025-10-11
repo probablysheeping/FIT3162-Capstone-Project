@@ -945,539 +945,532 @@ int runProgram()
                     actions.ClearSelected(polygons, selectedPolygons, area);
                 }
             }
+        }
+        //After SFML Stuff, before ImGui stuff
+        ImGui::SFML::Update(window, deltaClock.restart());
 
-            //After SFML Stuff, before ImGui stuff
-            ImGui::SFML::Update(window, deltaClock.restart());
+        sf::Vector2u size = window.getSize();
+        WINDOW_WIDTH = size.x;
+        WINDOW_HEIGHT = size.y;
+        //TODO: Add functionality to main menu
 
-            sf::Vector2u size = window.getSize();
-            WINDOW_WIDTH = size.x;
-            WINDOW_HEIGHT = size.y;
-            //TODO: Add functionality to main menu
+        if (ImGui::BeginMainMenuBar()) {
 
-            if (ImGui::BeginMainMenuBar()) {
+            mainMenuBarSize = ImGui::GetWindowSize();
+            if (ImGui::MenuItem("Open", "CTRL+O")) {
+                auto [loadedPolygons, statesPair] = actions.OpenFile(polygons, selectedPolygons, view, zoomLevel, window);
+                auto [loadedImageState, loadedViewState] = statesPair;
 
-                mainMenuBarSize = ImGui::GetWindowSize();
-                if (ImGui::MenuItem("Open", "CTRL+O")) {
-                    auto [loadedPolygons, statesPair] = actions.OpenFile(polygons, selectedPolygons, view, zoomLevel, window);
-                    auto [loadedImageState, loadedViewState] = statesPair;
+                // Restore image state if present
+                if (loadedImageState.hasImage && !loadedImageState.imagePath.empty()) {
+                    if (backgroundSprite) {
+                        delete backgroundSprite;
+                    }
+                    backgroundSprite = new sf::Sprite(backgroundTexture);
 
-                    // Restore image state if present
-                    if (loadedImageState.hasImage && !loadedImageState.imagePath.empty()) {
-                        if (backgroundSprite) {
-                            delete backgroundSprite;
-                        }
-                        backgroundSprite = new sf::Sprite(backgroundTexture);
+                    if (backgroundTexture.loadFromFile(loadedImageState.imagePath)) {
+                        backgroundSprite->setTexture(backgroundTexture);
+                        backgroundSprite->setPosition(sf::Vector2f(loadedImageState.positionX, loadedImageState.positionY));
+                        backgroundSprite->setScale(sf::Vector2f(loadedImageState.scaleX, loadedImageState.scaleY));
 
-                        if (backgroundTexture.loadFromFile(loadedImageState.imagePath)) {
-                            backgroundSprite->setTexture(backgroundTexture);
-                            backgroundSprite->setPosition(sf::Vector2f(loadedImageState.positionX, loadedImageState.positionY));
-                            backgroundSprite->setScale(sf::Vector2f(loadedImageState.scaleX, loadedImageState.scaleY));
+                        // Set the initial color/opacity
+                        sf::Color imageColor = sf::Color::White;
+                        imageColor.a = static_cast<std::uint8_t>(loadedImageState.opacity * 255);
+                        backgroundSprite->setColor(imageColor);
 
-                            // Set the initial color/opacity
-                            sf::Color imageColor = sf::Color::White;
-                            imageColor.a = static_cast<std::uint8_t>(loadedImageState.opacity * 255);
-                            backgroundSprite->setColor(imageColor);
+                        hasBackgroundImage = true;
+                        currentImagePath = loadedImageState.imagePath;
+                        imageOpacity = loadedImageState.opacity;
+                        imageEnabled = loadedImageState.enabled;
+                        imageScale = loadedImageState.scaleX;
 
-                            hasBackgroundImage = true;
-                            currentImagePath = loadedImageState.imagePath;
-                            imageOpacity = loadedImageState.opacity;
-                            imageEnabled = loadedImageState.enabled;
-                            imageScale = loadedImageState.scaleX;
-
-                            logger << currentDateTime() << " Image restored from " << loadedImageState.imagePath << std::endl;
-                        }
-                        else {
-                            logger << currentDateTime() << " ERROR: Failed to load saved image from " << loadedImageState.imagePath << std::endl;
-                            hasBackgroundImage = false;
-                            currentImagePath = "";
-                        }
+                        logger << currentDateTime() << " Image restored from " << loadedImageState.imagePath << std::endl;
                     }
                     else {
-                        // Clear any existing image
-                        if (backgroundSprite) {
-                            delete backgroundSprite;
-                            backgroundSprite = nullptr;
-                        }
+                        logger << currentDateTime() << " ERROR: Failed to load saved image from " << loadedImageState.imagePath << std::endl;
                         hasBackgroundImage = false;
                         currentImagePath = "";
-                        imageEnabled = false;
                     }
-                }
-                if (ImGui::MenuItem("Save", "CTRL+S")) {
-                    ImageState imageState = getCurrentImageState(hasBackgroundImage, currentImagePath, backgroundSprite, imageOpacity, imageEnabled);
-                    actions.SaveFile(polygons, imageState, selectedPolygons, view, zoomLevel, window);
-                }
-                if (ImGui::MenuItem("Save As", "CTRL+SHIFT+S")) {
-                    ImageState imageState = getCurrentImageState(hasBackgroundImage, currentImagePath, backgroundSprite, imageOpacity, imageEnabled);
-                    actions.SaveFileAs(polygons, imageState, selectedPolygons, view, zoomLevel, window);
-                }
-                    ImGui::EndMenu();
-
-                }
-                createToolTip("Save and open files", tooltipsEnabled);
-
-                if (ImGui::BeginMenu("Edit"))
-                {
-                    if (ImGui::MenuItem("Undo", "CTRL+Z"))
-                        actions.Undo(vertices, newPolygonOutline, status.createPolygon, undoVertex, undoPolygonOutline);
-                    ImGui::Separator();
-                    if (ImGui::MenuItem("Cut", "CTRL+X"))
-                        actions.CopyCut(polygons, selectedPolygons, clipboard, true);
-                    if (ImGui::MenuItem("Copy", "CTRL+C"))
-                        actions.CopyCut(polygons, selectedPolygons, clipboard, false);
-                    if (ImGui::MenuItem("Paste", "CTRL+V"))
-                        actions.Paste(polygons, clipboard);
-
-                    ImGui::EndMenu();
-                }
-                createToolTip("Modify program state", tooltipsEnabled);
-
-                if (ImGui::BeginMenu("Settings")) {
-                    ImGui::MenuItem("Logging", nullptr, &logSavingEnabled);
-                    ImGui::MenuItem("Autosaving", nullptr, &autosaveEnabled);
-                    ImGui::MenuItem("Tooltips", nullptr, &tooltipsEnabled);
-                    ImGui::MenuItem("Adjust Vertices", nullptr, &status.adjustVertices);
-                    ImGui::MenuItem("Grid", nullptr, &gridEnabled);
-                    ImGui::SliderFloat("Grid Size", &gridSize, 10.0f, 100.0f);
-                    ImGui::Separator();
-                    if (hasBackgroundImage) {
-                        ImGui::MenuItem("Show Image", nullptr, &imageEnabled);
-                        ImGui::MenuItem("Image Resize Mode", nullptr, &imageResizeMode);
-                        createToolTip("Enable interactive resizing with mouse drag handles", tooltipsEnabled);
-                        ImGui::SliderFloat("Image Opacity", &imageOpacity, 0.1f, 1.0f);
-                        ImGui::SliderFloat("Image Scale", &imageScale, 0.1f, 3.0f);
-                    }
-                    if (ImGui::MenuItem("Full Screen", nullptr, &fullscreenEnabled)) {
-                        logger << currentDateTime() << " Full screen " << (fullscreenEnabled ? "enabled." : "disabled.") << std::endl;
-                        window.close();
-                        if (fullscreenEnabled)
-                            window.create(sf::VideoMode::getDesktopMode(), WINDOW_DISPLAY_NAME, sf::State::Fullscreen);
-                        else
-                            window.create(sf::VideoMode::getDesktopMode(), WINDOW_DISPLAY_NAME, sf::State::Windowed);
-                    }
-
-                    ImGui::EndMenu();
-                }
-                createToolTip("Change program functionality", tooltipsEnabled);
-
-                if (ImGui::MenuItem("Tutorial")) {
-                    logger << currentDateTime() << " Tutorial started.\n";
-                    tutorial.start();
-                }
-                createToolTip("Start tutorial", tooltipsEnabled);
-
-
-                if (ImGui::MenuItem("Contact")) {
-                    logger << currentDateTime() << " User opened contact window.\n";
-                    ImGui::OpenPopup("Contact");
-                }
-
-                if (ImGui::BeginPopup("Contact")) {
-                    ImGui::Text("Please send any questions, log or crash reports to the lead developer's email here: mmun0026@student.monash.edu.");
-                    if (ImGui::Button("Close")) {
-                        ImGui::CloseCurrentPopup();
-                    }
-                    ImGui::EndPopup();
-                }
-
-                createToolTip("Contact information", tooltipsEnabled);
-
-                if (ImGui::MenuItem("Exit")) {
-                    logger << currentDateTime() << " User exit.\n";
-                    window.close();
-                }
-                createToolTip("Exit from program", tooltipsEnabled);
-
-                if (ImGui::Button("Zoom Out")) {
-                    zoomLevel = std::min(maxZoom, zoomLevel + 0.2f);
-                    view.setSize(window.getDefaultView().getSize());
-                    view.zoom(zoomLevel);
-                    window.setView(view);
-                }
-
-                if (ImGui::Button("Zoom In")) {
-                    zoomLevel = std::max(minZoom, zoomLevel - 0.2f);
-                    view.setSize(window.getDefaultView().getSize());
-                    view.zoom(zoomLevel);
-                    window.setView(view);
-                }
-
-                if (ImGui::Button("Reset Zoom Level")) {
-                    zoomLevel = 1.0f;
-                    view.setSize(window.getDefaultView().getSize());
-                    view.zoom(zoomLevel);
-                    window.setView(view);
-                }
-
-                ImGui::EndMainMenuBar();
-            }
-
-            // Window used for creating polygons
-            // Needs to be formatted properly. This is just a placeholder UI
-
-
-            ImGui::SetNextWindowSize(ImVec2(280 * WINDOW_HEIGHT, 60 * SCALE_FACTOR));
-            ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(1.0f, 1.0f, 1.0f, 1.0f));
-
-
-            ImGui::SetNextWindowPos(ImVec2((WINDOW_WIDTH - 280 * SCALE_FACTOR) / 2, mainMenuBarSize.y));
-            if (ImGui::Begin("Polygon Creator", nullptr, 7 + ImGuiWindowFlags_NoScrollbar + ImGuiWindowFlags_NoScrollWithMouse)) {
-
-                ImVec2 windowPos = ImGui::GetWindowPos();
-                ImVec2 windowSize = ImGui::GetWindowSize();
-                tutorial.updateTargetPosition(TutorialTargetType::POLYGON_CREATOR, windowPos, windowSize);
-
-                if (ImGui::IsWindowHovered()) {
-                    // Mouse is over the popup
-                    status.menuInteraction = true;
-                }
-                ImVec2 currentWindowSize = ImGui::GetWindowSize();
-                ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(1.0f, 1.0f, 1.0f, 1.0f)); // Normal: white
-                ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.9f, 0.9f, 0.9f, 1.0f)); // Hovered: light gray
-                ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.8f, 0.8f, 0.8f, 1.0f)); // Active: slightly darker gray
-
-
-                ImGui::SameLine();
-
-                // Capture position BEFORE drawing button
-                ImVec2 createButtonPos = ImGui::GetCursorScreenPos();
-
-                if (ImGui::ImageButton("Create Polygon", icons["draw"].texture, ImVec2(ICON_SIZE, ICON_SIZE))) {
-                    // Create Polygon
-                    status.createPolygon = true;
-
-                    vertices.clear();
-                    newPolygon = Polygon();
-                    newPolygonOutline.clear();
-                    newPolygonOutline.push_back(sf::Vertex{ ImVec2(0,0), sf::Color::Black });
-
-                    firstVertex = true;
-
-                    // Autosave when creating polygon
-                    if (autosaveEnabled) {
-                        ImageState imageState = getCurrentImageState(hasBackgroundImage, currentImagePath, backgroundSprite, imageOpacity, imageEnabled);
-                        sf::Vector2f center = view.getCenter();
-                        ViewState viewState{ zoomLevel, center.x, center.y };
-                        quickSave(polygons, imageState, "autosave.sav", viewState);
-                    }
-
-                }
-                tutorial.updateTargetPosition(TutorialTargetType::CREATE_BUTTON, createButtonPos, ImVec2(120, 30));
-                createToolTip("Click on canvas to create vertices", tooltipsEnabled);
-                ImGui::SameLine();
-
-                if (ImGui::ImageButton("Select Shape", icons["shapes"].texture, ImVec2(ICON_SIZE, ICON_SIZE))) {
-                    // Select Shape
-
-                    ImGui::OpenPopup("ShapeSelector");
-                }
-                createToolTip("Click to create polygon", tooltipsEnabled);
-                ImGui::SameLine();
-
-                ImVec2 deleteButtonPos = ImGui::GetCursorScreenPos();
-                if (ImGui::ImageButton("Delete Polygon", icons["bin"].texture, ImVec2(ICON_SIZE, ICON_SIZE))) {
-                    // Delete Polygon
-                    for (int i : selectedPolygons) {
-                        polygons.erase(polygons.begin() + i);
-                        logger << currentDateTime() << ": Polygon deleted at " << i << "\n";
-
-                    }
-                    selectedPolygons.clear();
-
-                }
-                tutorial.updateTargetPosition(TutorialTargetType::DELETE_BUTTON, deleteButtonPos, ImVec2(120, 30));
-                createToolTip("Select polygon and then click delete (DEL)", tooltipsEnabled);
-
-                ImGui::SameLine();
-                if (ImGui::ImageButton("Colour", icons["colour-pallet"].texture, ImVec2(ICON_SIZE, ICON_SIZE))) {
-                    // Change Colour
-                    ImGui::OpenPopup("ColourPicker");
-                }
-                createToolTip("Change selected polygon colour", tooltipsEnabled);
-
-
-
-                ImGui::SameLine();
-                ImGui::BeginDisabled(selectedPolygons.size() != 2);
-                if (selectedPolygons.size() != 2) {
-                    ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.6f, 0.6f, 0.6f, 1.0f)); // Disabled: gray
                 }
                 else {
-                    ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(1.0f, 1.0f, 1.0f, 1.0f)); // Normal: white
-                }
-                // Capture position BEFORE drawing button
-                ImVec2 computeButtonPos = ImGui::GetCursorScreenPos();
-                if (ImGui::ImageButton("Compute IoU", icons["intersect"].texture, ImVec2(ICON_SIZE, ICON_SIZE)) && selectedPolygons.size() == 2) {
-
-                    Polygon intersection = polygons.at(selectedPolygons.at(0));
-                    for (int i = 1; i < selectedPolygons.size(); i++) {
-                        intersection = intersectingPolygon(&intersection, &polygons.at(selectedPolygons.at(i)));
+                    // Clear any existing image
+                    if (backgroundSprite) {
+                        delete backgroundSprite;
+                        backgroundSprite = nullptr;
                     }
-
-                    intersection.setColour(polygonColour);
-                    polygons.push_back(intersection);
-
-                    IoUArea = intersection.polygonArea();
-                    area = polygons.at(selectedPolygons.at(0)).polygonArea() + polygons.at(selectedPolygons.at(1)).polygonArea() - IoUArea;
-                    IoUMetric = IoUArea / area;
-
-                    // Save when computing IoU
-                    if (autosaveEnabled) {
-                        sf::Vector2f center = view.getCenter();
-                        ViewState viewState{ zoomLevel, center.x, center.y };
-                        ImageState imageState = getCurrentImageState(hasBackgroundImage, currentImagePath, backgroundSprite, imageOpacity, imageEnabled);
-                        quickSave(polygons, imageState, "autosave.sav", viewState);
-                    }
-
-                    logger << currentDateTime() << " Computed IoU.\n";
+                    hasBackgroundImage = false;
+                    currentImagePath = "";
+                    imageEnabled = false;
                 }
-                tutorial.updateTargetPosition(TutorialTargetType::COMPUTE_BUTTON, computeButtonPos, ImVec2(120, 30));
-                createToolTip("Select two polygons and then calculate", tooltipsEnabled);
-
-                ImGui::Text("Area:");
-                ImGui::SameLine(); ImGui::Text("%s", area == -1 ? "" : std::to_string(area).c_str());
-                ImGui::Text("IoU Area:");
-                ImGui::SameLine(); ImGui::Text("%s", IoUArea == -1 ? "" : std::to_string(IoUArea).c_str());
-                ImGui::Text("IoU metric:");
-                ImGui::SameLine(); ImGui::Text("%s", IoUMetric == -1 ? "" : std::to_string(IoUMetric).c_str());
-
-
-
             }
-            ImGui::PopStyleColor(4);
-            ImGui::EndDisabled();
-
-
-            ImGui::PushStyleColor(ImGuiCol_PopupBg, ImVec4(1.0f, 1.0f, 1.0f, 1.0f));
-            ImGui::PushStyleVar(ImGuiStyleVar_PopupBorderSize, 1.0f); // Set to your desired border thickness
-            ImGui::SetNextWindowSize(ImVec2(ICON_SIZE * 2, 400 * SCALE_FACTOR), ImGuiCond_Appearing);
-            if (ImGui::BeginPopup("ShapeSelector", ImGuiWindowFlags_AlwaysAutoResize)) {
-                ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(1.0f, 1.0f, 1.0f, 1.0f)); // Normal: white
-                ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.9f, 0.9f, 0.9f, 1.0f)); // Hovered: light gray
-                ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.8f, 0.8f, 0.8f, 1.0f)); // Active: slightly darker gray
-                ImGui::PushStyleColor(ImGuiCol_PopupBg, ImVec4(0, 0, 0, 1));
-
-
-                if (ImGui::ImageButton("Triangle", icons["triangle"].texture, ImVec2(ICON_SIZE, ICON_SIZE))) {
-                    newPolygon = Polygon();
-                    vertices = { ImVec2(100,100), ImVec2(150,200), ImVec2(50,200) };
-                    if (status.adjustVertices)
-                        adjustVertices(vertices);
-                    newPolygon.setVertices(vertices);
-                    newPolygon.setColour(polygonColour);
-                    polygons.push_back(newPolygon);
-                    logger << currentDateTime() << " NEW " << newPolygon;
-                    newPolygon = Polygon();
-                    vertices.clear();
-                    ImGui::CloseCurrentPopup();
-                }
-                createToolTip("Create triangle", tooltipsEnabled);
-                ImGui::SameLine();
-                if (ImGui::ImageButton("Circle", icons["circle"].texture, ImVec2(ICON_SIZE, ICON_SIZE))) {
-
-                    ImGui::CloseCurrentPopup();
-                }
-                createToolTip("Create a circle by clicking the centre and moving outwards to define radius", tooltipsEnabled);
-
-                if (ImGui::ImageButton("Rectangle", icons["rectangle"].texture, ImVec2(ICON_SIZE, ICON_SIZE))) {
-
-                    ImGui::CloseCurrentPopup();
-                }
-                createToolTip("Create rectangle by clicking top left corner and dragging the bottom right corner out", tooltipsEnabled);
-                ImGui::SameLine();
-                if (ImGui::ImageButton("Square", icons["square"].texture, ImVec2(ICON_SIZE, ICON_SIZE))) {
-
-                    ImGui::CloseCurrentPopup();
-                }
-                createToolTip("Create square by clicking top left corner and dragging the bottom right corner out", tooltipsEnabled);
-
-                ImGui::PopStyleColor(4);
-                ImGui::EndPopup();
+            if (ImGui::MenuItem("Save", "CTRL+S")) {
+                ImageState imageState = getCurrentImageState(hasBackgroundImage, currentImagePath, backgroundSprite, imageOpacity, imageEnabled);
+                actions.SaveFile(polygons, imageState, selectedPolygons, view, zoomLevel, window);
             }
-            // Capture position BEFORE drawing color picker
-            ImVec2 colorPickerSize = ImGui::GetItemRectSize();
-            ImVec2 colorPickerPos = ImGui::GetCursorScreenPos();
-            if (ImGui::BeginPopup("ColourPicker", ImGuiWindowFlags_AlwaysAutoResize + ImGuiWindowFlags_NoScrollbar + ImGuiWindowFlags_NoTitleBar)) {
+            if (ImGui::MenuItem("Save As", "CTRL+SHIFT+S")) {
+                ImageState imageState = getCurrentImageState(hasBackgroundImage, currentImagePath, backgroundSprite, imageOpacity, imageEnabled);
+                actions.SaveFileAs(polygons, imageState, selectedPolygons, view, zoomLevel, window);
+            }
+            
 
-                // Use dark button colors for contrast on white background
-                ImGui::PushStyleColor(ImGuiCol_FrameBg, ImVec4(0.15f, 0.15f, 0.18f, 1.0f));
-                ImGui::PushStyleColor(ImGuiCol_FrameBgHovered, ImVec4(0.25f, 0.25f, 0.30f, 1.0f));
-                ImGui::PushStyleColor(ImGuiCol_FrameBgActive, ImVec4(0.10f, 0.10f, 0.15f, 1.0f));
 
-                ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.15f, 0.15f, 0.18f, 1.0f)); // Normal: dark gray
-                ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.25f, 0.25f, 0.30f, 1.0f)); // Hovered: lighter gray
-                ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.10f, 0.10f, 0.15f, 1.0f)); // Active: even darker
+            createToolTip("Save and open files", tooltipsEnabled);
 
-                if (ImGui::ColorPicker3("Select Colour", polygonColour)) {
-                    //Alter Polygon Colour
-                    if (!selectedPolygons.empty()) {
-                        for (int i : selectedPolygons) {
-                            polygons.at(i).setColour(polygonColour);
-                        }
-                    }
+            if (ImGui::BeginMenu("Edit"))
+            {
+                if (ImGui::MenuItem("Undo", "CTRL+Z"))
+                    actions.Undo(vertices, newPolygonOutline, status.createPolygon, undoVertex, undoPolygonOutline);
+                ImGui::Separator();
+                if (ImGui::MenuItem("Cut", "CTRL+X"))
+                    actions.CopyCut(polygons, selectedPolygons, clipboard, true);
+                if (ImGui::MenuItem("Copy", "CTRL+C"))
+                    actions.CopyCut(polygons, selectedPolygons, clipboard, false);
+                if (ImGui::MenuItem("Paste", "CTRL+V"))
+                    actions.Paste(polygons, clipboard);
 
+                ImGui::EndMenu();
+            }
+            createToolTip("Modify program state", tooltipsEnabled);
+
+            if (ImGui::BeginMenu("Settings")) {
+                ImGui::MenuItem("Logging", nullptr, &logSavingEnabled);
+                ImGui::MenuItem("Autosaving", nullptr, &autosaveEnabled);
+                ImGui::MenuItem("Tooltips", nullptr, &tooltipsEnabled);
+                ImGui::MenuItem("Adjust Vertices", nullptr, &status.adjustVertices);
+                ImGui::MenuItem("Grid", nullptr, &gridEnabled);
+                ImGui::SliderFloat("Grid Size", &gridSize, 10.0f, 100.0f);
+                ImGui::Separator();
+                if (hasBackgroundImage) {
+                    ImGui::MenuItem("Show Image", nullptr, &imageEnabled);
+                    ImGui::MenuItem("Image Resize Mode", nullptr, &imageResizeMode);
+                    createToolTip("Enable interactive resizing with mouse drag handles", tooltipsEnabled);
+                    ImGui::SliderFloat("Image Opacity", &imageOpacity, 0.1f, 1.0f);
+                    ImGui::SliderFloat("Image Scale", &imageScale, 0.1f, 3.0f);
                 }
+                if (ImGui::MenuItem("Full Screen", nullptr, &fullscreenEnabled)) {
+                    logger << currentDateTime() << " Full screen " << (fullscreenEnabled ? "enabled." : "disabled.") << std::endl;
+                    window.close();
+                    if (fullscreenEnabled)
+                        window.create(sf::VideoMode::getDesktopMode(), WINDOW_DISPLAY_NAME, sf::State::Fullscreen);
+                    else
+                        window.create(sf::VideoMode::getDesktopMode(), WINDOW_DISPLAY_NAME, sf::State::Windowed);
+                }
+
+                ImGui::EndMenu();
+            }
+            createToolTip("Change program functionality", tooltipsEnabled);
+
+            if (ImGui::MenuItem("Tutorial")) {
+                logger << currentDateTime() << " Tutorial started.\n";
+                tutorial.start();
+            }
+            createToolTip("Start tutorial", tooltipsEnabled);
+
+
+            if (ImGui::MenuItem("Contact")) {
+                logger << currentDateTime() << " User opened contact window.\n";
+                ImGui::OpenPopup("Contact");
+            }
+
+            if (ImGui::BeginPopup("Contact")) {
+                ImGui::Text("Please send any questions, log or crash reports to the lead developer's email here: mmun0026@student.monash.edu.");
                 if (ImGui::Button("Close")) {
                     ImGui::CloseCurrentPopup();
                 }
-                ImGui::PopStyleColor(6);
-
                 ImGui::EndPopup();
             }
-            tutorial.updateTargetPosition(TutorialTargetType::COLOR_PICKER, colorPickerPos, colorPickerSize);
 
-            ImGui::PopStyleColor();
-            ImGui::PopStyleVar();
+            createToolTip("Contact information", tooltipsEnabled);
+
+            if (ImGui::MenuItem("Exit")) {
+                logger << currentDateTime() << " User exit.\n";
+                window.close();
+            }
+            createToolTip("Exit from program", tooltipsEnabled);
+
+            if (ImGui::Button("Zoom Out")) {
+                zoomLevel = std::min(maxZoom, zoomLevel + 0.2f);
+                view.setSize(window.getDefaultView().getSize());
+                view.zoom(zoomLevel);
+                window.setView(view);
+            }
+
+            if (ImGui::Button("Zoom In")) {
+                zoomLevel = std::max(minZoom, zoomLevel - 0.2f);
+                view.setSize(window.getDefaultView().getSize());
+                view.zoom(zoomLevel);
+                window.setView(view);
+            }
+
+            if (ImGui::Button("Reset Zoom Level")) {
+                zoomLevel = 1.0f;
+                view.setSize(window.getDefaultView().getSize());
+                view.zoom(zoomLevel);
+                window.setView(view);
+            }
+
+            ImGui::EndMainMenuBar();
+        }
+
+        // Window used for creating polygons
+        // Needs to be formatted properly. This is just a placeholder UI
 
 
-            ImGui::End();
+        ImGui::SetNextWindowSize(ImVec2(280 * WINDOW_HEIGHT, 60 * SCALE_FACTOR));
+        ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(1.0f, 1.0f, 1.0f, 1.0f));
 
-            // Update canvas target (main window minus UI)
-            ImVec2 canvasPos = ImVec2(350, 20);  // After polygon creator window
-            ImVec2 canvasSize = ImVec2(window.getSize().x - 350, window.getSize().y - 20);
-            tutorial.updateTargetPosition(TutorialTargetType::CANVAS, canvasPos, canvasSize);
 
-            // Update canvas target (main window minus UI)
-            ImVec2 canvasPos = ImVec2(350, 20);  // After polygon creator window
-            ImVec2 canvasSize = ImVec2(window.getSize().x - 350, window.getSize().y - 20);
-            tutorial.updateTargetPosition(TutorialTargetType::CANVAS, canvasPos, canvasSize);
+        ImGui::SetNextWindowPos(ImVec2((WINDOW_WIDTH - 280 * SCALE_FACTOR) / 2, mainMenuBarSize.y));
+        if (ImGui::Begin("Polygon Creator", nullptr, 7 + ImGuiWindowFlags_NoScrollbar + ImGuiWindowFlags_NoScrollWithMouse)) {
 
-            // Image Resize Dialog
-            if (showImageResizeDialog) {
-                ImGui::SetNextWindowSize(ImVec2(400, 300));
-                ImGui::SetNextWindowPos(ImVec2(window.getSize().x / 2 - 200, window.getSize().y / 2 - 150));
-                if (ImGui::Begin("Import Image - Resize Options", &showImageResizeDialog, ImGuiWindowFlags_NoResize)) {
+            ImVec2 windowPos = ImGui::GetWindowPos();
+            ImVec2 windowSize = ImGui::GetWindowSize();
+            tutorial.updateTargetPosition(TutorialTargetType::POLYGON_CREATOR, windowPos, windowSize);
 
-                    ImGui::Text("Original Size: %dx%d", originalImageSize.x, originalImageSize.y);
-                    ImGui::Text("Window Size: %dx%d", window.getSize().x, window.getSize().y);
-                    ImGui::Separator();
+            if (ImGui::IsWindowHovered()) {
+                // Mouse is over the popup
+                status.menuInteraction = true;
+            }
+            ImVec2 currentWindowSize = ImGui::GetWindowSize();
+            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(1.0f, 1.0f, 1.0f, 1.0f)); // Normal: white
+            ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.9f, 0.9f, 0.9f, 1.0f)); // Hovered: light gray
+            ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.8f, 0.8f, 0.8f, 1.0f)); // Active: slightly darker gray
 
-                    ImGui::Text("Choose resize option:");
-                    ImGui::RadioButton("Fit to Window (maintain aspect ratio)", &resizeMode, 0);
-                    createToolTip("Scale image to fit window while keeping proportions", tooltipsEnabled);
 
-                    ImGui::RadioButton("Original Size (no scaling)", &resizeMode, 1);
-                    createToolTip("Keep image at its original pixel dimensions", tooltipsEnabled);
+            ImGui::SameLine();
 
-                    ImGui::RadioButton("Custom Size", &resizeMode, 2);
-                    createToolTip("Specify exact width and height for the image", tooltipsEnabled);
+            // Capture position BEFORE drawing button
+            ImVec2 createButtonPos = ImGui::GetCursorScreenPos();
 
-                    if (resizeMode == 2) {
-                        ImGui::Indent();
-                        ImGui::SliderFloat("Width", &customWidth, 50.0f, static_cast<float>(window.getSize().x * 2));
-                        ImGui::SliderFloat("Height", &customHeight, 50.0f, static_cast<float>(window.getSize().y * 2));
+            if (ImGui::ImageButton("Create Polygon", icons["draw"].texture, ImVec2(ICON_SIZE, ICON_SIZE))) {
+                // Create Polygon
+                status.createPolygon = true;
 
-                        if (ImGui::Button("Reset to Original")) {
-                            customWidth = static_cast<float>(originalImageSize.x);
-                            customHeight = static_cast<float>(originalImageSize.y);
-                        }
-                        ImGui::SameLine();
-                        if (ImGui::Button("Fit to Window")) {
-                            float scaleX = static_cast<float>(window.getSize().x) / originalImageSize.x;
-                            float scaleY = static_cast<float>(window.getSize().y) / originalImageSize.y;
-                            float scale = std::min(scaleX, scaleY);
-                            customWidth = originalImageSize.x * scale;
-                            customHeight = originalImageSize.y * scale;
-                        }
-                        ImGui::Unindent();
-                    }
+                vertices.clear();
+                newPolygon = Polygon();
+                newPolygonOutline.clear();
+                newPolygonOutline.push_back(sf::Vertex{ ImVec2(0,0), sf::Color::Black });
 
-                    ImGui::Separator();
+                firstVertex = true;
 
-                    if (ImGui::Button("Import", ImVec2(120, 30))) {
-                        if (backgroundSprite) {
-                            delete backgroundSprite;
-                        }
-                        backgroundSprite = new sf::Sprite(backgroundTexture);
-                        hasBackgroundImage = loadBackgroundImage(backgroundTexture, *backgroundSprite, pendingImagePath, window.getSize(), resizeMode, customWidth, customHeight);
-                        if (hasBackgroundImage) {
-                            // Set the initial color/opacity
-                            sf::Color imageColor = sf::Color::White;
-                            imageColor.a = static_cast<std::uint8_t>(imageOpacity * 255);
-                            backgroundSprite->setColor(imageColor);
+                // Autosave when creating polygon
+                if (autosaveEnabled) {
+                    ImageState imageState = getCurrentImageState(hasBackgroundImage, currentImagePath, backgroundSprite, imageOpacity, imageEnabled);
+                    sf::Vector2f center = view.getCenter();
+                    ViewState viewState{ zoomLevel, center.x, center.y };
+                    quickSave(polygons, imageState, "autosave.sav", viewState);
+                }
 
-                            // Update global scale to match the loaded image's scale
-                            imageScale = backgroundSprite->getScale().x;
+            }
+            tutorial.updateTargetPosition(TutorialTargetType::CREATE_BUTTON, createButtonPos, ImVec2(120, 30));
+            createToolTip("Click on canvas to create vertices", tooltipsEnabled);
+            ImGui::SameLine();
 
-                            imageEnabled = true;
-                            currentImagePath = pendingImagePath;
-                        }
-                        showImageResizeDialog = false;
-                    }
-                    ImGui::SameLine();
-                    if (ImGui::Button("Cancel", ImVec2(120, 30))) {
-                        showImageResizeDialog = false;
+            if (ImGui::ImageButton("Select Shape", icons["shapes"].texture, ImVec2(ICON_SIZE, ICON_SIZE))) {
+                // Select Shape
+
+                ImGui::OpenPopup("ShapeSelector");
+            }
+            createToolTip("Click to create polygon", tooltipsEnabled);
+            ImGui::SameLine();
+
+            ImVec2 deleteButtonPos = ImGui::GetCursorScreenPos();
+            if (ImGui::ImageButton("Delete Polygon", icons["bin"].texture, ImVec2(ICON_SIZE, ICON_SIZE))) {
+                // Delete Polygon
+                for (int i : selectedPolygons) {
+                    polygons.erase(polygons.begin() + i);
+                    logger << currentDateTime() << ": Polygon deleted at " << i << "\n";
+
+                }
+                selectedPolygons.clear();
+
+            }
+            tutorial.updateTargetPosition(TutorialTargetType::DELETE_BUTTON, deleteButtonPos, ImVec2(120, 30));
+            createToolTip("Select polygon and then click delete (DEL)", tooltipsEnabled);
+
+            ImGui::SameLine();
+            if (ImGui::ImageButton("Colour", icons["colour-pallet"].texture, ImVec2(ICON_SIZE, ICON_SIZE))) {
+                // Change Colour
+                ImGui::OpenPopup("ColourPicker");
+            }
+            createToolTip("Change selected polygon colour", tooltipsEnabled);
+
+
+
+            ImGui::SameLine();
+            ImGui::BeginDisabled(selectedPolygons.size() != 2);
+            if (selectedPolygons.size() != 2) {
+                ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.6f, 0.6f, 0.6f, 1.0f)); // Disabled: gray
+            }
+            else {
+                ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(1.0f, 1.0f, 1.0f, 1.0f)); // Normal: white
+            }
+            // Capture position BEFORE drawing button
+            ImVec2 computeButtonPos = ImGui::GetCursorScreenPos();
+            if (ImGui::ImageButton("Compute IoU", icons["intersect"].texture, ImVec2(ICON_SIZE, ICON_SIZE)) && selectedPolygons.size() == 2) {
+
+                Polygon intersection = polygons.at(selectedPolygons.at(0));
+                for (int i = 1; i < selectedPolygons.size(); i++) {
+                    intersection = intersectingPolygon(&intersection, &polygons.at(selectedPolygons.at(i)));
+                }
+
+                intersection.setColour(polygonColour);
+                polygons.push_back(intersection);
+
+                IoUArea = intersection.polygonArea();
+                area = polygons.at(selectedPolygons.at(0)).polygonArea() + polygons.at(selectedPolygons.at(1)).polygonArea() - IoUArea;
+                IoUMetric = IoUArea / area;
+
+                // Save when computing IoU
+                if (autosaveEnabled) {
+                    sf::Vector2f center = view.getCenter();
+                    ViewState viewState{ zoomLevel, center.x, center.y };
+                    ImageState imageState = getCurrentImageState(hasBackgroundImage, currentImagePath, backgroundSprite, imageOpacity, imageEnabled);
+                    quickSave(polygons, imageState, "autosave.sav", viewState);
+                }
+
+                logger << currentDateTime() << " Computed IoU.\n";
+            }
+            tutorial.updateTargetPosition(TutorialTargetType::COMPUTE_BUTTON, computeButtonPos, ImVec2(120, 30));
+            createToolTip("Select two polygons and then calculate", tooltipsEnabled);
+
+            ImGui::Text("Area:");
+            ImGui::SameLine(); ImGui::Text("%s", area == -1 ? "" : std::to_string(area).c_str());
+            ImGui::Text("IoU Area:");
+            ImGui::SameLine(); ImGui::Text("%s", IoUArea == -1 ? "" : std::to_string(IoUArea).c_str());
+            ImGui::Text("IoU metric:");
+            ImGui::SameLine(); ImGui::Text("%s", IoUMetric == -1 ? "" : std::to_string(IoUMetric).c_str());
+
+
+
+        }
+        ImGui::PopStyleColor(5);
+        ImGui::EndDisabled();
+
+
+        ImGui::PushStyleColor(ImGuiCol_PopupBg, ImVec4(1.0f, 1.0f, 1.0f, 1.0f));
+        ImGui::PushStyleVar(ImGuiStyleVar_PopupBorderSize, 1.0f); // Set to your desired border thickness
+        ImGui::SetNextWindowSize(ImVec2(ICON_SIZE * 2, 400 * SCALE_FACTOR), ImGuiCond_Appearing);
+        if (ImGui::BeginPopup("ShapeSelector", ImGuiWindowFlags_AlwaysAutoResize)) {
+            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(1.0f, 1.0f, 1.0f, 1.0f)); // Normal: white
+            ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.9f, 0.9f, 0.9f, 1.0f)); // Hovered: light gray
+            ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.8f, 0.8f, 0.8f, 1.0f)); // Active: slightly darker gray
+            ImGui::PushStyleColor(ImGuiCol_PopupBg, ImVec4(0, 0, 0, 1));
+
+
+            if (ImGui::ImageButton("Triangle", icons["triangle"].texture, ImVec2(ICON_SIZE, ICON_SIZE))) {
+                newPolygon = Polygon();
+                vertices = { ImVec2(100,100), ImVec2(150,200), ImVec2(50,200) };
+                if (status.adjustVertices)
+                    adjustVertices(vertices);
+                newPolygon.setVertices(vertices);
+                newPolygon.setColour(polygonColour);
+                polygons.push_back(newPolygon);
+                logger << currentDateTime() << " NEW " << newPolygon;
+                newPolygon = Polygon();
+                vertices.clear();
+                ImGui::CloseCurrentPopup();
+            }
+            createToolTip("Create triangle", tooltipsEnabled);
+            ImGui::SameLine();
+            if (ImGui::ImageButton("Circle", icons["circle"].texture, ImVec2(ICON_SIZE, ICON_SIZE))) {
+
+                ImGui::CloseCurrentPopup();
+            }
+            createToolTip("Create a circle by clicking the centre and moving outwards to define radius", tooltipsEnabled);
+
+            if (ImGui::ImageButton("Rectangle", icons["rectangle"].texture, ImVec2(ICON_SIZE, ICON_SIZE))) {
+
+                ImGui::CloseCurrentPopup();
+            }
+            createToolTip("Create rectangle by clicking top left corner and dragging the bottom right corner out", tooltipsEnabled);
+            ImGui::SameLine();
+            if (ImGui::ImageButton("Square", icons["square"].texture, ImVec2(ICON_SIZE, ICON_SIZE))) {
+
+                ImGui::CloseCurrentPopup();
+            }
+            createToolTip("Create square by clicking top left corner and dragging the bottom right corner out", tooltipsEnabled);
+
+            ImGui::PopStyleColor(4);
+            ImGui::EndPopup();
+        }
+        // Capture position BEFORE drawing color picker
+        ImVec2 colorPickerSize = ImGui::GetItemRectSize();
+        ImVec2 colorPickerPos = ImGui::GetCursorScreenPos();
+        if (ImGui::BeginPopup("ColourPicker", ImGuiWindowFlags_AlwaysAutoResize + ImGuiWindowFlags_NoScrollbar + ImGuiWindowFlags_NoTitleBar)) {
+
+            // Use dark button colors for contrast on white background
+            ImGui::PushStyleColor(ImGuiCol_FrameBg, ImVec4(0.15f, 0.15f, 0.18f, 1.0f));
+            ImGui::PushStyleColor(ImGuiCol_FrameBgHovered, ImVec4(0.25f, 0.25f, 0.30f, 1.0f));
+            ImGui::PushStyleColor(ImGuiCol_FrameBgActive, ImVec4(0.10f, 0.10f, 0.15f, 1.0f));
+
+            ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.15f, 0.15f, 0.18f, 1.0f)); // Normal: dark gray
+            ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(0.25f, 0.25f, 0.30f, 1.0f)); // Hovered: lighter gray
+            ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.10f, 0.10f, 0.15f, 1.0f)); // Active: even darker
+
+            if (ImGui::ColorPicker3("Select Colour", polygonColour)) {
+                //Alter Polygon Colour
+                if (!selectedPolygons.empty()) {
+                    for (int i : selectedPolygons) {
+                        polygons.at(i).setColour(polygonColour);
                     }
                 }
-                ImGui::End();
-            }
-
-
-            window.clear(sf::Color({ 243,243,243,1 }));
-
-            // Draw everything here
-
-            // Draw background image
-            if (hasBackgroundImage && imageEnabled) {
-                // Update sprite properties based on settings
-                backgroundSprite->setScale(sf::Vector2f(imageScale, imageScale));
-                sf::Color imageColor = backgroundSprite->getColor();
-                imageColor.a = static_cast<std::uint8_t>(imageOpacity * 255);
-                backgroundSprite->setColor(imageColor);
-                window.draw(*backgroundSprite);
-            }
-
-            // Draw grid background
-            if (gridEnabled) {
-                drawGrid(window, gridSize);
-            }
-
-            for (Polygon polygon : polygons) {
-                window.draw(polygon.render);
-            }
-
-            // Draw resize handles if in resize mode
-            if (imageResizeMode && hasBackgroundImage && imageEnabled && backgroundSprite) {
-                sf::FloatRect imageBounds = getImageBounds(backgroundSprite);
-                drawResizeHandles(window, imageBounds, handleSize);
-            }
-
-            if (status.createTemplatePolygon) {
 
             }
-
-            if (status.createPolygon && !firstVertex) {
-                // Draw boundary of supposed polygon
-                ImVec2 mousepos = getMousePos(window);
-                newPolygonOutline.back().position = mousepos;
-                window.draw(newPolygonOutline.data(), newPolygonOutline.size(), sf::PrimitiveType::LineStrip);
+            if (ImGui::Button("Close")) {
+                ImGui::CloseCurrentPopup();
             }
+            ImGui::PopStyleColor(6);
 
-            if (tutorial.isActive())
-                tutorial.render();
+            ImGui::EndPopup();
+        }
+        tutorial.updateTargetPosition(TutorialTargetType::COLOR_PICKER, colorPickerPos, colorPickerSize);
+
+        ImGui::PopStyleColor();
+        ImGui::PopStyleVar();
 
 
-            ImGui::SFML::Render(window);
-            window.display();
+        ImGui::End();
+        
+
+        // Update canvas target (main window minus UI)
+        ImVec2 canvasPos = ImVec2(350, 20);  // After polygon creator window
+        ImVec2 canvasSize = ImVec2(window.getSize().x - 350, window.getSize().y - 20);
+        tutorial.updateTargetPosition(TutorialTargetType::CANVAS, canvasPos, canvasSize);
+
+        // Image Resize Dialog
+        if (showImageResizeDialog) {
+            ImGui::SetNextWindowSize(ImVec2(400, 300));
+            ImGui::SetNextWindowPos(ImVec2(window.getSize().x / 2 - 200, window.getSize().y / 2 - 150));
+            if (ImGui::Begin("Import Image - Resize Options", &showImageResizeDialog, ImGuiWindowFlags_NoResize)) {
+
+                ImGui::Text("Original Size: %dx%d", originalImageSize.x, originalImageSize.y);
+                ImGui::Text("Window Size: %dx%d", window.getSize().x, window.getSize().y);
+                ImGui::Separator();
+
+                ImGui::Text("Choose resize option:");
+                ImGui::RadioButton("Fit to Window (maintain aspect ratio)", &resizeMode, 0);
+                createToolTip("Scale image to fit window while keeping proportions", tooltipsEnabled);
+
+                ImGui::RadioButton("Original Size (no scaling)", &resizeMode, 1);
+                createToolTip("Keep image at its original pixel dimensions", tooltipsEnabled);
+
+                ImGui::RadioButton("Custom Size", &resizeMode, 2);
+                createToolTip("Specify exact width and height for the image", tooltipsEnabled);
+
+                if (resizeMode == 2) {
+                    ImGui::Indent();
+                    ImGui::SliderFloat("Width", &customWidth, 50.0f, static_cast<float>(window.getSize().x * 2));
+                    ImGui::SliderFloat("Height", &customHeight, 50.0f, static_cast<float>(window.getSize().y * 2));
+
+                    if (ImGui::Button("Reset to Original")) {
+                        customWidth = static_cast<float>(originalImageSize.x);
+                        customHeight = static_cast<float>(originalImageSize.y);
+                    }
+                    ImGui::SameLine();
+                    if (ImGui::Button("Fit to Window")) {
+                        float scaleX = static_cast<float>(window.getSize().x) / originalImageSize.x;
+                        float scaleY = static_cast<float>(window.getSize().y) / originalImageSize.y;
+                        float scale = std::min(scaleX, scaleY);
+                        customWidth = originalImageSize.x * scale;
+                        customHeight = originalImageSize.y * scale;
+                    }
+                    ImGui::Unindent();
+                }
+
+                ImGui::Separator();
+
+                if (ImGui::Button("Import", ImVec2(120, 30))) {
+                    if (backgroundSprite) {
+                        delete backgroundSprite;
+                    }
+                    backgroundSprite = new sf::Sprite(backgroundTexture);
+                    hasBackgroundImage = loadBackgroundImage(backgroundTexture, *backgroundSprite, pendingImagePath, window.getSize(), resizeMode, customWidth, customHeight);
+                    if (hasBackgroundImage) {
+                        // Set the initial color/opacity
+                        sf::Color imageColor = sf::Color::White;
+                        imageColor.a = static_cast<std::uint8_t>(imageOpacity * 255);
+                        backgroundSprite->setColor(imageColor);
+
+                        // Update global scale to match the loaded image's scale
+                        imageScale = backgroundSprite->getScale().x;
+
+                        imageEnabled = true;
+                        currentImagePath = pendingImagePath;
+                    }
+                    showImageResizeDialog = false;
+                }
+                ImGui::SameLine();
+                if (ImGui::Button("Cancel", ImVec2(120, 30))) {
+                    showImageResizeDialog = false;
+                }
+            }
+            ImGui::End();
+        }
+
+
+        window.clear(sf::Color({ 243,243,243,1 }));
+
+        // Draw everything here
+
+        // Draw background image
+        if (hasBackgroundImage && imageEnabled) {
+            // Update sprite properties based on settings
+            backgroundSprite->setScale(sf::Vector2f(imageScale, imageScale));
+            sf::Color imageColor = backgroundSprite->getColor();
+            imageColor.a = static_cast<std::uint8_t>(imageOpacity * 255);
+            backgroundSprite->setColor(imageColor);
+            window.draw(*backgroundSprite);
+        }
+
+        // Draw grid background
+        if (gridEnabled) {
+            drawGrid(window, gridSize);
+        }
+
+        for (Polygon polygon : polygons) {
+            window.draw(polygon.render);
+        }
+
+        // Draw resize handles if in resize mode
+        if (imageResizeMode && hasBackgroundImage && imageEnabled && backgroundSprite) {
+            sf::FloatRect imageBounds = getImageBounds(backgroundSprite);
+            drawResizeHandles(window, imageBounds, handleSize);
+        }
+
+        if (status.createTemplatePolygon) {
 
         }
 
-        // Cleanup
-        if (backgroundSprite) {
-            delete backgroundSprite;
+        if (status.createPolygon && !firstVertex) {
+            // Draw boundary of supposed polygon
+            ImVec2 mousepos = getMousePos(window);
+            newPolygonOutline.back().position = mousepos;
+            window.draw(newPolygonOutline.data(), newPolygonOutline.size(), sf::PrimitiveType::LineStrip);
         }
 
+        if (tutorial.isActive())
+            tutorial.render();
 
-        ImGui::SFML::Shutdown();
 
-        // Save logs to file
-        if (logSavingEnabled) {
-            saveLogToFile("log");
-        }
-        glfwTerminate();
-        return 0;
+        ImGui::SFML::Render(window);
+        window.display();
+
+
     }
+    // Cleanup
+    if (backgroundSprite) {
+        delete backgroundSprite;
+    }
+    ImGui::SFML::Shutdown();
 
+    // Save logs to file
+    if (logSavingEnabled) {
+        saveLogToFile("log");
+    }
+    glfwTerminate();
+    return 0;
+}
 
 int main()
 {
