@@ -52,6 +52,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="glad\src\glad.c">
+    <ClCompile Include="actions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -399,6 +400,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="tutorial.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="actions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

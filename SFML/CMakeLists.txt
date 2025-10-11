@@ -34,6 +34,7 @@ set(PROJECT_SOURCES
     logging.cpp
     tutorial.cpp
     glad/src/glad.c
+    actions.cpp
     ${IMGUI_SOURCES}
 )
 
@@ -51,6 +52,8 @@ set(PROJECT_HEADERS
     saving.h
     filelocationchooser.h
     logging.h
+    tutorial.h
+    actions.h
     imgui/imgui.h
     imgui/imgui-SFML.h
     imgui/imgui_internal.h

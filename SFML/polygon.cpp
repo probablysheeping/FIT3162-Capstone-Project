@@ -11,15 +11,6 @@ Implementation of algorithms for polygons
 Assumes no overlapping edges and no interior holes.
 */
 
-// CONSTRUCTOR AND DESTRUCTOR
-
-Polygon::Polygon() {
-}
-
-//unecessary?
-Polygon::~Polygon() {
-}
-
 // CLASS METHODS
 
 bool Polygon::pointInPolygon(ImVec2 p) {
@@ -122,7 +113,30 @@ std::vector<ImVec2> Polygon::getVertices()
 	return this->vertices;
 }
 
+void Polygon::translate(ImVec2 delta) {
+	for (auto& v : this->vertices) {
+		v.x += delta.x;
+		v.y += delta.y;
+	}
 
+	// Update SFML convex shape to match new vertices
+	this->render.setPointCount(vertices.size());
+	for (size_t i = 0; i < vertices.size(); ++i) {
+		this->render.setPoint(i, sf::Vector2f(vertices[i].x, vertices[i].y));
+	}
+}
+
+ImVec2 Polygon::centroid() const {
+	ImVec2 c = { 0.f, 0.f };
+	if (vertices.empty()) return c;
+	for (const auto& v : vertices) {
+		c.x += v.x;
+		c.y += v.y;
+	}
+	c.x /= static_cast<float>(vertices.size());
+	c.y /= static_cast<float>(vertices.size());
+	return c;
+}
 
 void Polygon::setColour(float (&color)[3])
 {
@@ -183,6 +197,71 @@ float sideOfLine(ImVec2 p, ImVec2 a, ImVec2 b) {
 	return sgn(x);
 }
 
+/**
+* COLOUR BLENDING USING HSL
+*/
+struct HSL {
+	float h; // [0, 360)
+	float s; // [0, 1]
+	float l; // [0, 1]
+};
+
+// Convert RGB (0..1) to HSL
+HSL rgbToHsl(float r, float g, float b) {
+	float max = std::max({ r, g, b });
+	float min = std::min({ r, g, b });
+	float h, s, l;
+	l = (max + min) * 0.5f;
+
+	if (max == min) {
+		h = s = 0.0f; // achromatic
+	}
+	else {
+		float d = max - min;
+		s = l > 0.5f ? d / (2.0f - max - min) : d / (max + min);
+
+		if (max == r)
+			h = fmod(((g - b) / d + (g < b ? 6.0f : 0.0f)), 6.0f);
+		else if (max == g)
+			h = ((b - r) / d + 2.0f);
+		else
+			h = ((r - g) / d + 4.0f);
+
+		h *= 60.0f; // convert to degrees
+	}
+	return { h, s, l };
+}
+
+// Helper for HSL -> RGB
+float hueToRgb(float p, float q, float t) {
+	if (t < 0.0f) t += 1.0f;
+	if (t > 1.0f) t -= 1.0f;
+	if (t < 1.0f / 6.0f) return p + (q - p) * 6.0f * t;
+	if (t < 1.0f / 2.0f) return q;
+	if (t < 2.0f / 3.0f) return p + (q - p) * (2.0f / 3.0f - t) * 6.0f;
+	return p;
+}
+
+// Convert HSL -> RGB (0..1)
+std::array<float, 3> hslToRgb(const HSL& hsl) {
+	float r, g, b;
+	float h = hsl.h / 360.0f;
+	float s = hsl.s;
+	float l = hsl.l;
+
+	if (s == 0.0f) {
+		r = g = b = l; // achromatic
+	}
+	else {
+		float q = l < 0.5f ? l * (1.0f + s) : (l + s - l * s);
+		float p = 2.0f * l - q;
+		r = hueToRgb(p, q, h + 1.0f / 3.0f);
+		g = hueToRgb(p, q, h);
+		b = hueToRgb(p, q, h - 1.0f / 3.0f);
+	}
+	return { r, g, b };
+}
+
 Polygon intersectingPolygon(Polygon* p1, Polygon* p2) {
 	// Returns a polygon which is in the intersection of p1 and p2 and maximal in area
 	// Sutherland-Hodgman algorithm https://en.wikipedia.org/wiki/Sutherland%E2%80%93Hodgman_algorithm
@@ -212,7 +291,9 @@ Polygon intersectingPolygon(Polygon* p1, Polygon* p2) {
 				 // If 1st vertex not in visible area
 				 if (sideOfLine(outputList.at(j), p2->getVertices().at(i), p2->getVertices().at(i2)) < 0) {
 					 const ImVec2 POI = intersectingSegments(outputList.at(j), outputList.at(j2), p2->getVertices().at(i), p2->getVertices().at(i2));
-					 newOutputList.push_back(POI);
+					 // Block failed vertex (-1,-1)
+					 if (POI.x != -1 && POI.y != -1)
+						newOutputList.push_back(POI);
 				 }
 
 				 newOutputList.push_back(outputList.at(j2));
@@ -220,7 +301,9 @@ Polygon intersectingPolygon(Polygon* p1, Polygon* p2) {
 			 // If 1st vertex in visible area
 			 else if (sideOfLine(outputList.at(j), p2->getVertices().at(i), p2->getVertices().at(i2)) >= 0) {
 				  const ImVec2 POI = intersectingSegments(outputList.at(j), outputList.at(j2), p2->getVertices().at(i), p2->getVertices().at(i2));
-				  newOutputList.push_back(POI);
+				  // Block failed vertex (-1,-1)
+				  if (POI.x != -1 && POI.y != -1)
+					newOutputList.push_back(POI);
 				  
 
 			 }
@@ -229,13 +312,36 @@ Polygon intersectingPolygon(Polygon* p1, Polygon* p2) {
 
 	 }
 
-	 const float avgR = ((p1->getColour(0) + p2->getColour(0)) * 0.5f);
-	 const float avgG = ((p1->getColour(1) + p2->getColour(1)) * 0.5f);
-	 const float avgB = ((p1->getColour(2) + p2->getColour(2)) * 0.5f);
+	 // Failure case
+	 if (outputList.size() < 3) {
+		 Polygon empty;
+		 empty.setVertices({});
+		 float black[3] = { 0,0,0 };
+		 empty.setColour(black);
+		 return empty;
+	 }
+
+	 float r1 = p1->getColour(0), g1 = p1->getColour(1), b1 = p1->getColour(2);
+	 float r2 = p2->getColour(0), g2 = p2->getColour(1), b2 = p2->getColour(2);
+
+	 HSL hsl1 = rgbToHsl(r1, g1, b1);
+	 HSL hsl2 = rgbToHsl(r2, g2, b2);
+
+	 // Average hue (with wraparound)
+	 float dh = std::fmod(hsl2.h - hsl1.h + 540.0f, 360.0f) - 180.0f;
+	 float blendedH = std::fmod(hsl1.h + dh * 0.5f + 360.0f, 360.0f);
+
+	 // Average saturation and lightness
+	 float blendedS = (hsl1.s + hsl2.s) * 0.5f;
+	 float blendedL = (hsl1.l + hsl2.l) * 0.5f;
+
+	 HSL blendedHsl{ blendedH, blendedS, blendedL };
+	 auto rgb = hslToRgb(blendedHsl);
+	 float colour[3] = { rgb[0], rgb[1], rgb[2] };
+	
     
 	 Polygon result;
 	 result.setVertices(outputList);
-	 float colour[3] = { avgR, avgG, avgB };
 	 result.setColour(colour);
 
 	 return result;

@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/ConvexPolygonIoU.dir/actions.cpp.o"
+  "CMakeFiles/ConvexPolygonIoU.dir/actions.cpp.o.d"
   "CMakeFiles/ConvexPolygonIoU.dir/filelocationchooser.cpp.o"
   "CMakeFiles/ConvexPolygonIoU.dir/filelocationchooser.cpp.o.d"
   "CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui-SFML.cpp.o"
@@ -21,6 +23,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/ConvexPolygonIoU.dir/polygon.cpp.o.d"
   "CMakeFiles/ConvexPolygonIoU.dir/saving.cpp.o"
   "CMakeFiles/ConvexPolygonIoU.dir/saving.cpp.o.d"
+  "CMakeFiles/ConvexPolygonIoU.dir/tutorial.cpp.o"
+  "CMakeFiles/ConvexPolygonIoU.dir/tutorial.cpp.o.d"
   "bin/ConvexPolygonIoU"
   "bin/ConvexPolygonIoU.pdb"
 )
