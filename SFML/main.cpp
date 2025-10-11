@@ -1062,7 +1062,7 @@ int runProgram()
 
                 if (ImGui::MenuItem("Tutorial")) {
                     logger << currentDateTime() << " Tutorial started.\n";
-                    //tutorial.start();
+                    tutorial.start();
                 }
                 createToolTip("Start tutorial", tooltipsEnabled);
 
@@ -1123,6 +1123,10 @@ int runProgram()
             ImGui::SetNextWindowPos(ImVec2((WINDOW_WIDTH - 280 * SCALE_FACTOR) / 2, mainMenuBarSize.y));
             if (ImGui::Begin("Polygon Creator", nullptr, 7 + ImGuiWindowFlags_NoScrollbar + ImGuiWindowFlags_NoScrollWithMouse)) {
 
+                ImVec2 windowPos = ImGui::GetWindowPos();
+                ImVec2 windowSize = ImGui::GetWindowSize();
+                tutorial.updateTargetPosition(TutorialTargetType::POLYGON_CREATOR, windowPos, windowSize);
+
                 if (ImGui::IsWindowHovered()) {
                     // Mouse is over the popup
                     status.menuInteraction = true;
@@ -1134,6 +1138,9 @@ int runProgram()
 
 
                 ImGui::SameLine();
+
+                // Capture position BEFORE drawing button
+                ImVec2 createButtonPos = ImGui::GetCursorScreenPos();
 
                 if (ImGui::ImageButton("Create Polygon", icons["draw"].texture, ImVec2(ICON_SIZE, ICON_SIZE))) {
                     // Create Polygon
@@ -1155,6 +1162,7 @@ int runProgram()
                     }
 
                 }
+                tutorial.updateTargetPosition(TutorialTargetType::CREATE_BUTTON, createButtonPos, ImVec2(120, 30));
                 createToolTip("Click on canvas to create vertices", tooltipsEnabled);
                 ImGui::SameLine();
 
@@ -1166,6 +1174,7 @@ int runProgram()
                 createToolTip("Click to create polygon", tooltipsEnabled);
                 ImGui::SameLine();
 
+                ImVec2 deleteButtonPos = ImGui::GetCursorScreenPos();
                 if (ImGui::ImageButton("Delete Polygon", icons["bin"].texture, ImVec2(ICON_SIZE, ICON_SIZE))) {
                     // Delete Polygon
                     for (int i : selectedPolygons) {
@@ -1176,6 +1185,7 @@ int runProgram()
                     selectedPolygons.clear();
 
                 }
+                tutorial.updateTargetPosition(TutorialTargetType::DELETE_BUTTON, deleteButtonPos, ImVec2(120, 30));
                 createToolTip("Select polygon and then click delete (DEL)", tooltipsEnabled);
 
                 ImGui::SameLine();
@@ -1195,6 +1205,8 @@ int runProgram()
                 else {
                     ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(1.0f, 1.0f, 1.0f, 1.0f)); // Normal: white
                 }
+                // Capture position BEFORE drawing button
+                ImVec2 computeButtonPos = ImGui::GetCursorScreenPos();
                 if (ImGui::ImageButton("Compute IoU", icons["intersect"].texture, ImVec2(ICON_SIZE, ICON_SIZE)) && selectedPolygons.size() == 2) {
 
                     Polygon intersection = polygons.at(selectedPolygons.at(0));
@@ -1217,8 +1229,9 @@ int runProgram()
                         quickSave(polygons, imageState, "autosave.sav", viewState);
                     }
 
-                    logger << currentDateTime << " Computed IoU.\n";
+                    logger << currentDateTime() << " Computed IoU.\n";
                 }
+                tutorial.updateTargetPosition(TutorialTargetType::COMPUTE_BUTTON, computeButtonPos, ImVec2(120, 30));
                 createToolTip("Select two polygons and then calculate", tooltipsEnabled);
 
                 ImGui::Text("Area:");
@@ -1281,7 +1294,9 @@ int runProgram()
                 ImGui::PopStyleColor(4);
                 ImGui::EndPopup();
             }
-
+            // Capture position BEFORE drawing color picker
+            ImVec2 colorPickerSize = ImGui::GetItemRectSize();
+            ImVec2 colorPickerPos = ImGui::GetCursorScreenPos();
             if (ImGui::BeginPopup("ColourPicker", ImGuiWindowFlags_AlwaysAutoResize + ImGuiWindowFlags_NoScrollbar + ImGuiWindowFlags_NoTitleBar)) {
 
                 // Use dark button colors for contrast on white background
@@ -1309,11 +1324,18 @@ int runProgram()
 
                 ImGui::EndPopup();
             }
+            tutorial.updateTargetPosition(TutorialTargetType::COLOR_PICKER, colorPickerPos, colorPickerSize);
+
             ImGui::PopStyleColor();
             ImGui::PopStyleVar();
 
 
             ImGui::End();
+
+            // Update canvas target (main window minus UI)
+            ImVec2 canvasPos = ImVec2(350, 20);  // After polygon creator window
+            ImVec2 canvasSize = ImVec2(window.getSize().x - 350, window.getSize().y - 20);
+            tutorial.updateTargetPosition(TutorialTargetType::CANVAS, canvasPos, canvasSize);
 
             // Update canvas target (main window minus UI)
             ImVec2 canvasPos = ImVec2(350, 20);  // After polygon creator window
