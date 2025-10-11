@@ -44,6 +44,14 @@ bool Polygon::pointInPolygon(ImVec2 p) {
 
 }
 
+void Polygon::toggleSelected() {
+	this->selected = !(this->selected);
+	if (this->selected) {
+		this->render.setOutlineThickness(2.f);
+    }
+	else { this->render.setOutlineThickness(0.f); };
+}
+
 float Polygon::signedArea() {
 	// https://demonstrations.wolfram.com/SignedAreaOfAPolygon/
 	// If vertices are oriented clockwise then signed area is positive
@@ -63,19 +71,41 @@ float Polygon::polygonArea() {
 }
 
 // GETTERS AND SETTERS
+void Polygon::shift(ImVec2& delta) {
+    for (ImVec2& vertex : this->vertices) {
+        vertex.x += delta.x;
+        vertex.y += delta.y;
+    }
+	this->updateRender();
+}
+
+float Polygon::getRadius() {
+	return this->radius;
+}
+
+void Polygon::setRadius(float r) {
+	this->radius = r;
+}
+
+void Polygon::updateRender() {
+	// Updates the sf::ConvexShape render variable to match the vertices and colour
+	sf::ConvexShape convex;
+	int n = this->vertices.size(); // vertex count
+	convex.setPointCount(n);
+	convex.setFillColor(sf::Color((int)(this->colour[0] * 255), (int)(this->colour[1] * 255), (int)(this->colour[2] * 255)));
+	for (int i = 0; i < n; i++) {
+		convex.setPoint(i, this->vertices.at(i));
+	}
+	convex.setOutlineColor(sf::Color::Cyan);
+	if (this -> selected) convex.setOutlineThickness(3.f);
+	this->render = convex;
+}
 
 void Polygon::setVertices(std::vector<ImVec2> vertices)
 {
 	this->vertices = vertices;
-	sf::ConvexShape convex;
+	this->updateRender();
 
-	int n = vertices.size(); // vertex count
-	convex.setPointCount(n);
-	convex.setFillColor(sf::Color((int)(this->colour[0] * 255), (int)(this->colour[1] * 255), (int)(this->colour[2] * 255)));
-	for (int i = 0; i < n; i++) {
-		convex.setPoint(i, vertices.at(i));
-	}
-	this->render = convex;
 }
 
 std::vector<ImVec2> Polygon::getVertices()

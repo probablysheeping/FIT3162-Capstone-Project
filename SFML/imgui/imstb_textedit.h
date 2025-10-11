@@ -42,7 +42,7 @@
 //   1.14 (2021-07-11) page up/down, various fixes
 //   1.13 (2019-02-07) fix bug in undo size management
 //   1.12 (2018-01-29) user can change STB_TEXTEDIT_KEYTYPE, fix redo to avoid crash
-//   1.11 (2017-03-03) fix HOME on last line, dragging off single-line textfield
+//   1.11 (2017-03-03) fix HOME on last line, draggingPolygons off single-line textfield
 //   1.10 (2016-10-25) suppress warnings about casting away const with -Wcast-qual
 //   1.9  (2016-08-27) customizable move-by-word
 //   1.8  (2016-04-02) better keyboard handling when mouse button is down
@@ -350,7 +350,7 @@ typedef struct STB_TexteditState
    int select_end;
    // selection start and end point in characters; if equal, no selection.
    // note that start may be less than or greater than end (e.g. when
-   // dragging the mouse, start is where the initial click was, and you
+   // draggingPolygons the mouse, start is where the initial click was, and you
    // can drag in either direction)
 
    unsigned char insert_mode;

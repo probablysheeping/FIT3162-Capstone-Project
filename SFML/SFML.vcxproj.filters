@@ -51,6 +51,7 @@
     <ClCompile Include="tutorial.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="glad\src\glad.c">
     <ClCompile Include="actions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

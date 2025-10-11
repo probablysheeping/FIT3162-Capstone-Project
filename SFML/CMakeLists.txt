@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
+
 project(ConvexPolygonIoU)
 
 # Set C++ standard
@@ -32,6 +33,7 @@ set(PROJECT_SOURCES
     filelocationchooser.cpp
     logging.cpp
     tutorial.cpp
+    glad/src/glad.c
     actions.cpp
     ${IMGUI_SOURCES}
 )
@@ -56,6 +58,7 @@ set(PROJECT_HEADERS
     imgui/imgui-SFML.h
     imgui/imgui_internal.h
     imgui/imconfig.h
+    stb_image.h
 )
 
 # Create the executable
@@ -65,7 +68,18 @@ add_executable(${PROJECT_NAME} ${PROJECT_SOURCES} ${PROJECT_HEADERS})
 target_include_directories(${PROJECT_NAME} PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/imgui
+    ${CMAKE_CURRENT_SOURCE_DIR}/glfw-3.4/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/glad/include
 )
+
+include_directories(${OPENGL_INCLUDE_DIR})
+link_directories(${CMAKE_SOURCE_DIR}/glfw-3.4/lib-arm64)
+
+
+execute_process(COMMAND ls ${CMAKE_SOURCE_DIR}/glfw-3.4/lib-arm64
+                OUTPUT_VARIABLE GLFWDIR_CONTENTS
+                OUTPUT_STRIP_TRAILING_WHITESPACE)
+message(STATUS "Contents of glfw-3.4/lib-arm64: ${GLFWDIR_CONTENTS}")
 
 # Link libraries
 if(APPLE)
@@ -78,6 +92,7 @@ if(APPLE)
         "-framework IOKit"
         "-framework CoreVideo"
         "-framework Foundation"
+        ${CMAKE_SOURCE_DIR}/glfw-3.4/lib-arm64/libglfw.3.dylib
     )
 else()
     target_link_libraries(${PROJECT_NAME} 
@@ -93,6 +108,12 @@ if(APPLE)
         GL_SILENCE_DEPRECATION
     )
 endif()
+
+set(CMAKE_INSTALL_RPATH "${CMAKE_SOURCE_DIR}/glfw-3.4/lib-arm64")
+set_target_properties(${PROJECT_NAME} PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+    INSTALL_RPATH "${CMAKE_SOURCE_DIR}/glfw-3.4/lib-arm64"
+)
 
 # Set output directory
 set_target_properties(${PROJECT_NAME} PROPERTIES

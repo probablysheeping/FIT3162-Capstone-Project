@@ -11,6 +11,8 @@ public:
     float signedArea();
     float polygonArea();
 
+	void shift(ImVec2& delta);
+
     void setVertices(std::vector<ImVec2> vertices);
     std::vector<ImVec2> getVertices();
 
@@ -22,12 +24,19 @@ public:
 
     operator std::string() const;
     friend std::ostream& operator<<(std::ostream& os, const Polygon& obj);
+	void toggleSelected();
 
     sf::ConvexShape render;
+
+    float getRadius();
+    void setRadius(float r);
 
 private:
     std::vector<ImVec2> vertices;
     float colour[3] = { 0.f, 0.f, 0.f };
+    float radius = -1; //for circle
+    void updateRender();    
+    bool selected = false;
 };
 
 int sgn(double x);
