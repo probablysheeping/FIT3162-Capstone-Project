@@ -3,6 +3,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/ConvexPolygonIoU.dir/actions.cpp.o.d"
   "CMakeFiles/ConvexPolygonIoU.dir/filelocationchooser.cpp.o"
   "CMakeFiles/ConvexPolygonIoU.dir/filelocationchooser.cpp.o.d"
+  "CMakeFiles/ConvexPolygonIoU.dir/glad/src/glad.c.o"
+  "CMakeFiles/ConvexPolygonIoU.dir/glad/src/glad.c.o.d"
   "CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui-SFML.cpp.o"
   "CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui-SFML.cpp.o.d"
   "CMakeFiles/ConvexPolygonIoU.dir/imgui/imgui.cpp.o"
@@ -30,6 +32,6 @@ file(REMOVE_RECURSE
 )
 
 # Per-language clean rules from dependency scanning.
-foreach(lang CXX)
+foreach(lang C CXX)
   include(CMakeFiles/ConvexPolygonIoU.dir/cmake_clean_${lang}.cmake OPTIONAL)
 endforeach()

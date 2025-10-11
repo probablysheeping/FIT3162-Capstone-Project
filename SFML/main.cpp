@@ -1116,7 +1116,7 @@ int runProgram()
         // Needs to be formatted properly. This is just a placeholder UI
 
 
-        ImGui::SetNextWindowSize(ImVec2(280 * WINDOW_HEIGHT, 60 * SCALE_FACTOR));
+        ImGui::SetNextWindowSize(ImVec2(280 * SCALE_FACTOR, 60 * SCALE_FACTOR));
         ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(1.0f, 1.0f, 1.0f, 1.0f));
 
 

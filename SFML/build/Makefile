@@ -57,10 +57,10 @@ RM = /opt/homebrew/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML
+CMAKE_SOURCE_DIR = /Users/sheep/Documents/Code/AAAA/FIT3162-Capstone-Project/SFML
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/build
+CMAKE_BINARY_DIR = /Users/sheep/Documents/Code/AAAA/FIT3162-Capstone-Project/SFML/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/build/CMakeFiles /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/sheep/Documents/Code/AAAA/FIT3162-Capstone-Project/SFML/build/CMakeFiles /Users/sheep/Documents/Code/AAAA/FIT3162-Capstone-Project/SFML/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/sheep/Documents/Code/AAAA/FIT3162-Capstone-Project/SFML/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -176,6 +176,30 @@ filelocationchooser.s: filelocationchooser.cpp.s
 filelocationchooser.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ConvexPolygonIoU.dir/build.make CMakeFiles/ConvexPolygonIoU.dir/filelocationchooser.cpp.s
 .PHONY : filelocationchooser.cpp.s
+
+glad/src/glad.o: glad/src/glad.c.o
+.PHONY : glad/src/glad.o
+
+# target to build an object file
+glad/src/glad.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ConvexPolygonIoU.dir/build.make CMakeFiles/ConvexPolygonIoU.dir/glad/src/glad.c.o
+.PHONY : glad/src/glad.c.o
+
+glad/src/glad.i: glad/src/glad.c.i
+.PHONY : glad/src/glad.i
+
+# target to preprocess a source file
+glad/src/glad.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ConvexPolygonIoU.dir/build.make CMakeFiles/ConvexPolygonIoU.dir/glad/src/glad.c.i
+.PHONY : glad/src/glad.c.i
+
+glad/src/glad.s: glad/src/glad.c.s
+.PHONY : glad/src/glad.s
+
+# target to generate assembly for a file
+glad/src/glad.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ConvexPolygonIoU.dir/build.make CMakeFiles/ConvexPolygonIoU.dir/glad/src/glad.c.s
+.PHONY : glad/src/glad.c.s
 
 imgui/imgui-SFML.o: imgui/imgui-SFML.cpp.o
 .PHONY : imgui/imgui-SFML.o
@@ -456,6 +480,9 @@ help:
 	@echo "... filelocationchooser.o"
 	@echo "... filelocationchooser.i"
 	@echo "... filelocationchooser.s"
+	@echo "... glad/src/glad.o"
+	@echo "... glad/src/glad.i"
+	@echo "... glad/src/glad.s"
 	@echo "... imgui/imgui-SFML.o"
 	@echo "... imgui/imgui-SFML.i"
 	@echo "... imgui/imgui-SFML.s"
