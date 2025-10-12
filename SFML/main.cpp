@@ -1403,7 +1403,16 @@ int runProgram()
 
             if (ImGui::ImageButton("Rectangle", icons["rectangle"].texture, ImVec2(ICON_SIZE, ICON_SIZE)))
             {
-
+                newPolygon = Polygon();
+                vertices = { ImVec2(100, 100), ImVec2(400, 100), ImVec2(400, 250), ImVec2(100,250)};
+                if (status.adjustVertices)
+                    adjustVertices(vertices);
+                newPolygon.setVertices(vertices);
+                newPolygon.setColour(polygonColour);
+                polygons.push_back(newPolygon);
+                logger << currentDateTime() << " NEW " << newPolygon;
+                newPolygon = Polygon();
+                vertices.clear();
                 ImGui::CloseCurrentPopup();
             }
             createToolTip("Create rectangle by clicking top left corner and dragging the bottom right corner out", tooltipsEnabled);
