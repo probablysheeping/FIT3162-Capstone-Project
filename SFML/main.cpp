@@ -184,31 +184,40 @@ ImVec2 getMousePos(sf::RenderWindow &window) {
 /// <param name="gridColor">Color of the grid lines</param>
 void drawGrid(sf::RenderWindow& window, float gridSize = 50.0f, sf::Color gridColor = sf::Color(220, 220, 220))
 {
-    sf::Vector2u windowSize = window.getSize();
+    sf::View view = window.getView();
+    sf::Vector2f viewCenter = view.getCenter();
+    sf::Vector2f viewSize = view.getSize();
+
+    float left = viewCenter.x - viewSize.x / 2.0f;
+    float right = viewCenter.x + viewSize.x / 2.0f;
+    float top = viewCenter.y - viewSize.y / 2.0f;
+    float bottom = viewCenter.y + viewSize.y / 2.0f;
+
+    float startX = std::floor(left / gridSize) * gridSize;
+    float startY = std::floor(top / gridSize) * gridSize;
+
     std::vector<sf::Vertex> gridLines;
-    
-    // Vertical lines
-    for (float x = 0; x <= windowSize.x; x += gridSize) {
+
+    for (float x = startX; x <= right; x += gridSize) {
         sf::Vertex v1, v2;
-        v1.position = sf::Vector2f(x, 0);
+        v1.position = sf::Vector2f(x, top);
         v1.color = gridColor;
-        v2.position = sf::Vector2f(x, windowSize.y);
+        v2.position = sf::Vector2f(x, bottom);
         v2.color = gridColor;
         gridLines.push_back(v1);
         gridLines.push_back(v2);
     }
-    
-    // Horizontal lines
-    for (float y = 0; y <= windowSize.y; y += gridSize) {
+
+    for (float y = startY; y <= bottom; y += gridSize) {
         sf::Vertex v1, v2;
-        v1.position = sf::Vector2f(0, y);
+        v1.position = sf::Vector2f(left, y);
         v1.color = gridColor;
-        v2.position = sf::Vector2f(windowSize.x, y);
+        v2.position = sf::Vector2f(right, y);
         v2.color = gridColor;
         gridLines.push_back(v1);
         gridLines.push_back(v2);
     }
-    
+
     window.draw(gridLines.data(), gridLines.size(), sf::PrimitiveType::Lines);
 }
 
