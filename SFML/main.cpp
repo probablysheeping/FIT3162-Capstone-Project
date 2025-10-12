@@ -239,10 +239,93 @@ void drawGrid(sf::RenderWindow &window, float gridSize = 50.0f, sf::Color gridCo
 /// <returns>True if image loaded successfully</returns>
 bool loadBackgroundImage(sf::Texture &texture, sf::Sprite &sprite, const std::string &filename, sf::Vector2u windowSize, int resizeMode = 0, float customWidth = 800.0f, float customHeight = 600.0f)
 {
-    if (!texture.loadFromFile(filename))
+    // First, check the image dimensions using stb_image
+    int originalWidth, originalHeight, channels;
+    unsigned char* imageData = stbi_load(filename.c_str(), &originalWidth, &originalHeight, &channels, 4);
+    
+    if (!imageData)
     {
-        logger << currentDateTime() << " ERROR: Failed to load image from " << filename << std::endl;
+        logger << currentDateTime() << " ERROR: Failed to load image from " << filename << " - " << stbi_failure_reason() << std::endl;
         return false;
+    }
+    
+    logger << currentDateTime() << " Image dimensions: " << originalWidth << "x" << originalHeight << std::endl;
+    
+    // Get the maximum texture size supported by the GPU
+    unsigned int maxTextureSize = sf::Texture::getMaximumSize();
+    logger << currentDateTime() << " Maximum texture size: " << maxTextureSize << "x" << maxTextureSize << std::endl;
+    
+    // Check if we need to downsample the image
+    bool needsDownsampling = (originalWidth > maxTextureSize || originalHeight > maxTextureSize);
+    
+    if (needsDownsampling)
+    {
+        logger << currentDateTime() << " Image is too large, downsampling to fit within " << maxTextureSize << "x" << maxTextureSize << std::endl;
+        
+        // Calculate the downsample ratio
+        float downsampleRatio = 1.0f;
+        if (originalWidth > maxTextureSize)
+            downsampleRatio = std::min(downsampleRatio, static_cast<float>(maxTextureSize) / originalWidth);
+        if (originalHeight > maxTextureSize)
+            downsampleRatio = std::min(downsampleRatio, static_cast<float>(maxTextureSize) / originalHeight);
+        
+        // Make it slightly smaller to be safe
+        downsampleRatio *= 0.95f;
+        
+        int newWidth = static_cast<int>(originalWidth * downsampleRatio);
+        int newHeight = static_cast<int>(originalHeight * downsampleRatio);
+        
+        logger << currentDateTime() << " Downsampling to " << newWidth << "x" << newHeight << std::endl;
+        
+        // Allocate memory for downsampled image
+        unsigned char* downsampledData = new unsigned char[newWidth * newHeight * 4];
+        
+        // Simple box filter downsampling
+        for (int y = 0; y < newHeight; y++)
+        {
+            for (int x = 0; x < newWidth; x++)
+            {
+                int srcX = static_cast<int>(x / downsampleRatio);
+                int srcY = static_cast<int>(y / downsampleRatio);
+                
+                // Clamp to prevent overflow
+                srcX = std::min(srcX, originalWidth - 1);
+                srcY = std::min(srcY, originalHeight - 1);
+                
+                int srcIdx = (srcY * originalWidth + srcX) * 4;
+                int dstIdx = (y * newWidth + x) * 4;
+                
+                downsampledData[dstIdx + 0] = imageData[srcIdx + 0];
+                downsampledData[dstIdx + 1] = imageData[srcIdx + 1];
+                downsampledData[dstIdx + 2] = imageData[srcIdx + 2];
+                downsampledData[dstIdx + 3] = imageData[srcIdx + 3];
+            }
+        }
+        
+        // Load the downsampled image into the texture
+        // SFML 3.0: Create image from pixel data
+        sf::Image tempImage(sf::Vector2u(newWidth, newHeight), downsampledData);
+        
+        if (!texture.loadFromImage(tempImage))
+        {
+            logger << currentDateTime() << " ERROR: Failed to create texture from downsampled image" << std::endl;
+            delete[] downsampledData;
+            stbi_image_free(imageData);
+            return false;
+        }
+        delete[] downsampledData;
+        stbi_image_free(imageData);
+    }
+    else
+    {
+        // Image is within size limits, load normally
+        stbi_image_free(imageData);
+        
+        if (!texture.loadFromFile(filename))
+        {
+            logger << currentDateTime() << " ERROR: Failed to load image from " << filename << std::endl;
+            return false;
+        }
     }
 
     sprite.setTexture(texture);
@@ -255,14 +338,22 @@ bool loadBackgroundImage(sf::Texture &texture, sf::Sprite &sprite, const std::st
     {
     case 0: // Fit to window
     {
+        // Account for UI elements (menu bar and polygon creator at top)
+        // Reserve ~150 pixels for UI at the top (scaled)
+        float uiReservedHeight = 150.0f;
+        float availableHeight = windowSize.y - uiReservedHeight;
+        
         scaleX = static_cast<float>(windowSize.x) / imageSize.x;
-        scaleY = static_cast<float>(windowSize.y) / imageSize.y;
+        scaleY = availableHeight / imageSize.y;
         float scale = std::min(scaleX, scaleY);
         scaleX = scaleY = scale;
 
-        // Center the image
+        // Center the image, but position it below the UI
         sf::Vector2f scaledSize = sf::Vector2f(imageSize.x * scale, imageSize.y * scale);
-        position = sf::Vector2f((windowSize.x - scaledSize.x) / 2.0f, (windowSize.y - scaledSize.y) / 2.0f);
+        position = sf::Vector2f(
+            (windowSize.x - scaledSize.x) / 2.0f,
+            uiReservedHeight + (availableHeight - scaledSize.y) / 2.0f
+        );
         break;
     }
     case 1: // Original size
@@ -285,7 +376,8 @@ bool loadBackgroundImage(sf::Texture &texture, sf::Sprite &sprite, const std::st
     sprite.setScale(sf::Vector2f(scaleX, scaleY));
     sprite.setPosition(position);
 
-    logger << currentDateTime() << " Image loaded successfully from " << filename << " with resize mode " << resizeMode << std::endl;
+    logger << currentDateTime() << " Image loaded successfully from " << filename << " with resize mode " << resizeMode 
+           << ", final size: " << imageSize.x << "x" << imageSize.y << ", scale: " << scaleX << "x" << scaleY << std::endl;
     return true;
 }
 
@@ -457,7 +549,7 @@ int runProgram()
     bool gridEnabled = true;
     float gridSize = 50.0f;
     bool imageEnabled = false;
-    float imageOpacity = 0.7f;
+    float imageOpacity = 1.0f;
     float imageScale = 1.0f;
 
     float polygonColour[3] = {0.f, 0.f, 0.f};
@@ -472,6 +564,7 @@ int runProgram()
 
     // Image resize dialog variables
     bool showImageResizeDialog = false;
+    bool showImageReplaceConfirmation = false;
     std::string pendingImagePath = "";
     int resizeMode = 0; // 0: Fit to window, 1: Original size, 2: Custom size
     float customWidth = 800.0f;
@@ -918,19 +1011,51 @@ int runProgram()
                     auto [loadedImageState, loadedViewState] = statesPair;
 
                     // Restore image state if present
+                    logger << currentDateTime() << " Restoring image state: hasImage=" << loadedImageState.hasImage 
+                           << ", path='" << loadedImageState.imagePath << "', enabled=" << loadedImageState.enabled << std::endl;
+                    
                     if (loadedImageState.hasImage && !loadedImageState.imagePath.empty())
                     {
                         if (backgroundSprite)
                         {
                             delete backgroundSprite;
+                            backgroundSprite = nullptr;
                         }
-                        backgroundSprite = new sf::Sprite(backgroundTexture);
 
                         if (backgroundTexture.loadFromFile(loadedImageState.imagePath))
                         {
+                            backgroundSprite = new sf::Sprite(backgroundTexture);
                             backgroundSprite->setTexture(backgroundTexture);
-                            backgroundSprite->setPosition(sf::Vector2f(loadedImageState.positionX, loadedImageState.positionY));
-                            backgroundSprite->setScale(sf::Vector2f(loadedImageState.scaleX, loadedImageState.scaleY));
+                            
+                            // Check if we have valid saved position and scale (non-zero scale)
+                            if (loadedImageState.scaleX > 0.0001f && loadedImageState.scaleY > 0.0001f)
+                            {
+                                // Use saved position and scale
+                                backgroundSprite->setPosition(sf::Vector2f(loadedImageState.positionX, loadedImageState.positionY));
+                                backgroundSprite->setScale(sf::Vector2f(loadedImageState.scaleX, loadedImageState.scaleY));
+                                logger << currentDateTime() << " Using saved position and scale" << std::endl;
+                            }
+                            else
+                            {
+                                // No valid saved state, fit to window as default
+                                logger << currentDateTime() << " No valid saved state, fitting to window" << std::endl;
+                                sf::Vector2u imageSize = backgroundTexture.getSize();
+                                float uiReservedHeight = 150.0f;
+                                float availableHeight = window.getSize().y - uiReservedHeight;
+                                
+                                float scaleX = static_cast<float>(window.getSize().x) / imageSize.x;
+                                float scaleY = availableHeight / imageSize.y;
+                                float scale = std::min(scaleX, scaleY);
+                                
+                                sf::Vector2f scaledSize = sf::Vector2f(imageSize.x * scale, imageSize.y * scale);
+                                sf::Vector2f position(
+                                    (window.getSize().x - scaledSize.x) / 2.0f,
+                                    uiReservedHeight + (availableHeight - scaledSize.y) / 2.0f
+                                );
+                                
+                                backgroundSprite->setScale(sf::Vector2f(scale, scale));
+                                backgroundSprite->setPosition(position);
+                            }
 
                             // Set the initial color/opacity
                             sf::Color imageColor = sf::Color::White;
@@ -941,19 +1066,28 @@ int runProgram()
                             currentImagePath = loadedImageState.imagePath;
                             imageOpacity = loadedImageState.opacity;
                             imageEnabled = loadedImageState.enabled;
-                            imageScale = loadedImageState.scaleX;
+                            imageScale = backgroundSprite->getScale().x;
 
-                            logger << currentDateTime() << " Image restored from " << loadedImageState.imagePath << std::endl;
+                            sf::Vector2f spritePos = backgroundSprite->getPosition();
+                            sf::Vector2f spriteScale = backgroundSprite->getScale();
+                            logger << currentDateTime() << " Image restored successfully: enabled=" << imageEnabled 
+                                   << ", hasImage=" << hasBackgroundImage << ", opacity=" << imageOpacity 
+                                   << ", scale=" << imageScale 
+                                   << ", pos=(" << spritePos.x << "," << spritePos.y << ")"
+                                   << ", scale=(" << spriteScale.x << "," << spriteScale.y << ")"
+                                   << " from " << loadedImageState.imagePath << std::endl;
                         }
                         else
                         {
                             logger << currentDateTime() << " ERROR: Failed to load saved image from " << loadedImageState.imagePath << std::endl;
                             hasBackgroundImage = false;
                             currentImagePath = "";
+                            imageEnabled = false;
                         }
                     }
                     else
                     {
+                        logger << currentDateTime() << " No image to restore or path is empty" << std::endl;
                         // Clear any existing image
                         if (backgroundSprite)
                         {
@@ -1059,19 +1193,51 @@ int runProgram()
                 auto [loadedImageState, loadedViewState] = statesPair;
 
                 // Restore image state if present
+                logger << currentDateTime() << " Restoring image state: hasImage=" << loadedImageState.hasImage 
+                       << ", path='" << loadedImageState.imagePath << "', enabled=" << loadedImageState.enabled << std::endl;
+                
                 if (loadedImageState.hasImage && !loadedImageState.imagePath.empty())
                 {
                     if (backgroundSprite)
                     {
                         delete backgroundSprite;
+                        backgroundSprite = nullptr;
                     }
-                    backgroundSprite = new sf::Sprite(backgroundTexture);
 
                     if (backgroundTexture.loadFromFile(loadedImageState.imagePath))
                     {
+                        backgroundSprite = new sf::Sprite(backgroundTexture);
                         backgroundSprite->setTexture(backgroundTexture);
-                        backgroundSprite->setPosition(sf::Vector2f(loadedImageState.positionX, loadedImageState.positionY));
-                        backgroundSprite->setScale(sf::Vector2f(loadedImageState.scaleX, loadedImageState.scaleY));
+                        
+                        // Check if we have valid saved position and scale (non-zero scale)
+                        if (loadedImageState.scaleX > 0.0001f && loadedImageState.scaleY > 0.0001f)
+                        {
+                            // Use saved position and scale
+                            backgroundSprite->setPosition(sf::Vector2f(loadedImageState.positionX, loadedImageState.positionY));
+                            backgroundSprite->setScale(sf::Vector2f(loadedImageState.scaleX, loadedImageState.scaleY));
+                            logger << currentDateTime() << " Using saved position and scale" << std::endl;
+                        }
+                        else
+                        {
+                            // No valid saved state, fit to window as default
+                            logger << currentDateTime() << " No valid saved state, fitting to window" << std::endl;
+                            sf::Vector2u imageSize = backgroundTexture.getSize();
+                            float uiReservedHeight = 150.0f;
+                            float availableHeight = window.getSize().y - uiReservedHeight;
+                            
+                            float scaleX = static_cast<float>(window.getSize().x) / imageSize.x;
+                            float scaleY = availableHeight / imageSize.y;
+                            float scale = std::min(scaleX, scaleY);
+                            
+                            sf::Vector2f scaledSize = sf::Vector2f(imageSize.x * scale, imageSize.y * scale);
+                            sf::Vector2f position(
+                                (window.getSize().x - scaledSize.x) / 2.0f,
+                                uiReservedHeight + (availableHeight - scaledSize.y) / 2.0f
+                            );
+                            
+                            backgroundSprite->setScale(sf::Vector2f(scale, scale));
+                            backgroundSprite->setPosition(position);
+                        }
 
                         // Set the initial color/opacity
                         sf::Color imageColor = sf::Color::White;
@@ -1082,19 +1248,28 @@ int runProgram()
                         currentImagePath = loadedImageState.imagePath;
                         imageOpacity = loadedImageState.opacity;
                         imageEnabled = loadedImageState.enabled;
-                        imageScale = loadedImageState.scaleX;
+                        imageScale = backgroundSprite->getScale().x;
 
-                        logger << currentDateTime() << " Image restored from " << loadedImageState.imagePath << std::endl;
+                        sf::Vector2f spritePos = backgroundSprite->getPosition();
+                        sf::Vector2f spriteScale = backgroundSprite->getScale();
+                        logger << currentDateTime() << " Image restored successfully: enabled=" << imageEnabled 
+                               << ", hasImage=" << hasBackgroundImage << ", opacity=" << imageOpacity 
+                               << ", scale=" << imageScale 
+                               << ", pos=(" << spritePos.x << "," << spritePos.y << ")"
+                               << ", scale=(" << spriteScale.x << "," << spriteScale.y << ")"
+                               << " from " << loadedImageState.imagePath << std::endl;
                     }
                     else
                     {
                         logger << currentDateTime() << " ERROR: Failed to load saved image from " << loadedImageState.imagePath << std::endl;
                         hasBackgroundImage = false;
                         currentImagePath = "";
+                        imageEnabled = false;
                     }
                 }
                 else
                 {
+                    logger << currentDateTime() << " No image to restore or path is empty" << std::endl;
                     // Clear any existing image
                     if (backgroundSprite)
                     {
@@ -1120,6 +1295,43 @@ int runProgram()
                 ImageState imageState = getCurrentImageState(hasBackgroundImage, currentImagePath, backgroundSprite, imageOpacity, imageEnabled);
                 actions.SaveFileAs(polygons, imageState, selectedPolygons, view, zoomLevel, window);
             }
+
+            ImGui::Separator();
+
+            if (ImGui::MenuItem("Import Image"))
+            {
+                std::string imagePath = OpenImageDialog();
+                if (!imagePath.empty())
+                {
+                    // If an image already exists, show confirmation dialog
+                    if (hasBackgroundImage)
+                    {
+                        pendingImagePath = imagePath;
+                        showImageReplaceConfirmation = true;
+                    }
+                    else
+                    {
+                        // No existing image, proceed directly to resize dialog
+                        pendingImagePath = imagePath;
+                        
+                        // Load image to get original size
+                        sf::Texture tempTexture;
+                        if (tempTexture.loadFromFile(pendingImagePath))
+                        {
+                            originalImageSize = tempTexture.getSize();
+                            customWidth = static_cast<float>(originalImageSize.x);
+                            customHeight = static_cast<float>(originalImageSize.y);
+                            showImageResizeDialog = true;
+                            logger << currentDateTime() << " Image selected for import: " << pendingImagePath << std::endl;
+                        }
+                        else
+                        {
+                            logger << currentDateTime() << " ERROR: Failed to load image from " << pendingImagePath << std::endl;
+                        }
+                    }
+                }
+            }
+            createToolTip("Import a background image", tooltipsEnabled);
 
             createToolTip("Save and open files", tooltipsEnabled);
 
@@ -1154,7 +1366,19 @@ int runProgram()
                     ImGui::MenuItem("Image Resize Mode", nullptr, &imageResizeMode);
                     createToolTip("Enable interactive resizing with mouse drag handles", tooltipsEnabled);
                     ImGui::SliderFloat("Image Opacity", &imageOpacity, 0.1f, 1.0f);
-                    ImGui::SliderFloat("Image Scale", &imageScale, 0.1f, 3.0f);
+                    
+                    // Image scale slider - updates the sprite's scale proportionally
+                    float oldScale = imageScale;
+                    if (ImGui::SliderFloat("Image Scale", &imageScale, 0.1f, 3.0f))
+                    {
+                        if (backgroundSprite && oldScale > 0.0f)
+                        {
+                            // Update sprite scale proportionally
+                            sf::Vector2f currentScale = backgroundSprite->getScale();
+                            float scaleFactor = imageScale / oldScale;
+                            backgroundSprite->setScale(sf::Vector2f(currentScale.x * scaleFactor, currentScale.y * scaleFactor));
+                        }
+                    }
                 }
                 if (ImGui::MenuItem("Full Screen", nullptr, &fullscreenEnabled))
                 {
@@ -1471,27 +1695,79 @@ int runProgram()
         ImVec2 canvasSize = ImVec2(window.getSize().x, window.getSize().y - mainMenuBarSize.y);
         tutorial.updateTargetPosition(TutorialTargetType::CANVAS, canvasPos, canvasSize);
 
+        // Image Replace Confirmation Dialog
+        if (showImageReplaceConfirmation)
+        {
+            ImGui::OpenPopup("Replace Image?");
+            ImVec2 center = ImGui::GetMainViewport()->GetCenter();
+            ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
+            
+            if (ImGui::BeginPopupModal("Replace Image?", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
+            {
+                ImGui::Text("An image is already loaded. Replace it?");
+                ImGui::Text("Current image: %s", currentImagePath.c_str());
+                ImGui::Spacing();
+                ImGui::Separator();
+                ImGui::Spacing();
+                
+                if (ImGui::Button("Yes, Replace", ImVec2(150, 30)))
+                {
+                    // Load image to get original size
+                    sf::Texture tempTexture;
+                    if (tempTexture.loadFromFile(pendingImagePath))
+                    {
+                        originalImageSize = tempTexture.getSize();
+                        customWidth = static_cast<float>(originalImageSize.x);
+                        customHeight = static_cast<float>(originalImageSize.y);
+                        showImageResizeDialog = true;
+                        logger << currentDateTime() << " Image selected for import (replacing existing): " << pendingImagePath << std::endl;
+                    }
+                    else
+                    {
+                        logger << currentDateTime() << " ERROR: Failed to load image from " << pendingImagePath << std::endl;
+                    }
+                    showImageReplaceConfirmation = false;
+                    ImGui::CloseCurrentPopup();
+                }
+                ImGui::SameLine();
+                if (ImGui::Button("Cancel", ImVec2(150, 30)))
+                {
+                    pendingImagePath = "";
+                    showImageReplaceConfirmation = false;
+                    ImGui::CloseCurrentPopup();
+                    logger << currentDateTime() << " Image import cancelled by user." << std::endl;
+                }
+                
+                ImGui::EndPopup();
+            }
+        }
+
         // Image Resize Dialog
         if (showImageResizeDialog)
         {
-            ImGui::SetNextWindowSize(ImVec2(400, 300));
-            ImGui::SetNextWindowPos(ImVec2(window.getSize().x / 2 - 200, window.getSize().y / 2 - 150));
+            ImGui::SetNextWindowSize(ImVec2(700, 350));
+            ImGui::SetNextWindowPos(ImVec2(window.getSize().x / 2 - 350, window.getSize().y / 2 - 175));
             if (ImGui::Begin("Import Image - Resize Options", &showImageResizeDialog, ImGuiWindowFlags_NoResize))
             {
-
+                ImGui::Spacing();
                 ImGui::Text("Original Size: %dx%d", originalImageSize.x, originalImageSize.y);
                 ImGui::Text("Window Size: %dx%d", window.getSize().x, window.getSize().y);
                 ImGui::Separator();
+                ImGui::Spacing();
 
                 ImGui::Text("Choose resize option:");
+                ImGui::Spacing();
                 ImGui::RadioButton("Fit to Window (maintain aspect ratio)", &resizeMode, 0);
                 createToolTip("Scale image to fit window while keeping proportions", tooltipsEnabled);
+                ImGui::Spacing();
 
                 ImGui::RadioButton("Original Size (no scaling)", &resizeMode, 1);
                 createToolTip("Keep image at its original pixel dimensions", tooltipsEnabled);
+                ImGui::Spacing();
 
                 ImGui::RadioButton("Custom Size", &resizeMode, 2);
                 createToolTip("Specify exact width and height for the image", tooltipsEnabled);
+                ImGui::Spacing();
 
                 if (resizeMode == 2)
                 {
@@ -1517,17 +1793,37 @@ int runProgram()
                 }
 
                 ImGui::Separator();
+                ImGui::Spacing();
+                ImGui::Spacing();
 
-                if (ImGui::Button("Import", ImVec2(120, 30)))
+                // Center the buttons
+                float buttonWidth = 120.0f;
+                float spacing = 20.0f;
+                float totalWidth = (buttonWidth * 2) + spacing;
+                float startX = (ImGui::GetWindowWidth() - totalWidth) / 2.0f;
+                ImGui::SetCursorPosX(startX);
+
+                if (ImGui::Button("Import", ImVec2(buttonWidth, 35)))
                 {
                     if (backgroundSprite)
                     {
                         delete backgroundSprite;
+                        backgroundSprite = nullptr;
                     }
-                    backgroundSprite = new sf::Sprite(backgroundTexture);
-                    hasBackgroundImage = loadBackgroundImage(backgroundTexture, *backgroundSprite, pendingImagePath, window.getSize(), resizeMode, customWidth, customHeight);
+                    
+                    // First load the texture, then create sprite
+                    // We need to load texture first, then create sprite with it
+                    sf::Texture tempTexture;
+                    sf::Sprite tempSprite(tempTexture);
+                    hasBackgroundImage = loadBackgroundImage(backgroundTexture, tempSprite, pendingImagePath, window.getSize(), resizeMode, customWidth, customHeight);
+                    
                     if (hasBackgroundImage)
                     {
+                        // Create sprite and copy the properties from tempSprite
+                        backgroundSprite = new sf::Sprite(backgroundTexture);
+                        backgroundSprite->setScale(tempSprite.getScale());
+                        backgroundSprite->setPosition(tempSprite.getPosition());
+                        
                         // Set the initial color/opacity
                         sf::Color imageColor = sf::Color::White;
                         imageColor.a = static_cast<std::uint8_t>(imageOpacity * 255);
@@ -1538,14 +1834,38 @@ int runProgram()
 
                         imageEnabled = true;
                         currentImagePath = pendingImagePath;
+                        
+                        sf::Vector2f spritePos = backgroundSprite->getPosition();
+                        sf::Vector2f spriteScale = backgroundSprite->getScale();
+                        logger << currentDateTime() << " Image import completed. imageEnabled=" << imageEnabled 
+                               << ", hasBackgroundImage=" << hasBackgroundImage 
+                               << ", opacity=" << imageOpacity 
+                               << ", scale=" << imageScale 
+                               << ", sprite pos=(" << spritePos.x << "," << spritePos.y << ")"
+                               << ", sprite scale=(" << spriteScale.x << "," << spriteScale.y << ")" << std::endl;
+                        
+                        // Autosave after importing image
+                        if (autosaveEnabled)
+                        {
+                            sf::Vector2f center = view.getCenter();
+                            ViewState viewState{zoomLevel, center.x, center.y};
+                            ImageState imageState = getCurrentImageState(hasBackgroundImage, currentImagePath, backgroundSprite, imageOpacity, imageEnabled);
+                            quickSave(polygons, imageState, "autosave.sav", viewState);
+                        }
+                    }
+                    else
+                    {
+                        logger << currentDateTime() << " ERROR: Failed to import image from " << pendingImagePath << std::endl;
                     }
                     showImageResizeDialog = false;
                 }
-                ImGui::SameLine();
-                if (ImGui::Button("Cancel", ImVec2(120, 30)))
+                ImGui::SameLine(0, spacing);
+                if (ImGui::Button("Cancel", ImVec2(buttonWidth, 35)))
                 {
                     showImageResizeDialog = false;
                 }
+                
+                ImGui::Spacing();
             }
             ImGui::End();
         }
@@ -1554,15 +1874,49 @@ int runProgram()
 
         // Draw everything here
 
-        // Draw background image
+        // Draw background image with default view (not affected by pan/zoom)
         if (hasBackgroundImage && imageEnabled)
         {
-            // Update sprite properties based on settings
-            backgroundSprite->setScale(sf::Vector2f(imageScale, imageScale));
+            // Save current view
+            sf::View currentView = window.getView();
+            
+            // Set to default view for background image
+            window.setView(window.getDefaultView());
+            
+            // Update sprite properties
+            // Note: We maintain the aspect ratio by using the saved scale values
+            // The imageScale slider is for uniform scaling from settings menu
+            sf::Vector2f currentScale = backgroundSprite->getScale();
+            sf::Vector2f currentPos = backgroundSprite->getPosition();
+            
+            // Debug: Log once per second
+            static sf::Clock debugClock;
+            if (debugClock.getElapsedTime().asSeconds() > 1.0f)
+            {
+                logger << currentDateTime() << " [RENDER] Drawing image: pos=(" << currentPos.x << "," << currentPos.y 
+                       << "), scale=(" << currentScale.x << "," << currentScale.y 
+                       << "), opacity=" << imageOpacity << ", enabled=" << imageEnabled << std::endl;
+                debugClock.restart();
+            }
+            
+            // Update sprite opacity
             sf::Color imageColor = backgroundSprite->getColor();
             imageColor.a = static_cast<std::uint8_t>(imageOpacity * 255);
             backgroundSprite->setColor(imageColor);
             window.draw(*backgroundSprite);
+            
+            // Restore the previous view for other drawing
+            window.setView(currentView);
+        }
+        else if (hasBackgroundImage)
+        {
+            static sf::Clock debugClock2;
+            if (debugClock2.getElapsedTime().asSeconds() > 2.0f)
+            {
+                logger << currentDateTime() << " [RENDER] Image not drawing: hasImage=" << hasBackgroundImage 
+                       << ", enabled=" << imageEnabled << std::endl;
+                debugClock2.restart();
+            }
         }
 
         // Draw grid background

@@ -1,0 +1,28 @@
+2025-10-13_08-16-45 File path:"/Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets"
+2025-10-13_08-16-45 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/drag.png
+2025-10-13_08-16-45 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/drag.png
+2025-10-13_08-16-45 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/draw.png
+2025-10-13_08-16-45 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/draw.png
+2025-10-13_08-16-45 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/bin.png
+2025-10-13_08-16-45 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/bin.png
+2025-10-13_08-16-45 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/shapes.png
+2025-10-13_08-16-45 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/shapes.png
+2025-10-13_08-16-45 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/colour-pallet.png
+2025-10-13_08-16-45 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/colour-pallet.png
+2025-10-13_08-16-45 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/intersect.png
+2025-10-13_08-16-45 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/intersect.png
+2025-10-13_08-16-45 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/circle.png
+2025-10-13_08-16-45 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/circle.png
+2025-10-13_08-16-45 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/triangle.png
+2025-10-13_08-16-45 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/triangle.png
+2025-10-13_08-16-45 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/rectangle.png
+2025-10-13_08-16-45 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/rectangle.png
+2025-10-13_08-16-45 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/square.png
+2025-10-13_08-16-45 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/square.png
+2025-10-13_08-16-45 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/clear.png
+2025-10-13_08-16-45 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/clear.png
+2025-10-13_08-16-49 File opened from /Users/adityadesai/Downloads/trrrr.sav.sav
+Polygons in file: 
+Zoom: 1, Center: (938, 513.5)
+2025-10-13_08-16-49 Image restored from /Users/adityadesai/Downloads/overlay.png
+2025-10-13_08-20-12 Image selected for import (replacing existing): /Users/adityadesai/Downloads/MK_Flyer.png

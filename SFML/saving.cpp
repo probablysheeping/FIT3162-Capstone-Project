@@ -79,6 +79,10 @@ bool saveToFile(std::vector<Polygon> polygons, const ImageState& imageState, std
 		saveFile << "SCALE " << imageState.scaleX << " " << imageState.scaleY << "\n";
 		saveFile << "OPACITY " << imageState.opacity << "\n";
 		saveFile << "ENABLED " << (imageState.enabled ? "1" : "0") << "\n";
+		logger << currentDateTime() << " Saving image state: path=" << imageState.imagePath 
+		       << ", pos=(" << imageState.positionX << "," << imageState.positionY << ")"
+		       << ", scale=(" << imageState.scaleX << "," << imageState.scaleY << ")"
+		       << ", opacity=" << imageState.opacity << ", enabled=" << imageState.enabled << std::endl;
 	}
 	saveFile << "IMAGE_END\n";
 
@@ -168,6 +172,11 @@ std::pair<std::vector<Polygon>, std::pair<ImageState, ViewState>> openFromFile(s
 		else if (readingImageState && word == "IMAGE_END")
 		{
 			readingImageState = false;
+			logger << currentDateTime() << " Loaded image state: hasImage=" << imageState.hasImage 
+			       << ", path=" << imageState.imagePath 
+			       << ", pos=(" << imageState.positionX << "," << imageState.positionY << ")"
+			       << ", scale=(" << imageState.scaleX << "," << imageState.scaleY << ")"
+			       << ", opacity=" << imageState.opacity << ", enabled=" << imageState.enabled << std::endl;
 		}
 		else if (word == "POLYGON")
 		{

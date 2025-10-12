@@ -1,0 +1,109 @@
+2025-10-13_09-15-47 File path:"/Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets"
+2025-10-13_09-15-47 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/drag.png
+2025-10-13_09-15-47 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/drag.png
+2025-10-13_09-15-47 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/draw.png
+2025-10-13_09-15-47 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/draw.png
+2025-10-13_09-15-47 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/bin.png
+2025-10-13_09-15-47 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/bin.png
+2025-10-13_09-15-47 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/shapes.png
+2025-10-13_09-15-47 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/shapes.png
+2025-10-13_09-15-47 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/colour-pallet.png
+2025-10-13_09-15-47 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/colour-pallet.png
+2025-10-13_09-15-47 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/intersect.png
+2025-10-13_09-15-47 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/intersect.png
+2025-10-13_09-15-47 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/circle.png
+2025-10-13_09-15-47 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/circle.png
+2025-10-13_09-15-47 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/triangle.png
+2025-10-13_09-15-47 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/triangle.png
+2025-10-13_09-15-47 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/rectangle.png
+2025-10-13_09-15-47 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/rectangle.png
+2025-10-13_09-15-47 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/square.png
+2025-10-13_09-15-47 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/square.png
+2025-10-13_09-15-47 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/clear.png
+2025-10-13_09-15-47 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/clear.png
+2025-10-13_09-15-52 Loaded image state: hasImage=1, path=/Users/adityadesai/Downloads/droplet.jpeg, pos=(821.767,436.672), scale=(0.185659,0.185659), opacity=0.7, enabled=1
+2025-10-13_09-15-52 File opened from /Users/adityadesai/Downloads/dfdesfed.sav.sav
+Polygons in file: 
+POLYGON
+VERTICES 4
+876.092041 509.000000
+939.875977 509.000000
+939.875977 564.000000
+876.092041 564.000000
+COLOUR 0.000000 0.000000 0.000000
+END
+POLYGON
+VERTICES 4
+928.619995 554.000000
+969.892029 554.000000
+969.892029 585.000000
+928.619995 585.000000
+COLOUR 0.919075 0.012396 0.012396
+END
+POLYGON
+VERTICES 4
+928.619690 554.000244
+939.875916 554.000122
+939.875977 564.000000
+928.619690 564.000061
+COLOUR 0.919075 0.012396 0.012396
+END
+POLYGON
+VERTICES 4
+928.619690 554.000244
+939.875916 554.000122
+939.875977 564.000000
+928.619690 564.000061
+COLOUR 0.919075 0.012396 0.012396
+END
+POLYGON
+VERTICES 4
+928.619690 554.000244
+939.875916 554.000122
+939.875977 564.000000
+928.619690 564.000061
+COLOUR 0.919075 0.012396 0.012396
+END
+POLYGON
+VERTICES 4
+928.619690 554.000244
+939.875916 554.000122
+939.875977 564.000000
+928.619690 564.000061
+COLOUR 0.919075 0.012396 0.012396
+END
+POLYGON
+VERTICES 4
+928.619690 554.000244
+939.875916 554.000122
+939.875977 564.000000
+928.619690 564.000061
+COLOUR 0.919075 0.012396 0.012396
+END
+POLYGON
+VERTICES 4
+928.619690 554.000244
+939.875916 554.000122
+939.875977 564.000000
+928.619690 564.000061
+COLOUR 0.919075 0.012396 0.012396
+END
+POLYGON
+VERTICES 4
+928.619690 554.000244
+939.875916 554.000122
+939.875977 564.000000
+928.619690 564.000061
+COLOUR 0.919075 0.012396 0.012396
+END
+POLYGON
+VERTICES 4
+928.619690 554.000244
+939.875916 554.000122
+939.875977 564.000000
+928.619690 564.000061
+COLOUR 0.919075 0.012396 0.012396
+END
+Zoom: 1, Center: (938, 513.5)
+2025-10-13_09-15-52 Restoring image state: hasImage=1, path='/Users/adityadesai/Downloads/droplet.jpeg', enabled=1
+2025-10-13_09-15-52 Image restored successfully: enabled=1, hasImage=1, opacity=0.7, scale=0.185659 from /Users/adityadesai/Downloads/droplet.jpeg

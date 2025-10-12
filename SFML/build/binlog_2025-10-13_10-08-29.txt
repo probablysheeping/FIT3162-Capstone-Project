@@ -1,0 +1,73 @@
+2025-10-13_10-07-41 File path:"/Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets"
+2025-10-13_10-07-41 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/drag.png
+2025-10-13_10-07-41 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/drag.png
+2025-10-13_10-07-41 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/draw.png
+2025-10-13_10-07-41 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/draw.png
+2025-10-13_10-07-41 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/bin.png
+2025-10-13_10-07-41 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/bin.png
+2025-10-13_10-07-41 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/shapes.png
+2025-10-13_10-07-41 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/shapes.png
+2025-10-13_10-07-41 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/colour-pallet.png
+2025-10-13_10-07-41 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/colour-pallet.png
+2025-10-13_10-07-41 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/intersect.png
+2025-10-13_10-07-41 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/intersect.png
+2025-10-13_10-07-41 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/circle.png
+2025-10-13_10-07-41 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/circle.png
+2025-10-13_10-07-41 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/triangle.png
+2025-10-13_10-07-41 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/triangle.png
+2025-10-13_10-07-41 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/rectangle.png
+2025-10-13_10-07-41 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/rectangle.png
+2025-10-13_10-07-41 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/square.png
+2025-10-13_10-07-41 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/square.png
+2025-10-13_10-07-41 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/clear.png
+2025-10-13_10-07-41 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/clear.png
+2025-10-13_10-08-05 Loaded image state: hasImage=1, path=/Users/adityadesai/Downloads/droplet.jpeg, pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-08-05 File opened from /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/build/bin/save.sav
+Polygons in file: 
+POLYGON
+VERTICES 4
+768.221985 287.000000
+925.805969 287.000000
+925.805969 496.000000
+768.221985 496.000000
+COLOUR 0.000000 0.000000 0.000000
+END
+POLYGON
+VERTICES 4
+467.124023 282.000000
+665.979980 282.000000
+665.979980 465.000000
+467.124023 465.000000
+COLOUR 0.816956 0.000000 0.000000
+END
+Zoom: 1, Center: (938, 513.5)
+2025-10-13_10-08-05 Restoring image state: hasImage=1, path='/Users/adityadesai/Downloads/droplet.jpeg', enabled=1
+2025-10-13_10-08-05 Using saved position and scale
+2025-10-13_10-08-05 Image restored successfully: enabled=1, hasImage=1, opacity=1, scale=0.355518, pos=(1045.01,209), scale=(0.355518,0.4629) from /Users/adityadesai/Downloads/droplet.jpeg
+2025-10-13_10-08-06 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-08-07 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-08-08 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-08-09 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-08-10 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-08-11 Number of Selected Polygons: 1
+2025-10-13_10-08-11 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-08-11 Number of Selected Polygons: 1
+2025-10-13_10-08-12 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-08-13 Number of Selected Polygons: 1
+2025-10-13_10-08-13 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-08-13 Number of Selected Polygons: 0
+2025-10-13_10-08-14 Number of Selected Polygons: 1
+2025-10-13_10-08-14 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-08-14 Number of Selected Polygons: 1
+2025-10-13_10-08-15 Number of Selected Polygons: 0
+2025-10-13_10-08-15 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-08-16 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-08-22 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-08-23 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-08-23 ERROR: Failed to load image from /Users/adityadesai/Downloads/logo.png
+2025-10-13_10-08-24 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-08-25 Number of Selected Polygons: 0
+2025-10-13_10-08-25 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-08-26 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-08-27 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-08-28 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1

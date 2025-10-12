@@ -1,0 +1,65 @@
+2025-10-13_09-11-19 File path:"/Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets"
+2025-10-13_09-11-19 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/drag.png
+2025-10-13_09-11-19 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/drag.png
+2025-10-13_09-11-19 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/draw.png
+2025-10-13_09-11-19 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/draw.png
+2025-10-13_09-11-19 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/bin.png
+2025-10-13_09-11-19 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/bin.png
+2025-10-13_09-11-19 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/shapes.png
+2025-10-13_09-11-19 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/shapes.png
+2025-10-13_09-11-19 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/colour-pallet.png
+2025-10-13_09-11-19 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/colour-pallet.png
+2025-10-13_09-11-19 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/intersect.png
+2025-10-13_09-11-19 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/intersect.png
+2025-10-13_09-11-19 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/circle.png
+2025-10-13_09-11-19 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/circle.png
+2025-10-13_09-11-19 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/triangle.png
+2025-10-13_09-11-19 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/triangle.png
+2025-10-13_09-11-19 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/rectangle.png
+2025-10-13_09-11-19 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/rectangle.png
+2025-10-13_09-11-19 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/square.png
+2025-10-13_09-11-19 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/square.png
+2025-10-13_09-11-19 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/clear.png
+2025-10-13_09-11-19 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/clear.png
+2025-10-13_09-11-25 Image selected for import: /Users/adityadesai/Downloads/MK_Flyer.png
+2025-10-13_09-11-35 Image loaded successfully from /Users/adityadesai/Downloads/MK_Flyer.png with resize mode 2
+2025-10-13_09-11-35 Image import completed. imageEnabled=1, hasBackgroundImage=1, opacity=0.7, scale=0.217326
+2025-10-13_09-11-35 Saving image state: path=/Users/adityadesai/Downloads/MK_Flyer.png, pos=(827.443,419.396), scale=(0.217326,0.0837965), opacity=0.7, enabled=1
+2025-10-13_09-11-35 Saved file successfully to /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/build/bin/autosave.sav
+2025-10-13_09-11-42 ERROR: Failed to load image from /Users/adityadesai/Downloads/logo.png
+2025-10-13_09-11-51 Image selected for import (replacing existing): /Users/adityadesai/Downloads/droplet.jpeg
+2025-10-13_09-11-55 Image loaded successfully from /Users/adityadesai/Downloads/droplet.jpeg with resize mode 2
+2025-10-13_09-11-55 Image import completed. imageEnabled=1, hasBackgroundImage=1, opacity=0.7, scale=0.185659
+2025-10-13_09-11-55 Saving image state: path=/Users/adityadesai/Downloads/droplet.jpeg, pos=(821.767,436.672), scale=(0.185659,0.142273), opacity=0.7, enabled=1
+2025-10-13_09-11-55 Saved file successfully to /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/build/bin/autosave.sav
+2025-10-13_09-11-56 Number of Selected Polygons: 0
+2025-10-13_09-11-57 Number of Selected Polygons: 0
+2025-10-13_09-11-57 Number of Selected Polygons: 0
+2025-10-13_09-12-13 Number of Selected Polygons: 1
+2025-10-13_09-12-13 Number of Selected Polygons: 2
+2025-10-13_09-12-15 Saving image state: path=/Users/adityadesai/Downloads/droplet.jpeg, pos=(821.767,436.672), scale=(0.185659,0.185659), opacity=0.7, enabled=1
+2025-10-13_09-12-15 Saved file successfully to /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/build/bin/autosave.sav
+2025-10-13_09-12-15 Computed IoU.
+2025-10-13_09-12-16 Saving image state: path=/Users/adityadesai/Downloads/droplet.jpeg, pos=(821.767,436.672), scale=(0.185659,0.185659), opacity=0.7, enabled=1
+2025-10-13_09-12-16 Saved file successfully to /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/build/bin/autosave.sav
+2025-10-13_09-12-16 Computed IoU.
+2025-10-13_09-12-16 Saving image state: path=/Users/adityadesai/Downloads/droplet.jpeg, pos=(821.767,436.672), scale=(0.185659,0.185659), opacity=0.7, enabled=1
+2025-10-13_09-12-16 Saved file successfully to /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/build/bin/autosave.sav
+2025-10-13_09-12-16 Computed IoU.
+2025-10-13_09-12-16 Saving image state: path=/Users/adityadesai/Downloads/droplet.jpeg, pos=(821.767,436.672), scale=(0.185659,0.185659), opacity=0.7, enabled=1
+2025-10-13_09-12-16 Saved file successfully to /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/build/bin/autosave.sav
+2025-10-13_09-12-16 Computed IoU.
+2025-10-13_09-12-16 Saving image state: path=/Users/adityadesai/Downloads/droplet.jpeg, pos=(821.767,436.672), scale=(0.185659,0.185659), opacity=0.7, enabled=1
+2025-10-13_09-12-16 Saved file successfully to /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/build/bin/autosave.sav
+2025-10-13_09-12-16 Computed IoU.
+2025-10-13_09-12-17 Saving image state: path=/Users/adityadesai/Downloads/droplet.jpeg, pos=(821.767,436.672), scale=(0.185659,0.185659), opacity=0.7, enabled=1
+2025-10-13_09-12-17 Saved file successfully to /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/build/bin/autosave.sav
+2025-10-13_09-12-17 Computed IoU.
+2025-10-13_09-12-17 Saving image state: path=/Users/adityadesai/Downloads/droplet.jpeg, pos=(821.767,436.672), scale=(0.185659,0.185659), opacity=0.7, enabled=1
+2025-10-13_09-12-17 Saved file successfully to /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/build/bin/autosave.sav
+2025-10-13_09-12-17 Computed IoU.
+2025-10-13_09-12-20 Saving image state: path=/Users/adityadesai/Downloads/droplet.jpeg, pos=(821.767,436.672), scale=(0.185659,0.185659), opacity=0.7, enabled=1
+2025-10-13_09-12-20 Saved file successfully to /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/build/bin/autosave.sav
+2025-10-13_09-12-20 Computed IoU.
+2025-10-13_09-12-26 Saving image state: path=/Users/adityadesai/Downloads/droplet.jpeg, pos=(821.767,436.672), scale=(0.185659,0.185659), opacity=0.7, enabled=1
+2025-10-13_09-12-26 Saved file successfully to /Users/adityadesai/Downloads/dfdesfed.sav.sav

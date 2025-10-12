@@ -1,0 +1,61 @@
+2025-10-13_10-15-42 File path:"/Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets"
+2025-10-13_10-15-42 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/drag.png
+2025-10-13_10-15-42 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/drag.png
+2025-10-13_10-15-42 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/draw.png
+2025-10-13_10-15-42 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/draw.png
+2025-10-13_10-15-42 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/bin.png
+2025-10-13_10-15-42 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/bin.png
+2025-10-13_10-15-42 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/shapes.png
+2025-10-13_10-15-42 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/shapes.png
+2025-10-13_10-15-42 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/colour-pallet.png
+2025-10-13_10-15-42 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/colour-pallet.png
+2025-10-13_10-15-42 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/intersect.png
+2025-10-13_10-15-42 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/intersect.png
+2025-10-13_10-15-42 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/circle.png
+2025-10-13_10-15-42 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/circle.png
+2025-10-13_10-15-42 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/triangle.png
+2025-10-13_10-15-42 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/triangle.png
+2025-10-13_10-15-42 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/rectangle.png
+2025-10-13_10-15-42 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/rectangle.png
+2025-10-13_10-15-42 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/square.png
+2025-10-13_10-15-42 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/square.png
+2025-10-13_10-15-42 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/clear.png
+2025-10-13_10-15-42 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/clear.png
+2025-10-13_10-15-47 Loaded image state: hasImage=0, path=, pos=(0,0), scale=(1,1), opacity=0.7, enabled=0
+2025-10-13_10-15-47 File opened from /Users/adityadesai/Downloads/xxx.sav.sav
+Polygons in file: 
+POLYGON
+VERTICES 4
+525.280029 344.000000
+215.739990 344.000000
+215.739990 212.000031
+525.280029 212.000031
+COLOUR 0.000000 0.000000 0.000000
+END
+POLYGON
+VERTICES 4
+156.645996 165.999969
+453.054047 165.999969
+453.054047 271.000000
+156.645996 271.000000
+COLOUR 0.815029 0.175883 0.175883
+END
+Zoom: 1, Center: (0, 0)
+2025-10-13_10-15-47 Restoring image state: hasImage=0, path='', enabled=0
+2025-10-13_10-15-47 No image to restore or path is empty
+2025-10-13_10-15-51 Image selected for import: /Users/adityadesai/Downloads/media_1655923d8b0386180ca09391e8654c4e468090bb3.jpeg
+2025-10-13_10-15-54 Image dimensions: 1200x800
+2025-10-13_10-15-54 Maximum texture size: 16384x16384
+2025-10-13_10-15-54 Image loaded successfully from /Users/adityadesai/Downloads/media_1655923d8b0386180ca09391e8654c4e468090bb3.jpeg with resize mode 0, final size: 1200x800, scale: 1.09625x1.09625
+2025-10-13_10-15-54 Image import completed. imageEnabled=1, hasBackgroundImage=1, opacity=1, scale=1.09625, sprite pos=(342.25,150), sprite scale=(1.09625,1.09625)
+2025-10-13_10-15-54 Saving image state: path=/Users/adityadesai/Downloads/media_1655923d8b0386180ca09391e8654c4e468090bb3.jpeg, pos=(342.25,150), scale=(1.09625,1.09625), opacity=1, enabled=1
+2025-10-13_10-15-54 Saved file successfully to /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/build/bin/autosave.sav
+2025-10-13_10-15-54 Number of Selected Polygons: 0
+2025-10-13_10-15-55 [RENDER] Drawing image: pos=(342.25,150), scale=(1.09625,1.09625), opacity=1, enabled=1
+2025-10-13_10-15-56 Number of Selected Polygons: 0
+2025-10-13_10-15-56 [RENDER] Drawing image: pos=(342.25,150), scale=(1.09625,1.09625), opacity=1, enabled=1
+2025-10-13_10-15-57 [RENDER] Drawing image: pos=(342.25,150), scale=(1.09625,1.09625), opacity=1, enabled=1
+2025-10-13_10-15-58 [RENDER] Drawing image: pos=(342.25,150), scale=(1.09625,1.09625), opacity=1, enabled=1
+2025-10-13_10-15-58 Saving image state: path=/Users/adityadesai/Downloads/media_1655923d8b0386180ca09391e8654c4e468090bb3.jpeg, pos=(342.25,150), scale=(1.09625,1.09625), opacity=1, enabled=1
+2025-10-13_10-15-58 Saved file successfully to /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/build/bin/save.sav
+2025-10-13_10-15-59 [RENDER] Drawing image: pos=(342.25,150), scale=(1.09625,1.09625), opacity=1, enabled=1

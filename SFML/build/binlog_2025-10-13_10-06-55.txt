@@ -1,0 +1,34 @@
+2025-10-13_10-06-46 File path:"/Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets"
+2025-10-13_10-06-46 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/drag.png
+2025-10-13_10-06-46 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/drag.png
+2025-10-13_10-06-46 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/draw.png
+2025-10-13_10-06-46 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/draw.png
+2025-10-13_10-06-46 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/bin.png
+2025-10-13_10-06-46 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/bin.png
+2025-10-13_10-06-46 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/shapes.png
+2025-10-13_10-06-46 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/shapes.png
+2025-10-13_10-06-46 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/colour-pallet.png
+2025-10-13_10-06-46 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/colour-pallet.png
+2025-10-13_10-06-46 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/intersect.png
+2025-10-13_10-06-46 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/intersect.png
+2025-10-13_10-06-46 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/circle.png
+2025-10-13_10-06-46 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/circle.png
+2025-10-13_10-06-46 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/triangle.png
+2025-10-13_10-06-46 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/triangle.png
+2025-10-13_10-06-46 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/rectangle.png
+2025-10-13_10-06-46 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/rectangle.png
+2025-10-13_10-06-46 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/square.png
+2025-10-13_10-06-46 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/square.png
+2025-10-13_10-06-46 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/clear.png
+2025-10-13_10-06-46 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/clear.png
+2025-10-13_10-06-50 Loaded image state: hasImage=1, path=/Users/adityadesai/Downloads/droplet.jpeg, pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-06-50 File opened from /Users/adityadesai/Downloads/pop.sav.sav
+Polygons in file: 
+Zoom: 1, Center: (938, 513.5)
+2025-10-13_10-06-50 Restoring image state: hasImage=1, path='/Users/adityadesai/Downloads/droplet.jpeg', enabled=1
+2025-10-13_10-06-50 Using saved position and scale
+2025-10-13_10-06-50 Image restored successfully: enabled=1, hasImage=1, opacity=1, scale=0.355518, pos=(1045.01,209), scale=(0.355518,0.4629) from /Users/adityadesai/Downloads/droplet.jpeg
+2025-10-13_10-06-51 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-06-52 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-06-53 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-06-54 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1

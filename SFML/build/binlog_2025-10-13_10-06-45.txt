@@ -1,0 +1,181 @@
+2025-10-13_10-04-17 File path:"/Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets"
+2025-10-13_10-04-17 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/drag.png
+2025-10-13_10-04-17 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/drag.png
+2025-10-13_10-04-17 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/draw.png
+2025-10-13_10-04-17 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/draw.png
+2025-10-13_10-04-17 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/bin.png
+2025-10-13_10-04-17 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/bin.png
+2025-10-13_10-04-17 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/shapes.png
+2025-10-13_10-04-17 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/shapes.png
+2025-10-13_10-04-17 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/colour-pallet.png
+2025-10-13_10-04-17 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/colour-pallet.png
+2025-10-13_10-04-17 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/intersect.png
+2025-10-13_10-04-17 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/intersect.png
+2025-10-13_10-04-17 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/circle.png
+2025-10-13_10-04-17 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/circle.png
+2025-10-13_10-04-17 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/triangle.png
+2025-10-13_10-04-17 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/triangle.png
+2025-10-13_10-04-17 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/rectangle.png
+2025-10-13_10-04-17 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/rectangle.png
+2025-10-13_10-04-17 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/square.png
+2025-10-13_10-04-17 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/square.png
+2025-10-13_10-04-17 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/clear.png
+2025-10-13_10-04-17 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/clear.png
+2025-10-13_10-04-23 Loaded image state: hasImage=1, path=/Users/adityadesai/Downloads/droplet.jpeg, pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-04-23 File opened from /Users/adityadesai/Downloads/pop.sav.sav
+Polygons in file: 
+Zoom: 1, Center: (938, 513.5)
+2025-10-13_10-04-23 Restoring image state: hasImage=1, path='/Users/adityadesai/Downloads/droplet.jpeg', enabled=1
+2025-10-13_10-04-23 Using saved position and scale
+2025-10-13_10-04-23 Image restored successfully: enabled=1, hasImage=1, opacity=1, scale=0.355518, pos=(1045.01,209), scale=(0.355518,0.4629) from /Users/adityadesai/Downloads/droplet.jpeg
+2025-10-13_10-04-24 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-04-25 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-04-26 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-04-27 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-04-28 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-04-29 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-04-30 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-04-31 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-04-32 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-04-33 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-04-34 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-04-35 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-04-36 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-04-37 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-04-38 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-04-39 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-04-40 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-04-41 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-04-42 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-04-43 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-04-44 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-04-45 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-04-46 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-04-47 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-04-48 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-04-49 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-04-50 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-04-51 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-04-52 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-04-53 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-04-54 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-04-55 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-04-56 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-04-57 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-04-58 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-04-59 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-00 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-01 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-02 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-03 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-04 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-05 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-06 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-07 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-08 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-09 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-10 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-11 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-12 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-13 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-14 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-15 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-16 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-17 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-18 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-19 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-20 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-21 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-22 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-23 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-24 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-25 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-26 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-27 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-28 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-29 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-30 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-31 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-32 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-33 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-34 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-35 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-36 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-37 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-38 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-39 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-40 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-41 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-42 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-43 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-44 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-45 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-46 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-47 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-48 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-49 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-50 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-51 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-52 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-53 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-54 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-55 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-56 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-57 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-58 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-05-59 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-06-00 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-06-01 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-06-02 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-06-03 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-06-04 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-06-05 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-06-06 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-06-07 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-06-08 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-06-09 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-06-10 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-06-11 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-06-12 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-06-13 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-06-14 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-06-15 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-06-16 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-06-17 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-06-18 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-06-19 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-06-20 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-06-21 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-06-22 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-06-23 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-06-24 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-06-25 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-06-26 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-06-27 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-06-28 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-06-29 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-06-30 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-06-31 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-06-32 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-06-33 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-06-34 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-06-35 Number of Selected Polygons: 1
+2025-10-13_10-06-35 Number of Selected Polygons: 1
+2025-10-13_10-06-35 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-06-36 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-06-37 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-06-38 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-06-39 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-06-39 Number of Selected Polygons: 1
+2025-10-13_10-06-40 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-06-41 Number of Selected Polygons: 1
+2025-10-13_10-06-41 Number of Selected Polygons: 2
+2025-10-13_10-06-41 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-06-42 Saving image state: path=/Users/adityadesai/Downloads/droplet.jpeg, pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-06-42 Saved file successfully to /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/build/bin/autosave.sav
+2025-10-13_10-06-42 Computed IoU.
+2025-10-13_10-06-42 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-06-43 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-06-44 Saving image state: path=/Users/adityadesai/Downloads/droplet.jpeg, pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1
+2025-10-13_10-06-44 Saved file successfully to /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/build/bin/save.sav
+2025-10-13_10-06-44 [RENDER] Drawing image: pos=(1045.01,209), scale=(0.355518,0.4629), opacity=1, enabled=1

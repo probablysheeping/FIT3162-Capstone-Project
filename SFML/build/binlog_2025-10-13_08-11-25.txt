@@ -1,0 +1,69 @@
+2025-10-13_08-09-40 File path:"/Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets"
+2025-10-13_08-09-40 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/drag.png
+2025-10-13_08-09-40 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/drag.png
+2025-10-13_08-09-40 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/draw.png
+2025-10-13_08-09-40 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/draw.png
+2025-10-13_08-09-40 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/bin.png
+2025-10-13_08-09-40 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/bin.png
+2025-10-13_08-09-40 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/shapes.png
+2025-10-13_08-09-40 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/shapes.png
+2025-10-13_08-09-40 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/colour-pallet.png
+2025-10-13_08-09-40 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/colour-pallet.png
+2025-10-13_08-09-40 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/intersect.png
+2025-10-13_08-09-40 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/intersect.png
+2025-10-13_08-09-40 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/circle.png
+2025-10-13_08-09-40 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/circle.png
+2025-10-13_08-09-40 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/triangle.png
+2025-10-13_08-09-40 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/triangle.png
+2025-10-13_08-09-40 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/rectangle.png
+2025-10-13_08-09-40 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/rectangle.png
+2025-10-13_08-09-40 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/square.png
+2025-10-13_08-09-40 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/square.png
+2025-10-13_08-09-40 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/clear.png
+2025-10-13_08-09-40 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/clear.png
+2025-10-13_08-09-47 ERROR: Failed to load image from /Users/adityadesai/Downloads/logo.png
+2025-10-13_08-09-59 Number of Selected Polygons: 0
+2025-10-13_08-10-06 User opened contact window.
+2025-10-13_08-10-08 User opened contact window.
+2025-10-13_08-10-08 User opened contact window.
+2025-10-13_08-10-10 User opened contact window.
+2025-10-13_08-10-22 Full screen enabled.
+2025-10-13_08-10-28 Full screen disabled.
+2025-10-13_08-10-39 File opened from /Users/adityadesai/Downloads/testttt.sav.sav
+Polygons in file: 
+POLYGON
+VERTICES 4
+428.666016 339.000000
+757.904053 339.000000
+757.904053 587.000000
+428.666016 587.000000
+COLOUR 0.000000 0.000000 0.000000
+END
+POLYGON
+VERTICES 4
+619.079956 483.000000
+1052.435913 483.000000
+1052.435913 717.000000
+619.079956 717.000000
+COLOUR 0.973025 0.159359 0.159359
+END
+POLYGON
+VERTICES 4
+619.080017 482.999969
+757.903992 482.999939
+757.904053 587.000000
+619.079956 586.999939
+COLOUR 0.973025 0.159359 0.159359
+END
+Zoom: 4.4, Center: (938, 513.5)
+2025-10-13_08-10-41 Number of Selected Polygons: 1
+2025-10-13_08-10-50 Image selected for import: /Users/adityadesai/Downloads/droplet.jpeg
+2025-10-13_08-10-54 Image loaded successfully from /Users/adityadesai/Downloads/droplet.jpeg with resize mode 0
+2025-10-13_08-10-54 Image import completed. imageEnabled=1, hasBackgroundImage=1, opacity=0.7, scale=0.950926
+2025-10-13_08-10-55 Number of Selected Polygons: 1
+2025-10-13_08-11-04 Image selected for import (replacing existing): /Users/adityadesai/Downloads/droplet.jpeg
+2025-10-13_08-11-11 Image loaded successfully from /Users/adityadesai/Downloads/droplet.jpeg with resize mode 2
+2025-10-13_08-11-11 Image import completed. imageEnabled=1, hasBackgroundImage=1, opacity=0.7, scale=0.225503
+2025-10-13_08-11-12 Number of Selected Polygons: 0
+2025-10-13_08-11-21 Number of Selected Polygons: 0
+2025-10-13_08-11-25 User exit.

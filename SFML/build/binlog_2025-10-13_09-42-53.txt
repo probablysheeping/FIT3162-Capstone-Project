@@ -1,0 +1,80 @@
+2025-10-13_09-41-52 File path:"/Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets"
+2025-10-13_09-41-52 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/drag.png
+2025-10-13_09-41-52 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/drag.png
+2025-10-13_09-41-52 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/draw.png
+2025-10-13_09-41-52 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/draw.png
+2025-10-13_09-41-52 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/bin.png
+2025-10-13_09-41-52 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/bin.png
+2025-10-13_09-41-52 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/shapes.png
+2025-10-13_09-41-52 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/shapes.png
+2025-10-13_09-41-52 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/colour-pallet.png
+2025-10-13_09-41-52 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/colour-pallet.png
+2025-10-13_09-41-52 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/intersect.png
+2025-10-13_09-41-52 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/intersect.png
+2025-10-13_09-41-52 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/circle.png
+2025-10-13_09-41-52 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/circle.png
+2025-10-13_09-41-52 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/triangle.png
+2025-10-13_09-41-52 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/triangle.png
+2025-10-13_09-41-52 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/rectangle.png
+2025-10-13_09-41-52 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/rectangle.png
+2025-10-13_09-41-52 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/square.png
+2025-10-13_09-41-52 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/square.png
+2025-10-13_09-41-52 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/clear.png
+2025-10-13_09-41-52 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/clear.png
+2025-10-13_09-41-57 Image selected for import: /Users/adityadesai/Downloads/overlay.png
+2025-10-13_09-41-59 Image dimensions: 278x176
+2025-10-13_09-41-59 Maximum texture size: 16384x16384
+2025-10-13_09-41-59 Image loaded successfully from /Users/adityadesai/Downloads/overlay.png with resize mode 0, final size: 278x176, scale: 5.83523x5.83523
+2025-10-13_09-41-59 Image import completed. imageEnabled=1, hasBackgroundImage=1, opacity=1, scale=5.83523, sprite pos=(188.903,0), sprite scale=(5.83523,5.83523)
+2025-10-13_09-41-59 Saving image state: path=/Users/adityadesai/Downloads/overlay.png, pos=(188.903,0), scale=(5.83523,5.83523), opacity=1, enabled=1
+2025-10-13_09-41-59 Saved file successfully to /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/build/bin/autosave.sav
+2025-10-13_09-42-00 [RENDER] Drawing image: pos=(188.903,0), scale=(5.83523,5.83523), opacity=1, enabled=1
+2025-10-13_09-42-01 [RENDER] Drawing image: pos=(188.903,0), scale=(5.83523,5.83523), opacity=1, enabled=1
+2025-10-13_09-42-10 [RENDER] Drawing image: pos=(188.903,0), scale=(5.83523,5.83523), opacity=1, enabled=1
+2025-10-13_09-42-11 [RENDER] Drawing image: pos=(188.903,0), scale=(5.83523,5.83523), opacity=1, enabled=1
+2025-10-13_09-42-11 Image selected for import (replacing existing): /Users/adityadesai/Downloads/droplet.jpeg
+2025-10-13_09-42-12 [RENDER] Drawing image: pos=(188.903,0), scale=(5.83523,5.83523), opacity=1, enabled=1
+2025-10-13_09-42-12 Image dimensions: 1920x1080
+2025-10-13_09-42-12 Maximum texture size: 16384x16384
+2025-10-13_09-42-12 Image loaded successfully from /Users/adityadesai/Downloads/droplet.jpeg with resize mode 0, final size: 1920x1080, scale: 0.950926x0.950926
+2025-10-13_09-42-12 Image import completed. imageEnabled=1, hasBackgroundImage=1, opacity=1, scale=0.950926, sprite pos=(87.1111,0), sprite scale=(0.950926,0.950926)
+2025-10-13_09-42-12 Saving image state: path=/Users/adityadesai/Downloads/droplet.jpeg, pos=(87.1111,0), scale=(0.950926,0.950926), opacity=1, enabled=1
+2025-10-13_09-42-12 Saved file successfully to /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/build/bin/autosave.sav
+2025-10-13_09-42-13 [RENDER] Drawing image: pos=(87.1111,0), scale=(0.950926,0.950926), opacity=1, enabled=1
+2025-10-13_09-42-14 [RENDER] Drawing image: pos=(87.1111,0), scale=(0.950926,0.950926), opacity=1, enabled=1
+2025-10-13_09-42-15 [RENDER] Drawing image: pos=(87.1111,0), scale=(0.950926,0.950926), opacity=1, enabled=1
+2025-10-13_09-42-16 [RENDER] Drawing image: pos=(87.1111,0), scale=(0.950926,0.950926), opacity=1, enabled=1
+2025-10-13_09-42-17 [RENDER] Drawing image: pos=(87.1111,0), scale=(0.950926,0.950926), opacity=1, enabled=1
+2025-10-13_09-42-18 [RENDER] Drawing image: pos=(87.1111,0), scale=(0.21861,0.266077), opacity=1, enabled=1
+2025-10-13_09-42-19 [RENDER] Drawing image: pos=(87.1111,0), scale=(0.625381,0.722558), opacity=1, enabled=1
+2025-10-13_09-42-20 [RENDER] Drawing image: pos=(87.1111,0), scale=(0.654027,0.900336), opacity=1, enabled=1
+2025-10-13_09-42-21 [RENDER] Drawing image: pos=(87.1111,0), scale=(0.654027,0.900336), opacity=1, enabled=1
+2025-10-13_09-42-22 [RENDER] Drawing image: pos=(218.843,74), scale=(0.654027,0.900336), opacity=1, enabled=1
+2025-10-13_09-42-23 [RENDER] Drawing image: pos=(583.843,244), scale=(0.654027,0.900336), opacity=1, enabled=1
+2025-10-13_09-42-24 [RENDER] Drawing image: pos=(583.843,244), scale=(0.654027,0.900336), opacity=1, enabled=1
+2025-10-13_09-42-25 [RENDER] Drawing image: pos=(583.843,244), scale=(0.443443,0.446721), opacity=1, enabled=1
+2025-10-13_09-42-26 [RENDER] Drawing image: pos=(583.843,244), scale=(0.443443,0.446721), opacity=1, enabled=1
+2025-10-13_09-42-27 [RENDER] Drawing image: pos=(583.843,244), scale=(0.443443,0.446721), opacity=1, enabled=1
+2025-10-13_09-42-28 [RENDER] Drawing image: pos=(583.843,244), scale=(0.443443,0.446721), opacity=0.282, enabled=1
+2025-10-13_09-42-29 [RENDER] Drawing image: pos=(583.843,244), scale=(0.443443,0.446721), opacity=1, enabled=1
+2025-10-13_09-42-30 [RENDER] Drawing image: pos=(583.843,244), scale=(1.56,1.57153), opacity=1, enabled=1
+2025-10-13_09-42-31 [RENDER] Drawing image: pos=(583.843,244), scale=(2.158,2.17395), opacity=1, enabled=1
+2025-10-13_09-42-32 [RENDER] Drawing image: pos=(583.843,244), scale=(2.158,2.17395), opacity=1, enabled=1
+2025-10-13_09-42-33 [RENDER] Drawing image: pos=(583.843,244), scale=(2.158,2.17395), opacity=1, enabled=1
+2025-10-13_09-42-34 [RENDER] Drawing image: pos=(791.715,306), scale=(2.158,2.17395), opacity=1, enabled=1
+2025-10-13_09-42-35 [RENDER] Drawing image: pos=(810.715,318), scale=(2.158,2.17395), opacity=1, enabled=1
+2025-10-13_09-42-36 [RENDER] Drawing image: pos=(810.715,318), scale=(0.530266,0.657977), opacity=1, enabled=1
+2025-10-13_09-42-37 [RENDER] Drawing image: pos=(810.715,318), scale=(0.554745,0.4552), opacity=1, enabled=1
+2025-10-13_09-42-38 [RENDER] Drawing image: pos=(810.715,318), scale=(0.49537,0.652422), opacity=1, enabled=1
+2025-10-13_09-42-39 [RENDER] Drawing image: pos=(810.715,318), scale=(0.49537,0.652422), opacity=1, enabled=1
+2025-10-13_09-42-40 [RENDER] Drawing image: pos=(810.715,318), scale=(0.49537,0.652422), opacity=1, enabled=1
+2025-10-13_09-42-42 [RENDER] Drawing image: pos=(810.715,318), scale=(0.49537,0.652422), opacity=1, enabled=1
+2025-10-13_09-42-43 [RENDER] Drawing image: pos=(810.715,318), scale=(0.49537,0.652422), opacity=1, enabled=1
+2025-10-13_09-42-44 [RENDER] Drawing image: pos=(810.715,318), scale=(0.49537,0.652422), opacity=1, enabled=1
+2025-10-13_09-42-45 [RENDER] Drawing image: pos=(810.715,318), scale=(3,3.95112), opacity=1, enabled=1
+2025-10-13_09-42-46 [RENDER] Drawing image: pos=(810.715,318), scale=(1.703,2.24292), opacity=1, enabled=1
+2025-10-13_09-42-47 [RENDER] Drawing image: pos=(810.715,318), scale=(1.703,2.24292), opacity=1, enabled=1
+2025-10-13_09-42-51 Saving image state: path=/Users/adityadesai/Downloads/droplet.jpeg, pos=(810.715,318), scale=(1.703,2.24292), opacity=1, enabled=1
+2025-10-13_09-42-51 Saved file successfully to /Users/adityadesai/Downloads/uhhhh.sav.sav
+2025-10-13_09-42-51 [RENDER] Drawing image: pos=(810.715,318), scale=(1.703,2.24292), opacity=1, enabled=1
+2025-10-13_09-42-52 [RENDER] Drawing image: pos=(810.715,318), scale=(1.703,2.24292), opacity=1, enabled=1

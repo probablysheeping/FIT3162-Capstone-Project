@@ -2,6 +2,7 @@
 
 #include "polygon.h"
 #include "saving.h"
+#include <string>
 
 
 class Actions {
@@ -15,4 +16,7 @@ public:
 	void Paste(std::vector<Polygon>& polygons, std::vector<Polygon>& clipboard);
 	void Delete(std::vector<Polygon>& polygons, std::vector<int>& selectedPolygons);
 	void ClearSelected(std::vector<Polygon>& polygons, std::vector<int>& selectedPolygons, double& area);
+	
+	// Track the current file path
+	std::string currentFilePath;
 };

@@ -15,6 +15,11 @@ std::pair<std::vector<Polygon>, std::pair<ImageState, ViewState>> Actions::OpenF
 
     polygons = loadedPolygons;
     selectedPolygons.clear();
+    
+    // Store the current file path for future saves
+    if (!openLocation.empty()) {
+        currentFilePath = openLocation;
+    }
 
     logger << currentDateTime() << " File opened from " << openLocation << std::endl;
 
@@ -39,7 +44,18 @@ void Actions::SaveFile(std::vector<Polygon>& polygons, const ImageState& imageSt
 {
 	sf::Vector2f center = view.getCenter();
 	ViewState viewState = { zoomLevel, center.x, center.y };
-    quickSave(polygons, imageState, "save.sav", viewState);
+	
+	// If we have a current file path, save to it; otherwise use quickSave default
+	if (!currentFilePath.empty()) {
+		if (saveToFile(polygons, imageState, currentFilePath, viewState))
+			logger << currentDateTime() << " Saved file successfully to " << currentFilePath << std::endl;
+		else
+			logger << currentDateTime() << " Saved file un-successfully to " << currentFilePath << std::endl;
+	} else {
+		// No file opened yet, default to save.sav
+		quickSave(polygons, imageState, "save.sav", viewState);
+		logger << currentDateTime() << " No file opened. Saved to default save.sav" << std::endl;
+	}
 }
 
 void Actions::SaveFileAs(std::vector<Polygon>& polygons, const ImageState& imageState, std::vector<int>& selectedPolygons, sf::View& view, float& zoomLevel, const sf::RenderWindow& window)
@@ -47,10 +63,16 @@ void Actions::SaveFileAs(std::vector<Polygon>& polygons, const ImageState& image
     std::string saveLocation = SaveFileDialog() + ".sav";
 	sf::Vector2f center = view.getCenter();
 	ViewState viewState = { zoomLevel, center.x, center.y };
-    if (saveToFile(polygons, imageState, saveLocation, viewState))
-        logger << currentDateTime() << " Saved file successfully to " << saveLocation << std::endl;
-    else
-        logger << currentDateTime() << " Saved file un-successfully to " << saveLocation << std::endl;
+	
+	if (!saveLocation.empty() && saveLocation != ".sav") {
+		if (saveToFile(polygons, imageState, saveLocation, viewState)) {
+			// Update current file path after successful save
+			currentFilePath = saveLocation;
+			logger << currentDateTime() << " Saved file successfully to " << saveLocation << std::endl;
+		} else {
+			logger << currentDateTime() << " Saved file un-successfully to " << saveLocation << std::endl;
+		}
+	}
 }
 
 void Actions::Undo(std::vector<ImVec2>& vertices, std::vector<sf::Vertex>& newPolygonOutline, bool& createPolygon, ImVec2& undoVertex, sf::Vertex& undoPolygonOutline)

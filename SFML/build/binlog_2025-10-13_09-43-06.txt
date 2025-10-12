@@ -1,0 +1,36 @@
+2025-10-13_09-42-54 File path:"/Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets"
+2025-10-13_09-42-54 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/drag.png
+2025-10-13_09-42-54 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/drag.png
+2025-10-13_09-42-54 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/draw.png
+2025-10-13_09-42-54 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/draw.png
+2025-10-13_09-42-54 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/bin.png
+2025-10-13_09-42-54 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/bin.png
+2025-10-13_09-42-54 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/shapes.png
+2025-10-13_09-42-54 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/shapes.png
+2025-10-13_09-42-54 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/colour-pallet.png
+2025-10-13_09-42-54 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/colour-pallet.png
+2025-10-13_09-42-54 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/intersect.png
+2025-10-13_09-42-54 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/intersect.png
+2025-10-13_09-42-54 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/circle.png
+2025-10-13_09-42-54 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/circle.png
+2025-10-13_09-42-54 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/triangle.png
+2025-10-13_09-42-54 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/triangle.png
+2025-10-13_09-42-54 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/rectangle.png
+2025-10-13_09-42-54 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/rectangle.png
+2025-10-13_09-42-54 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/square.png
+2025-10-13_09-42-54 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/square.png
+2025-10-13_09-42-54 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/clear.png
+2025-10-13_09-42-54 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/clear.png
+2025-10-13_09-42-59 Loaded image state: hasImage=1, path=/Users/adityadesai/Downloads/droplet.jpeg, pos=(810.715,318), scale=(1.703,2.24292), opacity=1, enabled=1
+2025-10-13_09-42-59 File opened from /Users/adityadesai/Downloads/uhhhh.sav.sav
+Polygons in file: 
+Zoom: 1, Center: (938, 513.5)
+2025-10-13_09-42-59 Restoring image state: hasImage=1, path='/Users/adityadesai/Downloads/droplet.jpeg', enabled=1
+2025-10-13_09-42-59 Image restored successfully: enabled=1, hasImage=1, opacity=1, scale=1.703 from /Users/adityadesai/Downloads/droplet.jpeg
+2025-10-13_09-43-00 [RENDER] Drawing image: pos=(810.715,318), scale=(1.703,2.24292), opacity=1, enabled=1
+2025-10-13_09-43-01 [RENDER] Drawing image: pos=(810.715,318), scale=(1.703,2.24292), opacity=1, enabled=1
+2025-10-13_09-43-02 [RENDER] Drawing image: pos=(810.715,318), scale=(1.703,2.24292), opacity=1, enabled=1
+2025-10-13_09-43-03 [RENDER] Drawing image: pos=(810.715,318), scale=(1.703,2.24292), opacity=1, enabled=1
+2025-10-13_09-43-04 [RENDER] Drawing image: pos=(810.715,318), scale=(1.703,2.24292), opacity=1, enabled=1
+2025-10-13_09-43-05 [RENDER] Drawing image: pos=(810.715,318), scale=(1.703,2.24292), opacity=1, enabled=1
+2025-10-13_09-43-06 [RENDER] Drawing image: pos=(810.715,318), scale=(1.703,2.24292), opacity=1, enabled=1

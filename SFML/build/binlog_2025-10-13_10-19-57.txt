@@ -1,0 +1,48 @@
+2025-10-13_10-19-52 File path:"/Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets"
+2025-10-13_10-19-52 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/drag.png
+2025-10-13_10-19-52 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/drag.png
+2025-10-13_10-19-52 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/draw.png
+2025-10-13_10-19-52 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/draw.png
+2025-10-13_10-19-52 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/bin.png
+2025-10-13_10-19-52 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/bin.png
+2025-10-13_10-19-52 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/shapes.png
+2025-10-13_10-19-52 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/shapes.png
+2025-10-13_10-19-52 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/colour-pallet.png
+2025-10-13_10-19-52 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/colour-pallet.png
+2025-10-13_10-19-52 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/intersect.png
+2025-10-13_10-19-52 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/intersect.png
+2025-10-13_10-19-52 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/circle.png
+2025-10-13_10-19-52 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/circle.png
+2025-10-13_10-19-52 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/triangle.png
+2025-10-13_10-19-52 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/triangle.png
+2025-10-13_10-19-52 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/rectangle.png
+2025-10-13_10-19-52 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/rectangle.png
+2025-10-13_10-19-52 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/square.png
+2025-10-13_10-19-52 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/square.png
+2025-10-13_10-19-52 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/clear.png
+2025-10-13_10-19-52 /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/assets/clear.png
+2025-10-13_10-19-55 Loaded image state: hasImage=1, path=/Users/adityadesai/Downloads/media_1655923d8b0386180ca09391e8654c4e468090bb3.jpeg, pos=(342.25,150), scale=(1.09625,1.09625), opacity=1, enabled=1
+2025-10-13_10-19-55 File opened from /Users/adityadesai/Downloads/xxx.sav.sav
+Polygons in file: 
+POLYGON
+VERTICES 4
+525.280029 344.000000
+215.739990 344.000000
+215.739990 212.000031
+525.280029 212.000031
+COLOUR 0.000000 0.000000 0.000000
+END
+POLYGON
+VERTICES 4
+156.645996 165.999969
+453.054047 165.999969
+453.054047 271.000000
+156.645996 271.000000
+COLOUR 0.815029 0.175883 0.175883
+END
+Zoom: 1, Center: (0, 0)
+2025-10-13_10-19-55 Restoring image state: hasImage=1, path='/Users/adityadesai/Downloads/media_1655923d8b0386180ca09391e8654c4e468090bb3.jpeg', enabled=1
+2025-10-13_10-19-55 Using saved position and scale
+2025-10-13_10-19-55 Image restored successfully: enabled=1, hasImage=1, opacity=1, scale=1.09625, pos=(342.25,150), scale=(1.09625,1.09625) from /Users/adityadesai/Downloads/media_1655923d8b0386180ca09391e8654c4e468090bb3.jpeg
+2025-10-13_10-19-56 [RENDER] Drawing image: pos=(342.25,150), scale=(1.09625,1.09625), opacity=1, enabled=1
+2025-10-13_10-19-57 [RENDER] Drawing image: pos=(342.25,150), scale=(1.09625,1.09625), opacity=1, enabled=1
