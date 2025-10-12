@@ -370,7 +370,7 @@ ImVec2 intersectingSegments(ImVec2 a, ImVec2 b, ImVec2 p, ImVec2 q)
 	float y = ((a.x * b.y - a.y * b.x) * (p.y - q.y) - (a.y - b.y) * (p.x * q.y - p.y * q.x)) / d;
 	
 	const ImVec2 output = ImVec2(x, y);
-
+    return output;
 	// Check if intersection point is within both line segments
 	if (std::max(std::min(a.x, b.x), std::min(p.x, q.x)) <= output.x && 
 		output.x <= std::min(std::max(a.x,b.x), std::max(p.x,q.x)) && 
