@@ -594,7 +594,7 @@ int runProgram()
 
     // Load assets
     std::string dirpath = std::filesystem::current_path().string();
-    std::string icon_names[] = { "drag", "draw", "bin", "shapes", "colour-pallet", "intersect", "circle", "triangle", "rectangle", "square" };
+    std::string icon_names[] = { "drag", "draw", "bin", "shapes", "colour-pallet", "intersect", "circle", "triangle", "rectangle", "square", "clear" };
     std::map<std::string, image> icons;
 
     for (std::string i : icon_names) {
@@ -1220,7 +1220,7 @@ int runProgram()
 
             ImGui::SameLine();
             ImVec2 clearButtonPos = ImGui::GetCursorScreenPos();
-            if (ImGui::ImageButton("Clear Button", icons["circle"].texture, ImVec2(ICON_SIZE, ICON_SIZE))) {
+            if (ImGui::ImageButton("Clear Button", icons["clear"].texture, ImVec2(ICON_SIZE, ICON_SIZE))) {
 				actions.ClearSelected(polygons, selectedPolygons, area);
             }
             tutorial.updateTargetPosition(TutorialTargetType::CLEAR_BUTTON, clearButtonPos, ImVec2(45, 45));
