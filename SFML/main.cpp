@@ -1121,11 +1121,11 @@ int runProgram()
         // Needs to be formatted properly. This is just a placeholder UI
 
 
-        ImGui::SetNextWindowSize(ImVec2(280 * SCALE_FACTOR, 60 * SCALE_FACTOR));
+        ImGui::SetNextWindowSize(ImVec2(390 * SCALE_FACTOR, 60 * SCALE_FACTOR));
         ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(1.0f, 1.0f, 1.0f, 1.0f));
 
 
-        ImGui::SetNextWindowPos(ImVec2((WINDOW_WIDTH - 280 * SCALE_FACTOR) / 2, mainMenuBarSize.y));
+        ImGui::SetNextWindowPos(ImVec2((WINDOW_WIDTH - 390 * SCALE_FACTOR) / 2, mainMenuBarSize.y));
         if (ImGui::Begin("Polygon Creator", nullptr, 7 + ImGuiWindowFlags_NoScrollbar + ImGuiWindowFlags_NoScrollWithMouse)) {
 
             ImVec2 windowPos = ImGui::GetWindowPos();
@@ -1217,6 +1217,14 @@ int runProgram()
             }
             tutorial.updateTargetPosition(TutorialTargetType::MOVE_BUTTON, moveButtonPos, ImVec2(45, 45));
             createToolTip("Move around drawn polygons", tooltipsEnabled);
+
+            ImGui::SameLine();
+            ImVec2 clearButtonPos = ImGui::GetCursorScreenPos();
+            if (ImGui::ImageButton("Clear Button", icons["circle"].texture, ImVec2(ICON_SIZE, ICON_SIZE))) {
+				actions.ClearSelected(polygons, selectedPolygons, area);
+            }
+            tutorial.updateTargetPosition(TutorialTargetType::CLEAR_BUTTON, clearButtonPos, ImVec2(45, 45));
+            createToolTip("Clear selected polygons", tooltipsEnabled);
 
             ImGui::SameLine();
             ImGui::BeginDisabled(selectedPolygons.size() != 2);
