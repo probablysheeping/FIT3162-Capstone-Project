@@ -1204,7 +1204,7 @@ int runProgram()
             createToolTip("Change selected polygon colour", tooltipsEnabled);
 
             ImGui::SameLine();
-            ImVec2 moveButtonPos = ImGui::GetCursorPos();
+            ImVec2 moveButtonPos = ImGui::GetCursorScreenPos();
             if (status.draggingPolygons) {
                 ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.4f, 0.7f, 1.0f, 1.0f));
             }
@@ -1224,7 +1224,7 @@ int runProgram()
 				actions.ClearSelected(polygons, selectedPolygons, area);
             }
             tutorial.updateTargetPosition(TutorialTargetType::CLEAR_BUTTON, clearButtonPos, ImVec2(45, 45));
-            createToolTip("Clear selected polygons", tooltipsEnabled);
+            createToolTip("Clear selected polygons (ESC)", tooltipsEnabled);
 
             ImGui::SameLine();
             ImGui::BeginDisabled(selectedPolygons.size() != 2);
