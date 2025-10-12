@@ -11,7 +11,6 @@ enum class TutorialTargetType {
     VIEW_MENU,         // View menu
     HELP_MENU,         // Help menu
     CREATE_BUTTON,     // Create Polygon button
-    SHAPE_BUTTON,       // Use pre-defined shape
     DELETE_BUTTON,     // Delete Polygon button
     MOVE_BUTTON,       // Move Polygon button
     COMPUTE_BUTTON,    // Compute IoU button
