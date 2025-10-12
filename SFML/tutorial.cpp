@@ -70,7 +70,7 @@ ImVec2 Tutorial::calculateWindowPosition(const TutorialStep& step) {
     }
 
     ImVec2 screenSize = ImGui::GetIO().DisplaySize;
-    ImVec2 windowSize(380, 200);  // Approximate tutorial window size
+    ImVec2 windowSize(750, 380);  // Increased size to accommodate content better
 
     // Position window to avoid overlapping with target
     ImVec2 pos;
@@ -81,7 +81,7 @@ ImVec2 Tutorial::calculateWindowPosition(const TutorialStep& step) {
         pos.y = (screenSize.y - windowSize.y) * 0.5f;
     } else {
         // Position relative to target
-        float padding = 30.0f;
+        float padding = 40.0f;  // Increased padding
         
         // Try to position to the right
         if (step.targetPosition.x + step.targetSize.x + padding + windowSize.x < screenSize.x) {
@@ -134,8 +134,8 @@ void Tutorial::renderHighlight(const TutorialStep& step) {
         step.targetPosition.y + step.targetSize.y
     );
     
-    // Add padding to the highlight
-    float padding = 4.0f;
+    // Add padding to the highlight - increased for better visibility
+    float padding = 6.0f;
     topLeft.x -= padding;
     topLeft.y -= padding;
     bottomRight.x += padding;
@@ -173,7 +173,7 @@ bool Tutorial::render() {
     // Position and render tutorial window
     ImVec2 windowPos = calculateWindowPosition(step);
     ImGui::SetNextWindowPos(windowPos, ImGuiCond_Always);
-    ImGui::SetNextWindowSize(ImVec2(380, 0), ImGuiCond_Always);
+    ImGui::SetNextWindowSize(ImVec2(750, 0), ImGuiCond_Always);
     
     // Custom window styling - fully opaque white background
     ImGui::PushStyleColor(ImGuiCol_TitleBg, ImVec4(0.2f, 0.5f, 0.8f, 1.0f));
@@ -203,12 +203,17 @@ bool Tutorial::render() {
     ImGui::Separator();
     ImGui::Spacing();
 
-    // Navigation buttons
-    float buttonWidth = 100.0f;
+    // Navigation buttons - increased size to prevent text cutoff
+    float buttonWidth = 220.0f;
+    float buttonHeight = 60.0f;
+    float windowWidth = ImGui::GetWindowWidth();
+    
+    // Add extra padding to buttons
+    ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(20, 12));
     
     // Previous button
     if (currentStep > 0) {
-        if (ImGui::Button("< Previous", ImVec2(buttonWidth, 30))) {
+        if (ImGui::Button("< Previous", ImVec2(buttonWidth, buttonHeight))) {
             previousStep();
         }
         ImGui::SameLine();
@@ -216,21 +221,27 @@ bool Tutorial::render() {
     
     // Next/Finish button
     if (currentStep < static_cast<int>(steps.size()) - 1) {
-        if (ImGui::Button("Next >", ImVec2(buttonWidth, 30))) {
+        if (ImGui::Button("Next >", ImVec2(buttonWidth, buttonHeight))) {
             nextStep();
         }
     } else {
-        if (ImGui::Button("Finish", ImVec2(buttonWidth, 30))) {
+        if (ImGui::Button("Finish", ImVec2(buttonWidth, buttonHeight))) {
             active = false;
         }
     }
     
-    // Skip button
+    // Skip button - properly positioned on the right
     ImGui::SameLine();
-    ImGui::SetCursorPosX(ImGui::GetWindowWidth() - buttonWidth - 10);
-    if (ImGui::Button("Skip Tutorial", ImVec2(buttonWidth, 30))) {
+    float skipButtonWidth = 220.0f;
+    float availableWidth = windowWidth - ImGui::GetCursorPosX() - 30.0f;
+    if (availableWidth > skipButtonWidth) {
+        ImGui::SetCursorPosX(windowWidth - skipButtonWidth - 30.0f);
+    }
+    if (ImGui::Button("Skip Tutorial", ImVec2(skipButtonWidth, buttonHeight))) {
         skip();
     }
+    
+    ImGui::PopStyleVar(); // Pop FramePadding
 
     ImGui::End();
     
@@ -247,16 +258,23 @@ bool Tutorial::render() {
             ImGui::Text("You can restart it anytime from the Help menu.");
             ImGui::Spacing();
             
-            if (ImGui::Button("Yes, Skip", ImVec2(120, 0))) {
+            // Increase button size for confirmation dialog
+            ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(20, 12));
+            float confirmButtonWidth = 220.0f;
+            float confirmButtonHeight = 60.0f;
+            
+            if (ImGui::Button("Yes, Skip", ImVec2(confirmButtonWidth, confirmButtonHeight))) {
                 active = false;
                 showSkipConfirm = false;
                 ImGui::CloseCurrentPopup();
             }
             ImGui::SameLine();
-            if (ImGui::Button("No, Continue", ImVec2(120, 0))) {
+            if (ImGui::Button("No, Continue", ImVec2(confirmButtonWidth, confirmButtonHeight))) {
                 showSkipConfirm = false;
                 ImGui::CloseCurrentPopup();
             }
+            
+            ImGui::PopStyleVar(); // Pop FramePadding for confirmation buttons
             
             ImGui::EndPopup();
         }

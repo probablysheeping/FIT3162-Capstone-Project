@@ -1050,6 +1050,9 @@ int runProgram()
         {
 
             mainMenuBarSize = ImGui::GetWindowSize();
+            ImVec2 menuBarPos = ImGui::GetWindowPos();
+            tutorial.updateTargetPosition(TutorialTargetType::MENU_BAR, menuBarPos, mainMenuBarSize);
+            
             if (ImGui::MenuItem("Open", "CTRL+O"))
             {
                 auto [loadedPolygons, statesPair] = actions.OpenFile(polygons, selectedPolygons, view, zoomLevel, window);
@@ -1103,6 +1106,10 @@ int runProgram()
                     imageEnabled = false;
                 }
             }
+            ImVec2 fileMenuPos = ImGui::GetItemRectMin();
+            ImVec2 fileMenuSize = ImGui::GetItemRectSize();
+            tutorial.updateTargetPosition(TutorialTargetType::FILE_MENU, fileMenuPos, fileMenuSize);
+            
             if (ImGui::MenuItem("Save", "CTRL+S"))
             {
                 ImageState imageState = getCurrentImageState(hasBackgroundImage, currentImagePath, backgroundSprite, imageOpacity, imageEnabled);
@@ -1272,7 +1279,8 @@ int runProgram()
                     quickSave(polygons, imageState, "autosave.sav", viewState);
                 }
             }
-            tutorial.updateTargetPosition(TutorialTargetType::CREATE_BUTTON, createButtonPos, ImVec2(45, 45));
+            ImVec2 createButtonSize = ImGui::GetItemRectSize();
+            tutorial.updateTargetPosition(TutorialTargetType::CREATE_BUTTON, createButtonPos, createButtonSize);
             createToolTip("Click on canvas to create vertices", tooltipsEnabled);
             ImGui::SameLine();
             ImVec2 shapeButtonPos = ImGui::GetCursorScreenPos();
@@ -1282,7 +1290,8 @@ int runProgram()
 
                 ImGui::OpenPopup("ShapeSelector");
             }
-            tutorial.updateTargetPosition(TutorialTargetType::SHAPE_BUTTON, shapeButtonPos, ImVec2(45, 45));
+            ImVec2 shapeButtonSize = ImGui::GetItemRectSize();
+            tutorial.updateTargetPosition(TutorialTargetType::SHAPE_BUTTON, shapeButtonPos, shapeButtonSize);
             createToolTip("Click to create polygon", tooltipsEnabled);
             ImGui::SameLine();
 
@@ -1297,7 +1306,8 @@ int runProgram()
                 }
                 selectedPolygons.clear();
             }
-            tutorial.updateTargetPosition(TutorialTargetType::DELETE_BUTTON, deleteButtonPos, ImVec2(45, 45));
+            ImVec2 deleteButtonSize = ImGui::GetItemRectSize();
+            tutorial.updateTargetPosition(TutorialTargetType::DELETE_BUTTON, deleteButtonPos, deleteButtonSize);
             createToolTip("Select polygon and then click delete (DEL)", tooltipsEnabled);
 
             ImGui::SameLine();
@@ -1307,7 +1317,8 @@ int runProgram()
                 // Change Colour
                 ImGui::OpenPopup("ColourPicker");
             }
-            tutorial.updateTargetPosition(TutorialTargetType::COLOR_PICKER, colorPickerPos, ImVec2(45, 45));
+            ImVec2 colorPickerSize = ImGui::GetItemRectSize();
+            tutorial.updateTargetPosition(TutorialTargetType::COLOR_PICKER, colorPickerPos, colorPickerSize);
             createToolTip("Change selected polygon colour", tooltipsEnabled);
 
             ImGui::SameLine();
@@ -1325,7 +1336,8 @@ int runProgram()
             {
                 ImGui::PopStyleColor();
             }
-            tutorial.updateTargetPosition(TutorialTargetType::MOVE_BUTTON, moveButtonPos, ImVec2(45, 45));
+            ImVec2 moveButtonSize = ImGui::GetItemRectSize();
+            tutorial.updateTargetPosition(TutorialTargetType::MOVE_BUTTON, moveButtonPos, moveButtonSize);
             createToolTip("Move around drawn polygons", tooltipsEnabled);
 
             ImGui::SameLine();
@@ -1334,7 +1346,8 @@ int runProgram()
             {
                 actions.ClearSelected(polygons, selectedPolygons, area);
             }
-            tutorial.updateTargetPosition(TutorialTargetType::CLEAR_BUTTON, clearButtonPos, ImVec2(45, 45));
+            ImVec2 clearButtonSize = ImGui::GetItemRectSize();
+            tutorial.updateTargetPosition(TutorialTargetType::CLEAR_BUTTON, clearButtonPos, clearButtonSize);
             createToolTip("Clear selected polygons (ESC)", tooltipsEnabled);
 
             ImGui::SameLine();
@@ -1376,7 +1389,8 @@ int runProgram()
 
                 logger << currentDateTime() << " Computed IoU.\n";
             }
-            tutorial.updateTargetPosition(TutorialTargetType::COMPUTE_BUTTON, computeButtonPos, ImVec2(45, 45));
+            ImVec2 computeButtonSize = ImGui::GetItemRectSize();
+            tutorial.updateTargetPosition(TutorialTargetType::COMPUTE_BUTTON, computeButtonPos, computeButtonSize);
             createToolTip("Select two polygons and then calculate", tooltipsEnabled);
 
             ImGui::Text("Area:");
