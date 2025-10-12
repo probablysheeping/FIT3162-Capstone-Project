@@ -382,7 +382,7 @@ int runProgram()
 
     // One can set the dimensions based on screen size.
 
-    float SCALE_FACTOR = 1.f;
+    float SCALE_FACTOR = 2.f;
 
     WINDOW_HEIGHT *= SCALE_FACTOR;
     WINDOW_WIDTH *= SCALE_FACTOR;
@@ -422,7 +422,7 @@ int runProgram()
     const float maxZoom = 5.0f;
     bool isPanning = false;
     sf::Vector2f panStart;
-
+    sf::RectangleShape rectangleSketch;
     sf::Clock deltaClock;
 
     // This is the data for a polygon not the actual displayed shape
@@ -434,10 +434,11 @@ int runProgram()
         bool adjustVertices = true;
         bool draggingPolygons = false;
         bool draggingVertex = false;
-        bool createTemplatePolygon = false;
+        int createTemplatePolygon = false;
         bool createTemplateCircle = false;
         bool templateStage = 0; // 0 for first part, 1 for second part (eg top left bot right corners)
         ImVec2 lastMousePos = ImVec2(0, 0);
+        ImVec2 topLeftVertex = ImVec2(-1, -1); // used for drawing template polygons
     } status;
 
     typedef struct
@@ -491,6 +492,7 @@ int runProgram()
     std::vector<ImVec2> vertices;
     std::vector<sf::Vertex> newPolygonOutline;
 
+    sf::CircleShape mouseCircle;
     bool firstVertex = true;
     bool test = true;
     std::vector<int> selectedPolygons;
@@ -740,8 +742,7 @@ int runProgram()
             }
             else if (const auto mouseButtonPressed = event->getIf<sf::Event::MouseButtonPressed>())
             {
-
-                if (mouseButtonPressed->button == sf::Mouse::Button::Left)
+                if (mouseButtonPressed->button == sf::Mouse::Button::Left && !status.menuInteraction)
                 {
 
                     ImVec2 mousepos = getMousePos(window);
@@ -781,10 +782,22 @@ int runProgram()
                             continue;
                         }
                     }
+                    else if (status.createTemplatePolygon==1) {
+                        status.topLeftVertex = getMousePos(window);
+                        status.createTemplatePolygon = 2;
+                        rectangleSketch.setPosition(status.topLeftVertex);
+                    }
+                    else if (status.createTemplatePolygon == 2) {
+
+                        newPolygon.setColour(polygonColour);
+                        newPolygon.setVertices({ status.topLeftVertex, {mousepos.x, status.topLeftVertex.y}, {mousepos.x, mousepos.y}, {status.topLeftVertex.x, mousepos.y} });
+                        polygons.push_back(newPolygon);
+                        status.createTemplatePolygon = 0;
+                    }
                     else if (status.createPolygon)
                     {
 
-                        if (!firstVertex && distanceL2(mousepos, vertices.front()) <= 10)
+                        if (!firstVertex && distanceL2(mousepos, vertices.front()) <= 10*SCALE_FACTOR)
                         {
                             if (vertices.size() < 3)
                             {
@@ -1014,6 +1027,17 @@ int runProgram()
                 }
             }
         }
+        ImVec2 mousepos = getMousePos(window);
+        if (status.createPolygon || status.createTemplatePolygon > 0) {
+            mouseCircle.setPosition({ mousepos.x - 10.f * SCALE_FACTOR, mousepos.y - 10.f * SCALE_FACTOR });
+            mouseCircle.setRadius(10.f*SCALE_FACTOR);
+            mouseCircle.setFillColor(sf::Color::Black);
+        }
+        if (status.createTemplatePolygon == 2) {
+            rectangleSketch.setFillColor(sf::Color((int)(polygonColour[0] * 255), (int)(polygonColour[1] * 255), (int)(polygonColour[2] * 255)));
+            rectangleSketch.setSize({ mousepos.x - status.topLeftVertex.x, mousepos.y - status.topLeftVertex.y });
+        }
+
         // After SFML Stuff, before ImGui stuff
         ImGui::SFML::Update(window, deltaClock.restart());
 
@@ -1403,16 +1427,7 @@ int runProgram()
 
             if (ImGui::ImageButton("Rectangle", icons["rectangle"].texture, ImVec2(ICON_SIZE, ICON_SIZE)))
             {
-                newPolygon = Polygon();
-                vertices = { ImVec2(100, 100), ImVec2(400, 100), ImVec2(400, 250), ImVec2(100,250)};
-                if (status.adjustVertices)
-                    adjustVertices(vertices);
-                newPolygon.setVertices(vertices);
-                newPolygon.setColour(polygonColour);
-                polygons.push_back(newPolygon);
-                logger << currentDateTime() << " NEW " << newPolygon;
-                newPolygon = Polygon();
-                vertices.clear();
+                status.createTemplatePolygon = 1;
                 ImGui::CloseCurrentPopup();
             }
             createToolTip("Create rectangle by clicking top left corner and dragging the bottom right corner out", tooltipsEnabled);
@@ -1584,8 +1599,11 @@ int runProgram()
             drawResizeHandles(window, imageBounds, handleSize);
         }
 
-        if (status.createTemplatePolygon)
-        {
+        if (status.createPolygon || status.createTemplatePolygon || status.createTemplateCircle) {
+            window.draw(mouseCircle);
+        }
+        if (status.createTemplatePolygon == 2) {
+            window.draw(rectangleSketch);
         }
 
         if (status.createPolygon && !firstVertex)
