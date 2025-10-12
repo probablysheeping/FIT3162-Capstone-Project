@@ -1,6 +1,6 @@
 CMakeFiles/ConvexPolygonIoU.dir/tutorial.cpp.o: \
-  /Users/sheep/Documents/Code/AAAA/FIT3162-Capstone-Project/SFML/tutorial.cpp \
-  /Users/sheep/Documents/Code/AAAA/FIT3162-Capstone-Project/SFML/tutorial.h \
+  /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/tutorial.cpp \
+  /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/tutorial.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/string \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__algorithm/max.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__algorithm/comp.h \
@@ -754,8 +754,8 @@ CMakeFiles/ConvexPolygonIoU.dir/tutorial.cpp.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_types/_nl_item.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__locale_dir/locale_base_api/bsd_locale_defaults.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/cstdarg \
-  /Users/sheep/Documents/Code/AAAA/FIT3162-Capstone-Project/SFML/imgui/imgui.h \
-  /Users/sheep/Documents/Code/AAAA/FIT3162-Capstone-Project/SFML/imgui/imconfig.h \
+  /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/imgui/imgui.h \
+  /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/imgui/imconfig.h \
   /opt/homebrew/include/SFML/Graphics/Color.hpp \
   /opt/homebrew/include/SFML/Graphics/Color.inl \
   /opt/homebrew/include/SFML/System/Vector2.hpp \
@@ -769,7 +769,7 @@ CMakeFiles/ConvexPolygonIoU.dir/tutorial.cpp.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_assert.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/_static_assert.h \
   /opt/homebrew/include/SFML/System/Vector2.inl \
-  /Users/sheep/Documents/Code/AAAA/FIT3162-Capstone-Project/SFML/imgui/imgui-SFML_export.h \
+  /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/imgui/imgui-SFML_export.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/float.h \
   /Library/Developer/CommandLineTools/usr/lib/clang/17/include/float.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/float.h

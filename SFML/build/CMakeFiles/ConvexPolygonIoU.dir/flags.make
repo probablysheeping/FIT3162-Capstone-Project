@@ -5,7 +5,7 @@
 # compile CXX with /usr/bin/c++
 C_DEFINES = -DGL_SILENCE_DEPRECATION
 
-C_INCLUDES = -I/Users/sheep/Documents/Code/AAAA/FIT3162-Capstone-Project/SFML -I/Users/sheep/Documents/Code/AAAA/FIT3162-Capstone-Project/SFML/imgui -I/Users/sheep/Documents/Code/AAAA/FIT3162-Capstone-Project/SFML/glfw-3.4/include -I/Users/sheep/Documents/Code/AAAA/FIT3162-Capstone-Project/SFML/glad/include -F/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks -isystem /opt/homebrew/include
+C_INCLUDES = -I/Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML -I/Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/imgui -I/Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/glfw-3.4/include -I/Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/glad/include -F/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks -isystem /opt/homebrew/include
 
 C_FLAGSarm64 =  -arch arm64
 
@@ -13,7 +13,7 @@ C_FLAGS =  -arch arm64
 
 CXX_DEFINES = -DGL_SILENCE_DEPRECATION
 
-CXX_INCLUDES = -I/Users/sheep/Documents/Code/AAAA/FIT3162-Capstone-Project/SFML -I/Users/sheep/Documents/Code/AAAA/FIT3162-Capstone-Project/SFML/imgui -I/Users/sheep/Documents/Code/AAAA/FIT3162-Capstone-Project/SFML/glfw-3.4/include -I/Users/sheep/Documents/Code/AAAA/FIT3162-Capstone-Project/SFML/glad/include -F/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks -isystem /opt/homebrew/include
+CXX_INCLUDES = -I/Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML -I/Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/imgui -I/Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/glfw-3.4/include -I/Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/glad/include -F/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/System/Library/Frameworks -isystem /opt/homebrew/include
 
 CXX_FLAGSarm64 = -std=gnu++17 -arch arm64
 

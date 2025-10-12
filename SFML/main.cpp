@@ -391,7 +391,7 @@ int runProgram()
     sf::RenderWindow window(
         sf::VideoMode(ImVec2(WINDOW_WIDTH, WINDOW_HEIGHT)),
         WINDOW_DISPLAY_NAME,
-        sf::Style::Titlebar | sf::Style::Close);
+        sf::Style::Default);
     window.setSize(sf::Vector2u(WINDOW_WIDTH, WINDOW_HEIGHT));
     window.setFramerateLimit(FRAME_LIMIT);
 
@@ -1402,42 +1402,12 @@ int runProgram()
             ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(0.8f, 0.8f, 0.8f, 1.0f));  // Active: slightly darker gray
             ImGui::PushStyleColor(ImGuiCol_PopupBg, ImVec4(0, 0, 0, 1));
 
-            if (ImGui::ImageButton("Triangle", icons["triangle"].texture, ImVec2(ICON_SIZE, ICON_SIZE)))
-            {
-                newPolygon = Polygon();
-                vertices = {ImVec2(100, 100), ImVec2(150, 200), ImVec2(50, 200)};
-                if (status.adjustVertices)
-                    adjustVertices(vertices);
-                newPolygon.setVertices(vertices);
-                newPolygon.setColour(polygonColour);
-                polygons.push_back(newPolygon);
-                logger << currentDateTime() << " NEW " << newPolygon;
-                newPolygon = Polygon();
-                vertices.clear();
-                ImGui::CloseCurrentPopup();
-            }
-            createToolTip("Create triangle", tooltipsEnabled);
-            ImGui::SameLine();
-            if (ImGui::ImageButton("Circle", icons["circle"].texture, ImVec2(ICON_SIZE, ICON_SIZE)))
-            {
-
-                ImGui::CloseCurrentPopup();
-            }
-            createToolTip("Create a circle by clicking the centre and moving outwards to define radius", tooltipsEnabled);
-
             if (ImGui::ImageButton("Rectangle", icons["rectangle"].texture, ImVec2(ICON_SIZE, ICON_SIZE)))
             {
                 status.createTemplatePolygon = 1;
                 ImGui::CloseCurrentPopup();
             }
             createToolTip("Create rectangle by clicking top left corner and dragging the bottom right corner out", tooltipsEnabled);
-            ImGui::SameLine();
-            if (ImGui::ImageButton("Square", icons["square"].texture, ImVec2(ICON_SIZE, ICON_SIZE)))
-            {
-
-                ImGui::CloseCurrentPopup();
-            }
-            createToolTip("Create square by clicking top left corner and dragging the bottom right corner out", tooltipsEnabled);
 
             ImGui::PopStyleColor(4);
             ImGui::EndPopup();

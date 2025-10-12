@@ -57,10 +57,10 @@ RM = /opt/homebrew/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/sheep/Documents/Code/AAAA/FIT3162-Capstone-Project/SFML
+CMAKE_SOURCE_DIR = /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/sheep/Documents/Code/AAAA/FIT3162-Capstone-Project/SFML/build
+CMAKE_BINARY_DIR = /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/sheep/Documents/Code/AAAA/FIT3162-Capstone-Project/SFML/build/CMakeFiles /Users/sheep/Documents/Code/AAAA/FIT3162-Capstone-Project/SFML/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/build/CMakeFiles /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/sheep/Documents/Code/AAAA/FIT3162-Capstone-Project/SFML/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/adityadesai/Desktop/projects/Capstone/new-clone/FIT3162-Capstone-Project/SFML/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
