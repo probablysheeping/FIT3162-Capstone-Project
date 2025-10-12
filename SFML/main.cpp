@@ -1363,9 +1363,9 @@ int runProgram()
         
 
         // Update canvas target (main window minus UI)
-        ImVec2 canvasPos = ImVec2(350, 20);  // After polygon creator window
-        ImVec2 canvasSize = ImVec2(window.getSize().x - 350, window.getSize().y - 20);
-        tutorial.updateTargetPosition(TutorialTargetType::CANVAS, ImVec2 (0, 0), canvasSize);
+        ImVec2 canvasPos = ImVec2(0, mainMenuBarSize.y+5);  // After polygon creator window
+        ImVec2 canvasSize = ImVec2(window.getSize().x, window.getSize().y - mainMenuBarSize.y);
+        tutorial.updateTargetPosition(TutorialTargetType::CANVAS, canvasPos, canvasSize);
 
         // Image Resize Dialog
         if (showImageResizeDialog) {
