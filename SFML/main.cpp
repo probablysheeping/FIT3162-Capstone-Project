@@ -532,6 +532,11 @@ int runProgram()
         "Then click on the canvas to place vertices. Click the first vertex again to close the polygon.",
         TutorialTargetType::CREATE_BUTTON);
 
+    // Use pre-defined shapes
+    tutorial.addStep("Pick a Pre-Defined Shape",
+        "Alternatively, you can quickly insert a pre-defined shape.",
+        TutorialTargetType::SHAPE_BUTTON);
+
     // Canvas
     tutorial.addStep("The Canvas",
         "This is where you draw and interact with polygons.\n\n"
@@ -1162,15 +1167,16 @@ int runProgram()
                 }
 
             }
-            tutorial.updateTargetPosition(TutorialTargetType::CREATE_BUTTON, createButtonPos, ImVec2(120, 30));
+            tutorial.updateTargetPosition(TutorialTargetType::CREATE_BUTTON, createButtonPos, ImVec2(45, 45));
             createToolTip("Click on canvas to create vertices", tooltipsEnabled);
             ImGui::SameLine();
-
+            ImVec2 shapeButtonPos = ImGui::GetCursorScreenPos();
             if (ImGui::ImageButton("Select Shape", icons["shapes"].texture, ImVec2(ICON_SIZE, ICON_SIZE))) {
                 // Select Shape
 
                 ImGui::OpenPopup("ShapeSelector");
             }
+            tutorial.updateTargetPosition(TutorialTargetType::SHAPE_BUTTON, shapeButtonPos, ImVec2(45, 45));
             createToolTip("Click to create polygon", tooltipsEnabled);
             ImGui::SameLine();
 
@@ -1185,17 +1191,32 @@ int runProgram()
                 selectedPolygons.clear();
 
             }
-            tutorial.updateTargetPosition(TutorialTargetType::DELETE_BUTTON, deleteButtonPos, ImVec2(120, 30));
+            tutorial.updateTargetPosition(TutorialTargetType::DELETE_BUTTON, deleteButtonPos, ImVec2(45, 45));
             createToolTip("Select polygon and then click delete (DEL)", tooltipsEnabled);
 
             ImGui::SameLine();
+            ImVec2 colorPickerPos = ImGui::GetCursorScreenPos();
             if (ImGui::ImageButton("Colour", icons["colour-pallet"].texture, ImVec2(ICON_SIZE, ICON_SIZE))) {
                 // Change Colour
                 ImGui::OpenPopup("ColourPicker");
             }
+            tutorial.updateTargetPosition(TutorialTargetType::COLOR_PICKER, colorPickerPos, ImVec2(45, 45));
             createToolTip("Change selected polygon colour", tooltipsEnabled);
 
-
+            ImGui::SameLine();
+            ImVec2 moveButtonPos = ImGui::GetCursorPos();
+            if (status.draggingPolygons) {
+                ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.4f, 0.7f, 1.0f, 1.0f));
+            }
+            if (ImGui::ImageButton("Move", icons["drag"].texture, ImVec2(ICON_SIZE, ICON_SIZE))) {
+                status.draggingPolygons = !status.draggingPolygons;
+                logger << currentDateTime() << " Move mode " << (status.draggingPolygons ? "enabled" : "disabled") << std::endl;
+            }
+            if (status.draggingPolygons) {
+                ImGui::PopStyleColor();
+            }
+            tutorial.updateTargetPosition(TutorialTargetType::MOVE_BUTTON, moveButtonPos, ImVec2(45, 45));
+            createToolTip("Move around drawn polygons", tooltipsEnabled);
 
             ImGui::SameLine();
             ImGui::BeginDisabled(selectedPolygons.size() != 2);
@@ -1231,7 +1252,7 @@ int runProgram()
 
                 logger << currentDateTime() << " Computed IoU.\n";
             }
-            tutorial.updateTargetPosition(TutorialTargetType::COMPUTE_BUTTON, computeButtonPos, ImVec2(120, 30));
+            tutorial.updateTargetPosition(TutorialTargetType::COMPUTE_BUTTON, computeButtonPos, ImVec2(45, 45));
             createToolTip("Select two polygons and then calculate", tooltipsEnabled);
 
             ImGui::Text("Area:");
@@ -1296,7 +1317,7 @@ int runProgram()
         }
         // Capture position BEFORE drawing color picker
         ImVec2 colorPickerSize = ImGui::GetItemRectSize();
-        ImVec2 colorPickerPos = ImGui::GetCursorScreenPos();
+        
         if (ImGui::BeginPopup("ColourPicker", ImGuiWindowFlags_AlwaysAutoResize + ImGuiWindowFlags_NoScrollbar + ImGuiWindowFlags_NoTitleBar)) {
 
             // Use dark button colors for contrast on white background
@@ -1324,7 +1345,7 @@ int runProgram()
 
             ImGui::EndPopup();
         }
-        tutorial.updateTargetPosition(TutorialTargetType::COLOR_PICKER, colorPickerPos, colorPickerSize);
+        
 
         ImGui::PopStyleColor();
         ImGui::PopStyleVar();
@@ -1336,7 +1357,7 @@ int runProgram()
         // Update canvas target (main window minus UI)
         ImVec2 canvasPos = ImVec2(350, 20);  // After polygon creator window
         ImVec2 canvasSize = ImVec2(window.getSize().x - 350, window.getSize().y - 20);
-        tutorial.updateTargetPosition(TutorialTargetType::CANVAS, canvasPos, canvasSize);
+        tutorial.updateTargetPosition(TutorialTargetType::CANVAS, ImVec2 (0, 0), canvasSize);
 
         // Image Resize Dialog
         if (showImageResizeDialog) {
