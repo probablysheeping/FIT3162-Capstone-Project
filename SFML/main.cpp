@@ -870,7 +870,7 @@ int runProgram()
                 if (mouseButtonPressed->button == sf::Mouse::Button::Left && !status.menuInteraction)
                 {
 
-                    ImVec2 mousepos = getMousePos(window);
+                    ImVec2 mousepos = sf::Mouse::getPosition(window);
 
                     // Handle image resize mode
                     if (imageResizeMode && hasBackgroundImage && imageEnabled)
@@ -1581,8 +1581,6 @@ int runProgram()
                 {
                     intersection = intersectingPolygon(&intersection, &polygons.at(selectedPolygons.at(i)));
                 }
-
-                intersection.setColour(polygonColour);
                 polygons.push_back(intersection);
 
                 // Save when computing IoU
