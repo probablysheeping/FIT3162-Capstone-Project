@@ -135,3 +135,22 @@ std::string SaveFileDialog() {
 #endif
     return {};
 }
+
+/// <summary>
+/// Opens the directory containing the current executable in the system file explorer.
+/// Works on both Windows and macOS.
+/// </summary>
+void OpenProgramLocationInExplorer() {
+#ifdef _WIN32
+    wchar_t path[MAX_PATH];
+    if (GetModuleFileNameW(NULL, path, MAX_PATH)) {
+        // Strip the executable name to get the directory
+        wchar_t* lastSlash = wcsrchr(path, L'\\');
+        if (lastSlash) *lastSlash = L'\0';
+        // Open the folder in Explorer
+        ShellExecuteW(NULL, L"open", path, NULL, NULL, SW_SHOWNORMAL);
+    }
+#elif __APPLE__
+    return;
+#endif
+}
