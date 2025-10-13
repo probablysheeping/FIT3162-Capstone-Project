@@ -17,7 +17,7 @@ Logging logger;
 /// <param name="filename"></param>
 void saveLogToFile(const std::string& filename) {
 	if (getExecutablePath() != NULL_SAVE_PATH) {
-		std::string saveLocation = getExecutablePath() + filename + "_" + currentDateTime() + ".txt";
+		std::string saveLocation = getExecutablePath() + FILE_SEPARATOR + filename + "_" + currentDateTime() + ".txt";
 		std::ofstream out(saveLocation);
 		out << logBuffer.str();
 		std::cout << "Log file saved to " << saveLocation << std::endl;
