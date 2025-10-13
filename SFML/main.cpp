@@ -1019,10 +1019,6 @@ int runProgram()
                                     << ", Inter=" << interArea
                                     << ", IoU=" << IoUMetric << std::endl;
                             }
-                            else
-                            {
-                                logger << currentDateTime() << " IoU computation requires exactly 2 polygons.\n";
-                            }
                             else if (selectedPolygons.size() == 1)
                             {
                                 area = polygons.at(selectedPolygons.at(0)).polygonArea();
