@@ -13,6 +13,12 @@ Assumes no overlapping edges and no interior holes.
 
 // CLASS METHODS
 
+void Polygon::setSelected(bool selected) { 
+	this->selected = selected;
+	render.setOutlineThickness(selected ? 3.f : 0.f);
+	render.setOutlineColor(selected ? sf::Color::Cyan : sf::Color::Transparent);
+}
+
 bool Polygon::pointInPolygon(ImVec2 p) {
 	// Algorithm based on winding number
 	// Draw ray from point to positive infinity in y axis (down)

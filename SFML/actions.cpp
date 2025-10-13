@@ -222,6 +222,7 @@ void Actions::ClearSelected(std::vector<Polygon>& polygons, std::vector<int>& se
 
     for (int j : indices) {
         polygons[j].render.setOutlineThickness(0.f);
+        polygons[j].setSelected(false);  // Ensure internal state matches visuals
     }
 
     selectedPolygons.clear();

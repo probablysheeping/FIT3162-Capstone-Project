@@ -13,7 +13,6 @@ enum class TutorialTargetType {
     CREATE_BUTTON,     // Create Polygon button
     SHAPE_BUTTON,      // Use pre-defined shapes
     DELETE_BUTTON,     // Delete Polygon button
-    MOVE_BUTTON,       // Move Polygon button
     COMPUTE_BUTTON,    // Compute IoU button
     CLEAR_BUTTON,      // Clear Selected button
     COLOR_PICKER,      // Color picker area

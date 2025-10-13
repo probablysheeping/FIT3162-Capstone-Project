@@ -7,6 +7,8 @@
 
 class Polygon {
 public:
+    void setSelected(bool selected);
+
     bool pointInPolygon(ImVec2 p);
     float signedArea();
     float polygonArea();

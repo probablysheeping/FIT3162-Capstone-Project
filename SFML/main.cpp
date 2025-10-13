@@ -709,12 +709,6 @@ int runProgram()
                      "Shortcut: Delete key",
                      TutorialTargetType::DELETE_BUTTON);
 
-    // Move
-    tutorial.addStep("Move Polygons",
-                     "Click this button, then select one or more polygons and click to drag.\n\n"
-                     "Press escape to deselect polygon before pressing this button again to deactivate.",
-                     TutorialTargetType::MOVE_BUTTON);
-
     // Clear selection
     tutorial.addStep("Clear Selection",
                      "Click here to deselect all polygons.\n\n"
@@ -984,39 +978,50 @@ int runProgram()
 
                         if (!status.menuInteraction and !status.draggingPolygons and !status.draggingVertex)
                         {
-                            // select polygon
-                            if (selectedPolygons.size() > 0 and !ImGui::IsKeyDown(ImGuiKey_ModShift))
+                            if (!ImGui::IsKeyDown(ImGuiKey_ModShift))
                             {
-
                                 for (int j : selectedPolygons)
-                                {
-                                    polygons.at(j).toggleSelected();
-                                }
+                                    polygons[j].setSelected(false);
                                 selectedPolygons.clear();
-                                area = -1;
                             }
 
-                            ImVec2 p = getMousePos(window);
-                            Polygon *polygon;
-                            int i = 0;
-                            for (i; i < polygons.size(); i++)
+                            for (int i = 0; i < polygons.size(); ++i)
                             {
-                                polygon = &polygons.at(i);
-                                if (polygon->pointInPolygon(p))
+                                if (polygons[i].pointInPolygon(mousepos))
                                 {
-                                    if (std::find(selectedPolygons.begin(), selectedPolygons.end(), i) == selectedPolygons.end())
-                                    {
-                                        selectedPolygons.push_back(i);
-                                        polygons.at(i).toggleSelected();
-                                    }
+                                    polygons[i].setSelected(true);
+                                    selectedPolygons.push_back(i);
                                     break;
                                 }
                             }
                             if (selectedPolygons.size() == 2)
                             {
-                                Polygon intersection = intersectingPolygon(&polygons.at(selectedPolygons.at(0)), &polygons.at(selectedPolygons.at(1)));
+                                Polygon* polyA = &polygons[selectedPolygons[0]];
+                                Polygon* polyB = &polygons[selectedPolygons[1]];
 
-                                area = polygons.at(selectedPolygons.at(0)).polygonArea() + polygons.at(selectedPolygons.at(1)).polygonArea() - intersection.polygonArea();
+                                Polygon intersection = intersectingPolygon(polyA, polyB);
+
+                                double areaA = std::abs(polyA->polygonArea());
+                                double areaB = std::abs(polyB->polygonArea());
+                                double interArea = std::abs(intersection.polygonArea());
+                                double unionArea = areaA + areaB - interArea;
+
+                                if (unionArea > 0)
+                                    IoUMetric = interArea / unionArea;
+                                else
+                                    IoUMetric = 0;
+
+                                IoUArea = interArea;
+                                area = unionArea;
+
+                                logger << currentDateTime() << " IoU computed: A=" << areaA
+                                    << ", B=" << areaB
+                                    << ", Inter=" << interArea
+                                    << ", IoU=" << IoUMetric << std::endl;
+                            }
+                            else
+                            {
+                                logger << currentDateTime() << " IoU computation requires exactly 2 polygons.\n";
                             }
                             else if (selectedPolygons.size() == 1)
                             {
