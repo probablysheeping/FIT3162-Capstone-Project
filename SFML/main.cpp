@@ -670,12 +670,6 @@ int runProgram()
                      "Shortcut: Delete key",
                      TutorialTargetType::DELETE_BUTTON);
 
-    // Move
-    tutorial.addStep("Move Polygons",
-                     "Click this button, then select one or more polygons and click to drag.\n\n"
-                     "Press escape to deselect polygon before pressing this button again to deactivate.",
-                     TutorialTargetType::MOVE_BUTTON);
-
     // Clear selection
     tutorial.addStep("Clear Selection",
                      "Click here to deselect all polygons.\n\n"
@@ -1460,10 +1454,10 @@ int runProgram()
         // Window used for creating polygons
         // Needs to be formatted properly. This is just a placeholder UI
 
-        ImGui::SetNextWindowSize(ImVec2(390 * SCALE_FACTOR, 60 * SCALE_FACTOR));
+        ImGui::SetNextWindowSize(ImVec2(340 * SCALE_FACTOR, 60 * SCALE_FACTOR));
         ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(1.0f, 1.0f, 1.0f, 1.0f));
 
-        ImGui::SetNextWindowPos(ImVec2((WINDOW_WIDTH - 390 * SCALE_FACTOR) / 2, mainMenuBarSize.y));
+        ImGui::SetNextWindowPos(ImVec2((WINDOW_WIDTH - 340 * SCALE_FACTOR) / 2, mainMenuBarSize.y));
         if (ImGui::Begin("Polygon Creator", nullptr, 7 + ImGuiWindowFlags_NoScrollbar + ImGuiWindowFlags_NoScrollWithMouse))
         {
 
@@ -1548,25 +1542,6 @@ int runProgram()
             ImVec2 colorPickerSize = ImGui::GetItemRectSize();
             tutorial.updateTargetPosition(TutorialTargetType::COLOR_PICKER, colorPickerPos, colorPickerSize);
             createToolTip("Change selected polygon colour", tooltipsEnabled);
-
-            ImGui::SameLine();
-            ImVec2 moveButtonPos = ImGui::GetCursorScreenPos();
-            if (status.draggingPolygons)
-            {
-                ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.4f, 0.7f, 1.0f, 1.0f));
-            }
-            if (ImGui::ImageButton("Move", icons["drag"].texture, ImVec2(ICON_SIZE, ICON_SIZE)))
-            {
-                status.draggingPolygons = !status.draggingPolygons;
-                logger << currentDateTime() << " Move mode " << (status.draggingPolygons ? "enabled" : "disabled") << std::endl;
-            }
-            if (status.draggingPolygons)
-            {
-                ImGui::PopStyleColor();
-            }
-            ImVec2 moveButtonSize = ImGui::GetItemRectSize();
-            tutorial.updateTargetPosition(TutorialTargetType::MOVE_BUTTON, moveButtonPos, moveButtonSize);
-            createToolTip("Move around drawn polygons", tooltipsEnabled);
 
             ImGui::SameLine();
             ImVec2 clearButtonPos = ImGui::GetCursorScreenPos();
