@@ -474,7 +474,7 @@ int runProgram()
 
     // One can set the dimensions based on screen size.
 
-    float SCALE_FACTOR = 2.f;
+    float SCALE_FACTOR = 1.f;
 
     WINDOW_HEIGHT *= SCALE_FACTOR;
     WINDOW_WIDTH *= SCALE_FACTOR;
@@ -603,7 +603,7 @@ int runProgram()
     Tutorial tutorial;
 
     // Welcome
-    tutorial.addStep("Welcome! 👋",
+    tutorial.addStep("Welcome!",
                      "Welcome to Convex Polygon IoU!\n\n"
                      "This quick tutorial will show you how to use the main features.\n\n"
                      "You can skip this tutorial at any time and restart it from the Help menu.",
@@ -617,10 +617,10 @@ int runProgram()
     // File menu
     tutorial.addStep("File Menu",
                      "Use the File menu to:\n"
-                     "• Open existing polygon files (Ctrl+O)\n"
-                     "• Save your work (Ctrl+S)\n"
-                     "• Save to a new file (Ctrl+Shift+S)\n"
-                     "• Import background images",
+                     "- Open existing polygon files (Ctrl+O)\n"
+                     "- Save your work (Ctrl+S)\n"
+                     "- Save to a new file (Ctrl+Shift+S)\n"
+                     "- Import background images",
                      TutorialTargetType::FILE_MENU);
 
     // Polygon Creator window
@@ -632,9 +632,9 @@ int runProgram()
     // Color picker
     tutorial.addStep("Choose a Color",
                      "Before creating a polygon, select a color here.\n\n"
-                     "• Click in the color square to pick a color\n"
-                     "• Use RGB/HSV sliders for precise control\n"
-                     "• Enter hex codes directly",
+                     "- Click in the color square to pick a color\n"
+                     "- Use RGB/HSV sliders for precise control\n"
+                     "- Enter hex codes directly",
                      TutorialTargetType::COLOR_PICKER);
 
     // Create polygon button
@@ -651,9 +651,9 @@ int runProgram()
     // Canvas
     tutorial.addStep("The Canvas",
                      "This is where you draw and interact with polygons.\n\n"
-                     "• Click to place vertices when creating\n"
-                     "• Click polygons to select them (cyan outline)\n"
-                     "• Selected polygons can be edited or deleted",
+                     "- Click to place vertices when creating\n"
+                     "- Click polygons to select them (cyan outline)\n"
+                     "- Selected polygons can be edited or deleted",
                      TutorialTargetType::CANVAS);
 
     // Compute IoU
@@ -683,12 +683,12 @@ int runProgram()
                      TutorialTargetType::CLEAR_BUTTON);
 
     // Completion
-    tutorial.addStep("You're Ready! 🎉",
+    tutorial.addStep("You're Ready!",
                      "That's it! You now know the basics.\n\n"
                      "Tips:\n"
-                     "• Hover over buttons for tooltips\n"
-                     "• Your work auto-saves periodically\n"
-                     "• Check the Help menu to restart this tutorial\n\n"
+                     "- Hover over buttons for tooltips\n"
+                     "- Your work auto-saves periodically\n"
+                     "- Check the Help menu to restart this tutorial\n\n"
                      "Happy polygon drawing!",
                      TutorialTargetType::NONE);
 
@@ -1410,6 +1410,10 @@ int runProgram()
             if (ImGui::BeginPopup("Contact"))
             {
                 ImGui::Text("Please send any questions, log or crash reports to the lead developer's email here: mmun0026@student.monash.edu.");
+                if (ImGui::Button("Open Log Folder"))
+                {
+                    OpenProgramLocationInExplorer();
+                }
                 if (ImGui::Button("Close"))
                 {
                     ImGui::CloseCurrentPopup();

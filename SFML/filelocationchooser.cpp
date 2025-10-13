@@ -135,3 +135,37 @@ std::string SaveFileDialog() {
 #endif
     return {};
 }
+
+/// <summary>
+/// Opens the directory containing the current executable in the system file explorer.
+/// Works on both Windows and macOS.
+/// </summary>
+void OpenProgramLocationInExplorer() {
+#ifdef _WIN32
+    wchar_t path[MAX_PATH];
+    if (GetModuleFileNameW(NULL, path, MAX_PATH)) {
+        // Strip the executable name to get the directory
+        wchar_t* lastSlash = wcsrchr(path, L'\\');
+        if (lastSlash) *lastSlash = L'\0';
+        // Open the folder in Explorer
+        ShellExecuteW(NULL, L"open", path, NULL, NULL, SW_SHOWNORMAL);
+    }
+#elif __APPLE__
+    @autoreleasepool{
+        // Get path of current executable
+        char path[PATH_MAX];
+        uint32_t size = sizeof(path);
+        if (_NSGetExecutablePath(path, &size) == 0) {
+            // Convert to NSString
+            NSString* execPath = [NSString stringWithUTF8String : path];
+            NSString* dirPath = [execPath stringByDeletingLastPathComponent];
+            NSURL* dirURL = [NSURL fileURLWithPath : dirPath];
+            // Open in Finder
+            [[NSWorkspace sharedWorkspace]openURL:dirURL];
+        }
+ else {
+  NSLog(@"Error: could not get executable path");
+}
+    }
+#endif
+}
