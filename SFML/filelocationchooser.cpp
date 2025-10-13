@@ -6,6 +6,7 @@
 #include <commdlg.h>
 #elif __APPLE__
 #include <Cocoa/Cocoa.h>
+#include <mach-o/dyld.h>
 #endif
 
 /// <summary>

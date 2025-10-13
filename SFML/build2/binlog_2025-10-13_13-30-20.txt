@@ -1,0 +1,54 @@
+2025-10-13_13-30-12 File path:"/Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/assets"
+2025-10-13_13-30-12 /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/assets/drag.png
+2025-10-13_13-30-12 /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/assets/drag.png
+2025-10-13_13-30-12 /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/assets/draw.png
+2025-10-13_13-30-12 /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/assets/draw.png
+2025-10-13_13-30-12 /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/assets/bin.png
+2025-10-13_13-30-12 /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/assets/bin.png
+2025-10-13_13-30-12 /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/assets/shapes.png
+2025-10-13_13-30-12 /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/assets/shapes.png
+2025-10-13_13-30-12 /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/assets/colour-pallet.png
+2025-10-13_13-30-12 /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/assets/colour-pallet.png
+2025-10-13_13-30-12 /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/assets/intersect.png
+2025-10-13_13-30-12 /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/assets/intersect.png
+2025-10-13_13-30-12 /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/assets/circle.png
+2025-10-13_13-30-12 /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/assets/circle.png
+2025-10-13_13-30-12 /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/assets/triangle.png
+2025-10-13_13-30-12 /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/assets/triangle.png
+2025-10-13_13-30-12 /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/assets/rectangle.png
+2025-10-13_13-30-12 /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/assets/rectangle.png
+2025-10-13_13-30-12 /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/assets/square.png
+2025-10-13_13-30-12 /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/assets/square.png
+2025-10-13_13-30-12 /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/assets/clear.png
+2025-10-13_13-30-12 /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/assets/clear.png
+2025-10-13_13-30-13 Saved file successfully to /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build2/bin/autosave.sav
+2025-10-13_13-30-15 PQR: 110.117
+2025-10-13_13-30-15 PQR: 55.2275
+2025-10-13_13-30-15 PQR: 71.6424
+2025-10-13_13-30-15 PQR: 123.013
+2025-10-13_13-30-15 NEW POLYGON
+VERTICES 4
+474.999969 327.000000
+294.832733 301.042053
+352.999969 194.000000
+421.006226 192.242828
+COLOUR 0.000000 0.000000 0.000000
+END
+2025-10-13_13-30-15 Saved file successfully to /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build2/bin/autosave.sav
+2025-10-13_13-30-15 Saved file successfully to /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build2/bin/autosave.sav
+2025-10-13_13-30-17 PQR: 94.2051
+2025-10-13_13-30-17 PQR: 64.6138
+2025-10-13_13-30-17 PQR: 92.4661
+2025-10-13_13-30-17 PQR: 108.715
+2025-10-13_13-30-17 NEW POLYGON
+VERTICES 4
+697.608032 306.941559
+384.616455 214.351318
+402.726715 153.131454
+643.999939 84.000000
+COLOUR 0.000000 0.000000 0.000000
+END
+2025-10-13_13-30-17 Saved file successfully to /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build2/bin/autosave.sav
+2025-10-13_13-30-17 Number of Selected Polygons: 1
+2025-10-13_13-30-17 Number of Selected Polygons: 2
+2025-10-13_13-30-20 User exit.

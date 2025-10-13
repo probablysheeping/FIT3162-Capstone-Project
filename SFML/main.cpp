@@ -24,6 +24,7 @@
 
 int WINDOW_WIDTH = 1000;
 int WINDOW_HEIGHT = 800;
+float SCALE_FACTOR = 1.f;
 #define FRAME_LIMIT 60
 #define WINDOW_DISPLAY_NAME "Convex Polygon IoU"
 int ICON_SIZE = 36;
@@ -179,6 +180,47 @@ ImVec2 getMousePos(sf::RenderWindow &window)
     return ImVec2(currentWorldPos.x, currentWorldPos.y);
 }
 
+// Requires: #include "imgui.h"
+
+void ShowAreaIoUBox(float area, float iou_area)
+{
+
+    const ImGuiViewport *viewport = ImGui::GetMainViewport();
+
+    // Set position to bottom-left corner of the main viewport
+    ImVec2 window_pos = ImVec2(viewport->WorkPos.x + 10,
+                               viewport->WorkPos.y + viewport->WorkSize.y - 10);
+    ImVec2 window_pivot = ImVec2(0.0f, 1.0f); // pivot bottom-left
+
+    ImGui::SetNextWindowPos(window_pos, ImGuiCond_Always, window_pivot);
+    ImGui::SetNextWindowBgAlpha(0.9f); // slightly transparent background
+    ImGui::SetNextWindowSize({250 * SCALE_FACTOR, 60 * SCALE_FACTOR});
+    if (ImGui::Begin("Area / IoU Info", nullptr,
+                     ImGuiWindowFlags_NoTitleBar |
+                         ImGuiWindowFlags_NoResize |
+                         ImGuiWindowFlags_NoMove))
+    {
+        ImGui::Text("Area:");
+        ImGui::SameLine(120);
+        if (area == -1)
+        {
+            ImGui::Text("");
+        }
+        else
+            ImGui::Text("%.3f", area);
+        ImGui::Text("IoU Metric:");
+        ImGui::SameLine(120);
+        if (iou_area == -1)
+        {
+            ImGui::Text("");
+        }
+        else
+            ImGui::Text("%.3f", iou_area);
+
+        ImGui::End();
+    }
+}
+
 /// <summary>
 /// Draws a grid background on the window
 /// </summary>
@@ -241,45 +283,45 @@ bool loadBackgroundImage(sf::Texture &texture, sf::Sprite &sprite, const std::st
 {
     // First, check the image dimensions using stb_image
     int originalWidth, originalHeight, channels;
-    unsigned char* imageData = stbi_load(filename.c_str(), &originalWidth, &originalHeight, &channels, 4);
-    
+    unsigned char *imageData = stbi_load(filename.c_str(), &originalWidth, &originalHeight, &channels, 4);
+
     if (!imageData)
     {
         logger << currentDateTime() << " ERROR: Failed to load image from " << filename << " - " << stbi_failure_reason() << std::endl;
         return false;
     }
-    
+
     logger << currentDateTime() << " Image dimensions: " << originalWidth << "x" << originalHeight << std::endl;
-    
+
     // Get the maximum texture size supported by the GPU
     unsigned int maxTextureSize = sf::Texture::getMaximumSize();
     logger << currentDateTime() << " Maximum texture size: " << maxTextureSize << "x" << maxTextureSize << std::endl;
-    
+
     // Check if we need to downsample the image
     bool needsDownsampling = (originalWidth > maxTextureSize || originalHeight > maxTextureSize);
-    
+
     if (needsDownsampling)
     {
         logger << currentDateTime() << " Image is too large, downsampling to fit within " << maxTextureSize << "x" << maxTextureSize << std::endl;
-        
+
         // Calculate the downsample ratio
         float downsampleRatio = 1.0f;
         if (originalWidth > maxTextureSize)
             downsampleRatio = std::min(downsampleRatio, static_cast<float>(maxTextureSize) / originalWidth);
         if (originalHeight > maxTextureSize)
             downsampleRatio = std::min(downsampleRatio, static_cast<float>(maxTextureSize) / originalHeight);
-        
+
         // Make it slightly smaller to be safe
         downsampleRatio *= 0.95f;
-        
+
         int newWidth = static_cast<int>(originalWidth * downsampleRatio);
         int newHeight = static_cast<int>(originalHeight * downsampleRatio);
-        
+
         logger << currentDateTime() << " Downsampling to " << newWidth << "x" << newHeight << std::endl;
-        
+
         // Allocate memory for downsampled image
-        unsigned char* downsampledData = new unsigned char[newWidth * newHeight * 4];
-        
+        unsigned char *downsampledData = new unsigned char[newWidth * newHeight * 4];
+
         // Simple box filter downsampling
         for (int y = 0; y < newHeight; y++)
         {
@@ -287,25 +329,25 @@ bool loadBackgroundImage(sf::Texture &texture, sf::Sprite &sprite, const std::st
             {
                 int srcX = static_cast<int>(x / downsampleRatio);
                 int srcY = static_cast<int>(y / downsampleRatio);
-                
+
                 // Clamp to prevent overflow
                 srcX = std::min(srcX, originalWidth - 1);
                 srcY = std::min(srcY, originalHeight - 1);
-                
+
                 int srcIdx = (srcY * originalWidth + srcX) * 4;
                 int dstIdx = (y * newWidth + x) * 4;
-                
+
                 downsampledData[dstIdx + 0] = imageData[srcIdx + 0];
                 downsampledData[dstIdx + 1] = imageData[srcIdx + 1];
                 downsampledData[dstIdx + 2] = imageData[srcIdx + 2];
                 downsampledData[dstIdx + 3] = imageData[srcIdx + 3];
             }
         }
-        
+
         // Load the downsampled image into the texture
         // SFML 3.0: Create image from pixel data
         sf::Image tempImage(sf::Vector2u(newWidth, newHeight), downsampledData);
-        
+
         if (!texture.loadFromImage(tempImage))
         {
             logger << currentDateTime() << " ERROR: Failed to create texture from downsampled image" << std::endl;
@@ -320,7 +362,7 @@ bool loadBackgroundImage(sf::Texture &texture, sf::Sprite &sprite, const std::st
     {
         // Image is within size limits, load normally
         stbi_image_free(imageData);
-        
+
         if (!texture.loadFromFile(filename))
         {
             logger << currentDateTime() << " ERROR: Failed to load image from " << filename << std::endl;
@@ -342,7 +384,7 @@ bool loadBackgroundImage(sf::Texture &texture, sf::Sprite &sprite, const std::st
         // Reserve ~150 pixels for UI at the top (scaled)
         float uiReservedHeight = 150.0f;
         float availableHeight = windowSize.y - uiReservedHeight;
-        
+
         scaleX = static_cast<float>(windowSize.x) / imageSize.x;
         scaleY = availableHeight / imageSize.y;
         float scale = std::min(scaleX, scaleY);
@@ -352,8 +394,7 @@ bool loadBackgroundImage(sf::Texture &texture, sf::Sprite &sprite, const std::st
         sf::Vector2f scaledSize = sf::Vector2f(imageSize.x * scale, imageSize.y * scale);
         position = sf::Vector2f(
             (windowSize.x - scaledSize.x) / 2.0f,
-            uiReservedHeight + (availableHeight - scaledSize.y) / 2.0f
-        );
+            uiReservedHeight + (availableHeight - scaledSize.y) / 2.0f);
         break;
     }
     case 1: // Original size
@@ -376,7 +417,7 @@ bool loadBackgroundImage(sf::Texture &texture, sf::Sprite &sprite, const std::st
     sprite.setScale(sf::Vector2f(scaleX, scaleY));
     sprite.setPosition(position);
 
-    logger << currentDateTime() << " Image loaded successfully from " << filename << " with resize mode " << resizeMode 
+    logger << currentDateTime() << " Image loaded successfully from " << filename << " with resize mode " << resizeMode
            << ", final size: " << imageSize.x << "x" << imageSize.y << ", scale: " << scaleX << "x" << scaleY << std::endl;
     return true;
 }
@@ -473,8 +514,6 @@ int runProgram()
     settings.antiAliasingLevel = 8;
 
     // One can set the dimensions based on screen size.
-
-    float SCALE_FACTOR = 1.f;
 
     WINDOW_HEIGHT *= SCALE_FACTOR;
     WINDOW_WIDTH *= SCALE_FACTOR;
@@ -875,22 +914,24 @@ int runProgram()
                             continue;
                         }
                     }
-                    else if (status.createTemplatePolygon==1) {
+                    else if (status.createTemplatePolygon == 1)
+                    {
                         status.topLeftVertex = getMousePos(window);
                         status.createTemplatePolygon = 2;
                         rectangleSketch.setPosition(status.topLeftVertex);
                     }
-                    else if (status.createTemplatePolygon == 2) {
+                    else if (status.createTemplatePolygon == 2)
+                    {
 
                         newPolygon.setColour(polygonColour);
-                        newPolygon.setVertices({ status.topLeftVertex, {mousepos.x, status.topLeftVertex.y}, {mousepos.x, mousepos.y}, {status.topLeftVertex.x, mousepos.y} });
+                        newPolygon.setVertices({status.topLeftVertex, {mousepos.x, status.topLeftVertex.y}, {mousepos.x, mousepos.y}, {status.topLeftVertex.x, mousepos.y}});
                         polygons.push_back(newPolygon);
                         status.createTemplatePolygon = 0;
                     }
                     else if (status.createPolygon)
                     {
 
-                        if (!firstVertex && distanceL2(mousepos, vertices.front()) <= 10*SCALE_FACTOR)
+                        if (!firstVertex && distanceL2(mousepos, vertices.front()) <= 10 * SCALE_FACTOR)
                         {
                             if (vertices.size() < 3)
                             {
@@ -977,7 +1018,7 @@ int runProgram()
 
                                 area = polygons.at(selectedPolygons.at(0)).polygonArea() + polygons.at(selectedPolygons.at(1)).polygonArea() - intersection.polygonArea();
                             }
-                            if (selectedPolygons.size() == 1)
+                            else if (selectedPolygons.size() == 1)
                             {
                                 area = polygons.at(selectedPolygons.at(0)).polygonArea();
                             }
@@ -985,6 +1026,7 @@ int runProgram()
                             {
                                 area = -1;
                             }
+
                             logger << currentDateTime() << " Number of Selected Polygons: " << selectedPolygons.size() << std::endl;
                             status.lastMousePos = mousepos;
                             status.draggingPolygons = true;
@@ -1001,7 +1043,8 @@ int runProgram()
 
             // Menu shortcuts
             if (const auto key = event->getIf<sf::Event::KeyPressed>())
-            {
+            {   
+
                 // Open file
                 if (key->code == sf::Keyboard::Key::O &&
                     (sf::Keyboard::isKeyPressed(sf::Keyboard::Scancode::LControl) ||
@@ -1011,9 +1054,9 @@ int runProgram()
                     auto [loadedImageState, loadedViewState] = statesPair;
 
                     // Restore image state if present
-                    logger << currentDateTime() << " Restoring image state: hasImage=" << loadedImageState.hasImage 
+                    logger << currentDateTime() << " Restoring image state: hasImage=" << loadedImageState.hasImage
                            << ", path='" << loadedImageState.imagePath << "', enabled=" << loadedImageState.enabled << std::endl;
-                    
+
                     if (loadedImageState.hasImage && !loadedImageState.imagePath.empty())
                     {
                         if (backgroundSprite)
@@ -1026,7 +1069,7 @@ int runProgram()
                         {
                             backgroundSprite = new sf::Sprite(backgroundTexture);
                             backgroundSprite->setTexture(backgroundTexture);
-                            
+
                             // Check if we have valid saved position and scale (non-zero scale)
                             if (loadedImageState.scaleX > 0.0001f && loadedImageState.scaleY > 0.0001f)
                             {
@@ -1042,17 +1085,16 @@ int runProgram()
                                 sf::Vector2u imageSize = backgroundTexture.getSize();
                                 float uiReservedHeight = 150.0f;
                                 float availableHeight = window.getSize().y - uiReservedHeight;
-                                
+
                                 float scaleX = static_cast<float>(window.getSize().x) / imageSize.x;
                                 float scaleY = availableHeight / imageSize.y;
                                 float scale = std::min(scaleX, scaleY);
-                                
+
                                 sf::Vector2f scaledSize = sf::Vector2f(imageSize.x * scale, imageSize.y * scale);
                                 sf::Vector2f position(
                                     (window.getSize().x - scaledSize.x) / 2.0f,
-                                    uiReservedHeight + (availableHeight - scaledSize.y) / 2.0f
-                                );
-                                
+                                    uiReservedHeight + (availableHeight - scaledSize.y) / 2.0f);
+
                                 backgroundSprite->setScale(sf::Vector2f(scale, scale));
                                 backgroundSprite->setPosition(position);
                             }
@@ -1070,9 +1112,9 @@ int runProgram()
 
                             sf::Vector2f spritePos = backgroundSprite->getPosition();
                             sf::Vector2f spriteScale = backgroundSprite->getScale();
-                            logger << currentDateTime() << " Image restored successfully: enabled=" << imageEnabled 
-                                   << ", hasImage=" << hasBackgroundImage << ", opacity=" << imageOpacity 
-                                   << ", scale=" << imageScale 
+                            logger << currentDateTime() << " Image restored successfully: enabled=" << imageEnabled
+                                   << ", hasImage=" << hasBackgroundImage << ", opacity=" << imageOpacity
+                                   << ", scale=" << imageScale
                                    << ", pos=(" << spritePos.x << "," << spritePos.y << ")"
                                    << ", scale=(" << spriteScale.x << "," << spriteScale.y << ")"
                                    << " from " << loadedImageState.imagePath << std::endl;
@@ -1157,19 +1199,22 @@ int runProgram()
                 // Clear selected
                 if (key->code == sf::Keyboard::Key::Escape)
                 {
-                    actions.ClearSelected(polygons, selectedPolygons, area);
+                    actions.ClearSelected(polygons, selectedPolygons, area, IoUArea);
                 }
             }
         }
+
         ImVec2 mousepos = getMousePos(window);
-        if (status.createPolygon || status.createTemplatePolygon > 0) {
-            mouseCircle.setPosition({ mousepos.x - 10.f * SCALE_FACTOR, mousepos.y - 10.f * SCALE_FACTOR });
-            mouseCircle.setRadius(10.f*SCALE_FACTOR);
+        if (status.createPolygon || status.createTemplatePolygon > 0)
+        {
+            mouseCircle.setPosition({mousepos.x - 10.f * SCALE_FACTOR, mousepos.y - 10.f * SCALE_FACTOR});
+            mouseCircle.setRadius(10.f * SCALE_FACTOR);
             mouseCircle.setFillColor(sf::Color::Black);
         }
-        if (status.createTemplatePolygon == 2) {
+        if (status.createTemplatePolygon == 2)
+        {
             rectangleSketch.setFillColor(sf::Color((int)(polygonColour[0] * 255), (int)(polygonColour[1] * 255), (int)(polygonColour[2] * 255)));
-            rectangleSketch.setSize({ mousepos.x - status.topLeftVertex.x, mousepos.y - status.topLeftVertex.y });
+            rectangleSketch.setSize({mousepos.x - status.topLeftVertex.x, mousepos.y - status.topLeftVertex.y});
         }
 
         // After SFML Stuff, before ImGui stuff
@@ -1186,16 +1231,16 @@ int runProgram()
             mainMenuBarSize = ImGui::GetWindowSize();
             ImVec2 menuBarPos = ImGui::GetWindowPos();
             tutorial.updateTargetPosition(TutorialTargetType::MENU_BAR, menuBarPos, mainMenuBarSize);
-            
+
             if (ImGui::MenuItem("Open", "CTRL+O"))
             {
                 auto [loadedPolygons, statesPair] = actions.OpenFile(polygons, selectedPolygons, view, zoomLevel, window);
                 auto [loadedImageState, loadedViewState] = statesPair;
 
                 // Restore image state if present
-                logger << currentDateTime() << " Restoring image state: hasImage=" << loadedImageState.hasImage 
+                logger << currentDateTime() << " Restoring image state: hasImage=" << loadedImageState.hasImage
                        << ", path='" << loadedImageState.imagePath << "', enabled=" << loadedImageState.enabled << std::endl;
-                
+
                 if (loadedImageState.hasImage && !loadedImageState.imagePath.empty())
                 {
                     if (backgroundSprite)
@@ -1208,7 +1253,7 @@ int runProgram()
                     {
                         backgroundSprite = new sf::Sprite(backgroundTexture);
                         backgroundSprite->setTexture(backgroundTexture);
-                        
+
                         // Check if we have valid saved position and scale (non-zero scale)
                         if (loadedImageState.scaleX > 0.0001f && loadedImageState.scaleY > 0.0001f)
                         {
@@ -1224,17 +1269,16 @@ int runProgram()
                             sf::Vector2u imageSize = backgroundTexture.getSize();
                             float uiReservedHeight = 150.0f;
                             float availableHeight = window.getSize().y - uiReservedHeight;
-                            
+
                             float scaleX = static_cast<float>(window.getSize().x) / imageSize.x;
                             float scaleY = availableHeight / imageSize.y;
                             float scale = std::min(scaleX, scaleY);
-                            
+
                             sf::Vector2f scaledSize = sf::Vector2f(imageSize.x * scale, imageSize.y * scale);
                             sf::Vector2f position(
                                 (window.getSize().x - scaledSize.x) / 2.0f,
-                                uiReservedHeight + (availableHeight - scaledSize.y) / 2.0f
-                            );
-                            
+                                uiReservedHeight + (availableHeight - scaledSize.y) / 2.0f);
+
                             backgroundSprite->setScale(sf::Vector2f(scale, scale));
                             backgroundSprite->setPosition(position);
                         }
@@ -1252,9 +1296,9 @@ int runProgram()
 
                         sf::Vector2f spritePos = backgroundSprite->getPosition();
                         sf::Vector2f spriteScale = backgroundSprite->getScale();
-                        logger << currentDateTime() << " Image restored successfully: enabled=" << imageEnabled 
-                               << ", hasImage=" << hasBackgroundImage << ", opacity=" << imageOpacity 
-                               << ", scale=" << imageScale 
+                        logger << currentDateTime() << " Image restored successfully: enabled=" << imageEnabled
+                               << ", hasImage=" << hasBackgroundImage << ", opacity=" << imageOpacity
+                               << ", scale=" << imageScale
                                << ", pos=(" << spritePos.x << "," << spritePos.y << ")"
                                << ", scale=(" << spriteScale.x << "," << spriteScale.y << ")"
                                << " from " << loadedImageState.imagePath << std::endl;
@@ -1284,7 +1328,7 @@ int runProgram()
             ImVec2 fileMenuPos = ImGui::GetItemRectMin();
             ImVec2 fileMenuSize = ImGui::GetItemRectSize();
             tutorial.updateTargetPosition(TutorialTargetType::FILE_MENU, fileMenuPos, fileMenuSize);
-            
+
             if (ImGui::MenuItem("Save", "CTRL+S"))
             {
                 ImageState imageState = getCurrentImageState(hasBackgroundImage, currentImagePath, backgroundSprite, imageOpacity, imageEnabled);
@@ -1313,7 +1357,7 @@ int runProgram()
                     {
                         // No existing image, proceed directly to resize dialog
                         pendingImagePath = imagePath;
-                        
+
                         // Load image to get original size
                         sf::Texture tempTexture;
                         if (tempTexture.loadFromFile(pendingImagePath))
@@ -1366,7 +1410,7 @@ int runProgram()
                     ImGui::MenuItem("Image Resize Mode", nullptr, &imageResizeMode);
                     createToolTip("Enable interactive resizing with mouse drag handles", tooltipsEnabled);
                     ImGui::SliderFloat("Image Opacity", &imageOpacity, 0.1f, 1.0f);
-                    
+
                     // Image scale slider - updates the sprite's scale proportionally
                     float oldScale = imageScale;
                     if (ImGui::SliderFloat("Image Scale", &imageScale, 0.1f, 3.0f))
@@ -1460,10 +1504,10 @@ int runProgram()
         // Window used for creating polygons
         // Needs to be formatted properly. This is just a placeholder UI
 
-        ImGui::SetNextWindowSize(ImVec2(390 * SCALE_FACTOR, 60 * SCALE_FACTOR));
+        ImGui::SetNextWindowSize(ImVec2(280 * SCALE_FACTOR, 60 * SCALE_FACTOR));
         ImGui::PushStyleColor(ImGuiCol_WindowBg, ImVec4(1.0f, 1.0f, 1.0f, 1.0f));
 
-        ImGui::SetNextWindowPos(ImVec2((WINDOW_WIDTH - 390 * SCALE_FACTOR) / 2, mainMenuBarSize.y));
+        ImGui::SetNextWindowPos(ImVec2((WINDOW_WIDTH - 280 * SCALE_FACTOR) / 2, mainMenuBarSize.y));
         if (ImGui::Begin("Polygon Creator", nullptr, 7 + ImGuiWindowFlags_NoScrollbar + ImGuiWindowFlags_NoScrollWithMouse))
         {
 
@@ -1550,35 +1594,6 @@ int runProgram()
             createToolTip("Change selected polygon colour", tooltipsEnabled);
 
             ImGui::SameLine();
-            ImVec2 moveButtonPos = ImGui::GetCursorScreenPos();
-            if (status.draggingPolygons)
-            {
-                ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(0.4f, 0.7f, 1.0f, 1.0f));
-            }
-            if (ImGui::ImageButton("Move", icons["drag"].texture, ImVec2(ICON_SIZE, ICON_SIZE)))
-            {
-                status.draggingPolygons = !status.draggingPolygons;
-                logger << currentDateTime() << " Move mode " << (status.draggingPolygons ? "enabled" : "disabled") << std::endl;
-            }
-            if (status.draggingPolygons)
-            {
-                ImGui::PopStyleColor();
-            }
-            ImVec2 moveButtonSize = ImGui::GetItemRectSize();
-            tutorial.updateTargetPosition(TutorialTargetType::MOVE_BUTTON, moveButtonPos, moveButtonSize);
-            createToolTip("Move around drawn polygons", tooltipsEnabled);
-
-            ImGui::SameLine();
-            ImVec2 clearButtonPos = ImGui::GetCursorScreenPos();
-            if (ImGui::ImageButton("Clear Button", icons["clear"].texture, ImVec2(ICON_SIZE, ICON_SIZE)))
-            {
-                actions.ClearSelected(polygons, selectedPolygons, area);
-            }
-            ImVec2 clearButtonSize = ImGui::GetItemRectSize();
-            tutorial.updateTargetPosition(TutorialTargetType::CLEAR_BUTTON, clearButtonPos, clearButtonSize);
-            createToolTip("Clear selected polygons (ESC)", tooltipsEnabled);
-
-            ImGui::SameLine();
             ImGui::BeginDisabled(selectedPolygons.size() != 2);
             if (selectedPolygons.size() != 2)
             {
@@ -1620,20 +1635,10 @@ int runProgram()
             ImVec2 computeButtonSize = ImGui::GetItemRectSize();
             tutorial.updateTargetPosition(TutorialTargetType::COMPUTE_BUTTON, computeButtonPos, computeButtonSize);
             createToolTip("Select two polygons and then calculate", tooltipsEnabled);
-
-            ImGui::Text("Area:");
-            ImGui::SameLine();
-            ImGui::Text("%s", area == -1 ? "" : std::to_string(area).c_str());
-            ImGui::Text("IoU Area:");
-            ImGui::SameLine();
-            ImGui::Text("%s", IoUArea == -1 ? "" : std::to_string(IoUArea).c_str());
-            ImGui::Text("IoU metric:");
-            ImGui::SameLine();
-            ImGui::Text("%s", IoUMetric == -1 ? "" : std::to_string(IoUMetric).c_str());
         }
         ImGui::PopStyleColor(5);
         ImGui::EndDisabled();
-
+        std::cout<<area<<std::endl;
         ImGui::PushStyleColor(ImGuiCol_PopupBg, ImVec4(1.0f, 1.0f, 1.0f, 1.0f));
         ImGui::PushStyleVar(ImGuiStyleVar_PopupBorderSize, 1.0f); // Set to your desired border thickness
         ImGui::SetNextWindowSize(ImVec2(ICON_SIZE * 2, 400 * SCALE_FACTOR), ImGuiCond_Appearing);
@@ -1705,7 +1710,7 @@ int runProgram()
             ImGui::OpenPopup("Replace Image?");
             ImVec2 center = ImGui::GetMainViewport()->GetCenter();
             ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
-            
+
             if (ImGui::BeginPopupModal("Replace Image?", nullptr, ImGuiWindowFlags_AlwaysAutoResize))
             {
                 ImGui::Text("An image is already loaded. Replace it?");
@@ -1713,7 +1718,7 @@ int runProgram()
                 ImGui::Spacing();
                 ImGui::Separator();
                 ImGui::Spacing();
-                
+
                 if (ImGui::Button("Yes, Replace", ImVec2(150, 30)))
                 {
                     // Load image to get original size
@@ -1741,7 +1746,7 @@ int runProgram()
                     ImGui::CloseCurrentPopup();
                     logger << currentDateTime() << " Image import cancelled by user." << std::endl;
                 }
-                
+
                 ImGui::EndPopup();
             }
         }
@@ -1814,20 +1819,20 @@ int runProgram()
                         delete backgroundSprite;
                         backgroundSprite = nullptr;
                     }
-                    
+
                     // First load the texture, then create sprite
                     // We need to load texture first, then create sprite with it
                     sf::Texture tempTexture;
                     sf::Sprite tempSprite(tempTexture);
                     hasBackgroundImage = loadBackgroundImage(backgroundTexture, tempSprite, pendingImagePath, window.getSize(), resizeMode, customWidth, customHeight);
-                    
+
                     if (hasBackgroundImage)
                     {
                         // Create sprite and copy the properties from tempSprite
                         backgroundSprite = new sf::Sprite(backgroundTexture);
                         backgroundSprite->setScale(tempSprite.getScale());
                         backgroundSprite->setPosition(tempSprite.getPosition());
-                        
+
                         // Set the initial color/opacity
                         sf::Color imageColor = sf::Color::White;
                         imageColor.a = static_cast<std::uint8_t>(imageOpacity * 255);
@@ -1838,16 +1843,16 @@ int runProgram()
 
                         imageEnabled = true;
                         currentImagePath = pendingImagePath;
-                        
+
                         sf::Vector2f spritePos = backgroundSprite->getPosition();
                         sf::Vector2f spriteScale = backgroundSprite->getScale();
-                        logger << currentDateTime() << " Image import completed. imageEnabled=" << imageEnabled 
-                               << ", hasBackgroundImage=" << hasBackgroundImage 
-                               << ", opacity=" << imageOpacity 
-                               << ", scale=" << imageScale 
+                        logger << currentDateTime() << " Image import completed. imageEnabled=" << imageEnabled
+                               << ", hasBackgroundImage=" << hasBackgroundImage
+                               << ", opacity=" << imageOpacity
+                               << ", scale=" << imageScale
                                << ", sprite pos=(" << spritePos.x << "," << spritePos.y << ")"
                                << ", sprite scale=(" << spriteScale.x << "," << spriteScale.y << ")" << std::endl;
-                        
+
                         // Autosave after importing image
                         if (autosaveEnabled)
                         {
@@ -1868,7 +1873,7 @@ int runProgram()
                 {
                     showImageResizeDialog = false;
                 }
-                
+
                 ImGui::Spacing();
             }
             ImGui::End();
@@ -1883,32 +1888,32 @@ int runProgram()
         {
             // Save current view
             sf::View currentView = window.getView();
-            
+
             // Set to default view for background image
             window.setView(window.getDefaultView());
-            
+
             // Update sprite properties
             // Note: We maintain the aspect ratio by using the saved scale values
             // The imageScale slider is for uniform scaling from settings menu
             sf::Vector2f currentScale = backgroundSprite->getScale();
             sf::Vector2f currentPos = backgroundSprite->getPosition();
-            
+
             // Debug: Log once per second
             static sf::Clock debugClock;
             if (debugClock.getElapsedTime().asSeconds() > 1.0f)
             {
-                logger << currentDateTime() << " [RENDER] Drawing image: pos=(" << currentPos.x << "," << currentPos.y 
-                       << "), scale=(" << currentScale.x << "," << currentScale.y 
+                logger << currentDateTime() << " [RENDER] Drawing image: pos=(" << currentPos.x << "," << currentPos.y
+                       << "), scale=(" << currentScale.x << "," << currentScale.y
                        << "), opacity=" << imageOpacity << ", enabled=" << imageEnabled << std::endl;
                 debugClock.restart();
             }
-            
+
             // Update sprite opacity
             sf::Color imageColor = backgroundSprite->getColor();
             imageColor.a = static_cast<std::uint8_t>(imageOpacity * 255);
             backgroundSprite->setColor(imageColor);
             window.draw(*backgroundSprite);
-            
+
             // Restore the previous view for other drawing
             window.setView(currentView);
         }
@@ -1917,11 +1922,13 @@ int runProgram()
             static sf::Clock debugClock2;
             if (debugClock2.getElapsedTime().asSeconds() > 2.0f)
             {
-                logger << currentDateTime() << " [RENDER] Image not drawing: hasImage=" << hasBackgroundImage 
+                logger << currentDateTime() << " [RENDER] Image not drawing: hasImage=" << hasBackgroundImage
                        << ", enabled=" << imageEnabled << std::endl;
                 debugClock2.restart();
             }
         }
+
+        ShowAreaIoUBox(area, IoUMetric);
 
         // Draw grid background
         if (gridEnabled)
@@ -1941,10 +1948,12 @@ int runProgram()
             drawResizeHandles(window, imageBounds, handleSize);
         }
 
-        if (status.createPolygon || status.createTemplatePolygon || status.createTemplateCircle) {
+        if (status.createPolygon || status.createTemplatePolygon || status.createTemplateCircle)
+        {
             window.draw(mouseCircle);
         }
-        if (status.createTemplatePolygon == 2) {
+        if (status.createTemplatePolygon == 2)
+        {
             window.draw(rectangleSketch);
         }
 

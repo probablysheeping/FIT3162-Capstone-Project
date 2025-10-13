@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/ConvexPolygonIoU.dir/actions.cpp.o"
+  "CMakeFiles/ConvexPolygonIoU.dir/actions.cpp.o.d"
   "CMakeFiles/ConvexPolygonIoU.dir/filelocationchooser.cpp.o"
   "CMakeFiles/ConvexPolygonIoU.dir/filelocationchooser.cpp.o.d"
   "CMakeFiles/ConvexPolygonIoU.dir/glad/src/glad.c.o"

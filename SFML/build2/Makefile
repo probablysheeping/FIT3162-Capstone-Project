@@ -129,6 +129,30 @@ ConvexPolygonIoU/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ConvexPolygonIoU.dir/build.make CMakeFiles/ConvexPolygonIoU.dir/build
 .PHONY : ConvexPolygonIoU/fast
 
+actions.o: actions.cpp.o
+.PHONY : actions.o
+
+# target to build an object file
+actions.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ConvexPolygonIoU.dir/build.make CMakeFiles/ConvexPolygonIoU.dir/actions.cpp.o
+.PHONY : actions.cpp.o
+
+actions.i: actions.cpp.i
+.PHONY : actions.i
+
+# target to preprocess a source file
+actions.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ConvexPolygonIoU.dir/build.make CMakeFiles/ConvexPolygonIoU.dir/actions.cpp.i
+.PHONY : actions.cpp.i
+
+actions.s: actions.cpp.s
+.PHONY : actions.s
+
+# target to generate assembly for a file
+actions.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ConvexPolygonIoU.dir/build.make CMakeFiles/ConvexPolygonIoU.dir/actions.cpp.s
+.PHONY : actions.cpp.s
+
 filelocationchooser.o: filelocationchooser.cpp.o
 .PHONY : filelocationchooser.o
 
@@ -450,6 +474,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... ConvexPolygonIoU"
+	@echo "... actions.o"
+	@echo "... actions.i"
+	@echo "... actions.s"
 	@echo "... filelocationchooser.o"
 	@echo "... filelocationchooser.i"
 	@echo "... filelocationchooser.s"

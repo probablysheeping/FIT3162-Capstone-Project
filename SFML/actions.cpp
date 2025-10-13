@@ -216,7 +216,7 @@ void Actions::Delete(std::vector<Polygon>& polygons, std::vector<int>& selectedP
     logger << currentDateTime() << " Polygon(s) deleted.\n";
 }
 
-void Actions::ClearSelected(std::vector<Polygon>& polygons, std::vector<int>& selectedPolygons, double& area)
+void Actions::ClearSelected(std::vector<Polygon>& polygons, std::vector<int>& selectedPolygons, double& area, double& IoUArea)
 {
     auto indices = sanitizeSelection(selectedPolygons, polygons.size(), "ClearSelected");
 
@@ -226,5 +226,6 @@ void Actions::ClearSelected(std::vector<Polygon>& polygons, std::vector<int>& se
 
     selectedPolygons.clear();
     area = -1;
+    IoUArea = -1;
     logger << currentDateTime() << " Clear selected.\n";
 }

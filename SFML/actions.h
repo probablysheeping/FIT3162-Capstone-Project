@@ -15,7 +15,7 @@ public:
 	void CopyCut(std::vector<Polygon>& polygons, std::vector<int>& selectedPolygons, std::vector<Polygon>& clipboard, bool cut);
 	void Paste(std::vector<Polygon>& polygons, std::vector<Polygon>& clipboard);
 	void Delete(std::vector<Polygon>& polygons, std::vector<int>& selectedPolygons);
-	void ClearSelected(std::vector<Polygon>& polygons, std::vector<int>& selectedPolygons, double& area);
+	void ClearSelected(std::vector<Polygon>& polygons, std::vector<int>& selectedPolygons, double& area, double& IoUArea);
 	
 	// Track the current file path
 	std::string currentFilePath;
