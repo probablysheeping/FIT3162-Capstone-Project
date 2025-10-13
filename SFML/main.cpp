@@ -207,7 +207,7 @@ void ShowAreaIoUBox(float area, float iou_area)
             ImGui::Text("");
         }
         else
-            ImGui::Text("%.3f", area);
+            ImGui::Text("%.0f", area);
         ImGui::Text("IoU Metric:");
         ImGui::SameLine(120);
         if (iou_area == -1)
@@ -630,7 +630,6 @@ int runProgram()
     std::vector<int> selectedPolygons;
 
     double area = -1;
-    double IoUArea = -1;
     double IoUMetric = -1;
 
     ImVec2 mainMenuBarSize = ImVec2(0, 0);
@@ -696,11 +695,11 @@ int runProgram()
                      TutorialTargetType::CANVAS);
 
     // Compute IoU
-    tutorial.addStep("Calculate IoU",
-                     "To calculate Intersection over Union:\n\n"
+    tutorial.addStep("Calculate Intersection of two polygons",
+                     "To calculate the intersection of two polygons\n\n"
                      "1. Select two polygons by clicking them\n"
                      "2. Click this button\n"
-                     "3. The IoU value appears at the bottom of the panel",
+                     "3. The intersecting polygon is there you might just have to move the other polygons around to select it",
                      TutorialTargetType::COMPUTE_BUTTON);
 
     // Delete
@@ -987,46 +986,14 @@ int runProgram()
 
                             for (int i = 0; i < polygons.size(); ++i)
                             {
-                                if (polygons[i].pointInPolygon(mousepos))
+                                if (polygons[i].pointInPolygon(mousepos) && std::find(selectedPolygons.begin(), selectedPolygons.end(), i) == selectedPolygons.end())
                                 {
                                     polygons[i].setSelected(true);
                                     selectedPolygons.push_back(i);
                                     break;
                                 }
                             }
-                            if (selectedPolygons.size() == 2)
-                            {
-                                Polygon* polyA = &polygons[selectedPolygons[0]];
-                                Polygon* polyB = &polygons[selectedPolygons[1]];
-
-                                Polygon intersection = intersectingPolygon(polyA, polyB);
-
-                                double areaA = std::abs(polyA->polygonArea());
-                                double areaB = std::abs(polyB->polygonArea());
-                                double interArea = std::abs(intersection.polygonArea());
-                                double unionArea = areaA + areaB - interArea;
-
-                                if (unionArea > 0)
-                                    IoUMetric = interArea / unionArea;
-                                else
-                                    IoUMetric = 0;
-
-                                IoUArea = interArea;
-                                area = unionArea;
-
-                                logger << currentDateTime() << " IoU computed: A=" << areaA
-                                    << ", B=" << areaB
-                                    << ", Inter=" << interArea
-                                    << ", IoU=" << IoUMetric << std::endl;
-                            }
-                            else if (selectedPolygons.size() == 1)
-                            {
-                                area = polygons.at(selectedPolygons.at(0)).polygonArea();
-                            }
-                            else
-                            {
-                                area = -1;
-                            }
+                            
 
                             logger << currentDateTime() << " Number of Selected Polygons: " << selectedPolygons.size() << std::endl;
                             status.lastMousePos = mousepos;
@@ -1200,7 +1167,7 @@ int runProgram()
                 // Clear selected
                 if (key->code == sf::Keyboard::Key::Escape)
                 {
-                    actions.ClearSelected(polygons, selectedPolygons, area, IoUArea);
+                    actions.ClearSelected(polygons, selectedPolygons, area, IoUMetric);
                 }
             }
         }
@@ -1606,7 +1573,7 @@ int runProgram()
             }
             // Capture position BEFORE drawing button
             ImVec2 computeButtonPos = ImGui::GetCursorScreenPos();
-            if (ImGui::ImageButton("Compute IoU", icons["intersect"].texture, ImVec2(ICON_SIZE, ICON_SIZE)) && selectedPolygons.size() == 2)
+            if (ImGui::ImageButton("Intersection", icons["intersect"].texture, ImVec2(ICON_SIZE, ICON_SIZE)) && selectedPolygons.size() == 2)
             {
 
                 Polygon intersection = polygons.at(selectedPolygons.at(0));
@@ -1618,10 +1585,6 @@ int runProgram()
                 intersection.setColour(polygonColour);
                 polygons.push_back(intersection);
 
-                IoUArea = intersection.polygonArea();
-                area = polygons.at(selectedPolygons.at(0)).polygonArea() + polygons.at(selectedPolygons.at(1)).polygonArea() - IoUArea;
-                IoUMetric = IoUArea / area;
-
                 // Save when computing IoU
                 if (autosaveEnabled)
                 {
@@ -1631,15 +1594,15 @@ int runProgram()
                     quickSave(polygons, imageState, "autosave.sav", viewState);
                 }
 
-                logger << currentDateTime() << " Computed IoU.\n";
+                logger << currentDateTime() << " Computed Intersection.\n";
             }
             ImVec2 computeButtonSize = ImGui::GetItemRectSize();
             tutorial.updateTargetPosition(TutorialTargetType::COMPUTE_BUTTON, computeButtonPos, computeButtonSize);
-            createToolTip("Select two polygons and then calculate", tooltipsEnabled);
+            createToolTip("Select two polygons and then compute intersection", tooltipsEnabled);
         }
         ImGui::PopStyleColor(5);
         ImGui::EndDisabled();
-        std::cout<<area<<std::endl;
+
         ImGui::PushStyleColor(ImGuiCol_PopupBg, ImVec4(1.0f, 1.0f, 1.0f, 1.0f));
         ImGui::PushStyleVar(ImGuiStyleVar_PopupBorderSize, 1.0f); // Set to your desired border thickness
         ImGui::SetNextWindowSize(ImVec2(ICON_SIZE * 2, 400 * SCALE_FACTOR), ImGuiCond_Appearing);
@@ -1928,7 +1891,29 @@ int runProgram()
                 debugClock2.restart();
             }
         }
+        if (selectedPolygons.size() == 2)
+        {
+            Polygon* polyA = &polygons[selectedPolygons[0]];
+            Polygon* polyB = &polygons[selectedPolygons[1]];
 
+            Polygon intersection = intersectingPolygon(polyA, polyB);
+
+            double areaA = std::abs(polyA->polygonArea());
+            double areaB = std::abs(polyB->polygonArea());
+            double interArea = std::abs(intersection.polygonArea());
+            area = areaA + areaB - interArea;
+            IoUMetric = interArea / area;
+        }
+        else if (selectedPolygons.size() == 1)
+        {
+            area = polygons.at(selectedPolygons.at(0)).polygonArea();
+            IoUMetric = -1;
+        }
+        else
+        {
+            area = -1;
+            IoUMetric = -1;
+        }
         ShowAreaIoUBox(area, IoUMetric);
 
         // Draw grid background

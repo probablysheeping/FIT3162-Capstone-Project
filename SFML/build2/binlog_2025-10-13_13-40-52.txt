@@ -1,0 +1,85 @@
+2025-10-13_13-36-48 File path:"/Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/assets"
+2025-10-13_13-36-48 /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/assets/drag.png
+2025-10-13_13-36-48 /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/assets/drag.png
+2025-10-13_13-36-48 /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/assets/draw.png
+2025-10-13_13-36-48 /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/assets/draw.png
+2025-10-13_13-36-48 /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/assets/bin.png
+2025-10-13_13-36-48 /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/assets/bin.png
+2025-10-13_13-36-48 /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/assets/shapes.png
+2025-10-13_13-36-48 /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/assets/shapes.png
+2025-10-13_13-36-48 /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/assets/colour-pallet.png
+2025-10-13_13-36-48 /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/assets/colour-pallet.png
+2025-10-13_13-36-48 /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/assets/intersect.png
+2025-10-13_13-36-48 /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/assets/intersect.png
+2025-10-13_13-36-48 /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/assets/circle.png
+2025-10-13_13-36-48 /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/assets/circle.png
+2025-10-13_13-36-48 /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/assets/triangle.png
+2025-10-13_13-36-48 /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/assets/triangle.png
+2025-10-13_13-36-48 /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/assets/rectangle.png
+2025-10-13_13-36-48 /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/assets/rectangle.png
+2025-10-13_13-36-48 /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/assets/square.png
+2025-10-13_13-36-48 /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/assets/square.png
+2025-10-13_13-36-48 /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/assets/clear.png
+2025-10-13_13-36-48 /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/assets/clear.png
+2025-10-13_13-36-49 Saved file successfully to /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build2/bin/autosave.sav
+2025-10-13_13-36-52 PQR: 16.2998
+2025-10-13_13-36-52 PQR: 60.5178
+2025-10-13_13-36-52 PQR: 81.527
+2025-10-13_13-36-52 PQR: 71.7642
+2025-10-13_13-36-52 PQR: 17.5091
+2025-10-13_13-36-52 NEW POLYGON
+VERTICES 5
+669.000000 70.000000
+621.075928 393.566956
+294.000000 297.000000
+372.000000 184.000015
+363.000000 190.999985
+COLOUR 0.000000 0.000000 0.000000
+END
+2025-10-13_13-36-52 Saved file successfully to /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build2/bin/autosave.sav
+2025-10-13_13-36-52 Saved file successfully to /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build2/bin/autosave.sav
+2025-10-13_13-36-56 PQR: 100.704
+2025-10-13_13-36-56 PQR: 178.128
+2025-10-13_13-36-56 PQR: 107.089
+2025-10-13_13-36-56 PQR: 162.938
+2025-10-13_13-36-56 PQR: 55.3822
+2025-10-13_13-36-56 PQR: 114.679
+2025-10-13_13-36-56 PQR: 165.066
+2025-10-13_13-36-56 PQR: 100.635
+2025-10-13_13-36-56 PQR: 71.8111
+2025-10-13_13-36-56 NEW POLYGON
+VERTICES 9
+365.000000 121.000000
+501.821045 115.527290
+549.000000 269.000000
+551.999939 655.000000
+209.304504 460.679993
+275.000000 134.000000
+273.000000 113.000000
+262.000000 112.000000
+264.999969 125.000000
+COLOUR 0.000000 0.000000 0.000000
+END
+2025-10-13_13-36-56 Saved file successfully to /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build2/bin/autosave.sav
+2025-10-13_13-36-56 Number of Selected Polygons: 1
+2025-10-13_13-36-57 Number of Selected Polygons: 2
+2025-10-13_13-36-59 Saved file successfully to /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build2/bin/autosave.sav
+2025-10-13_13-36-59 Computed IoU.
+2025-10-13_13-37-01 Number of Selected Polygons: 1
+2025-10-13_13-37-02 Number of Selected Polygons: 2
+2025-10-13_13-37-03 Saved file successfully to /Users/sheep/Documents/Code/FIT3162-Capstone-Project/FIT3162-Capstone-Project/FIT3162-Capstone-Project/SFML/build2/bin/autosave.sav
+2025-10-13_13-37-03 Computed IoU.
+2025-10-13_13-37-45 Number of Selected Polygons: 0
+2025-10-13_13-37-46 Number of Selected Polygons: 1
+2025-10-13_13-37-47 Number of Selected Polygons: 1
+2025-10-13_13-37-47 Number of Selected Polygons: 1
+2025-10-13_13-37-48 Number of Selected Polygons: 1
+2025-10-13_13-37-48 Number of Selected Polygons: 1
+2025-10-13_13-37-50 Number of Selected Polygons: 2
+2025-10-13_13-37-51 Number of Selected Polygons: 0
+2025-10-13_13-37-52 Number of Selected Polygons: 1
+2025-10-13_13-37-52 Number of Selected Polygons: 1
+2025-10-13_13-37-53 Number of Selected Polygons: 2
+2025-10-13_13-37-54 Number of Selected Polygons: 1
+2025-10-13_13-37-55 Number of Selected Polygons: 1
+2025-10-13_13-40-52 User exit.
